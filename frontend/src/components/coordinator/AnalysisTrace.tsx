@@ -177,7 +177,7 @@ export function AnalysisTrace({
           );
         })}
       </ol>
-      <p className="mt-3 border-t border-white/[0.06] pt-2.5 text-[10.5px] leading-relaxed text-fg-subtle">
+      <p className="mt-3 border-t border-black/[0.06] pt-2.5 text-[10.5px] leading-relaxed text-fg-subtle">
         Execution events only. No prompt or model reasoning is shown — every line above is a fact
         already present in the analysis payload.
       </p>

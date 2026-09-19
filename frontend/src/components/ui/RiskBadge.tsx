@@ -15,7 +15,7 @@ interface RiskBadgeProps {
 export function RiskBadge({ level, size = 'sm', suffix, pulse = false, className, emptyLabel = 'Pending' }: RiskBadgeProps) {
   if (!level) {
     return (
-      <span className={cn('inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10px] font-semibold tracking-wider text-fg-subtle uppercase', className)}>
+      <span className={cn('inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/[0.04] px-2 py-0.5 text-[10px] font-semibold tracking-wider text-fg-subtle uppercase', className)}>
         <span className="size-1.5 rounded-full bg-fg-subtle" />
         {emptyLabel}
       </span>

@@ -28,7 +28,7 @@ export function AirAgentCard({ delay }: { delay?: number }) {
       subtitle={air?.stationName ?? 'Nearest monitoring station'}
       badges={
         air && !air.isMock ? (
-          <Chip color="#34d399" icon={<Radio className="size-3 text-risk-low" />}>
+          <Chip color="#059669" icon={<Radio className="size-3 text-risk-low" />}>
             Live · {air.dataSource}
           </Chip>
         ) : undefined
@@ -51,7 +51,7 @@ export function AirAgentCard({ delay }: { delay?: number }) {
               <MetricCard key={m.key} label={m.label} value={m.value} unit={m.unit} status={m.status} progress={m.subScore} />
             ))}
           </div>
-          <div className="mt-3 rounded-xl border border-white/[0.05] bg-white/[0.015] px-3 pt-2.5 pb-1">
+          <div className="mt-3 rounded-xl border border-black/[0.05] bg-black/[0.015] px-3 pt-2.5 pb-1">
             <div className="flex items-center justify-between text-[11px]">
               <span className="text-fg-subtle">PM2.5 · last 24h</span>
               <span className="text-fg-subtle">
@@ -91,7 +91,7 @@ export function WaterAgentCard({ delay }: { delay?: number }) {
         <>
           {provenance && <DataModeBadge tone={provenance.tone} label={provenance.label} />}
           {water && (
-            <Chip color={degraded ? '#f5b544' : '#34d399'} icon={<Radio className="size-3" style={{ color: degraded ? '#f5b544' : '#34d399' }} />}>
+            <Chip color={degraded ? '#d97706' : '#059669'} icon={<Radio className="size-3" style={{ color: degraded ? '#d97706' : '#059669' }} />}>
               Sensor {water.sensorStatus}
             </Chip>
           )}
@@ -111,7 +111,7 @@ export function WaterAgentCard({ delay }: { delay?: number }) {
               <MetricCard key={m.key} label={m.key === 'temperature' ? 'Temp' : m.label} value={m.value} unit={m.unit} status={m.status} progress={m.subScore} />
             ))}
           </div>
-          <dl className="mt-3 space-y-2 rounded-xl border border-white/[0.05] bg-white/[0.015] p-3 text-xs">
+          <dl className="mt-3 space-y-2 rounded-xl border border-black/[0.05] bg-black/[0.015] p-3 text-xs">
             <div className="flex justify-between gap-3">
               <dt className="text-fg-subtle">Sensor ID</dt>
               <dd className="font-mono text-fg-muted">{water.sensorId}</dd>

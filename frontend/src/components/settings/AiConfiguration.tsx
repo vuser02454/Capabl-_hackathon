@@ -36,7 +36,7 @@ function RoleCard({
   const provider = role?.provider ?? 'none';
 
   return (
-    <div className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+    <div className="rounded-xl border border-black/[0.07] bg-black/[0.02] p-4">
       <div className="flex items-start gap-2.5">
         <Icon className="mt-0.5 size-4 shrink-0 text-brand" />
         <div className="min-w-0 flex-1">
@@ -61,12 +61,12 @@ function RoleCard({
             <div
               key={option}
               className={`flex items-center gap-2 rounded-lg border px-2.5 py-1.5 text-xs ${
-                selected ? 'border-brand/30 bg-brand/[0.06] text-fg' : 'border-white/[0.05] text-fg-subtle'
+                selected ? 'border-brand/30 bg-brand/[0.06] text-fg' : 'border-black/[0.05] text-fg-subtle'
               }`}
             >
               <span
                 className={`size-2.5 shrink-0 rounded-full border ${
-                  selected ? 'border-brand bg-brand' : 'border-white/20'
+                  selected ? 'border-brand bg-brand' : 'border-black/20'
                 }`}
               />
               <span className="flex-1 capitalize">{option === 'none' ? 'None (deterministic only)' : option}</span>
@@ -106,7 +106,7 @@ export function AiConfiguration() {
       title="AI configuration"
       subtitle="Three roles, deliberately not interchangeable"
       icon={Brain}
-      iconColor="#2dd4bf"
+      iconColor="#2563eb"
     >
       <div className="space-y-3">
         <div className="grid gap-3 lg:grid-cols-3">
@@ -136,7 +136,7 @@ export function AiConfiguration() {
           />
         </div>
 
-        <p className="flex items-start gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[11px] text-fg-subtle">
+        <p className="flex items-start gap-2 rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2 text-[11px] text-fg-subtle">
           <ShieldCheck className="mt-px size-3.5 shrink-0 text-brand" />
           <span>
             Risk scores, problem priorities and evidence sufficiency are always computed

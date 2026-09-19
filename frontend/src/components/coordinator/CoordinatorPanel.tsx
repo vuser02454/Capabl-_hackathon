@@ -25,7 +25,7 @@ export function ContributionBar({ coordinator, className }: { coordinator: Coord
         <p className="eyebrow">Risk aggregation</p>
         <span className="text-[11px] text-fg-subtle tabular">{pct(coordinator.overallScore)}% overall</span>
       </div>
-      <div className="mt-2 flex h-2.5 w-full gap-[2px] overflow-hidden rounded-full bg-white/[0.05]">
+      <div className="mt-2 flex h-2.5 w-full gap-[2px] overflow-hidden rounded-full bg-black/[0.05]">
         {segments.map((segment) => (
           <motion.div
             key={segment.agent}
@@ -40,7 +40,7 @@ export function ContributionBar({ coordinator, className }: { coordinator: Coord
         {adjustment > 0 && (
           <motion.div
             className="h-full"
-            style={{ background: 'repeating-linear-gradient(45deg, #2dd4bf 0 3px, #2dd4bf55 3px 6px)' }}
+            style={{ background: 'repeating-linear-gradient(45deg, #2563eb 0 3px, #2563eb55 3px 6px)' }}
             initial={{ width: 0 }}
             animate={{ width: `${adjustment * 100}%` }}
             transition={{ duration: 0.9, delay: 0.2 }}
@@ -60,7 +60,7 @@ export function ContributionBar({ coordinator, className }: { coordinator: Coord
         ))}
         {adjustment > 0 && (
           <span className="inline-flex items-center gap-1.5">
-            <span className="size-2 rounded-sm" style={{ background: 'repeating-linear-gradient(45deg, #2dd4bf 0 2px, #2dd4bf55 2px 4px)' }} />
+            <span className="size-2 rounded-sm" style={{ background: 'repeating-linear-gradient(45deg, #2563eb 0 2px, #2563eb55 2px 4px)' }} />
             Cross-signal <span className="text-fg-muted tabular">+{Math.round(adjustment * 100)}</span>
           </span>
         )}
@@ -79,7 +79,7 @@ function InputTile({ id, result, pending, failed }: { id: SpecialistAgentId; res
       layout
       className={cn(
         'relative rounded-xl border p-3 transition-colors duration-300',
-        status === 'received' ? 'border-white/[0.09] bg-white/[0.03]' : 'border-dashed border-white/[0.1]',
+        status === 'received' ? 'border-black/[0.09] bg-black/[0.03]' : 'border-dashed border-black/[0.1]',
         status === 'failed' && 'border-risk-high/30 bg-risk-high/[0.04]',
       )}
     >
@@ -121,10 +121,10 @@ export function CoordinatorPanel({ className, showDetails = true }: { className?
       title="Coordinator Agent"
       subtitle="Cross-signal environmental reasoning"
       icon={Network}
-      iconColor="#2dd4bf"
-      accent="#2dd4bf"
+      iconColor="#2563eb"
+      accent="#2563eb"
       className={className}
-      actions={coordinator && !pending.coordinator ? <Chip color="#2dd4bf">Confidence {pct(coordinator.confidence)}%</Chip> : undefined}
+      actions={coordinator && !pending.coordinator ? <Chip color="#2563eb">Confidence {pct(coordinator.confidence)}%</Chip> : undefined}
     >
       <div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
         {SPECIALISTS.map((id, index) => (
@@ -175,7 +175,7 @@ export function CoordinatorPanel({ className, showDetails = true }: { className?
         <div className={cn('mt-5 grid gap-5 transition-opacity duration-300 lg:grid-cols-2', pending.coordinator && 'opacity-35')}>
           <div>
             <p className="eyebrow mb-2">Reasoning</p>
-            <blockquote className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 pr-9 text-[13px] leading-relaxed text-fg">
+            <blockquote className="relative rounded-xl border border-black/[0.06] bg-black/[0.02] p-4 pr-9 text-[13px] leading-relaxed text-fg">
               <Quote className="absolute top-3 right-3 size-4 text-brand/30" />
               {coordinator.reasoning}
             </blockquote>
@@ -212,7 +212,7 @@ export function CoordinatorPanel({ className, showDetails = true }: { className?
                   initial={{ opacity: 0, x: 8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08 }}
-                  className="flex items-start gap-3 rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-2.5"
+                  className="flex items-start gap-3 rounded-xl border border-black/[0.05] bg-black/[0.02] px-3 py-2.5"
                 >
                   <span className="mt-1.5 size-2 shrink-0 rounded-full" style={{ background: AGENT_META[factor.agent].color }} />
                   <div className="min-w-0">

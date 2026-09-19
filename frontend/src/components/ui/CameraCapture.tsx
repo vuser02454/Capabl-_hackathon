@@ -184,7 +184,7 @@ export function CameraCapture({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[80] grid place-items-center bg-ink-950/80 p-4 backdrop-blur-sm"
+          className="app-shell fixed inset-0 z-[80] grid place-items-center bg-ink-950/80 p-4 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -212,7 +212,7 @@ export function CameraCapture({
             </header>
 
             <div className="px-5 pt-3 pb-5">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/[0.06] bg-ink-950">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-black/[0.06] bg-ink-950">
                 <video
                   ref={videoRef}
                   className="size-full object-cover"

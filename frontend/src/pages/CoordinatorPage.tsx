@@ -22,20 +22,20 @@ export function CoordinatorPage() {
 
       <div className="grid gap-4 xl:grid-cols-12">
         <RecommendationsPanel className="xl:col-span-7" />
-        <DashboardCard title="Agent interface" subtitle="What the Coordinator consumes and produces" icon={Workflow} iconColor="#2dd4bf" className="xl:col-span-5">
+        <DashboardCard title="Agent interface" subtitle="What the Coordinator consumes and produces" icon={Workflow} iconColor="#2563eb" className="xl:col-span-5">
           <AgentPipelineSpec agent="coordinator" stacked />
         </DashboardCard>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-2">
         <AgentTimeline agents={['coordinator']} />
-        <DashboardCard title="Inputs consumed" subtitle="The Coordinator reads only these structured reports — never raw data" icon={FileInput} iconColor="#2dd4bf">
+        <DashboardCard title="Inputs consumed" subtitle="The Coordinator reads only these structured reports — never raw data" icon={FileInput} iconColor="#2563eb">
           <ul className="space-y-2">
             {SPECIALISTS.map((agent) => {
               const report = display[agent];
               const meta = AGENT_META[agent];
               return (
-                <li key={agent} className="flex items-center gap-3 rounded-xl border border-white/[0.05] bg-white/[0.02] p-3">
+                <li key={agent} className="flex items-center gap-3 rounded-xl border border-black/[0.05] bg-black/[0.02] p-3">
                   <span className="grid size-9 shrink-0 place-items-center rounded-lg" style={{ background: `${meta.color}14`, color: meta.color }}>
                     <meta.icon className="size-4" />
                   </span>

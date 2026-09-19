@@ -29,7 +29,7 @@ export function RiskGauge({ score, level, size = 120, stroke = 9, label = 'Risk 
             <stop offset="100%" stopColor={color} />
           </linearGradient>
         </defs>
-        <circle cx={center} cy={center} r={radius} fill="none" stroke="rgb(255 255 255 / 0.06)" strokeWidth={stroke} />
+        <circle cx={center} cy={center} r={radius} fill="none" stroke="rgb(15 23 42 / 0.08)" strokeWidth={stroke} />
         <motion.circle
           cx={center}
           cy={center}
@@ -55,7 +55,7 @@ export function RiskGauge({ score, level, size = 120, stroke = 9, label = 'Risk 
               y1={center + inner * Math.sin(angle)}
               x2={center + outer * Math.cos(angle)}
               y2={center + outer * Math.sin(angle)}
-              stroke="#06080a"
+              style={{ stroke: 'var(--color-ink-900)' }}
               strokeWidth={2}
             />
           );

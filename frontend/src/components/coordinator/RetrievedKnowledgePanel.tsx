@@ -31,7 +31,7 @@ function Relevance({ score }: { score: number }) {
   const percent = Math.round(Math.min(1, Math.max(0, score)) * 100);
   return (
     <span className="flex items-center gap-1.5" title={`Cosine similarity ${score.toFixed(3)}`}>
-      <span className="h-1 w-10 overflow-hidden rounded-full bg-white/[0.08]">
+      <span className="h-1 w-10 overflow-hidden rounded-full bg-black/[0.08]">
         <span
           className="block h-full rounded-full bg-amber-300/70"
           style={{ width: `${Math.max(6, percent)}%` }}
@@ -63,13 +63,13 @@ export function RetrievedKnowledgePanel({ knowledge }: { knowledge: KnowledgeRet
       }
     >
       {unavailable ? (
-        <p className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
+        <p className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
           {knowledge.message ?? STATUS_COPY[knowledge.status] ?? 'Retrieval did not run.'}
         </p>
       ) : (
         <div className="space-y-3">
           {/* The query, shown because it is derived from evidence rather than authored. */}
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+          <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
             <p className="flex items-center gap-1.5 text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
               <Search className="size-3" /> Query
             </p>
@@ -82,7 +82,7 @@ export function RetrievedKnowledgePanel({ knowledge }: { knowledge: KnowledgeRet
           </div>
 
           {results.length === 0 ? (
-            <p className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
+            <p className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
               {knowledge.message ??
                 'No passage cleared the relevance floor. The knowledge base does not cover this question.'}
             </p>
@@ -104,7 +104,7 @@ export function RetrievedKnowledgePanel({ knowledge }: { knowledge: KnowledgeRet
                         'w-full rounded-xl border px-3 py-2.5 text-left transition',
                         expanded
                           ? 'border-amber-300/25 bg-amber-300/[0.05]'
-                          : 'border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05]',
+                          : 'border-black/[0.06] bg-black/[0.02] hover:bg-black/[0.05]',
                       )}
                     >
                       <div className="flex items-start gap-2">
@@ -138,7 +138,7 @@ export function RetrievedKnowledgePanel({ knowledge }: { knowledge: KnowledgeRet
                             transition={{ duration: 0.18 }}
                             className="overflow-hidden"
                           >
-                            <div className="mt-2.5 border-t border-white/[0.06] pt-2.5">
+                            <div className="mt-2.5 border-t border-black/[0.06] pt-2.5">
                               {/* The retrieved text itself, not a paraphrase of it. */}
                               <p className="text-[11.5px] leading-relaxed whitespace-pre-line text-fg-muted">
                                 {item.content}

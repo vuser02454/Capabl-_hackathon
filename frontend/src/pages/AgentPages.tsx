@@ -30,7 +30,7 @@ function useRange() {
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+    <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
       <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">{label}</p>
       <p className="mt-1 text-lg font-semibold text-fg">{value}</p>
       {hint && <p className="text-[10.5px] text-fg-subtle">{hint}</p>}
@@ -66,7 +66,7 @@ export function AirAgentPage() {
               </a>
             )}
             {air.pollutantSources && Object.keys(air.pollutantSources).length > 0 && (
-              <div className="mt-3 rounded-xl border border-white/[0.05] bg-white/[0.015] p-3">
+              <div className="mt-3 rounded-xl border border-black/[0.05] bg-black/[0.015] p-3">
                 <p className="eyebrow mb-1.5">Reading sources</p>
                 <ul className="space-y-1 text-xs">
                   {Object.entries(air.pollutantSources).map(([key, source]) => (
@@ -214,7 +214,7 @@ export function WasteAgentPage() {
         <button
           type="button"
           onClick={() => setDebugOpen(true)}
-          className="flex items-center gap-1.5 self-start rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1.5 text-[11px] text-fg-subtle transition hover:bg-white/[0.05] hover:text-fg-muted"
+          className="flex items-center gap-1.5 self-start rounded-lg border border-black/[0.08] bg-black/[0.02] px-2.5 py-1.5 text-[11px] text-fg-subtle transition hover:bg-black/[0.05] hover:text-fg-muted"
         >
           <Bug className="size-3" /> Open pipeline debug
         </button>
@@ -264,7 +264,7 @@ export function WasteAgentPage() {
                 <Stat label="Density index" value={waste.densityIndex.toFixed(2)} hint="Objects per standard frame" />
               </div>
               <CategoryBreakdown counts={waste.counts} className="mt-4" />
-              <div className="mt-4 max-h-64 overflow-auto rounded-xl border border-white/[0.05]">
+              <div className="mt-4 max-h-64 overflow-auto rounded-xl border border-black/[0.05]">
                 <table className="w-full text-left text-xs">
                   <thead className="sticky top-0 bg-ink-850/95 backdrop-blur">
                     <tr className="text-[10.5px] tracking-wider text-fg-subtle uppercase">
@@ -276,7 +276,7 @@ export function WasteAgentPage() {
                   </thead>
                   <tbody>
                     {waste.detections.map((detection) => (
-                      <tr key={detection.id} className="border-t border-white/[0.04]">
+                      <tr key={detection.id} className="border-t border-black/[0.04]">
                         <td className="px-3 py-1.5 font-mono text-[10.5px] text-fg-subtle">{detection.id.replace('det-', '')}</td>
                         <td className="px-3 py-1.5 text-fg">{detection.label}</td>
                         <td className="px-3 py-1.5">

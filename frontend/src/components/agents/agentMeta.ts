@@ -28,7 +28,7 @@ export const AGENT_META: Record<AgentId, AgentMeta> = {
     name: 'Air Quality Agent',
     short: 'Air Agent',
     icon: Wind,
-    color: '#7dd3fc',
+    color: '#0284c7',
     route: 'air',
     role: 'Retrieves the nearest station’s pollutant readings, normalizes them against WHO guidelines, computes an India NAQI and flags spikes against the 24-hour baseline.',
     spec: {
@@ -45,7 +45,7 @@ export const AGENT_META: Record<AgentId, AgentMeta> = {
     name: 'Water Pollution Agent',
     short: 'Water Agent',
     icon: Droplets,
-    color: '#7c9cff',
+    color: '#4f46e5',
     route: 'water',
     role: 'Detects visible pollution in water imagery, then explains what was found: where it is in the frame, why it matters, and what to investigate next. An image supports statements about visible pollution only — never about chemical contamination.',
     spec: {
@@ -60,7 +60,7 @@ export const AGENT_META: Record<AgentId, AgentMeta> = {
     name: 'Waste Detection Agent',
     short: 'Waste Agent',
     icon: Recycle,
-    color: '#c79bff',
+    color: '#9333ea',
     route: 'waste',
     role: 'Runs object detection on camera frames or uploaded images, classifies litter into plastic, paper and other, and estimates litter density.',
     spec: {
@@ -75,7 +75,7 @@ export const AGENT_META: Record<AgentId, AgentMeta> = {
     name: 'Coordinator Agent',
     short: 'Coordinator',
     icon: Network,
-    color: '#2dd4bf',
+    color: '#2563eb',
     route: 'coordinator',
     role: 'Consumes only the three specialist reports — never raw data — then reasons across signals, aggregates risk and prioritizes actions.',
     spec: {
@@ -88,7 +88,7 @@ export const AGENT_META: Record<AgentId, AgentMeta> = {
 };
 
 export const WASTE_CATEGORY_COLORS: Record<WasteCategory, string> = {
-  plastic: '#c79bff',
-  paper: '#7dd3fc',
-  other: '#a3b1bd',
+  plastic: '#9333ea',
+  paper: '#0284c7',
+  other: '#64748b',
 };

@@ -28,7 +28,7 @@ export function MapPage() {
         title={`${environment.location.name} monitoring network`}
         subtitle={`${environment.location.region} · ${environment.location.lat.toFixed(4)}°N, ${environment.location.lon.toFixed(4)}°E`}
         icon={MapIcon}
-        iconColor="#60a5fa"
+        iconColor="#2563eb"
         className="self-start"
         actions={
           <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Map layers">
@@ -43,7 +43,7 @@ export function MapPage() {
                   onClick={() => setLayers((current) => ({ ...current, [type]: !current[type] }))}
                   className={cn(
                     'inline-flex h-7 items-center gap-1.5 rounded-lg border px-2 text-[11px] font-medium transition',
-                    layers[type] ? 'border-white/15 bg-white/[0.07] text-fg' : 'border-white/[0.06] text-fg-subtle hover:text-fg-muted',
+                    layers[type] ? 'border-black/15 bg-black/[0.07] text-fg' : 'border-black/[0.06] text-fg-subtle hover:text-fg-muted',
                   )}
                 >
                   <Icon className="size-3.5" style={{ color: layers[type] ? AGENT_META[type].color : undefined }} />
@@ -59,7 +59,7 @@ export function MapPage() {
       </DashboardCard>
 
       <div className="space-y-4">
-        <DashboardCard title="Monitoring stations" subtitle={`${stations.length} of ${environment.stations.length} visible`} icon={RadioTower} iconColor="#2dd4bf">
+        <DashboardCard title="Monitoring stations" subtitle={`${stations.length} of ${environment.stations.length} visible`} icon={RadioTower} iconColor="#2563eb">
           <ul className="-mx-2 space-y-0.5">
             {stations.map((station) => {
               const { level } = stationRisk(station, display);
@@ -70,7 +70,7 @@ export function MapPage() {
                   <button
                     type="button"
                     onClick={() => setSelected(selected === station.id ? null : station.id)}
-                    className={cn('flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition hover:bg-white/[0.04]', selected === station.id && 'bg-white/[0.06]')}
+                    className={cn('flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition hover:bg-black/[0.04]', selected === station.id && 'bg-black/[0.06]')}
                   >
                     <span className="grid size-8 shrink-0 place-items-center rounded-lg" style={{ background: `${meta.color}14`, color: meta.color }}>
                       <Icon className="size-4" />

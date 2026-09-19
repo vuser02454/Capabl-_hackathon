@@ -110,7 +110,7 @@ export function DetectionViewer({ detections, imageUrl, sourceLabel, model, scan
   const renderKey = `${imageUrl ?? sourceLabel}-${detections.length}`;
 
   return (
-    <div className={cn('relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/[0.07] bg-ink-900', className)}>
+    <div className={cn('relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-black/[0.07] bg-ink-900', className)}>
       {imageUrl ? <img src={imageUrl} alt="Uploaded environmental image under analysis" className="absolute inset-0 size-full object-cover" /> : <SceneBackdrop />}
       <div className="absolute inset-0 bg-linear-to-t from-ink-950/60 via-transparent to-ink-950/35" />
 
@@ -177,7 +177,7 @@ export function CategoryBreakdown({ counts, className }: { counts: WasteCounts; 
   const total = counts.plastic + counts.paper + counts.other;
   return (
     <div className={className}>
-      <div className="flex h-2 w-full gap-[2px] overflow-hidden rounded-full bg-white/[0.05]">
+      <div className="flex h-2 w-full gap-[2px] overflow-hidden rounded-full bg-black/[0.05]">
         {CATEGORIES.filter((category) => counts[category] > 0).map((category) => (
           <motion.div
             key={category}

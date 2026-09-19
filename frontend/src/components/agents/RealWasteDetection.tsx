@@ -25,7 +25,7 @@ import { DashboardCard } from '../ui/DashboardCard';
 const SEGREGATION_STYLE: Record<string, string> = {
   biodegradable: 'text-risk-low border-risk-low/30 bg-risk-low/[0.08]',
   non_biodegradable: 'text-info border-info/30 bg-info/[0.08]',
-  uncertain: 'text-fg-subtle border-white/10 bg-white/[0.03]',
+  uncertain: 'text-fg-subtle border-black/10 bg-black/[0.03]',
 };
 
 const SEGREGATION_LABEL: Record<string, string> = {
@@ -80,7 +80,7 @@ export function RealWasteDetection() {
       title="Real detection"
       subtitle="YOLO detection + trained waste classifier — not simulated"
       icon={ScanSearch}
-      iconColor="#2dd4bf"
+      iconColor="#2563eb"
     >
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -154,7 +154,7 @@ export function RealWasteDetection() {
         </AnimatePresence>
 
         {imageUrl && !busy && (
-          <div className="relative overflow-hidden rounded-xl border border-white/10">
+          <div className="relative overflow-hidden rounded-xl border border-black/10">
             <img src={imageUrl} alt="Analysed photo" className="block w-full" />
             {detections.map((detection, index) => {
               if (!result?.imageWidth || !result?.imageHeight) return null;
@@ -212,7 +212,7 @@ export function RealWasteDetection() {
 
             {/* An empty result is a real answer, and saying so beats inventing a convincing one. */}
             {detections.length === 0 && (
-              <p className="rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-xs text-fg-muted">
+              <p className="rounded-lg border border-black/[0.08] bg-black/[0.02] px-3 py-2.5 text-xs text-fg-muted">
                 {result.status !== 'ok'
                   ? `Detection did not run. ${result.message ?? ''}`
                   : rejected.length > 0
@@ -236,7 +236,7 @@ export function RealWasteDetection() {
                         onClick={() => setActive(selected ? null : detection.id)}
                         className={cn(
                           'w-full rounded-lg border px-3 py-2 text-left transition',
-                          selected ? 'border-brand/40 bg-brand/[0.07]' : 'border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05]',
+                          selected ? 'border-brand/40 bg-brand/[0.07]' : 'border-black/[0.06] bg-black/[0.02] hover:bg-black/[0.05]',
                         )}
                       >
                         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs">
@@ -282,7 +282,7 @@ export function RealWasteDetection() {
                         {/* Attribution: either the model's real gradients, or a stated absence.
                             There is no fallback image, by design. */}
                         {selected && detection.xai && (
-                          <div className="mt-2 border-t border-white/[0.06] pt-2">
+                          <div className="mt-2 border-t border-black/[0.06] pt-2">
                             <p className="text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
                               Why the classifier said this
                             </p>
@@ -291,7 +291,7 @@ export function RealWasteDetection() {
                                 <img
                                   src={detection.xai.overlayImage}
                                   alt={`Grad-CAM attribution for ${detection.xai.targetClass ?? 'the prediction'}`}
-                                  className="mt-1.5 w-full max-w-[220px] rounded-lg border border-white/10"
+                                  className="mt-1.5 w-full max-w-[220px] rounded-lg border border-black/10"
                                 />
                                 <p className="mt-1 text-[10.5px] text-fg-subtle">
                                   {detection.xai.method} over {detection.xai.layer}, computed at{' '}
@@ -318,7 +318,7 @@ export function RealWasteDetection() {
             {/* Kept, never promoted. These are the detector's output, refused before any crop was
                 classified — useful for judging the detector, and not a claim about waste. */}
             {rejected.length > 0 && (
-              <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+              <div className="rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
                 <p className="text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
                   Refused before classification · {rejected.length}
                 </p>

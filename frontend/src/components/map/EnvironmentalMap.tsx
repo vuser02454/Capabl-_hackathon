@@ -82,18 +82,18 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
   const stations = snapshot.stations.filter((station) => layers?.[station.type] ?? true);
 
   return (
-    <div className={cn('relative w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#070a0d]', className)} style={{ aspectRatio: '16 / 10' }}>
+    <div className={cn('relative w-full overflow-hidden rounded-xl border border-black/[0.06] bg-[#070a0d]', className)} style={{ aspectRatio: '16 / 10' }}>
       <svg viewBox={`0 0 100 ${VIEW_HEIGHT}`} className="absolute inset-0 size-full" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <defs>
           <radialGradient id="map-glow" cx="50%" cy="50%" r="60%">
-            <stop offset="0" stopColor="#2dd4bf" stopOpacity="0.08" />
-            <stop offset="1" stopColor="#2dd4bf" stopOpacity="0" />
+            <stop offset="0" stopColor="#2563eb" stopOpacity="0.08" />
+            <stop offset="1" stopColor="#2563eb" stopOpacity="0" />
           </radialGradient>
           <pattern id="map-grid-minor" width="2.5" height="2.5" patternUnits="userSpaceOnUse">
-            <path d="M2.5 0H0V2.5" fill="none" stroke="rgb(255 255 255 / 0.03)" strokeWidth="0.1" />
+            <path d="M2.5 0H0V2.5" fill="none" stroke="rgb(15 23 42 / 0.03)" strokeWidth="0.1" />
           </pattern>
           <pattern id="map-grid-major" width="12.5" height="12.5" patternUnits="userSpaceOnUse">
-            <path d="M12.5 0H0V12.5" fill="none" stroke="rgb(255 255 255 / 0.065)" strokeWidth="0.12" />
+            <path d="M12.5 0H0V12.5" fill="none" stroke="rgb(15 23 42 / 0.065)" strokeWidth="0.12" />
           </pattern>
           {(['LOW', 'MODERATE', 'HIGH'] as RiskLevel[]).map((level) => (
             <radialGradient key={level} id={`map-zone-${level}`}>
@@ -109,8 +109,8 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
         <rect width="100" height={VIEW_HEIGHT} fill="url(#map-glow)" />
 
         <path d={CITY_OUTLINE} fill="rgb(45 212 191 / 0.03)" stroke="rgb(45 212 191 / 0.3)" strokeWidth="0.22" strokeDasharray="1 0.7" />
-        <ellipse cx="50" cy="31.2" rx="23" ry="14.5" fill="none" stroke="rgb(255 255 255 / 0.06)" strokeWidth="0.55" />
-        <g fill="none" stroke="rgb(255 255 255 / 0.075)" strokeWidth="0.38" strokeLinecap="round">
+        <ellipse cx="50" cy="31.2" rx="23" ry="14.5" fill="none" stroke="rgb(15 23 42 / 0.06)" strokeWidth="0.55" />
+        <g fill="none" stroke="rgb(15 23 42 / 0.075)" strokeWidth="0.38" strokeLinecap="round">
           {ROADS.map((d) => (
             <path key={d} d={d} />
           ))}
@@ -161,7 +161,7 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
         const { level } = stationRisk(station, results);
         const meta = AGENT_META[station.type];
         const Icon = meta.icon;
-        const ringColor = level ? RISK_STYLES[level].color : '#69757e';
+        const ringColor = level ? RISK_STYLES[level].color : '#838d97';
         const isActive = active === station.id;
         const below = station.y < 34;
         const label = stationLabel(station, results);
@@ -205,7 +205,7 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.15 }}
                   className={cn(
-                    'pointer-events-none absolute left-1/2 w-48 -translate-x-1/2 rounded-lg border border-white/10 bg-ink-850/95 p-2.5 shadow-2xl backdrop-blur',
+                    'pointer-events-none absolute left-1/2 w-48 -translate-x-1/2 rounded-lg border border-black/10 bg-ink-850/95 p-2.5 shadow-2xl backdrop-blur',
                     below ? 'top-full mt-6' : 'bottom-full mb-3',
                   )}
                 >
@@ -225,7 +225,7 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
         );
       })}
 
-      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-md border border-white/10 bg-ink-950/75 px-2 py-1 text-[11px] backdrop-blur">
+      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-md border border-black/10 bg-ink-950/75 px-2 py-1 text-[11px] backdrop-blur">
         <MapPin className="size-3.5 text-brand" />
         <span className="font-medium text-fg">{snapshot.location.name}</span>
         {!compact && (
@@ -236,17 +236,17 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
       </div>
 
       {!compact && (
-        <div className="absolute top-3 right-3 flex flex-col items-center rounded-full border border-white/10 bg-ink-950/75 p-1.5 backdrop-blur" aria-hidden>
+        <div className="absolute top-3 right-3 flex flex-col items-center rounded-full border border-black/10 bg-ink-950/75 p-1.5 backdrop-blur" aria-hidden>
           <span className="text-[8px] leading-none font-semibold text-fg-subtle">N</span>
           <Navigation2 className="size-3.5 text-fg-muted" />
         </div>
       )}
 
       <div className="absolute bottom-3 left-3 flex flex-col gap-1 text-[9.5px] text-fg-subtle" aria-hidden>
-        <div className="flex h-1.5 w-20 overflow-hidden rounded-sm border border-white/20">
-          <span className="flex-1 bg-white/30" />
+        <div className="flex h-1.5 w-20 overflow-hidden rounded-sm border border-black/20">
+          <span className="flex-1 bg-black/30" />
           <span className="flex-1" />
-          <span className="flex-1 bg-white/30" />
+          <span className="flex-1 bg-black/30" />
           <span className="flex-1" />
         </div>
         <span>0 — 5 km</span>
@@ -292,7 +292,7 @@ export function MapCard({ className }: { className?: string }) {
       title="Environmental Map"
       subtitle={environment ? `${environment.location.name} · ${environment.stations.length} monitoring stations` : 'Loading monitoring network…'}
       icon={MapIcon}
-      iconColor="#60a5fa"
+      iconColor="#2563eb"
       className={className}
       actions={
         <Button size="sm" variant="ghost" iconRight={ArrowUpRight} onClick={() => navigate('map')}>
@@ -306,7 +306,7 @@ export function MapCard({ className }: { className?: string }) {
         <>
           <EnvironmentalMap snapshot={environment} results={display} compact />
           <MapLegend className="mt-4" />
-          <ul className="mt-4 space-y-2 border-t border-white/[0.05] pt-4">
+          <ul className="mt-4 space-y-2 border-t border-black/[0.05] pt-4">
             {environment.stations
               .filter((station) => station.primary)
               .map((station) => {

@@ -6,7 +6,7 @@ const TONE_STYLES: Record<DataModeTone | 'unavailable', string> = {
   live: 'border-risk-low/25 bg-risk-low/10 text-risk-low',
   historical: 'border-risk-moderate/25 bg-risk-moderate/10 text-risk-moderate',
   demo: 'border-info/25 bg-info/10 text-info',
-  unavailable: 'border-white/10 bg-white/[0.04] text-fg-subtle',
+  unavailable: 'border-black/10 bg-black/[0.04] text-fg-subtle',
 };
 
 const TONE_ICONS: Record<DataModeTone | 'unavailable', typeof Radio> = {

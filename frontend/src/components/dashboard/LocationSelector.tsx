@@ -128,7 +128,7 @@ export function LocationSelector({ value, point, onChange, onSelectPoint, browse
         onClick={() => setOpen((current) => !current)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex h-11 w-full items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 text-left transition hover:border-white/15 hover:bg-white/[0.07] disabled:cursor-not-allowed disabled:opacity-60 sm:w-64"
+        className="flex h-11 w-full items-center gap-2.5 rounded-xl border border-black/10 bg-black/[0.04] px-3 text-left transition hover:border-black/15 hover:bg-black/[0.07] disabled:cursor-not-allowed disabled:opacity-60 sm:w-64"
       >
         <MapPin className="size-4 shrink-0 text-brand" />
         <span className="min-w-0 flex-1">
@@ -145,9 +145,9 @@ export function LocationSelector({ value, point, onChange, onSelectPoint, browse
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full right-0 left-0 z-40 mt-2 overflow-hidden rounded-xl border border-white/10 bg-ink-850/95 shadow-2xl backdrop-blur-xl sm:right-auto sm:left-[76px] sm:w-96"
+            className="absolute top-full right-0 left-0 z-40 mt-2 overflow-hidden rounded-xl border border-black/10 bg-ink-850/95 shadow-2xl backdrop-blur-xl sm:right-auto sm:left-[76px] sm:w-96"
           >
-            <div className="flex items-center gap-2 border-b border-white/[0.06] px-3">
+            <div className="flex items-center gap-2 border-b border-black/[0.06] px-3">
               <Search className="size-3.5 shrink-0 text-fg-subtle" />
               <input
                 autoFocus
@@ -167,7 +167,7 @@ export function LocationSelector({ value, point, onChange, onSelectPoint, browse
               {search.searching && <LoaderCircle className="size-3.5 shrink-0 animate-spin text-fg-subtle" />}
             </div>
 
-            <div className="border-b border-white/[0.06] p-1.5">
+            <div className="border-b border-black/[0.06] p-1.5">
               <Button
                 size="sm"
                 variant="ghost"
@@ -200,7 +200,7 @@ export function LocationSelector({ value, point, onChange, onSelectPoint, browse
                     role="option"
                     aria-selected={false}
                     onClick={() => chooseMatch(match)}
-                    className="flex w-full items-start gap-3 rounded-lg px-2.5 py-2 text-left transition hover:bg-white/[0.05]"
+                    className="flex w-full items-start gap-3 rounded-lg px-2.5 py-2 text-left transition hover:bg-black/[0.05]"
                   >
                     <MapPin className="mt-0.5 size-3.5 shrink-0 text-brand" />
                     <span className="min-w-0 flex-1">
@@ -228,9 +228,9 @@ export function LocationSelector({ value, point, onChange, onSelectPoint, browse
                       role="option"
                       aria-selected={selected}
                       onClick={() => choosePreset(location.name)}
-                      className={cn('flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left transition hover:bg-white/[0.05]', selected && 'bg-white/[0.04]')}
+                      className={cn('flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left transition hover:bg-black/[0.05]', selected && 'bg-black/[0.04]')}
                     >
-                      <span className="grid size-8 place-items-center rounded-lg border border-white/[0.06] bg-white/[0.03] text-[10px] font-semibold text-fg-muted">
+                      <span className="grid size-8 place-items-center rounded-lg border border-black/[0.06] bg-black/[0.03] text-[10px] font-semibold text-fg-muted">
                         {location.name.slice(0, 3).toUpperCase()}
                       </span>
                       <span className="min-w-0 flex-1">
@@ -258,7 +258,7 @@ export function LocationSelector({ value, point, onChange, onSelectPoint, browse
               )}
             </ul>
 
-            <div className="border-t border-white/[0.06] px-3 py-2 text-[10.5px] text-fg-subtle">
+            <div className="border-t border-black/[0.06] px-3 py-2 text-[10.5px] text-fg-subtle">
               {liveBackend
                 ? `${LOCATIONS.length} monitored areas · type ${MIN_QUERY_LENGTH}+ characters to search OpenStreetMap`
                 : `${LOCATIONS.length} monitored areas · Demo Mode`}

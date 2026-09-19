@@ -15,7 +15,7 @@ export function RecommendationsPanel({ className }: { className?: string }) {
       title="AI Recommended Actions"
       subtitle="Prioritized by the Coordinator Agent from specialist evidence"
       icon={ListChecks}
-      iconColor="#2dd4bf"
+      iconColor="#2563eb"
       className={className}
       actions={coordinator ? <Chip>{coordinator.recommendations.length} actions</Chip> : undefined}
     >

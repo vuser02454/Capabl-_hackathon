@@ -62,13 +62,13 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
       actions={<Chip color={color}>{vision.model ?? 'YOLO26 Nano'}</Chip>}
     >
       {vision.status !== 'ok' ? (
-        <p className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
+        <p className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
           {vision.message ?? STATUS_COPY[vision.status] ?? 'Visual detection did not run.'}
         </p>
       ) : (
         <>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+            <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">
                 Visible litter
               </p>
@@ -78,7 +78,7 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
                 {vision.confidenceThreshold != null && ` at ≥${pct(vision.confidenceThreshold)}%`}
               </p>
             </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+            <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">Visual signal</p>
               <p className={cn('mt-1 text-lg font-semibold', level ? level.text : 'text-fg')}>
                 {vision.visualLevel ?? '—'}
@@ -87,7 +87,7 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
                 <p className="text-[10.5px] text-fg-subtle">density {pct(vision.visualScore)}%</p>
               )}
             </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+            <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">Contribution</p>
               {/* Shown only when the visual signal actually moved the combined number. */}
               {waterQualityScore != null && combinedScore != null ? (
@@ -106,7 +106,7 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
             </div>
           </div>
 
-          <div className="mt-3 border-t border-white/[0.06] pt-3">
+          <div className="mt-3 border-t border-black/[0.06] pt-3">
             <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">
               Observed — visible litter
             </p>
@@ -131,7 +131,7 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
           {/* Other objects are shown, not hidden: the detector did find them, and concealing them
               would misrepresent what the model did. They are simply not pollution. */}
           {otherClasses.length > 0 && (
-            <div className="mt-3 border-t border-white/[0.06] pt-3">
+            <div className="mt-3 border-t border-black/[0.06] pt-3">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">
                 Also detected — not counted as pollution
               </p>
@@ -152,7 +152,7 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
             </div>
           )}
 
-          <div className="mt-3 border-t border-white/[0.06] pt-3">
+          <div className="mt-3 border-t border-black/[0.06] pt-3">
             <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">
               Not established
             </p>
@@ -170,7 +170,7 @@ export function WaterVisionPanel({ vision, waterQualityScore, combinedScore }: {
               alt={`Annotated water image: ${litterCount} litter object${
                 litterCount === 1 ? '' : 's'
               } of ${vision.totalObjects} detected`}
-              className="mt-3 w-full rounded-xl border border-white/[0.06]"
+              className="mt-3 w-full rounded-xl border border-black/[0.06]"
             />
           )}
 

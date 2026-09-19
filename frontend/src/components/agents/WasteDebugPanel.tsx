@@ -34,7 +34,7 @@ function Shot({ src, caption }: { src?: string; caption: string }) {
   if (!src) return <p className="text-[11px] text-fg-subtle">{caption}: not produced</p>;
   return (
     <figure className="min-w-0">
-      <img src={src} alt={caption} className="w-full rounded-lg border border-white/10 bg-ink-950" />
+      <img src={src} alt={caption} className="w-full rounded-lg border border-black/10 bg-ink-950" />
       <figcaption className="mt-1 text-[10px] text-fg-subtle">{caption}</figcaption>
     </figure>
   );
@@ -46,7 +46,7 @@ function DetectionBlock({ detection }: { detection: WasteDebugDetection }) {
   const withheld = classifier.class !== null && reported.classification === null;
 
   return (
-    <div className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-3">
+    <div className="rounded-xl border border-black/[0.07] bg-black/[0.02] p-3">
       <p className="mb-2 font-mono text-[10px] text-fg-subtle">{detection.id}</p>
 
       <div className="grid gap-3 sm:grid-cols-[1fr_1fr_1.4fr]">
@@ -82,7 +82,7 @@ function DetectionBlock({ detection }: { detection: WasteDebugDetection }) {
                     {classifier.top5.map((entry) => (
                       <li key={entry.class} className="flex items-center gap-1.5 text-[10px]">
                         <span className="w-28 shrink-0 truncate text-fg-subtle">{entry.class}</span>
-                        <span className="h-1 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+                        <span className="h-1 flex-1 overflow-hidden rounded-full bg-black/[0.06]">
                           <span
                             className="block h-full rounded-full bg-brand/70"
                             style={{ width: `${Math.max(1, entry.confidence * 100)}%` }}

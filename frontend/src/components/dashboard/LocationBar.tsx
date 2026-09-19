@@ -76,7 +76,7 @@ export function LocationBar() {
             </Button>
           )}
           {settings.fault !== 'none' && (
-            <Chip color="#f5b544" icon={<TriangleAlert className="size-3 text-risk-moderate" />}>
+            <Chip color="#d97706" icon={<TriangleAlert className="size-3 text-risk-moderate" />}>
               Fault injection: {settings.fault === 'water-timeout' ? 'water sensor timeout' : 'air source failure'}
             </Chip>
           )}

@@ -95,7 +95,7 @@ function Citation({ citation }: { citation: ChatCitation }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5 text-left transition hover:bg-white/[0.05]"
+        className="w-full rounded-lg border border-black/[0.06] bg-black/[0.02] px-2.5 py-1.5 text-left transition hover:bg-black/[0.05]"
       >
         <div className="flex items-center gap-1.5">
           <BookOpen className="size-3 shrink-0 text-amber-300/80" />
@@ -116,7 +116,7 @@ function Citation({ citation }: { citation: ChatCitation }) {
               transition={{ duration: 0.16 }}
               className="overflow-hidden"
             >
-              <p className="mt-1.5 border-t border-white/[0.06] pt-1.5 font-mono text-[9.5px] text-fg-subtle">
+              <p className="mt-1.5 border-t border-black/[0.06] pt-1.5 font-mono text-[9.5px] text-fg-subtle">
                 {citation.chunkId}
               </p>
               <p className="mt-1 text-[11px] leading-relaxed whitespace-pre-line text-fg-muted">
@@ -204,11 +204,11 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 24 }}
       transition={{ duration: 0.22 }}
-      className="fixed top-0 right-0 bottom-0 z-50 flex w-full max-w-[420px] flex-col border-l border-white/[0.08] bg-ink-950/95 backdrop-blur-xl"
+      className="fixed top-0 right-0 bottom-0 z-50 flex w-full max-w-[420px] flex-col border-l border-black/[0.08] bg-ink-950/95 backdrop-blur-xl"
       aria-label="EcoSentinel assistant"
     >
       {/* header */}
-      <header className="flex items-center gap-2 border-b border-white/[0.08] px-4 py-3">
+      <header className="flex items-center gap-2 border-b border-black/[0.08] px-4 py-3">
         <span className="grid size-8 place-items-center rounded-lg bg-brand/10 text-brand">
           <Sparkles className="size-4" />
         </span>
@@ -230,7 +230,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
             type="button"
             onClick={() => setMessages([])}
             title="Clear conversation"
-            className="rounded-lg p-1.5 text-fg-subtle transition hover:bg-white/[0.06] hover:text-fg"
+            className="rounded-lg p-1.5 text-fg-subtle transition hover:bg-black/[0.06] hover:text-fg"
           >
             <Trash2 className="size-3.5" />
           </button>
@@ -239,7 +239,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
           type="button"
           onClick={onClose}
           title="Close"
-          className="rounded-lg p-1.5 text-fg-subtle transition hover:bg-white/[0.06] hover:text-fg"
+          className="rounded-lg p-1.5 text-fg-subtle transition hover:bg-black/[0.06] hover:text-fg"
         >
           <X className="size-4" />
         </button>
@@ -248,7 +248,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
       {/* messages */}
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
         {messages.length === 0 && (
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3">
+          <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-3">
             <p className="flex items-center gap-1.5 text-[12px] text-fg-muted">
               <MessageSquare className="size-3.5" /> Ask about this analysis, or anything
               environmental.
@@ -279,7 +279,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
                 'max-w-[92%] rounded-2xl rounded-bl-sm border px-3 py-2.5',
                 message.failed
                   ? 'border-risk-high/25 bg-risk-high/[0.05]'
-                  : 'border-white/[0.07] bg-white/[0.03]',
+                  : 'border-black/[0.07] bg-black/[0.03]',
               )}
             >
               {message.failed ? (
@@ -311,7 +311,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
                   )}
 
                   {message.tools && message.tools.length > 0 && (
-                    <ul className="mb-2 space-y-0.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5">
+                    <ul className="mb-2 space-y-0.5 rounded-lg border border-black/[0.05] bg-black/[0.02] px-2 py-1.5">
                       <li className="flex items-center gap-1.5 text-[9.5px] font-medium tracking-wider text-fg-subtle uppercase">
                         <Wrench className="size-2.5" /> Tools
                       </li>
@@ -362,7 +362,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
               key={suggestion}
               type="button"
               onClick={() => void send(suggestion)}
-              className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[10.5px] text-fg-muted transition hover:bg-white/[0.06] hover:text-fg"
+              className="rounded-full border border-black/[0.08] bg-black/[0.02] px-2.5 py-1 text-[10.5px] text-fg-muted transition hover:bg-black/[0.06] hover:text-fg"
             >
               {suggestion}
             </button>
@@ -376,7 +376,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
           event.preventDefault();
           void send(input);
         }}
-        className="flex items-end gap-2 border-t border-white/[0.08] px-4 py-3"
+        className="flex items-end gap-2 border-t border-black/[0.08] px-4 py-3"
       >
         <textarea
           value={input}
@@ -390,7 +390,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
           rows={1}
           placeholder="Ask about this analysis…"
           disabled={busy}
-          className="max-h-28 min-h-[38px] flex-1 resize-none rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-[12.5px] text-fg placeholder:text-fg-subtle focus:border-brand/40 focus:outline-none disabled:opacity-50"
+          className="max-h-28 min-h-[38px] flex-1 resize-none rounded-xl border border-black/[0.08] bg-black/[0.03] px-3 py-2 text-[12.5px] text-fg placeholder:text-fg-subtle focus:border-brand/40 focus:outline-none disabled:opacity-50"
         />
         <button
           type="submit"

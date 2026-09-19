@@ -24,7 +24,7 @@ const RISK_TEXT: Record<RiskLevel, string> = {
 };
 
 const RISK_STROKE: Record<RiskLevel, string> = {
-  LOW: 'var(--color-risk-low, #34d399)',
+  LOW: 'var(--color-risk-low, #059669)',
   MODERATE: 'var(--color-risk-moderate, #fbbf24)',
   HIGH: 'var(--color-risk-high, #f87171)',
 };
@@ -51,9 +51,9 @@ export function EvidenceFusion({ decision }: { decision: EnvironmentalDecision }
   };
 
   const lanes: Lane[] = [
-    { id: 'air', label: 'Air', icon: Wind, color: '#60a5fa' },
+    { id: 'air', label: 'Air', icon: Wind, color: '#2563eb' },
     { id: 'water', label: 'Water', icon: Droplets, color: '#38bdf8' },
-    { id: 'waste', label: 'Waste', icon: Trash2, color: '#2dd4bf' },
+    { id: 'waste', label: 'Waste', icon: Trash2, color: '#2563eb' },
     { id: 'geographic', label: 'Context', icon: Boxes, color: '#a78bfa' },
   ].map((lane) => {
     const items = forDomain(lane.id);
@@ -89,8 +89,8 @@ export function EvidenceFusion({ decision }: { decision: EnvironmentalDecision }
                 className={cn(
                   'flex items-center gap-3 rounded-xl border px-3 py-2.5 transition',
                   lane.reported
-                    ? 'border-white/[0.08] bg-white/[0.03]'
-                    : 'border-white/[0.04] bg-white/[0.01] opacity-55',
+                    ? 'border-black/[0.08] bg-black/[0.03]'
+                    : 'border-black/[0.04] bg-black/[0.01] opacity-55',
                 )}
               >
                 <span
@@ -141,7 +141,7 @@ export function EvidenceFusion({ decision }: { decision: EnvironmentalDecision }
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.45, duration: 0.35 }}
-            className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5"
+            className="rounded-xl border border-black/[0.08] bg-black/[0.03] px-4 py-3.5"
           >
             <p className="text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
               Deterministic risk engine
@@ -156,7 +156,7 @@ export function EvidenceFusion({ decision }: { decision: EnvironmentalDecision }
                 <span className="text-fg-subtle"> · evidence inconclusive</span>
               )}
             </p>
-            <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/[0.06]">
+            <div className="mt-2 h-1 overflow-hidden rounded-full bg-black/[0.06]">
               <motion.div
                 className="h-full rounded-full"
                 style={{ background: RISK_STROKE[decision.riskLevel] }}
@@ -177,7 +177,7 @@ export function EvidenceFusion({ decision }: { decision: EnvironmentalDecision }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="flex items-start gap-3 rounded-xl border border-dashed border-white/[0.09] bg-white/[0.01] px-3 py-2.5"
+            className="flex items-start gap-3 rounded-xl border border-dashed border-black/[0.09] bg-black/[0.01] px-3 py-2.5"
           >
             <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-amber-400/10 text-amber-300">
               <BookOpen className="size-4" />

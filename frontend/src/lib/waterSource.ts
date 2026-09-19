@@ -22,28 +22,28 @@ export const WATER_SOURCE_META: Record<WaterSourceType, WaterSourceMeta> = {
   live_iot: {
     label: 'Live Sensor',
     tone: 'live',
-    color: '#34d399',
+    color: '#059669',
     description: 'Reporting live from an EcoSentinel IoT water sensor.',
     isLive: true,
   },
   monitoring_station: {
     label: 'Monitoring Station',
     tone: 'live',
-    color: '#34d399',
+    color: '#059669',
     description: 'Reporting live from a configured water monitoring station.',
     isLive: true,
   },
   historical: {
     label: 'Historical Dataset',
     tone: 'historical',
-    color: '#f5b544',
+    color: '#d97706',
     description: 'Latest available observation from a water-quality dataset — not a live sensor reading.',
     isLive: false,
   },
   demo: {
     label: 'Demo Data',
     tone: 'demo',
-    color: '#60a5fa',
+    color: '#2563eb',
     description: 'Simulated EcoSentinel demo data, not a live measurement.',
     isLive: false,
   },
@@ -52,7 +52,7 @@ export const WATER_SOURCE_META: Record<WaterSourceType, WaterSourceMeta> = {
 const FALLBACK_LIVE: WaterSourceMeta = {
   label: 'Live Data',
   tone: 'live',
-  color: '#34d399',
+  color: '#059669',
   description: 'Live reading from the configured water provider.',
   isLive: true,
 };

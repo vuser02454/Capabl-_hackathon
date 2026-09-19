@@ -18,10 +18,10 @@ interface ToastValue {
 const ToastContext = createContext<ToastValue | null>(null);
 
 const TONES: Record<Tone, { icon: typeof Info; color: string }> = {
-  success: { icon: CircleCheck, color: '#34d399' },
-  info: { icon: Info, color: '#60a5fa' },
-  warning: { icon: TriangleAlert, color: '#f5b544' },
-  error: { icon: CircleX, color: '#f26b6b' },
+  success: { icon: CircleCheck, color: '#059669' },
+  info: { icon: Info, color: '#2563eb' },
+  warning: { icon: TriangleAlert, color: '#d97706' },
+  error: { icon: CircleX, color: '#dc2626' },
 };
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -44,7 +44,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={value}>
       {children}
-      <div className="pointer-events-none fixed inset-x-4 bottom-4 z-[70] flex flex-col items-end gap-2 sm:left-auto sm:w-96" aria-live="polite">
+      <div className="app-shell pointer-events-none fixed inset-x-4 bottom-4 z-[70] flex flex-col items-end gap-2 sm:left-auto sm:w-96" aria-live="polite">
         <AnimatePresence initial={false}>
           {toasts.map((toast) => {
             const { icon: Icon, color } = TONES[toast.tone];
@@ -65,7 +65,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 <button
                   type="button"
                   onClick={() => dismiss(toast.id)}
-                  className="rounded-md p-1 text-fg-subtle transition hover:bg-white/5 hover:text-fg"
+                  className="rounded-md p-1 text-fg-subtle transition hover:bg-black/5 hover:text-fg"
                   aria-label="Dismiss notification"
                 >
                   <X className="size-3.5" />

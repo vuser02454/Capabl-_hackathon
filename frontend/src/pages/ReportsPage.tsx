@@ -88,7 +88,7 @@ export function ReportsPage() {
   return (
     // Tall element: skip backdrop blur, which can exceed GPU layer limits and render blank.
     <article className="glass mx-auto max-w-5xl overflow-hidden !bg-ink-900/85" style={{ backdropFilter: 'none', WebkitBackdropFilter: 'none' }}>
-      <header className="border-b border-white/[0.06] bg-linear-to-br from-brand/[0.07] via-transparent to-transparent p-6 sm:p-8">
+      <header className="border-b border-black/[0.06] bg-linear-to-br from-brand/[0.07] via-transparent to-transparent p-6 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -125,7 +125,7 @@ export function ReportsPage() {
             },
             { label: 'Confidence', value: <span className="text-fg tabular">{pct(coordinator.confidence)}%</span> },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl border border-white/[0.06] bg-ink-950/30 px-3 py-2.5">
+            <div key={item.label} className="rounded-xl border border-black/[0.06] bg-ink-950/30 px-3 py-2.5">
               <dt className="eyebrow">{item.label}</dt>
               <dd className="mt-1 text-sm font-medium">{item.value}</dd>
             </div>
@@ -133,7 +133,7 @@ export function ReportsPage() {
         </dl>
       </header>
 
-      <div className="divide-y divide-white/[0.05]">
+      <div className="divide-y divide-black/[0.05]">
         <Section index="01" title="Air Assessment" agent="air">
           <Summary result={air} label="Air" />
           {air && (
@@ -207,7 +207,7 @@ export function ReportsPage() {
         </Section>
       </div>
 
-      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] px-6 py-4 text-[11px] text-fg-subtle sm:px-8">
+      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-black/[0.06] px-6 py-4 text-[11px] text-fg-subtle sm:px-8">
         <span className="flex items-center gap-1.5">
           <FileBraces className="size-3.5" />
           Structured source: AnalysisResult · {result.runs.length} agent runs

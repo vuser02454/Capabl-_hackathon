@@ -8,9 +8,9 @@ import { Button } from '../ui/Button';
 import { Chip } from '../ui/primitives';
 
 const URGENCY_COLORS: Record<Recommendation['urgency'], string> = {
-  Immediate: '#f26b6b',
-  'Within 24h': '#f5b544',
-  Routine: '#60a5fa',
+  Immediate: '#dc2626',
+  'Within 24h': '#d97706',
+  Routine: '#2563eb',
 };
 
 export function RecommendationCard({ recommendation, index, interactive = true }: { recommendation: Recommendation; index: number; interactive?: boolean }) {
@@ -32,7 +32,7 @@ export function RecommendationCard({ recommendation, index, interactive = true }
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.07, duration: 0.35 }}
-      className="flex flex-col gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition hover:border-white/[0.12] hover:bg-white/[0.035] sm:flex-row sm:items-center"
+      className="flex flex-col gap-3 rounded-xl border border-black/[0.06] bg-black/[0.02] p-4 transition hover:border-black/[0.12] hover:bg-black/[0.035] sm:flex-row sm:items-center"
     >
       <div className="flex min-w-0 flex-1 items-start gap-3.5">
         <span
@@ -53,7 +53,7 @@ export function RecommendationCard({ recommendation, index, interactive = true }
           <p className="mt-1 text-xs leading-relaxed text-fg-muted">{recommendation.explanation}</p>
           <div className="mt-2">
             <Chip
-              color={meta?.color ?? '#2dd4bf'}
+              color={meta?.color ?? '#2563eb'}
               icon={meta ? <meta.icon className="size-3" style={{ color: meta.color }} /> : <Layers className="size-3 text-brand" />}
             >
               {meta ? meta.name : 'All agents'}

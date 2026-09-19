@@ -26,7 +26,7 @@ const REASON_STYLE: Record<ReasonType, { label: string; className: string }> = {
   OBSERVED: { label: 'Observed', className: 'text-risk-low border-risk-low/30 bg-risk-low/[0.08]' },
   INFERRED: { label: 'Inferred', className: 'text-info border-info/30 bg-info/[0.08]' },
   HYPOTHESIS: { label: 'Hypothesis', className: 'text-risk-moderate border-risk-moderate/30 bg-risk-moderate/[0.08]' },
-  UNKNOWN: { label: 'Data gap', className: 'text-fg-subtle border-white/10 bg-white/[0.03]' },
+  UNKNOWN: { label: 'Data gap', className: 'text-fg-subtle border-black/10 bg-black/[0.03]' },
 };
 
 const PRIORITY_STYLE: Record<string, string> = {
@@ -148,7 +148,7 @@ export function FrameInvestigationPanel({
         )}
 
         {imageUrl && (
-          <div className="relative mt-3 overflow-hidden rounded-xl border border-white/10">
+          <div className="relative mt-3 overflow-hidden rounded-xl border border-black/10">
             <img src={imageUrl} alt="Investigated frame" className="block w-full" />
             {/* Boxes are positioned from the detector's own normalised coordinates. */}
             {detections.map((detection, index) => {
@@ -191,7 +191,7 @@ export function FrameInvestigationPanel({
                     onClick={() => setActiveDetection(selected ? null : detection.detectionId)}
                     className={cn(
                       'flex w-full items-baseline gap-3 rounded-lg border px-3 py-2 text-left text-xs transition',
-                      selected ? 'border-brand/40 bg-brand/[0.07]' : 'border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05]',
+                      selected ? 'border-brand/40 bg-brand/[0.07]' : 'border-black/[0.06] bg-black/[0.02] hover:bg-black/[0.05]',
                     )}
                   >
                     <span className="font-mono text-[10px] text-fg-subtle">#{index + 1}</span>
@@ -260,7 +260,7 @@ export function FrameInvestigationPanel({
                   key={reason.reasonId}
                   className={cn(
                     'rounded-lg border px-3 py-2.5 transition',
-                    linked ? 'border-brand/40 bg-brand/[0.06]' : 'border-white/[0.06] bg-white/[0.02]',
+                    linked ? 'border-brand/40 bg-brand/[0.06]' : 'border-black/[0.06] bg-black/[0.02]',
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -300,7 +300,7 @@ export function FrameInvestigationPanel({
           <SectionTitle eyebrow="What next" title="What should be done?" icon={ListChecks} />
           <ol className="mt-3 space-y-2">
             {actions.map((action) => (
-              <li key={action.actionId} className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+              <li key={action.actionId} className="rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
                 <div className="flex items-start justify-between gap-3">
                   <p className="min-w-0 text-xs text-fg">{action.action}</p>
                   <span className={cn('shrink-0 text-[10px] uppercase', PRIORITY_STYLE[action.priority])}>
@@ -365,7 +365,7 @@ export function FrameInvestigationPanel({
             ['Medium term', timeline.mediumTerm],
             ['Long term', timeline.longTerm],
           ].map(([label, range]) => (
-            <div key={label} className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2">
+            <div key={label} className="rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2">
               <p className="text-[10.5px] tracking-wide text-fg-subtle uppercase">{label}</p>
               <p className="mt-0.5 text-xs text-fg tabular">{range}</p>
             </div>
