@@ -30,6 +30,9 @@ import {
 
 export interface ScrollStory {
   progress: MotionValue<number>;
+  /** Unsmoothed scroll fraction — 1:1 with the scrollbar, no spring lag. The frame sequence
+   *  tracks this directly so the background never feels like it is catching up to the scroll. */
+  rawProgress: MotionValue<number>;
 
   /** Cause → effect chain. Each drives the visible event, not a generic overlay. */
   /** Distant industry resolving out of the haze. */
@@ -158,6 +161,7 @@ export function useScrollStory(targetRef: RefObject<HTMLElement | null>): Scroll
 
   return {
     progress,
+    rawProgress: scrollYProgress,
     factories,
     cityLights,
     smoke,
