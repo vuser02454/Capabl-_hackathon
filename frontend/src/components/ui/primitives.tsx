@@ -15,7 +15,7 @@ export function StatusDot({ color, pulse = true, size = 8, className }: { color:
 
 export function ProgressBar({
   value,
-  color = '#0d9488',
+  color = '#2563eb',
   height = 4,
   className,
   markers,

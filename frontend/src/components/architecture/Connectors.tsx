@@ -24,8 +24,8 @@ export function BranchConnector({ direction = 'in', active = true, running = fal
       <svg viewBox="0 0 600 48" preserveAspectRatio="none" className="absolute inset-0 hidden size-full sm:block">
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#0d9488" stopOpacity="0.2" />
-            <stop offset="1" stopColor="#0d9488" stopOpacity="0.8" />
+            <stop offset="0" stopColor="#2563eb" stopOpacity="0.2" />
+            <stop offset="1" stopColor="#2563eb" stopOpacity="0.8" />
           </linearGradient>
         </defs>
         {paths.map((d) => (

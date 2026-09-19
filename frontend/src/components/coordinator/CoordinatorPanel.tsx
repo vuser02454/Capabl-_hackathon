@@ -40,7 +40,7 @@ export function ContributionBar({ coordinator, className }: { coordinator: Coord
         {adjustment > 0 && (
           <motion.div
             className="h-full"
-            style={{ background: 'repeating-linear-gradient(45deg, #0d9488 0 3px, #0d948855 3px 6px)' }}
+            style={{ background: 'repeating-linear-gradient(45deg, #2563eb 0 3px, #2563eb55 3px 6px)' }}
             initial={{ width: 0 }}
             animate={{ width: `${adjustment * 100}%` }}
             transition={{ duration: 0.9, delay: 0.2 }}
@@ -60,7 +60,7 @@ export function ContributionBar({ coordinator, className }: { coordinator: Coord
         ))}
         {adjustment > 0 && (
           <span className="inline-flex items-center gap-1.5">
-            <span className="size-2 rounded-sm" style={{ background: 'repeating-linear-gradient(45deg, #0d9488 0 2px, #0d948855 2px 4px)' }} />
+            <span className="size-2 rounded-sm" style={{ background: 'repeating-linear-gradient(45deg, #2563eb 0 2px, #2563eb55 2px 4px)' }} />
             Cross-signal <span className="text-fg-muted tabular">+{Math.round(adjustment * 100)}</span>
           </span>
         )}
@@ -121,10 +121,10 @@ export function CoordinatorPanel({ className, showDetails = true }: { className?
       title="Coordinator Agent"
       subtitle="Cross-signal environmental reasoning"
       icon={Network}
-      iconColor="#0d9488"
-      accent="#0d9488"
+      iconColor="#2563eb"
+      accent="#2563eb"
       className={className}
-      actions={coordinator && !pending.coordinator ? <Chip color="#0d9488">Confidence {pct(coordinator.confidence)}%</Chip> : undefined}
+      actions={coordinator && !pending.coordinator ? <Chip color="#2563eb">Confidence {pct(coordinator.confidence)}%</Chip> : undefined}
     >
       <div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
         {SPECIALISTS.map((id, index) => (

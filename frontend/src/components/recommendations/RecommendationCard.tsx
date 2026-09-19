@@ -53,7 +53,7 @@ export function RecommendationCard({ recommendation, index, interactive = true }
           <p className="mt-1 text-xs leading-relaxed text-fg-muted">{recommendation.explanation}</p>
           <div className="mt-2">
             <Chip
-              color={meta?.color ?? '#0d9488'}
+              color={meta?.color ?? '#2563eb'}
               icon={meta ? <meta.icon className="size-3" style={{ color: meta.color }} /> : <Layers className="size-3 text-brand" />}
             >
               {meta ? meta.name : 'All agents'}

@@ -70,7 +70,7 @@ export function SettingsPage() {
 
   return (
     <div className="mx-auto grid max-w-6xl gap-4 lg:grid-cols-2">
-      <DashboardCard title="Data mode" subtitle="Where agents get their data" icon={settings.demoMode ? FlaskConical : Server} iconColor={settings.demoMode ? '#2563eb' : '#0d9488'} className="lg:col-span-2">
+      <DashboardCard title="Data mode" subtitle="Where agents get their data" icon={settings.demoMode ? FlaskConical : Server} iconColor={settings.demoMode ? '#2563eb' : '#2563eb'} className="lg:col-span-2">
         <div className="flex flex-col gap-4 md:flex-row md:items-start">
           <div className="flex flex-1 items-start justify-between gap-4 rounded-xl border border-black/[0.06] bg-black/[0.02] p-4">
             <div>
@@ -134,7 +134,7 @@ export function SettingsPage() {
 
       <AiConfiguration />
 
-      <DashboardCard title="Presentation" subtitle="Agent execution pacing" icon={Gauge} iconColor="#0d9488">
+      <DashboardCard title="Presentation" subtitle="Agent execution pacing" icon={Gauge} iconColor="#2563eb">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-fg">Simulation speed</p>

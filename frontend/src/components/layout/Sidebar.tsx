@@ -53,7 +53,7 @@ const GROUPS: Array<{ label: string; items: NavEntry[] }> = [
 
 export const STATUS_TONE_COLORS = {
   operational: '#059669',
-  running: '#0d9488',
+  running: '#2563eb',
   degraded: '#d97706',
   offline: '#dc2626',
 } as const;
@@ -61,7 +61,7 @@ export const STATUS_TONE_COLORS = {
 const STEP_COLORS: Record<StepStatus, string> = {
   idle: 'rgb(15 23 42 / 0.12)',
   queued: 'rgb(15 23 42 / 0.2)',
-  running: '#0d9488',
+  running: '#2563eb',
   complete: '#059669',
   failed: '#dc2626',
   timeout: '#d97706',
@@ -92,7 +92,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                 const active = route === item.id;
                 const Icon = item.icon;
                 const step = item.agent ? state.steps[item.agent] : null;
-                const accent = item.agent ? AGENT_META[item.agent].color : '#0d9488';
+                const accent = item.agent ? AGENT_META[item.agent].color : '#2563eb';
                 return (
                   <li key={item.id}>
                     <button

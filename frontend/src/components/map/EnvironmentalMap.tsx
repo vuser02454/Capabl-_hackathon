@@ -86,8 +86,8 @@ export function EnvironmentalMap({ snapshot, results, layers, selectedId = null,
       <svg viewBox={`0 0 100 ${VIEW_HEIGHT}`} className="absolute inset-0 size-full" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <defs>
           <radialGradient id="map-glow" cx="50%" cy="50%" r="60%">
-            <stop offset="0" stopColor="#0d9488" stopOpacity="0.08" />
-            <stop offset="1" stopColor="#0d9488" stopOpacity="0" />
+            <stop offset="0" stopColor="#2563eb" stopOpacity="0.08" />
+            <stop offset="1" stopColor="#2563eb" stopOpacity="0" />
           </radialGradient>
           <pattern id="map-grid-minor" width="2.5" height="2.5" patternUnits="userSpaceOnUse">
             <path d="M2.5 0H0V2.5" fill="none" stroke="rgb(15 23 42 / 0.03)" strokeWidth="0.1" />

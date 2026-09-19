@@ -22,14 +22,14 @@ export function CoordinatorPage() {
 
       <div className="grid gap-4 xl:grid-cols-12">
         <RecommendationsPanel className="xl:col-span-7" />
-        <DashboardCard title="Agent interface" subtitle="What the Coordinator consumes and produces" icon={Workflow} iconColor="#0d9488" className="xl:col-span-5">
+        <DashboardCard title="Agent interface" subtitle="What the Coordinator consumes and produces" icon={Workflow} iconColor="#2563eb" className="xl:col-span-5">
           <AgentPipelineSpec agent="coordinator" stacked />
         </DashboardCard>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-2">
         <AgentTimeline agents={['coordinator']} />
-        <DashboardCard title="Inputs consumed" subtitle="The Coordinator reads only these structured reports — never raw data" icon={FileInput} iconColor="#0d9488">
+        <DashboardCard title="Inputs consumed" subtitle="The Coordinator reads only these structured reports — never raw data" icon={FileInput} iconColor="#2563eb">
           <ul className="space-y-2">
             {SPECIALISTS.map((agent) => {
               const report = display[agent];

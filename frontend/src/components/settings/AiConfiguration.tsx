@@ -106,7 +106,7 @@ export function AiConfiguration() {
       title="AI configuration"
       subtitle="Three roles, deliberately not interchangeable"
       icon={Brain}
-      iconColor="#0d9488"
+      iconColor="#2563eb"
     >
       <div className="space-y-3">
         <div className="grid gap-3 lg:grid-cols-3">

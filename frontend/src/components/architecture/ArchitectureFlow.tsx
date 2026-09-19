@@ -112,7 +112,7 @@ function FlowNode({
   const meta = isAgent ? AGENT_META[id as AgentId] : null;
   const info = isAgent ? null : INFO[id as Exclude<NodeId, AgentId>];
   const Icon = meta?.icon ?? info!.icon;
-  const color = meta?.color ?? '#0d9488';
+  const color = meta?.color ?? '#2563eb';
   const eyebrow = meta ? (id === 'coordinator' ? 'Orchestrating agent' : 'Specialist') : info!.eyebrow;
   const title = meta ? (id === 'coordinator' ? meta.name : meta.short) : info!.title;
 

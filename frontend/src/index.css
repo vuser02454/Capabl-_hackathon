@@ -16,6 +16,7 @@
 
   --color-brand: #2dd4bf;
   --color-brand-strong: #14b8a6;
+  --color-brand-glow: rgb(45 212 191 / 0.5);
   --color-info: #60a5fa;
 
   --color-risk-low: #34d399;
@@ -103,8 +104,9 @@
     --color-fg-muted: #545e68;
     --color-fg-subtle: #838d97;
 
-    --color-brand: #0d9488;
-    --color-brand-strong: #0f766e;
+    --color-brand: #2563eb;
+    --color-brand-strong: #1d4ed8;
+    --color-brand-glow: rgb(37 99 235 / 0.4);
     --color-info: #2563eb;
 
     --color-risk-low: #059669;

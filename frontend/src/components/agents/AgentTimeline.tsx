@@ -142,7 +142,7 @@ function HandOff({ steps }: { steps: Record<AgentId, AgentStepState> }) {
   const active = settled && steps.coordinator.status !== 'idle';
   return (
     <li aria-hidden className="relative -mt-1 mb-4 ml-11 flex items-center gap-2 text-[10.5px] text-fg-subtle">
-      <GitMerge className="size-3.5 transition-colors" style={{ color: active ? '#0d9488' : undefined }} />
+      <GitMerge className="size-3.5 transition-colors" style={{ color: active ? '#2563eb' : undefined }} />
       <span className={cn('transition-colors', active && 'text-fg-muted')}>
         {received}/3 specialist reports handed off to Coordinator
       </span>
@@ -169,7 +169,7 @@ export function AgentTimeline({ agents = AGENT_ORDER, className }: { agents?: Ag
       title="Agent Activity"
       subtitle="Live execution of independent agents"
       icon={Activity}
-      iconColor="#0d9488"
+      iconColor="#2563eb"
       className={className}
       actions={<span className={cn('rounded-full border px-2 py-0.5 text-[10.5px] font-medium', chip.className)}>{chip.label}</span>}
     >

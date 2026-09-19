@@ -59,7 +59,7 @@ export function MapPage() {
       </DashboardCard>
 
       <div className="space-y-4">
-        <DashboardCard title="Monitoring stations" subtitle={`${stations.length} of ${environment.stations.length} visible`} icon={RadioTower} iconColor="#0d9488">
+        <DashboardCard title="Monitoring stations" subtitle={`${stations.length} of ${environment.stations.length} visible`} icon={RadioTower} iconColor="#2563eb">
           <ul className="-mx-2 space-y-0.5">
             {stations.map((station) => {
               const { level } = stationRisk(station, display);

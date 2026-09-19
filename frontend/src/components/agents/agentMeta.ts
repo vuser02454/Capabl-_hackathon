@@ -75,7 +75,7 @@ export const AGENT_META: Record<AgentId, AgentMeta> = {
     name: 'Coordinator Agent',
     short: 'Coordinator',
     icon: Network,
-    color: '#0d9488',
+    color: '#2563eb',
     route: 'coordinator',
     role: 'Consumes only the three specialist reports — never raw data — then reasons across signals, aggregates risk and prioritizes actions.',
     spec: {

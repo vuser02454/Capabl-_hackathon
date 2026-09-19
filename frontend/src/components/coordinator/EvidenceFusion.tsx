@@ -53,7 +53,7 @@ export function EvidenceFusion({ decision }: { decision: EnvironmentalDecision }
   const lanes: Lane[] = [
     { id: 'air', label: 'Air', icon: Wind, color: '#2563eb' },
     { id: 'water', label: 'Water', icon: Droplets, color: '#38bdf8' },
-    { id: 'waste', label: 'Waste', icon: Trash2, color: '#0d9488' },
+    { id: 'waste', label: 'Waste', icon: Trash2, color: '#2563eb' },
     { id: 'geographic', label: 'Context', icon: Boxes, color: '#a78bfa' },
   ].map((lane) => {
     const items = forDomain(lane.id);

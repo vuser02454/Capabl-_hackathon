@@ -74,7 +74,7 @@ export function RealWasteDetection() {
       title="Real detection"
       subtitle="YOLO detection + trained waste classifier — not simulated"
       icon={ScanSearch}
-      iconColor="#0d9488"
+      iconColor="#2563eb"
     >
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
