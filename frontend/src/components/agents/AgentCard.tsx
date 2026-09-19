@@ -64,7 +64,7 @@ export function AgentCard({ agent, result, pending, failure, subtitle, badges, f
         )}
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-2 border-t border-white/[0.05] px-5 py-3">
+      <div className="mt-4 flex items-center justify-between gap-2 border-t border-black/[0.05] px-5 py-3">
         <span className="flex min-w-0 items-center gap-1.5 truncate text-[11px] text-fg-subtle">
           <Clock3 className="size-3 shrink-0" />
           <span className="truncate">{footerNote ?? '—'}</span>

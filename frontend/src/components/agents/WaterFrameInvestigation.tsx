@@ -187,7 +187,7 @@ export function WaterFrameInvestigation() {
         </div>
 
         {/* Framework 1: where this investigation applies, established before anything is judged. */}
-        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[11px]">
+        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2 text-[11px]">
           <MapPin className="size-3.5 shrink-0 text-brand" />
           {hasLocation ? (
             <>
@@ -210,8 +210,8 @@ export function WaterFrameInvestigation() {
         </div>
 
         {/* The whole live experience: one line. */}
-        <div className="mt-3 flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2">
-          <span className={cameraOpen ? 'size-2 animate-pulse rounded-full bg-risk-low' : 'size-2 rounded-full bg-white/20'} />
+        <div className="mt-3 flex items-center gap-2 rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2">
+          <span className={cameraOpen ? 'size-2 animate-pulse rounded-full bg-risk-low' : 'size-2 rounded-full bg-black/20'} />
           <span className={`text-xs ${LIVE_COPY[cameraOpen ? live : 'idle'].tone}`}>
             {LIVE_COPY[cameraOpen ? live : 'idle'].text}
           </span>

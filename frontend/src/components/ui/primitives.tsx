@@ -15,7 +15,7 @@ export function StatusDot({ color, pulse = true, size = 8, className }: { color:
 
 export function ProgressBar({
   value,
-  color = '#2dd4bf',
+  color = '#0d9488',
   height = 4,
   className,
   markers,
@@ -27,7 +27,7 @@ export function ProgressBar({
   markers?: number[];
 }) {
   return (
-    <div className={cn('relative w-full overflow-hidden rounded-full bg-white/[0.06]', className)} style={{ height }}>
+    <div className={cn('relative w-full overflow-hidden rounded-full bg-black/[0.06]', className)} style={{ height }}>
       <motion.div
         className="h-full rounded-full"
         style={{ background: `linear-gradient(90deg, ${color}8c, ${color})` }}
@@ -56,7 +56,7 @@ export function SegmentedControl<T extends string>({
   ariaLabel: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={ariaLabel} className="inline-flex rounded-lg border border-white/[0.07] bg-white/[0.03] p-0.5">
+    <div role="radiogroup" aria-label={ariaLabel} className="inline-flex rounded-lg border border-black/[0.07] bg-black/[0.03] p-0.5">
       {options.map((option) => {
         const active = option.value === value;
         return (
@@ -68,7 +68,7 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(option.value)}
             className={cn('relative h-7 rounded-md px-2.5 text-xs font-medium transition-colors', active ? 'text-fg' : 'text-fg-subtle hover:text-fg-muted')}
           >
-            {active && <motion.span layoutId={layoutId} className="absolute inset-0 rounded-md bg-white/[0.09] shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]" transition={{ type: 'spring', stiffness: 500, damping: 38 }} />}
+            {active && <motion.span layoutId={layoutId} className="absolute inset-0 rounded-md bg-black/[0.09] shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]" transition={{ type: 'spring', stiffness: 500, damping: 38 }} />}
             <span className="relative">{option.label}</span>
           </button>
         );
@@ -88,7 +88,7 @@ export function Switch({ checked, onChange, label, id }: { checked: boolean; onC
       onClick={() => onChange(!checked)}
       className={cn(
         'relative inline-flex h-[22px] w-10 shrink-0 items-center rounded-full border transition-colors duration-200',
-        checked ? 'justify-end border-brand/50 bg-brand/80' : 'justify-start border-white/10 bg-white/10',
+        checked ? 'justify-end border-brand/50 bg-brand/80' : 'justify-start border-black/10 bg-black/10',
       )}
     >
       <motion.span layout transition={{ type: 'spring', stiffness: 600, damping: 34 }} className="mx-[3px] size-4 rounded-full bg-white shadow-md" />
@@ -129,7 +129,7 @@ export function SectionHeader({ title, subtitle, eyebrow, actions, className }: 
 export function Chip({ children, color, className, icon }: { children: ReactNode; color?: string; className?: string; icon?: ReactNode }) {
   return (
     <span
-      className={cn('inline-flex items-center gap-1.5 rounded-md border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 text-[10.5px] font-medium text-fg-muted', className)}
+      className={cn('inline-flex items-center gap-1.5 rounded-md border border-black/[0.08] bg-black/[0.04] px-1.5 py-0.5 text-[10.5px] font-medium text-fg-muted', className)}
       style={color ? { borderColor: `${color}33`, background: `${color}14` } : undefined}
     >
       {icon}

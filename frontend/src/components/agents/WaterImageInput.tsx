@@ -127,7 +127,7 @@ export function WaterImageInput() {
             if (!running) void submit(event.dataTransfer.files?.[0]);
           }}
           className={cn(
-            'relative grid min-h-44 place-items-center rounded-xl border border-dashed border-white/[0.1] bg-white/[0.02] p-3 transition',
+            'relative grid min-h-44 place-items-center rounded-xl border border-dashed border-black/[0.1] bg-black/[0.02] p-3 transition',
             dragging && 'border-brand/60 ring-2 ring-brand/40',
           )}
         >

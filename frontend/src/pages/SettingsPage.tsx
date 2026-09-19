@@ -70,9 +70,9 @@ export function SettingsPage() {
 
   return (
     <div className="mx-auto grid max-w-6xl gap-4 lg:grid-cols-2">
-      <DashboardCard title="Data mode" subtitle="Where agents get their data" icon={settings.demoMode ? FlaskConical : Server} iconColor={settings.demoMode ? '#60a5fa' : '#2dd4bf'} className="lg:col-span-2">
+      <DashboardCard title="Data mode" subtitle="Where agents get their data" icon={settings.demoMode ? FlaskConical : Server} iconColor={settings.demoMode ? '#2563eb' : '#0d9488'} className="lg:col-span-2">
         <div className="flex flex-col gap-4 md:flex-row md:items-start">
-          <div className="flex flex-1 items-start justify-between gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
+          <div className="flex flex-1 items-start justify-between gap-4 rounded-xl border border-black/[0.06] bg-black/[0.02] p-4">
             <div>
               <p className="flex items-center gap-2 text-sm font-medium text-fg">
                 Demo Mode
@@ -94,7 +94,7 @@ export function SettingsPage() {
             />
           </div>
 
-          <div className={cn('flex-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-opacity', settings.demoMode && 'opacity-60')}>
+          <div className={cn('flex-1 rounded-xl border border-black/[0.06] bg-black/[0.02] p-4 transition-opacity', settings.demoMode && 'opacity-60')}>
             <label htmlFor="api-url" className="text-sm font-medium text-fg">
               API base URL
             </label>
@@ -107,7 +107,7 @@ export function SettingsPage() {
                 onBlur={saveUrl}
                 onKeyDown={(event) => event.key === 'Enter' && saveUrl()}
                 placeholder="http://127.0.0.1:8000"
-                className="h-9 min-w-0 flex-1 rounded-lg border border-white/10 bg-ink-950/60 px-3 font-mono text-xs text-fg outline-none placeholder:text-fg-subtle focus:border-brand/50"
+                className="h-9 min-w-0 flex-1 rounded-lg border border-black/10 bg-ink-950/60 px-3 font-mono text-xs text-fg outline-none placeholder:text-fg-subtle focus:border-brand/50"
               />
               <Button size="md" icon={PlugZap} loading={testing} onClick={() => void testConnection()}>
                 Test
@@ -134,7 +134,7 @@ export function SettingsPage() {
 
       <AiConfiguration />
 
-      <DashboardCard title="Presentation" subtitle="Agent execution pacing" icon={Gauge} iconColor="#2dd4bf">
+      <DashboardCard title="Presentation" subtitle="Agent execution pacing" icon={Gauge} iconColor="#0d9488">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-fg">Simulation speed</p>
@@ -153,7 +153,7 @@ export function SettingsPage() {
         </div>
       </DashboardCard>
 
-      <DashboardCard title="Resilience testing" subtitle="Inject a fault to show graceful degradation (demo mode)" icon={Zap} iconColor="#f5b544">
+      <DashboardCard title="Resilience testing" subtitle="Inject a fault to show graceful degradation (demo mode)" icon={Zap} iconColor="#d97706">
         <div className="space-y-2" role="radiogroup" aria-label="Fault injection">
           {FAULTS.map((fault) => {
             const active = settings.fault === fault.value;
@@ -164,9 +164,9 @@ export function SettingsPage() {
                 role="radio"
                 aria-checked={active}
                 onClick={() => updateSettings({ fault: fault.value })}
-                className={cn('flex w-full items-start gap-3 rounded-xl border p-3 text-left transition', active ? 'border-brand/40 bg-brand/[0.06]' : 'border-white/[0.06] hover:border-white/[0.12]')}
+                className={cn('flex w-full items-start gap-3 rounded-xl border p-3 text-left transition', active ? 'border-brand/40 bg-brand/[0.06]' : 'border-black/[0.06] hover:border-black/[0.12]')}
               >
-                <span className={cn('mt-0.5 grid size-4 shrink-0 place-items-center rounded-full border', active ? 'border-brand' : 'border-white/20')}>
+                <span className={cn('mt-0.5 grid size-4 shrink-0 place-items-center rounded-full border', active ? 'border-brand' : 'border-black/20')}>
                   {active && <span className="size-2 rounded-full bg-brand" />}
                 </span>
                 <span>
@@ -179,20 +179,20 @@ export function SettingsPage() {
         </div>
       </DashboardCard>
 
-      <DashboardCard title="Data integrations" subtitle="Mock services behind production-ready interfaces" icon={PlugZap} iconColor="#60a5fa">
+      <DashboardCard title="Data integrations" subtitle="Mock services behind production-ready interfaces" icon={PlugZap} iconColor="#2563eb">
         <ul className="space-y-2">
           {INTEGRATIONS.map((integration) => {
             const meta = AGENT_META[integration.agent];
             const provider = liveProviders?.[integration.agent];
             const live = provider !== undefined && !/demo|simulated|mock/i.test(provider);
             return (
-              <li key={integration.name} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
+              <li key={integration.name} className="rounded-xl border border-black/[0.06] bg-black/[0.02] p-3">
                 <div className="flex items-center justify-between gap-2">
                   <span className="flex items-center gap-2 text-[13px] font-medium text-fg">
                     <meta.icon className="size-4" style={{ color: meta.color }} />
                     {integration.name}
                   </span>
-                  <Chip color={live ? '#34d399' : '#f5b544'}>{live ? 'Live' : 'Mock'}</Chip>
+                  <Chip color={live ? '#059669' : '#d97706'}>{live ? 'Live' : 'Mock'}</Chip>
                 </div>
                 <p className="mt-1 text-xs text-fg-muted">{provider ? `Backend provider: ${provider}` : integration.status}</p>
                 <p className="mt-1.5 font-mono text-[10.5px] text-fg-subtle">
@@ -204,14 +204,14 @@ export function SettingsPage() {
         </ul>
       </DashboardCard>
 
-      <DashboardCard title="Risk model" subtitle="Thresholds and coordinator weights" icon={ShieldCheck} iconColor="#34d399">
+      <DashboardCard title="Risk model" subtitle="Thresholds and coordinator weights" icon={ShieldCheck} iconColor="#059669">
         <div className="grid grid-cols-3 gap-2">
           {[
             { level: 'LOW' as const, range: `< ${MODERATE_THRESHOLD * 100}%` },
             { level: 'MODERATE' as const, range: `${MODERATE_THRESHOLD * 100}–${HIGH_THRESHOLD * 100 - 1}%` },
             { level: 'HIGH' as const, range: `≥ ${HIGH_THRESHOLD * 100}%` },
           ].map((band) => (
-            <div key={band.level} className={cn('rounded-xl border border-white/[0.06] p-3', RISK_STYLES[band.level].soft)}>
+            <div key={band.level} className={cn('rounded-xl border border-black/[0.06] p-3', RISK_STYLES[band.level].soft)}>
               <p className={cn('text-xs font-semibold', RISK_STYLES[band.level].text)}>{band.level}</p>
               <p className="mt-1 text-sm text-fg tabular">{band.range}</p>
             </div>

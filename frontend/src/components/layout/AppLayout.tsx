@@ -19,7 +19,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
   }, [route]);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="app-shell relative min-h-screen">
       <div className="app-backdrop" aria-hidden />
       <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
       <div className="relative z-10 lg:pl-64">
@@ -45,7 +45,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
           type="button"
           onClick={() => setChatOpen(true)}
           aria-label="Open EcoSentinel assistant"
-          className="fixed right-5 bottom-5 z-40 flex items-center gap-2 rounded-full border border-white/[0.1] bg-brand px-4 py-3 text-ink-950 shadow-lg shadow-black/30 transition hover:brightness-110"
+          className="fixed right-5 bottom-5 z-40 flex items-center gap-2 rounded-full border border-black/[0.1] bg-brand px-4 py-3 text-ink-950 shadow-lg shadow-black/30 transition hover:brightness-110"
         >
           <Sparkles className="size-4" />
           <span className="text-[12.5px] font-semibold">Ask EcoSentinel</span>

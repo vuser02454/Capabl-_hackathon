@@ -52,19 +52,19 @@ const GROUPS: Array<{ label: string; items: NavEntry[] }> = [
 ];
 
 export const STATUS_TONE_COLORS = {
-  operational: '#34d399',
-  running: '#2dd4bf',
-  degraded: '#f5b544',
-  offline: '#f26b6b',
+  operational: '#059669',
+  running: '#0d9488',
+  degraded: '#d97706',
+  offline: '#dc2626',
 } as const;
 
 const STEP_COLORS: Record<StepStatus, string> = {
-  idle: 'rgb(255 255 255 / 0.12)',
-  queued: 'rgb(255 255 255 / 0.2)',
-  running: '#2dd4bf',
-  complete: '#34d399',
-  failed: '#f26b6b',
-  timeout: '#f5b544',
+  idle: 'rgb(15 23 42 / 0.12)',
+  queued: 'rgb(15 23 42 / 0.2)',
+  running: '#0d9488',
+  complete: '#059669',
+  failed: '#dc2626',
+  timeout: '#d97706',
 };
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
@@ -73,7 +73,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex h-16 items-center gap-3 border-b border-white/[0.05] px-5">
+      <div className="flex h-16 items-center gap-3 border-b border-black/[0.05] px-5">
         <Logo />
         <div className="leading-tight">
           <p className="text-[15px] font-semibold tracking-tight text-fg">
@@ -92,7 +92,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                 const active = route === item.id;
                 const Icon = item.icon;
                 const step = item.agent ? state.steps[item.agent] : null;
-                const accent = item.agent ? AGENT_META[item.agent].color : '#2dd4bf';
+                const accent = item.agent ? AGENT_META[item.agent].color : '#0d9488';
                 return (
                   <li key={item.id}>
                     <button
@@ -104,13 +104,13 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                       aria-current={active ? 'page' : undefined}
                       className={cn(
                         'group relative flex h-9 w-full items-center gap-3 rounded-lg px-3 text-[13px] font-medium transition-colors',
-                        active ? 'text-fg' : 'text-fg-muted hover:bg-white/[0.035] hover:text-fg',
+                        active ? 'text-fg' : 'text-fg-muted hover:bg-black/[0.035] hover:text-fg',
                       )}
                     >
                       {active && (
                         <motion.span
                           layoutId="sidebar-active"
-                          className="absolute inset-0 rounded-lg border border-white/[0.07] bg-white/[0.055]"
+                          className="absolute inset-0 rounded-lg border border-black/[0.07] bg-black/[0.055]"
                           transition={{ type: 'spring', stiffness: 480, damping: 40 }}
                         >
                           <span className="absolute top-2 bottom-2 -left-3 w-[3px] rounded-r-full" style={{ background: accent }} />
@@ -137,7 +137,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="p-3">
-        <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-3.5">
+        <div className="rounded-xl border border-black/[0.06] bg-black/[0.025] p-3.5">
           <p className="eyebrow">System Status</p>
           <div className="mt-2 flex items-center gap-2 text-xs font-medium text-fg">
             <StatusDot color={STATUS_TONE_COLORS[systemStatus.tone]} pulse={systemStatus.tone !== 'offline'} />
@@ -163,7 +163,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-white/[0.05] bg-ink-950/70 backdrop-blur-xl lg:block">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-black/[0.05] bg-ink-950/70 backdrop-blur-xl lg:block">
         <SidebarContent />
       </aside>
 
@@ -172,13 +172,13 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           <div className="fixed inset-0 z-50 lg:hidden">
             <motion.div className="absolute inset-0 bg-black/60 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
             <motion.aside
-              className="absolute inset-y-0 left-0 w-72 max-w-[85vw] border-r border-white/[0.06] bg-ink-900"
+              className="absolute inset-y-0 left-0 w-72 max-w-[85vw] border-r border-black/[0.06] bg-ink-900"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 380, damping: 38 }}
             >
-              <button type="button" onClick={onClose} className="absolute top-4 right-3 rounded-lg p-2 text-fg-muted hover:bg-white/5" aria-label="Close menu">
+              <button type="button" onClick={onClose} className="absolute top-4 right-3 rounded-lg p-2 text-fg-muted hover:bg-black/5" aria-label="Close menu">
                 <X className="size-4" />
               </button>
               <SidebarContent onNavigate={onClose} />

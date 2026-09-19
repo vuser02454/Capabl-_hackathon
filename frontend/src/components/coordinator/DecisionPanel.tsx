@@ -57,7 +57,7 @@ type Tab = 'why' | 'evidence' | 'plan';
 
 function ProblemRow({ problem, primary }: { problem: EnvironmentalProblem; primary?: boolean }) {
   return (
-    <div className={cn('rounded-lg border px-3 py-2', primary ? 'border-brand/30 bg-brand/[0.06]' : 'border-white/[0.06] bg-white/[0.02]')}>
+    <div className={cn('rounded-lg border px-3 py-2', primary ? 'border-brand/30 bg-brand/[0.06]' : 'border-black/[0.06] bg-black/[0.02]')}>
       <div className="flex items-baseline justify-between gap-3">
         <span className={cn('text-sm', primary ? 'font-medium text-fg' : 'text-fg-muted')}>{problem.title}</span>
         <span className={cn('shrink-0 text-[11px] font-medium', RISK_COLOR[problem.severity])}>{problem.severity}</span>
@@ -155,7 +155,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
-          className="flex w-full items-center justify-between rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs text-fg-muted transition hover:bg-white/[0.06]"
+          className="flex w-full items-center justify-between rounded-lg border border-black/[0.08] bg-black/[0.03] px-3 py-2 text-xs text-fg-muted transition hover:bg-black/[0.06]"
         >
           <span className="flex items-center gap-2">
             <ScanSearch className="size-3.5" /> Why this decision?
@@ -172,7 +172,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
               className="overflow-hidden"
             >
               <div className="space-y-3 pt-1">
-                <div className="flex gap-1 rounded-lg border border-white/[0.06] bg-white/[0.02] p-1">
+                <div className="flex gap-1 rounded-lg border border-black/[0.06] bg-black/[0.02] p-1">
                   {([
                     ['why', 'Decision trace', Activity],
                     ['evidence', 'Evidence', FlaskConical],
@@ -184,7 +184,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
                       onClick={() => setTab(key)}
                       className={cn(
                         'flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1.5 text-[11px] transition',
-                        tab === key ? 'bg-white/[0.07] text-fg' : 'text-fg-subtle hover:text-fg-muted',
+                        tab === key ? 'bg-black/[0.07] text-fg' : 'text-fg-subtle hover:text-fg-muted',
                       )}
                     >
                       <Icon className="size-3" />
@@ -197,7 +197,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
                   <ol className="space-y-2">
                     {decision.decisionTrace.map((step) => (
                       <li key={step.step} className="flex gap-2.5 text-[11px]">
-                        <span className="mt-px grid size-4 shrink-0 place-items-center rounded-full border border-white/10 text-[9px] text-fg-subtle tabular">
+                        <span className="mt-px grid size-4 shrink-0 place-items-center rounded-full border border-black/10 text-[9px] text-fg-subtle tabular">
                           {step.step}
                         </span>
                         <span className="min-w-0">
@@ -244,7 +244,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
                       <li className="text-[11px] text-fg-subtle">No further investigation is required.</li>
                     )}
                     {decision.investigationPlan.map((action) => (
-                      <li key={action.actionId} className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2">
+                      <li key={action.actionId} className="rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2">
                         <p className="text-xs text-fg">{action.title}</p>
                         <p className="mt-0.5 text-[10.5px] text-fg-subtle">Missing: {action.missingData}</p>
                         <p className="mt-0.5 text-[10.5px] text-fg-subtle">Why: {action.rationale}</p>
@@ -255,7 +255,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
                 )}
 
                 {decision.crossSignalFindings.length > 0 && (
-                  <div className="space-y-1.5 border-t border-white/[0.06] pt-2.5">
+                  <div className="space-y-1.5 border-t border-black/[0.06] pt-2.5">
                     <p className="eyebrow">Cross-signal findings</p>
                     {decision.crossSignalFindings.map((finding) => (
                       <p key={finding.findingId} className="text-[11px] text-fg-subtle">{finding.detail}</p>
@@ -264,7 +264,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
                 )}
 
                 {decision.dataGaps.length > 0 && (
-                  <div className="space-y-1 border-t border-white/[0.06] pt-2.5">
+                  <div className="space-y-1 border-t border-black/[0.06] pt-2.5">
                     <p className="eyebrow">Data gaps</p>
                     {decision.dataGaps.map((gap) => (
                       <p key={gap} className="flex items-start gap-1.5 text-[11px] text-fg-subtle">
@@ -277,7 +277,7 @@ export function DecisionPanel({ decision, className }: { decision: Environmental
 
                 {/* Shown apart from the decision, because it explains rather than decides. */}
                 {decision.llmExplanation && (
-                  <div className="space-y-1 border-t border-white/[0.06] pt-2.5">
+                  <div className="space-y-1 border-t border-black/[0.06] pt-2.5">
                     <p className="eyebrow flex items-center gap-1.5">
                       <Sparkles className="size-3" /> Plain-language summary
                     </p>

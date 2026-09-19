@@ -112,7 +112,7 @@ function FlowNode({
   const meta = isAgent ? AGENT_META[id as AgentId] : null;
   const info = isAgent ? null : INFO[id as Exclude<NodeId, AgentId>];
   const Icon = meta?.icon ?? info!.icon;
-  const color = meta?.color ?? '#2dd4bf';
+  const color = meta?.color ?? '#0d9488';
   const eyebrow = meta ? (id === 'coordinator' ? 'Orchestrating agent' : 'Specialist') : info!.eyebrow;
   const title = meta ? (id === 'coordinator' ? meta.name : meta.short) : info!.title;
 
@@ -127,7 +127,7 @@ function FlowNode({
       aria-pressed={selected}
       className={cn(
         'group relative flex w-full items-center gap-3 rounded-xl border bg-ink-900/70 p-3 text-left transition-colors duration-300',
-        selected ? 'bg-white/[0.04]' : 'border-white/[0.08] hover:border-white/[0.16]',
+        selected ? 'bg-black/[0.04]' : 'border-black/[0.08] hover:border-black/[0.16]',
         className,
       )}
       style={selected || lit ? { borderColor: `${color}80`, boxShadow: `0 0 0 1px ${color}30, 0 0 36px -10px ${color}90` } : undefined}
@@ -166,7 +166,7 @@ function NodeDetail({ id }: { id: NodeId }) {
           <AgentPipelineSpec agent={agent} stacked />
         </div>
         {level && score !== undefined && (
-          <div className="mt-4 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 text-xs text-fg-subtle">
+          <div className="mt-4 flex items-center justify-between rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5 text-xs text-fg-subtle">
             Latest output
             <span className="flex items-center gap-2">
               <RiskBadge level={level} />
@@ -190,7 +190,7 @@ function NodeDetail({ id }: { id: NodeId }) {
       {info.details && (
         <ul className="mt-4 space-y-1.5">
           {info.details.map((detail) => (
-            <li key={detail} className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5 font-mono text-[11px] text-fg-muted">
+            <li key={detail} className="rounded-lg border border-black/[0.06] bg-black/[0.02] px-2.5 py-1.5 font-mono text-[11px] text-fg-muted">
               {detail}
             </li>
           ))}
@@ -264,9 +264,9 @@ export function ArchitectureFlow() {
           <div className="mx-auto max-w-sm">
             <FlowNode {...nodeProps('inputs')} />
             <div className="mt-2 flex justify-center gap-1.5 text-[10.5px] text-fg-subtle">
-              <span className="inline-flex items-center gap-1 rounded-md border border-white/[0.06] px-1.5 py-0.5"><MapPin className="size-3" />Location</span>
-              <span className="inline-flex items-center gap-1 rounded-md border border-white/[0.06] px-1.5 py-0.5"><Radio className="size-3" />Sensor</span>
-              <span className="inline-flex items-center gap-1 rounded-md border border-white/[0.06] px-1.5 py-0.5"><ImageIcon className="size-3" />Image</span>
+              <span className="inline-flex items-center gap-1 rounded-md border border-black/[0.06] px-1.5 py-0.5"><MapPin className="size-3" />Location</span>
+              <span className="inline-flex items-center gap-1 rounded-md border border-black/[0.06] px-1.5 py-0.5"><Radio className="size-3" />Sensor</span>
+              <span className="inline-flex items-center gap-1 rounded-md border border-black/[0.06] px-1.5 py-0.5"><ImageIcon className="size-3" />Image</span>
             </div>
           </div>
           <VerticalConnector />
@@ -274,7 +274,7 @@ export function ArchitectureFlow() {
             <FlowNode {...nodeProps('triage')} />
           </div>
           <BranchConnector direction="out" running={playing !== null && playing <= 3} />
-          <div className="rounded-2xl border border-dashed border-white/[0.1] p-3 sm:p-4">
+          <div className="rounded-2xl border border-dashed border-black/[0.1] p-3 sm:p-4">
             <p className="eyebrow mb-3 text-center">Specialist investigators · run concurrently</p>
             <div className="grid gap-2.5 sm:grid-cols-3">
               {SPECIALISTS.map((agent) => (

@@ -33,7 +33,7 @@ function StepNode({ status, color, icon: Icon }: { status: StepStatus; color: st
   return (
     <span
       className="relative z-10 grid size-8 shrink-0 place-items-center rounded-full border bg-ink-900 transition-colors duration-300"
-      style={{ borderColor: idle ? 'rgb(255 255 255 / 0.1)' : failed ? '#f26b6b80' : timeout ? '#f5b54480' : status === 'complete' ? `${color}70` : color }}
+      style={{ borderColor: idle ? 'rgb(15 23 42 / 0.1)' : failed ? '#dc262680' : timeout ? '#d9770680' : status === 'complete' ? `${color}70` : color }}
     >
       {status === 'running' && (
         <>
@@ -52,7 +52,7 @@ function StepNode({ status, color, icon: Icon }: { status: StepStatus; color: st
       ) : timeout ? (
         <Clock3 className="size-4 text-risk-moderate" />
       ) : (
-        <Icon className="size-3.5" style={{ color: status === 'running' ? color : '#69757e' }} />
+        <Icon className="size-3.5" style={{ color: status === 'running' ? color : '#838d97' }} />
       )}
     </span>
   );
@@ -83,7 +83,7 @@ function TimelineItem({ step, isLast }: { step: AgentStepState; isLast: boolean 
   return (
     <li className="relative flex gap-3.5 pb-5 last:pb-0">
       {!isLast && (
-        <span aria-hidden className="absolute top-9 bottom-1 left-[15.5px] w-px overflow-hidden bg-white/[0.07]">
+        <span aria-hidden className="absolute top-9 bottom-1 left-[15.5px] w-px overflow-hidden bg-black/[0.07]">
           <motion.span
             className="absolute inset-x-0 top-0 block"
             style={{ background: `linear-gradient(${meta.color}, ${meta.color}30)` }}
@@ -142,7 +142,7 @@ function HandOff({ steps }: { steps: Record<AgentId, AgentStepState> }) {
   const active = settled && steps.coordinator.status !== 'idle';
   return (
     <li aria-hidden className="relative -mt-1 mb-4 ml-11 flex items-center gap-2 text-[10.5px] text-fg-subtle">
-      <GitMerge className="size-3.5 transition-colors" style={{ color: active ? '#2dd4bf' : undefined }} />
+      <GitMerge className="size-3.5 transition-colors" style={{ color: active ? '#0d9488' : undefined }} />
       <span className={cn('transition-colors', active && 'text-fg-muted')}>
         {received}/3 specialist reports handed off to Coordinator
       </span>
@@ -162,14 +162,14 @@ export function AgentTimeline({ agents = AGENT_ORDER, className }: { agents?: Ag
       ? { label: 'Interrupted', className: 'border-risk-high/30 bg-risk-high/10 text-risk-high' }
       : phase === 'complete'
         ? { label: 'Complete', className: 'border-risk-low/25 bg-risk-low/10 text-risk-low' }
-        : { label: 'Idle', className: 'border-white/10 bg-white/5 text-fg-subtle' };
+        : { label: 'Idle', className: 'border-black/10 bg-black/5 text-fg-subtle' };
 
   return (
     <DashboardCard
       title="Agent Activity"
       subtitle="Live execution of independent agents"
       icon={Activity}
-      iconColor="#2dd4bf"
+      iconColor="#0d9488"
       className={className}
       actions={<span className={cn('rounded-full border px-2 py-0.5 text-[10.5px] font-medium', chip.className)}>{chip.label}</span>}
     >

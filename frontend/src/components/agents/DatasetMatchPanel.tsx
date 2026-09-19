@@ -36,18 +36,18 @@ export function DatasetMatchPanel({ match }: { match: WaterDatasetMatch }) {
       }
     >
       {match.status === 'indexing' ? (
-        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3">
+        <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-3">
           <p className="text-[12.5px] text-fg-muted">{match.message ?? STATUS_COPY.indexing}</p>
           <ProgressBar className="mt-2" value={match.progress ?? 0} color={color} />
         </div>
       ) : !matched && match.status !== 'no_match' ? (
-        <p className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
+        <p className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-3 text-[12.5px] text-fg-muted">
           {match.message ?? STATUS_COPY[match.status] ?? 'Reference matching did not run.'}
         </p>
       ) : (
         <>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+            <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">Resembles</p>
               <p className={cn('mt-1 text-lg font-semibold', level ? level.text : 'text-fg')}>
                 {matched ? (match.matchedLabel ?? match.matchedClass) : 'No match'}
@@ -56,14 +56,14 @@ export function DatasetMatchPanel({ match }: { match: WaterDatasetMatch }) {
                 {matched ? `class "${match.matchedClass}"` : `below the ${match.matchThreshold?.toFixed(2)} threshold`}
               </p>
             </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+            <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">Similarity</p>
               <p className="tabular mt-1 text-lg font-semibold text-fg">
                 {match.similarity != null ? `${pct(match.similarity)}%` : '—'}
               </p>
               <p className="text-[10.5px] text-fg-subtle">closest reference frame</p>
             </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+            <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
               <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">Neighbour vote</p>
               <p className="tabular mt-1 text-lg font-semibold text-fg">
                 {match.voteShare != null ? `${pct(match.voteShare)}%` : '—'}
@@ -83,7 +83,7 @@ export function DatasetMatchPanel({ match }: { match: WaterDatasetMatch }) {
           )}
 
           {match.neighbours.length > 0 && (
-            <ul className="mt-3 space-y-1.5 border-t border-white/[0.06] pt-3">
+            <ul className="mt-3 space-y-1.5 border-t border-black/[0.06] pt-3">
               {match.neighbours.map((neighbour) => (
                 <li key={neighbour.file} className="flex items-baseline justify-between gap-3">
                   <span className="truncate font-mono text-[11px] text-fg-muted">{neighbour.file}</span>
@@ -99,7 +99,7 @@ export function DatasetMatchPanel({ match }: { match: WaterDatasetMatch }) {
       )}
 
       {match.caveat && (
-        <p className="mt-3 border-t border-white/[0.06] pt-3 text-[10.5px] leading-relaxed text-fg-subtle">
+        <p className="mt-3 border-t border-black/[0.06] pt-3 text-[10.5px] leading-relaxed text-fg-subtle">
           <span className="font-medium text-fg-muted">How reliable is this? </span>
           {match.caveat}
         </p>

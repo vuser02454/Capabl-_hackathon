@@ -103,7 +103,7 @@ export function InvestigationMode({ decision }: { decision: EnvironmentalDecisio
 
         {/* ------------------------------------------------------------- 2. not established */}
         {notEstablished.length > 0 && (
-          <section className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+          <section className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
             <h4 className="flex items-center gap-1.5 text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
               <CircleHelp className="size-3" /> Not established
             </h4>
@@ -135,7 +135,7 @@ export function InvestigationMode({ decision }: { decision: EnvironmentalDecisio
                         'flex cursor-pointer items-start gap-2.5 rounded-lg border px-2.5 py-2 transition',
                         checked
                           ? 'border-risk-low/25 bg-risk-low/[0.05]'
-                          : 'border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05]',
+                          : 'border-black/[0.06] bg-black/[0.02] hover:bg-black/[0.05]',
                       )}
                     >
                       <input
@@ -190,7 +190,7 @@ export function InvestigationMode({ decision }: { decision: EnvironmentalDecisio
 
         {/* ------------------------------------------------------------- 4. gaps */}
         {gaps.length > 0 && (
-          <section className="border-t border-white/[0.06] pt-2.5">
+          <section className="border-t border-black/[0.06] pt-2.5">
             <h4 className="text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
               Data gaps
             </h4>

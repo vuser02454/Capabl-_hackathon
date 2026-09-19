@@ -39,7 +39,7 @@ export function AgentPipelineSpec({ agent, stacked = false }: { agent: AgentId; 
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.06 }}
-          className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-3"
+          className="relative rounded-xl border border-black/[0.06] bg-black/[0.02] p-3"
         >
           <div className="flex items-center gap-2 text-[10.5px] font-semibold tracking-[0.12em] uppercase" style={{ color: meta.color }}>
             <column.icon className="size-3.5" />
@@ -54,7 +54,7 @@ export function AgentPipelineSpec({ agent, stacked = false }: { agent: AgentId; 
             ))}
           </ul>
           {!stacked && index < columns.length - 1 && (
-            <span className="absolute top-1/2 -right-[13px] z-10 hidden -translate-y-1/2 rounded-full border border-white/10 bg-ink-900 p-0.5 lg:block">
+            <span className="absolute top-1/2 -right-[13px] z-10 hidden -translate-y-1/2 rounded-full border border-black/10 bg-ink-900 p-0.5 lg:block">
               <ChevronRight className="size-3 text-fg-subtle" />
             </span>
           )}
@@ -69,7 +69,7 @@ export function MeasurementTable({ measurements }: { measurements: Measurement[]
     <div className="overflow-x-auto">
       <table className="w-full min-w-[540px] text-left text-xs">
         <thead>
-          <tr className="border-b border-white/[0.06] text-[10.5px] tracking-wider text-fg-subtle uppercase">
+          <tr className="border-b border-black/[0.06] text-[10.5px] tracking-wider text-fg-subtle uppercase">
             <th className="py-2 pr-3 font-medium">Parameter</th>
             <th className="py-2 pr-3 font-medium">Value</th>
             <th className="py-2 pr-3 font-medium">Guideline</th>
@@ -81,7 +81,7 @@ export function MeasurementTable({ measurements }: { measurements: Measurement[]
           {measurements.map((m) => {
             const status = MEASUREMENT_STATUS_STYLES[m.status];
             return (
-              <tr key={m.key} className="border-b border-white/[0.04] last:border-0">
+              <tr key={m.key} className="border-b border-black/[0.04] last:border-0">
                 <td className="py-2.5 pr-3 font-medium text-fg">{m.label}</td>
                 <td className="py-2.5 pr-3 text-fg tabular">
                   {formatValue(m.value)} <span className="text-fg-subtle">{m.value !== null && m.unit}</span>
@@ -118,9 +118,9 @@ export function MeasurementTable({ measurements }: { measurements: Measurement[]
 function highlightJson(json: string) {
   const escaped = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return escaped.replace(/("(\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g, (match) => {
-    let cls = 'text-[#f5b544]';
-    if (match.startsWith('"')) cls = match.endsWith(':') ? 'text-[#7dd3fc]' : 'text-[#a7f3d0]';
-    else if (match === 'true' || match === 'false') cls = 'text-[#c79bff]';
+    let cls = 'text-[#d97706]';
+    if (match.startsWith('"')) cls = match.endsWith(':') ? 'text-[#0284c7]' : 'text-[#059669]';
+    else if (match === 'true' || match === 'false') cls = 'text-[#9333ea]';
     else if (match === 'null') cls = 'text-fg-subtle';
     return `<span class="${cls}">${match}</span>`;
   });
@@ -161,7 +161,7 @@ export function StructuredOutput({ data, typeName, title = 'Structured output' }
       }
     >
       <pre
-        className="max-h-96 overflow-auto rounded-xl border border-white/[0.05] bg-ink-950/70 p-4 font-mono text-[11.5px] leading-relaxed text-fg-muted"
+        className="max-h-96 overflow-auto rounded-xl border border-black/[0.05] bg-ink-950/70 p-4 font-mono text-[11.5px] leading-relaxed text-fg-muted"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </DashboardCard>
@@ -178,7 +178,7 @@ export function FindingsCard({ result, className }: { result: SpecialistResult; 
       {result.findings.length ? (
         <ul className="space-y-2">
           {result.findings.map((finding) => (
-            <li key={finding.code} className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-3">
+            <li key={finding.code} className="rounded-xl border border-black/[0.05] bg-black/[0.02] p-3">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-sm font-medium text-fg">{finding.label}</p>
                 <span className="font-mono text-[10.5px] text-fg-subtle">{finding.code}</span>
@@ -222,7 +222,7 @@ export function AgentDetailLayout({ agent, children }: { agent: SpecialistAgentI
                 <h2 className="text-lg font-semibold tracking-tight text-fg">{meta.name}</h2>
                 {result && !pending[agent] && <RiskBadge level={result.riskLevel} suffix="RISK" size="md" />}
                 {result?.isMock && <Chip>Mock data source</Chip>}
-                {result && !result.isMock && <Chip color="#34d399">Live data</Chip>}
+                {result && !result.isMock && <Chip color="#059669">Live data</Chip>}
               </div>
               <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-fg-muted">{meta.role}</p>
               {result && (
@@ -240,7 +240,7 @@ export function AgentDetailLayout({ agent, children }: { agent: SpecialistAgentI
               )}
             </div>
           </div>
-          <div className="flex items-center gap-5 lg:border-l lg:border-white/[0.06] lg:pl-6">
+          <div className="flex items-center gap-5 lg:border-l lg:border-black/[0.06] lg:pl-6">
             {result ? <RiskGauge score={result.riskScore} level={result.riskLevel} size={104} stroke={8} /> : <div className="skeleton size-[104px] !rounded-full" />}
             <div className="space-y-2.5">
               <div>

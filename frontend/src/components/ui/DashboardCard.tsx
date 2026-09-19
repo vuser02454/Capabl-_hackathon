@@ -49,7 +49,7 @@ export function DashboardCard({
           <div className="flex min-w-0 items-center gap-3">
             {Icon && (
               <span
-                className="grid size-9 shrink-0 place-items-center rounded-xl border border-white/[0.07] bg-white/[0.03]"
+                className="grid size-9 shrink-0 place-items-center rounded-xl border border-black/[0.07] bg-black/[0.03]"
                 style={iconColor ? { color: iconColor, background: `${iconColor}12`, borderColor: `${iconColor}26` } : undefined}
               >
                 <Icon className="size-[18px]" />

@@ -38,7 +38,7 @@ function TrendTable({ history, range }: { history: TrendPoint[]; range: TrendRan
         </thead>
         <tbody className="tabular">
           {[...history].reverse().map((point) => (
-            <tr key={point.timestamp} className="border-t border-white/[0.04]">
+            <tr key={point.timestamp} className="border-t border-black/[0.04]">
               <td className="px-3 py-1.5 text-fg-muted">{trendAxisLabel(range, point.timestamp)}</td>
               <td className="px-3 py-1.5 text-right text-fg">{point.pm25 ?? '—'}</td>
               <td className="px-3 py-1.5 text-right text-fg">{point.turbidity ?? '—'}</td>

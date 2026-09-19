@@ -21,7 +21,7 @@ export function MetricCard({ label, value, unit, decimals, status, progress, hin
   const places = decimals ?? (value !== null && !Number.isInteger(value) ? 1 : 0);
 
   return (
-    <div className={cn('rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5', className)}>
+    <div className={cn('rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5', className)}>
       <div className="flex items-center justify-between gap-2">
         <span className="truncate text-[10.5px] font-medium tracking-normal text-fg-subtle uppercase">{label}</span>
         {statusStyle && (

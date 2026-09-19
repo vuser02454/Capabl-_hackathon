@@ -22,7 +22,7 @@ export interface TrendDatum {
   value: number | null;
 }
 
-const AXIS_TICK = { fill: '#69757e', fontSize: 10.5 };
+const AXIS_TICK = { fill: '#838d97', fontSize: 10.5 };
 const GRID_STROKE = 'rgba(255,255,255,0.05)';
 
 interface ChartTooltipProps {
@@ -39,7 +39,7 @@ function ChartTooltip({ active, payload, label, unit, decimals, color, series }:
   if (!active || !payload?.length) return null;
   const value = payload[0]?.value;
   return (
-    <div className="rounded-lg border border-white/10 bg-ink-850/95 px-3 py-2 shadow-xl backdrop-blur">
+    <div className="rounded-lg border border-black/10 bg-ink-850/95 px-3 py-2 shadow-xl backdrop-blur">
       <p className="text-[10.5px] text-fg-subtle">{label}</p>
       <p className="mt-0.5 flex items-center gap-1.5 text-xs text-fg-muted">
         <span className="size-2 rounded-full" style={{ background: color }} />
@@ -95,7 +95,7 @@ export function TrendChart({
   const reference = threshold && (
     <ReferenceLine
       y={threshold.value}
-      stroke="#f5b544"
+      stroke="#d97706"
       strokeOpacity={0.6}
       strokeDasharray="4 4"
       ifOverflow="extendDomain"
@@ -161,7 +161,7 @@ export function TrendChart({
                   fill={`url(#${gradientId})`}
                   connectNulls
                   dot={false}
-                  activeDot={{ r: 4, fill: color, stroke: '#0a0d10', strokeWidth: 2 }}
+                  activeDot={{ r: 4, fill: color, stroke: '#ffffff', strokeWidth: 2 }}
                   animationDuration={800}
                 />
               </AreaChart>
@@ -194,7 +194,7 @@ export function Sparkline({ data, color, unit, series, height = 56, decimals = 0
           <XAxis dataKey="label" hide />
           <YAxis hide domain={['dataMin - 4', 'dataMax + 4']} />
           <Tooltip cursor={{ stroke: 'rgba(255,255,255,0.15)' }} content={<ChartTooltip unit={unit} decimals={decimals} color={color} series={series} />} />
-          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} activeDot={{ r: 3.5, fill: color, stroke: '#0a0d10', strokeWidth: 2 }} connectNulls animationDuration={700} />
+          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} activeDot={{ r: 3.5, fill: color, stroke: '#ffffff', strokeWidth: 2 }} connectNulls animationDuration={700} />
         </LineChart>
       </ResponsiveContainer>
     </div>

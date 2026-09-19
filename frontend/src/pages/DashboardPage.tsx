@@ -10,8 +10,8 @@ import { EvidenceFusion } from '../components/coordinator/EvidenceFusion';
 import { InvestigationMode } from '../components/coordinator/InvestigationMode';
 import { RetrievedKnowledgePanel } from '../components/coordinator/RetrievedKnowledgePanel';
 import { DataProvenance } from '../components/dashboard/DataProvenance';
+import { HeroOverview } from '../components/dashboard/HeroOverview';
 import { LocationBar } from '../components/dashboard/LocationBar';
-import { OverviewCards } from '../components/dashboard/OverviewCards';
 import { MapCard } from '../components/map/EnvironmentalMap';
 import { RecommendationsPanel } from '../components/recommendations/RecommendationsPanel';
 import { Button } from '../components/ui/Button';
@@ -50,7 +50,7 @@ export function DashboardPage() {
 
       {!blocking && (
         <>
-          <OverviewCards />
+          <HeroOverview />
 
           {/* The architecture, drawn from the run that just happened: what fed the decision,
               what the engine computed, and what grounded the explanation. */}

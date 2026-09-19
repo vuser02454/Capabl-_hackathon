@@ -18,9 +18,9 @@ export function TopBar({ onMenu }: { onMenu: () => void }) {
   const running = state.phase === 'running';
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/[0.05] bg-ink-950/75 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-black/[0.05] bg-ink-950/75 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1600px] items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <button type="button" onClick={onMenu} className="-ml-1 rounded-lg p-2 text-fg-muted hover:bg-white/5 hover:text-fg lg:hidden" aria-label="Open menu">
+        <button type="button" onClick={onMenu} className="-ml-1 rounded-lg p-2 text-fg-muted hover:bg-black/5 hover:text-fg lg:hidden" aria-label="Open menu">
           <Menu className="size-5" />
         </button>
 
@@ -52,7 +52,7 @@ export function TopBar({ onMenu }: { onMenu: () => void }) {
             <span className="text-[10.5px] text-fg-subtle">{formatLongDate(now)}</span>
           </div>
 
-          <div className="hidden items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.03] px-2.5 py-1.5 text-xs text-fg-muted xl:flex" role="status">
+          <div className="hidden items-center gap-2 rounded-lg border border-black/[0.07] bg-black/[0.03] px-2.5 py-1.5 text-xs text-fg-muted xl:flex" role="status">
             <StatusDot color={STATUS_TONE_COLORS[systemStatus.tone]} size={7} pulse={systemStatus.tone !== 'offline'} />
             {systemStatus.label}
           </div>
@@ -61,7 +61,7 @@ export function TopBar({ onMenu }: { onMenu: () => void }) {
             type="button"
             onClick={() => void runAnalysis({ instant: true })}
             disabled={running}
-            className="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-fg-muted transition hover:border-white/15 hover:bg-white/[0.08] hover:text-fg disabled:opacity-60"
+            className="grid size-9 place-items-center rounded-xl border border-black/10 bg-black/[0.04] text-fg-muted transition hover:border-black/15 hover:bg-black/[0.08] hover:text-fg disabled:opacity-60"
             aria-label="Refresh environmental data"
             title="Refresh data"
           >

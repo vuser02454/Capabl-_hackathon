@@ -11,7 +11,7 @@ function RadarTooltip({ active, payload }: RadarTooltipProps) {
   const point = payload?.[0]?.payload;
   if (!active || !point) return null;
   return (
-    <div className="rounded-lg border border-white/10 bg-ink-850/95 px-3 py-2 shadow-xl backdrop-blur">
+    <div className="rounded-lg border border-black/10 bg-ink-850/95 px-3 py-2 shadow-xl backdrop-blur">
       <p className="text-[10.5px] text-fg-subtle">{point.label}</p>
       <p className="mt-0.5 text-xs text-fg">
         {point.value === null || point.value === undefined ? '—' : point.value} {point.unit}
@@ -28,7 +28,7 @@ function RadarTooltip({ active, payload }: RadarTooltipProps) {
  * values are never plotted on one axis — only the agent's own normalized sub-scores are, and the
  * chart is explicitly labelled as relative, not a risk score.
  */
-export function ParameterRadar({ measurements, color = '#7c9cff', height = 260 }: { measurements: Measurement[]; color?: string; height?: number }) {
+export function ParameterRadar({ measurements, color = '#4f46e5', height = 260 }: { measurements: Measurement[]; color?: string; height?: number }) {
   const points = measurements
     .filter((m) => m.subScore !== null && m.subScore !== undefined)
     .map((m) => ({ label: m.label, subScore: m.subScore as number, value: m.value, unit: m.unit }));
@@ -48,8 +48,8 @@ export function ParameterRadar({ measurements, color = '#7c9cff', height = 260 }
     <div style={{ height }}>
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart data={points} outerRadius="72%">
-          <PolarGrid stroke="rgba(255,255,255,0.08)" />
-          <PolarAngleAxis dataKey="label" tick={{ fill: '#9aa5ad', fontSize: 11 }} />
+          <PolarGrid stroke="rgba(15,23,42,0.1)" />
+          <PolarAngleAxis dataKey="label" tick={{ fill: '#545e68', fontSize: 11 }} />
           <Radar dataKey="subScore" stroke={color} fill={color} fillOpacity={0.28} strokeWidth={2} isAnimationActive animationDuration={700} />
           <Tooltip content={<RadarTooltip />} />
         </RadarChart>

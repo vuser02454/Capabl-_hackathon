@@ -18,11 +18,11 @@ export function HowItWorksPage() {
       <ArchitectureFlow />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <DashboardCard title="Not a chatbot" icon={X} iconColor="#f26b6b">
+        <DashboardCard title="Not a chatbot" icon={X} iconColor="#dc2626">
           <p className="font-mono text-sm text-fg-muted">User → LLM → Answer</p>
           <p className="mt-2 text-xs leading-relaxed text-fg-subtle">A single model sees everything at once, so no source can be audited, swapped or trusted on its own.</p>
         </DashboardCard>
-        <DashboardCard title="A multi-agent system" icon={Check} iconColor="#34d399">
+        <DashboardCard title="A multi-agent system" icon={Check} iconColor="#059669">
           <p className="font-mono text-sm text-fg">Data → Specialist Agents → Coordinator → Decision</p>
           <p className="mt-2 text-xs leading-relaxed text-fg-subtle">
             Each agent owns one data source and emits a typed report. The Coordinator consumes only those reports, so a failing sensor degrades one input — not the decision.
@@ -41,7 +41,7 @@ export function HowItWorksPage() {
                   <meta.icon className="size-4" style={{ color: meta.color }} />
                   <p className="font-mono text-[13px] font-medium text-fg">{contract.name}</p>
                 </div>
-                <pre className="mt-3 overflow-x-auto rounded-lg border border-white/[0.05] bg-ink-950/60 p-3 font-mono text-[11px] leading-relaxed text-fg-muted">
+                <pre className="mt-3 overflow-x-auto rounded-lg border border-black/[0.05] bg-ink-950/60 p-3 font-mono text-[11px] leading-relaxed text-fg-muted">
                   {'{\n'}
                   {contract.fields.map((field) => `  ${field}\n`).join('')}
                   {'}'}

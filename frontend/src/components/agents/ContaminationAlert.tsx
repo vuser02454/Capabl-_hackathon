@@ -74,7 +74,7 @@ export function ContaminationAlert({ match, photo, source, waterRiskLevel, water
         </div>
       </div>
 
-      <div className="mt-3 rounded-xl border border-white/[0.07] bg-ink-950/30 px-3 py-2.5">
+      <div className="mt-3 rounded-xl border border-black/[0.07] bg-ink-950/30 px-3 py-2.5">
         <p className="flex items-center gap-1.5 text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">
           <MapPin className="size-3" /> Your location
         </p>

@@ -135,7 +135,7 @@ export function ContaminationReportDialog({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[85] grid place-items-center overflow-y-auto bg-ink-950/80 p-4 backdrop-blur-sm"
+          className="app-shell fixed inset-0 z-[85] grid place-items-center overflow-y-auto bg-ink-950/80 p-4 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -187,7 +187,7 @@ export function ContaminationReportDialog({
                       <span>{receipt.message}</span>
                     </p>
                   </div>
-                  <pre className="mt-3 max-h-64 overflow-auto rounded-xl border border-white/[0.06] bg-ink-950/60 p-3 text-[11px] leading-relaxed whitespace-pre-wrap text-fg-muted">
+                  <pre className="mt-3 max-h-64 overflow-auto rounded-xl border border-black/[0.06] bg-ink-950/60 p-3 text-[11px] leading-relaxed whitespace-pre-wrap text-fg-muted">
                     {receipt.summary}
                   </pre>
                   <div className="mt-4 flex flex-wrap justify-end gap-2">
@@ -204,7 +204,7 @@ export function ContaminationReportDialog({
                 </>
               ) : (
                 <>
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+                  <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
                     <p className="flex items-center gap-1.5 text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">
                       <MapPin className="size-3" /> Location that will be sent
                     </p>
@@ -227,7 +227,7 @@ export function ContaminationReportDialog({
                     )}
                   </div>
 
-                  <div className="mt-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+                  <div className="mt-3 rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
                     <p className="text-[10.5px] font-medium tracking-wider text-fg-subtle uppercase">Evidence</p>
                     <dl className="mt-1.5 text-xs">
                       <Row label="Resembles">{match.matchedLabel ?? 'No confident match'}</Row>
@@ -240,7 +240,7 @@ export function ContaminationReportDialog({
                       <Row label="Source">{source === 'camera' ? 'live camera frame' : 'uploaded photo'}</Row>
                     </dl>
                     {match.caveat && (
-                      <p className="mt-2 border-t border-white/[0.06] pt-2 text-[10.5px] leading-relaxed text-fg-subtle">
+                      <p className="mt-2 border-t border-black/[0.06] pt-2 text-[10.5px] leading-relaxed text-fg-subtle">
                         This caveat is included in the report itself: {match.caveat}
                       </p>
                     )}
@@ -255,7 +255,7 @@ export function ContaminationReportDialog({
                       onChange={(event) => setNote(event.target.value.slice(0, 1000))}
                       rows={3}
                       placeholder="e.g. Thick foam along the eastern bank, strong smell since Tuesday."
-                      className="mt-1 w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-xs text-fg outline-none placeholder:text-fg-subtle focus:border-brand/50"
+                      className="mt-1 w-full rounded-xl border border-black/[0.08] bg-black/[0.02] px-3 py-2 text-xs text-fg outline-none placeholder:text-fg-subtle focus:border-brand/50"
                     />
                   </label>
 
@@ -267,11 +267,11 @@ export function ContaminationReportDialog({
                       value={contact}
                       onChange={(event) => setContact(event.target.value.slice(0, 200))}
                       placeholder="email or phone"
-                      className="mt-1 w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-xs text-fg outline-none placeholder:text-fg-subtle focus:border-brand/50"
+                      className="mt-1 w-full rounded-xl border border-black/[0.08] bg-black/[0.02] px-3 py-2 text-xs text-fg outline-none placeholder:text-fg-subtle focus:border-brand/50"
                     />
                   </label>
 
-                  <p className="mt-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[10.5px] leading-relaxed text-fg-subtle">
+                  <p className="mt-3 rounded-xl border border-black/[0.06] bg-black/[0.02] px-3 py-2 text-[10.5px] leading-relaxed text-fg-subtle">
                     Confirming stores this report — including your exact coordinates — in the backend's report log.
                     It is forwarded onwards only if this deployment has a destination configured; otherwise nothing
                     is transmitted and you can copy or download the report to send yourself.
