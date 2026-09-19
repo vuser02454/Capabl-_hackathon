@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-09-19T16:25:29.051618+00:00",
+  "purpose": "EXPERIMENT B - single-class generic litter localiser. Offline only.",
+  "source": "datasets/taco_yolo",
+  "transform": "class id -> 0 ('litter'). Boxes, images and split membership are untouched.",
+  "splits": {
+    "train": {
+      "images": 742,
+      "boxes": 1358,
+      "source_class_ids_collapsed": {
+        "0": 2,
+        "1": 8,
+        "2": 205,
+        "3": 261,
+        "4": 640,
+        "5": 242
+      }
+    },
+    "val": {
+      "images": 148,
+      "boxes": 290,
+      "source_class_ids_collapsed": {
+        "2": 40,
+        "3": 55,
+        "4": 134,
+        "5": 61
+      }
+    },
+    "test": {
+      "images": 98,
+      "boxes": 166,
+      "source_class_ids_collapsed": {
+        "2": 28,
+        "3": 35,
+        "4": 71,
+        "5": 32
+      }
+    }
+  },
+  "leakage": {
+    "stem_overlap_between_splits": {
+      "train&val": 0,
+      "train&test": 0,
+      "val&test": 0
+    },
+    "content_duplicate_groups": 0,
+    "content_duplicates_spanning_splits": 0,
+    "split_strategy": "Inherited verbatim from datasets/taco_yolo, which splits by TACO image id. No re-split was performed here, so Experiment A and Experiment B evaluate on byte-identical test images."
+  },
+  "excluded_sources": {
+    "TUD-GV": {
+      "boxes_available": 8181,
+      "excluded": true,
+      "reason": "Water-surface domain, fixed camera, all 1920x1080. 95.94% of boxes cover under 1% of the frame and the LARGEST is 4.98%. TACO's largest is 94%. The production failure is an indoor hand-held close-up, which this distribution contains zero examples of; adding it would pull the model further from the failing case."
+    },
+    "IWHR": {
+      "boxes_available": 23689,
+      "excluded": true,
+      "reason": "Water-surface 'floater', 1920x1080. Same domain objection as TUD-GV. 'floater' is also a different annotation concept from 'litter on the ground'."
+    },
+    "Flow-Img": {
+      "boxes_available": 3248,
+      "excluded": true,
+      "reason": "Train split only - no val, no test, so it cannot be held out and would leak into any evaluation built from it. 93.87% of boxes under 1% of frame. Class is 'bottle', an object claim, and the export could not be verified against an archive (FLOW_DATASET_AUDIT.md section 0)."
+    },
+    "garbage_Dataset": {
+      "boxes_available": 0,
+      "excluded": true,
+      "reason": "Classification only. Zero bounding boxes. Used for the material classifier, never for detection."
+    },
+    "_note": "Excluded, not discarded. Each is a candidate for a later arm that tests domain transfer explicitly. Merging them into arm B would confound the one variable this experiment isolates: the class dimension."
+  },
+  "known_limitation_negative_images": "NO source contains a single image without litter - TACO 0, TUD-GV 0, IWHR 0, Flow-Img 0 background images. A detector trained on any of them has never been shown a frame whose correct answer is 'nothing here'. This is measured, not assumed, and it is the structural reason a litter localiser is expected to fire on people and furniture."
+}

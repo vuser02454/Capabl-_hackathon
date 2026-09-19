@@ -67,7 +67,13 @@ export function RealWasteDetection() {
     [api, explain],
   );
 
-  const detections = result?.detections ?? [];
+  const all = result?.detections ?? [];
+  // A box the localisation gate refused is evidence about the detector, not a waste object. It is
+  // kept and shown — under its own heading, as a refusal — but it is not drawn over the photo and
+  // it is not listed among the findings. Rendering it there put "#3 plastic_bags" on a person and
+  // made a rejection read as a detection, which is the failure this gate exists to prevent.
+  const detections = all.filter((detection) => !detection.localisationRejected);
+  const rejected = all.filter((detection) => detection.localisationRejected);
 
   return (
     <DashboardCard
@@ -197,14 +203,25 @@ export function RealWasteDetection() {
                   Not waste: <span className="text-fg-muted tabular">{result.summary.nonWasteObjects}</span>
                 </span>
               )}
+              {result.summary.localisationsRejected > 0 && (
+                <span>
+                  Refused: <span className="text-fg-muted tabular">{result.summary.localisationsRejected}</span>
+                </span>
+              )}
             </div>
 
             {/* An empty result is a real answer, and saying so beats inventing a convincing one. */}
             {detections.length === 0 && (
               <p className="rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-xs text-fg-muted">
-                {result.status === 'ok'
-                  ? 'The detector found no objects it recognises in this photo. That is not the same as "no waste is present".'
-                  : `Detection did not run. ${result.message ?? ''}`}
+                {result.status !== 'ok'
+                  ? `Detection did not run. ${result.message ?? ''}`
+                  : rejected.length > 0
+                    ? // "Nothing found" and "everything found was refused" are different answers, and
+                      // only one of them is about the photo.
+                      `No waste object survived localisation checks. The detector produced ${rejected.length} ${
+                        rejected.length === 1 ? 'box' : 'boxes'
+                      }, listed below with the reason each was refused.`
+                    : 'The detector found no objects it recognises in this photo. That is not the same as "no waste is present".'}
               </p>
             )}
 
@@ -296,6 +313,36 @@ export function RealWasteDetection() {
                   );
                 })}
               </ul>
+            )}
+
+            {/* Kept, never promoted. These are the detector's output, refused before any crop was
+                classified — useful for judging the detector, and not a claim about waste. */}
+            {rejected.length > 0 && (
+              <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+                <p className="text-[10px] font-medium tracking-wider text-fg-subtle uppercase">
+                  Refused before classification · {rejected.length}
+                </p>
+                <p className="mt-1 text-[10.5px] text-fg-subtle">
+                  The detector drew {rejected.length === 1 ? 'this box' : 'these boxes'} and the
+                  localisation check refused {rejected.length === 1 ? 'it' : 'them'}, so no crop was
+                  classified and no material is asserted. Not drawn on the photo, and not counted as
+                  waste.
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {rejected.map((detection) => (
+                    <li key={detection.id} className="text-[10.5px] text-fg-subtle">
+                      <span className="font-mono text-fg-muted">{detection.detectedObject}</span>
+                      <span> · detector {Math.round(detection.detectionConfidence * 100)}% · </span>
+                      <span className="text-fg-muted">
+                        {detection.localisationRejected === 'non_waste_object'
+                          ? 'region is not waste'
+                          : 'box is a region, not an object'}
+                      </span>
+                      {detection.message && <span> — {detection.message}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </>
         )}

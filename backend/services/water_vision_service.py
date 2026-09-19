@@ -258,6 +258,32 @@ class RoboflowHostedDetector:
 # --------------------------------------------------------------------------- helpers
 
 
+def exif_upright(image, image_ops=None):
+    """Apply the EXIF orientation tag, returning the image as a viewer would show it.
+
+    Pillow decodes the stored pixel buffer and does NOT honour `Orientation`. A browser does: an
+    `<img>` applies it by default. So a phone photo taken in portrait is stored landscape with
+    `Orientation=6`, and without this the backend measured the frame as 640x480 while the frontend
+    rendered it 480x640. The API returns `image_width`/`image_height` from the decoded array and
+    `RealWasteDetection.tsx` positions every box as a percentage of those, so the two disagreeing
+    put every box in the wrong place and stretched it — a box at `x2 = 640` became a full-width
+    overlay on a portrait photo. The detector was also being run on a sideways scene.
+
+    Shared with the waste pipeline's own decode via this function rather than restated there: the
+    crops must come out of the same frame the detector drew boxes on, and two copies of this is
+    exactly how they would drift apart.
+
+    A missing, unreadable or absent orientation tag leaves the image untouched.
+    """
+    if image_ops is None:
+        from PIL import ImageOps as image_ops  # noqa: PLC0415, N813
+
+    try:
+        return image_ops.exif_transpose(image) or image
+    except Exception:  # noqa: BLE001 - a malformed EXIF block must not fail the analysis
+        return image
+
+
 def _decode_image(content: bytes):
     """Bytes -> an array ultralytics accepts, with a clear error if the image is unreadable.
 
@@ -272,11 +298,12 @@ def _decode_image(content: bytes):
     """
     try:
         import numpy as np
-        from PIL import Image
+        from PIL import Image, ImageOps
         import io
 
         image = Image.open(io.BytesIO(content))
         image.load()
+        image = exif_upright(image, ImageOps)
         # Contiguous: the reversed view carries a negative stride, which torch refuses to share.
         return np.ascontiguousarray(np.array(image.convert("RGB"))[:, :, ::-1])
     except ImportError as exc:

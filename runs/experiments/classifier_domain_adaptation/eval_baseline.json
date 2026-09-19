@@ -1,0 +1,549 @@
+{
+  "checkpoint": "runs/classification/best.pt",
+  "label": "baseline_current",
+  "classes": [
+    "ewaste",
+    "food_waste",
+    "leaf_waste",
+    "metal_cans",
+    "paper_waste",
+    "plastic_bags",
+    "plastic_bottles",
+    "wood_waste"
+  ],
+  "threshold": 0.6,
+  "garbage_val": {
+    "n": 466,
+    "top1": 0.882,
+    "macro_precision": 0.8989,
+    "macro_recall": 0.8828,
+    "macro_f1": 0.8842,
+    "assertions": 410,
+    "assertion_coverage": 0.8798,
+    "accuracy_when_asserted": 0.9244,
+    "false_assertion_rate": 0.0665,
+    "per_class": {
+      "ewaste": {
+        "support": 54,
+        "precision": 0.7761,
+        "recall": 0.963,
+        "f1": 0.8595
+      },
+      "food_waste": {
+        "support": 60,
+        "precision": 0.9444,
+        "recall": 0.85,
+        "f1": 0.8947
+      },
+      "leaf_waste": {
+        "support": 60,
+        "precision": 0.9831,
+        "recall": 0.9667,
+        "f1": 0.9748
+      },
+      "metal_cans": {
+        "support": 60,
+        "precision": 0.918,
+        "recall": 0.9333,
+        "f1": 0.9256
+      },
+      "paper_waste": {
+        "support": 60,
+        "precision": 0.6795,
+        "recall": 0.8833,
+        "f1": 0.7681
+      },
+      "plastic_bags": {
+        "support": 53,
+        "precision": 1.0,
+        "recall": 0.8679,
+        "f1": 0.9293
+      },
+      "plastic_bottles": {
+        "support": 60,
+        "precision": 0.9767,
+        "recall": 0.7,
+        "f1": 0.8155
+      },
+      "wood_waste": {
+        "support": 59,
+        "precision": 0.9138,
+        "recall": 0.8983,
+        "f1": 0.906
+      }
+    },
+    "confusion_rows": {
+      "ewaste": {
+        "ewaste": 52,
+        "paper_waste": 1,
+        "wood_waste": 1
+      },
+      "food_waste": {
+        "ewaste": 2,
+        "food_waste": 51,
+        "metal_cans": 2,
+        "paper_waste": 4,
+        "wood_waste": 1
+      },
+      "leaf_waste": {
+        "food_waste": 2,
+        "leaf_waste": 58
+      },
+      "metal_cans": {
+        "food_waste": 1,
+        "metal_cans": 56,
+        "paper_waste": 2,
+        "plastic_bottles": 1
+      },
+      "paper_waste": {
+        "ewaste": 5,
+        "paper_waste": 53,
+        "wood_waste": 2
+      },
+      "plastic_bags": {
+        "ewaste": 3,
+        "paper_waste": 3,
+        "plastic_bags": 46,
+        "wood_waste": 1
+      },
+      "plastic_bottles": {
+        "ewaste": 1,
+        "leaf_waste": 1,
+        "metal_cans": 2,
+        "paper_waste": 14,
+        "plastic_bottles": 42
+      },
+      "wood_waste": {
+        "ewaste": 4,
+        "metal_cans": 1,
+        "paper_waste": 1,
+        "wood_waste": 53
+      }
+    },
+    "calibration": {
+      "0.2-0.3": {
+        "n": 2,
+        "acc": 0.5
+      },
+      "0.3-0.4": {
+        "n": 9,
+        "acc": 0.5556
+      },
+      "0.4-0.5": {
+        "n": 23,
+        "acc": 0.4348
+      },
+      "0.5-0.6": {
+        "n": 22,
+        "acc": 0.7273
+      },
+      "0.6-0.7": {
+        "n": 23,
+        "acc": 0.8261
+      },
+      "0.7-0.8": {
+        "n": 36,
+        "acc": 0.7222
+      },
+      "0.8-0.9": {
+        "n": 62,
+        "acc": 0.8871
+      },
+      "0.9-1.0": {
+        "n": 289,
+        "acc": 0.9654
+      }
+    }
+  },
+  "taco_val_gt": {
+    "n": 237,
+    "top1": 0.3122,
+    "macro_precision": 0.6327,
+    "macro_recall": 0.3615,
+    "macro_f1": 0.4353,
+    "assertions": 87,
+    "assertion_coverage": 0.3671,
+    "accuracy_when_asserted": 0.4023,
+    "false_assertion_rate": 0.2194,
+    "per_class": {
+      "ewaste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "food_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "leaf_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "metal_cans": {
+        "support": 31,
+        "precision": 0.7368,
+        "recall": 0.4516,
+        "f1": 0.56
+      },
+      "paper_waste": {
+        "support": 45,
+        "precision": 0.3276,
+        "recall": 0.4222,
+        "f1": 0.3689
+      },
+      "plastic_bags": {
+        "support": 114,
+        "precision": 0.7273,
+        "recall": 0.2105,
+        "f1": 0.3265
+      },
+      "plastic_bottles": {
+        "support": 47,
+        "precision": 0.7391,
+        "recall": 0.3617,
+        "f1": 0.4857
+      },
+      "wood_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "confusion_rows": {
+      "metal_cans": {
+        "ewaste": 10,
+        "metal_cans": 14,
+        "paper_waste": 2,
+        "plastic_bags": 1,
+        "plastic_bottles": 2,
+        "wood_waste": 2
+      },
+      "paper_waste": {
+        "ewaste": 8,
+        "food_waste": 2,
+        "metal_cans": 1,
+        "paper_waste": 19,
+        "plastic_bags": 4,
+        "wood_waste": 11
+      },
+      "plastic_bags": {
+        "ewaste": 20,
+        "food_waste": 2,
+        "leaf_waste": 4,
+        "metal_cans": 1,
+        "paper_waste": 30,
+        "plastic_bags": 24,
+        "plastic_bottles": 4,
+        "wood_waste": 29
+      },
+      "plastic_bottles": {
+        "ewaste": 10,
+        "food_waste": 1,
+        "metal_cans": 3,
+        "paper_waste": 7,
+        "plastic_bags": 4,
+        "plastic_bottles": 17,
+        "wood_waste": 5
+      }
+    },
+    "calibration": {
+      "0.2-0.3": {
+        "n": 24,
+        "acc": 0.1667
+      },
+      "0.3-0.4": {
+        "n": 39,
+        "acc": 0.1795
+      },
+      "0.4-0.5": {
+        "n": 45,
+        "acc": 0.3111
+      },
+      "0.5-0.6": {
+        "n": 42,
+        "acc": 0.3333
+      },
+      "0.6-0.7": {
+        "n": 30,
+        "acc": 0.3333
+      },
+      "0.7-0.8": {
+        "n": 25,
+        "acc": 0.36
+      },
+      "0.8-0.9": {
+        "n": 17,
+        "acc": 0.3529
+      },
+      "0.9-1.0": {
+        "n": 15,
+        "acc": 0.6667
+      }
+    }
+  },
+  "taco_test_gt": {
+    "n": 141,
+    "top1": 0.2411,
+    "macro_precision": 0.5545,
+    "macro_recall": 0.2681,
+    "macro_f1": 0.3447,
+    "assertions": 58,
+    "assertion_coverage": 0.4113,
+    "accuracy_when_asserted": 0.3276,
+    "false_assertion_rate": 0.2766,
+    "per_class": {
+      "ewaste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "food_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "leaf_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "metal_cans": {
+        "support": 21,
+        "precision": 0.5,
+        "recall": 0.2381,
+        "f1": 0.3226
+      },
+      "paper_waste": {
+        "support": 28,
+        "precision": 0.4615,
+        "recall": 0.4286,
+        "f1": 0.4444
+      },
+      "plastic_bags": {
+        "support": 61,
+        "precision": 0.5294,
+        "recall": 0.1475,
+        "f1": 0.2308
+      },
+      "plastic_bottles": {
+        "support": 31,
+        "precision": 0.7273,
+        "recall": 0.2581,
+        "f1": 0.381
+      },
+      "wood_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "confusion_rows": {
+      "metal_cans": {
+        "ewaste": 4,
+        "food_waste": 1,
+        "metal_cans": 5,
+        "paper_waste": 2,
+        "plastic_bags": 2,
+        "plastic_bottles": 3,
+        "wood_waste": 4
+      },
+      "paper_waste": {
+        "leaf_waste": 1,
+        "metal_cans": 1,
+        "paper_waste": 12,
+        "plastic_bags": 2,
+        "wood_waste": 12
+      },
+      "plastic_bags": {
+        "ewaste": 14,
+        "food_waste": 2,
+        "leaf_waste": 4,
+        "paper_waste": 8,
+        "plastic_bags": 9,
+        "wood_waste": 24
+      },
+      "plastic_bottles": {
+        "ewaste": 8,
+        "leaf_waste": 1,
+        "metal_cans": 4,
+        "paper_waste": 4,
+        "plastic_bags": 4,
+        "plastic_bottles": 8,
+        "wood_waste": 2
+      }
+    },
+    "calibration": {
+      "0.2-0.3": {
+        "n": 9,
+        "acc": 0.0
+      },
+      "0.3-0.4": {
+        "n": 18,
+        "acc": 0.0556
+      },
+      "0.4-0.5": {
+        "n": 29,
+        "acc": 0.2069
+      },
+      "0.5-0.6": {
+        "n": 27,
+        "acc": 0.2963
+      },
+      "0.6-0.7": {
+        "n": 14,
+        "acc": 0.2143
+      },
+      "0.7-0.8": {
+        "n": 19,
+        "acc": 0.3158
+      },
+      "0.8-0.9": {
+        "n": 13,
+        "acc": 0.3846
+      },
+      "0.9-1.0": {
+        "n": 12,
+        "acc": 0.4167
+      }
+    }
+  },
+  "taco_test_detector": {
+    "n": 82,
+    "top1": 0.3415,
+    "macro_precision": 0.6818,
+    "macro_recall": 0.3835,
+    "macro_f1": 0.4781,
+    "assertions": 31,
+    "assertion_coverage": 0.378,
+    "accuracy_when_asserted": 0.4839,
+    "false_assertion_rate": 0.1951,
+    "per_class": {
+      "ewaste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "food_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "leaf_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "metal_cans": {
+        "support": 11,
+        "precision": 0.8,
+        "recall": 0.3636,
+        "f1": 0.5
+      },
+      "paper_waste": {
+        "support": 19,
+        "precision": 0.5333,
+        "recall": 0.4211,
+        "f1": 0.4706
+      },
+      "plastic_bags": {
+        "support": 37,
+        "precision": 0.6667,
+        "recall": 0.2162,
+        "f1": 0.3265
+      },
+      "plastic_bottles": {
+        "support": 15,
+        "precision": 0.7273,
+        "recall": 0.5333,
+        "f1": 0.6154
+      },
+      "wood_waste": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "confusion_rows": {
+      "metal_cans": {
+        "ewaste": 3,
+        "metal_cans": 4,
+        "paper_waste": 1,
+        "plastic_bags": 1,
+        "plastic_bottles": 2
+      },
+      "paper_waste": {
+        "ewaste": 1,
+        "leaf_waste": 1,
+        "metal_cans": 1,
+        "paper_waste": 8,
+        "plastic_bags": 3,
+        "wood_waste": 5
+      },
+      "plastic_bags": {
+        "ewaste": 7,
+        "food_waste": 3,
+        "leaf_waste": 1,
+        "paper_waste": 5,
+        "plastic_bags": 8,
+        "plastic_bottles": 1,
+        "wood_waste": 12
+      },
+      "plastic_bottles": {
+        "ewaste": 3,
+        "food_waste": 1,
+        "leaf_waste": 1,
+        "paper_waste": 1,
+        "plastic_bottles": 8,
+        "wood_waste": 1
+      }
+    },
+    "calibration": {
+      "0.2-0.3": {
+        "n": 8,
+        "acc": 0.125
+      },
+      "0.3-0.4": {
+        "n": 12,
+        "acc": 0.4167
+      },
+      "0.4-0.5": {
+        "n": 17,
+        "acc": 0.2353
+      },
+      "0.5-0.6": {
+        "n": 14,
+        "acc": 0.2143
+      },
+      "0.6-0.7": {
+        "n": 7,
+        "acc": 0.4286
+      },
+      "0.7-0.8": {
+        "n": 6,
+        "acc": 0.5
+      },
+      "0.8-0.9": {
+        "n": 9,
+        "acc": 0.5556
+      },
+      "0.9-1.0": {
+        "n": 9,
+        "acc": 0.4444
+      }
+    }
+  }
+}

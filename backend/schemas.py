@@ -1040,6 +1040,12 @@ class WasteSegregationDetection(ApiModel):
     #: and the classifier did not confirm the same name; `classifier` when the two agree or when
     #: only the classifier can name the object (COCO detectors).
     label_source: Optional[Literal["detector", "classifier"]] = None
+    #: Why the localisation was refused before the crop was ever classified, when it was.
+    #: `degenerate_box` — the box spans almost the whole frame in both axes, so it localises a
+    #: region rather than an object. `non_waste_object` — a general-purpose detector identified
+    #: the same region as something that cannot be litter. The detection is still reported; only
+    #: the segregation claim is withheld, and `candidate` carries the detector's class.
+    localisation_rejected: Optional[Literal["degenerate_box", "non_waste_object"]] = None
     message: Optional[str] = None
     #: Grad-CAM attribution over the classifier's own prediction, when it was requested and could
     #: be computed. Absent by default: it costs a backward pass per crop and is a diagnostic, not
@@ -1060,6 +1066,10 @@ class WasteSegregationSummary(ApiModel):
     #: Detected objects whose class rules out waste entirely (a person, a car). Counted so a
     #: reader can see that some of `total_objects` are not litter.
     non_waste_objects: int = 0
+    #: Boxes refused by the localisation gate before any classification was attempted, for any
+    #: reason. Reported rather than hidden: "the detector found nothing" and "it found three
+    #: things and all three were refused" are very different states of the world.
+    localisations_rejected: int = 0
 
 
 class WasteSegregationResult(ApiModel):

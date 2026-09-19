@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-09-19T18:02:13.553281+00:00",
+  "dataset": "runs/experiments/classifier_domain_adaptation/dataset",
+  "preprocess": "letterbox_v2",
+  "augmentation": "boxjitter_v2",
+  "classes": [
+    "ewaste",
+    "food_waste",
+    "leaf_waste",
+    "metal_cans",
+    "paper_waste",
+    "plastic_bags",
+    "plastic_bottles",
+    "wood_waste"
+  ],
+  "device": "mps",
+  "args": {
+    "dataset": "runs/experiments/classifier_domain_adaptation/dataset",
+    "out": "runs/experiments/classifier_domain_adaptation/run_c",
+    "epochs": 10,
+    "batch_size": 48,
+    "image_size": 224,
+    "lr": 0.0003,
+    "workers": 4,
+    "device": "auto",
+    "seed": 1337,
+    "patience": 3,
+    "limit_per_class": 0
+  },
+  "dataset_stats": {
+    "train_samples": 19264,
+    "val_samples": 2215,
+    "excluded_leaked_from_train": 111,
+    "excluded_unusable_train": 8,
+    "excluded_unusable_val": 1,
+    "train_distribution": {
+      "metal_cans": 1505,
+      "food_waste": 10050,
+      "leaf_waste": 1151,
+      "paper_waste": 1825,
+      "plastic_bottles": 1314,
+      "ewaste": 179,
+      "wood_waste": 585,
+      "plastic_bags": 2655
+    },
+    "val_distribution": {
+      "metal_cans": 207,
+      "food_waste": 229,
+      "leaf_waste": 394,
+      "paper_waste": 406,
+      "plastic_bottles": 320,
+      "ewaste": 54,
+      "wood_waste": 59,
+      "plastic_bags": 546
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.647139217098092,
+      "val_loss": 0.6970109419144572,
+      "val_accuracy": 0.7503386004514673,
+      "macro_precision": 0.7642309633807813,
+      "macro_recall": 0.7925217501921122,
+      "macro_f1": 0.7623010632771096
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.44436930516035456,
+      "val_loss": 0.6545566983470529,
+      "val_accuracy": 0.7860045146726863,
+      "macro_precision": 0.7698806683736743,
+      "macro_recall": 0.8222156409297379,
+      "macro_f1": 0.7909548226352472
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.3813224489803726,
+      "val_loss": 0.6559228235927177,
+      "val_accuracy": 0.7891647855530474,
+      "macro_precision": 0.7707995855517407,
+      "macro_recall": 0.8133546655622943,
+      "macro_f1": 0.78497883361093
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.35247126781069166,
+      "val_loss": 0.5747021090903616,
+      "val_accuracy": 0.8248306997742664,
+      "macro_precision": 0.8378916906322313,
+      "macro_recall": 0.8451128396104569,
+      "macro_f1": 0.8385334400612448
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.3338076138615212,
+      "val_loss": 0.5827264504830939,
+      "val_accuracy": 0.8266365688487585,
+      "macro_precision": 0.8181737724195662,
+      "macro_recall": 0.8578443420433501,
+      "macro_f1": 0.8352792820800268
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.3238223416365658,
+      "val_loss": 0.567050675048785,
+      "val_accuracy": 0.8194130925507901,
+      "macro_precision": 0.8383063200052044,
+      "macro_recall": 0.8452150020328291,
+      "macro_f1": 0.8414015754545352
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.31298353414103836,
+      "val_loss": 0.5854627645311722,
+      "val_accuracy": 0.818510158013544,
+      "macro_precision": 0.8109506208893971,
+      "macro_recall": 0.8457557441049188,
+      "macro_f1": 0.8257144189060601
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.3063515327450049,
+      "val_loss": 0.5526391245979757,
+      "val_accuracy": 0.8293453724604967,
+      "macro_precision": 0.8282712303349554,
+      "macro_recall": 0.8513859553676315,
+      "macro_f1": 0.8378007361013858
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.30477370574228785,
+      "val_loss": 0.5580321062230095,
+      "val_accuracy": 0.8252821670428894,
+      "macro_precision": 0.8239588422601742,
+      "macro_recall": 0.8506067950499459,
+      "macro_f1": 0.8361616783844037
+    }
+  ],
+  "best": {
+    "epoch": 6,
+    "macro_f1": 0.8414015754545352
+  },
+  "duration_seconds": 1151.4,
+  "versions": {
+    "torch": "2.8.0",
+    "numpy": "1.26.4"
+  }
+}

@@ -1,0 +1,86 @@
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+device=mps  classes=8  train=19264  val=2215
+excluded from train: 111 leaked, 8 unusable
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  1/10  train_loss=0.6471  val_loss=0.6970  acc=0.7503  macro_f1=0.7623
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  2/10  train_loss=0.4444  val_loss=0.6546  acc=0.7860  macro_f1=0.7910
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  3/10  train_loss=0.3813  val_loss=0.6559  acc=0.7892  macro_f1=0.7850
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  4/10  train_loss=0.3525  val_loss=0.5747  acc=0.8248  macro_f1=0.8385
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  5/10  train_loss=0.3338  val_loss=0.5827  acc=0.8266  macro_f1=0.8353
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  6/10  train_loss=0.3238  val_loss=0.5671  acc=0.8194  macro_f1=0.8414
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  7/10  train_loss=0.3130  val_loss=0.5855  acc=0.8185  macro_f1=0.8257
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  8/10  train_loss=0.3064  val_loss=0.5526  acc=0.8293  macro_f1=0.8378
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+/Users/vvijwal01gmail.com/agenticAI/.venv/lib/python3.9/site-packages/PIL/Image.py:1047: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  warnings.warn(
+epoch  9/10  train_loss=0.3048  val_loss=0.5580  acc=0.8253  macro_f1=0.8362
+early stopping: no macro-F1 improvement for 3 epochs
+
+best macro F1 0.8414 at epoch 6  ->  runs/experiments/classifier_domain_adaptation/run_c/best.pt

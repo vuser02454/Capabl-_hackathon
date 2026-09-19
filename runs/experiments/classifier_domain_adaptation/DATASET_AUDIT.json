@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-09-19T17:40:15.881747+00:00",
+  "taco_crops_per_class": {
+    "train": {
+      "plastic_bottles": 897,
+      "plastic_bags": 2455,
+      "paper_waste": 1031,
+      "metal_cans": 835
+    },
+    "val": {
+      "plastic_bottles": 190,
+      "plastic_bags": 493,
+      "paper_waste": 194,
+      "metal_cans": 138
+    }
+  },
+  "garbage_images_per_class": {
+    "train": {
+      "metal_cans": 670,
+      "plastic_bottles": 417,
+      "ewaste": 180,
+      "plastic_bags": 200,
+      "food_waste": 10066,
+      "leaf_waste": 1179,
+      "paper_waste": 860,
+      "wood_waste": 593
+    },
+    "val": {
+      "metal_cans": 69,
+      "plastic_bottles": 130,
+      "ewaste": 55,
+      "plastic_bags": 53,
+      "food_waste": 229,
+      "leaf_waste": 394,
+      "paper_waste": 212,
+      "wood_waste": 59
+    }
+  },
+  "taco_crops_total": 6233,
+  "garbage_total": 15366,
+  "crop_types": {
+    "tight": 1220,
+    "expanded": 1361,
+    "prodpad": 1289,
+    "offcentre": 1308,
+    "detector": 1055
+  },
+  "excluded": {
+    "plastic_bottles:too_small:tight": 104,
+    "plastic_bottles:too_small:expanded": 66,
+    "plastic_bottles:too_small:prodpad": 82,
+    "plastic_bottles:too_small:offcentre": 78,
+    "plastic_bottles:too_small:detector": 51,
+    "plastic_bags:too_small:tight": 180,
+    "plastic_bags:too_small:expanded": 126,
+    "plastic_bags:too_small:prodpad": 154,
+    "plastic_bags:too_small:offcentre": 147,
+    "plastic_bags:too_small:detector": 65,
+    "paper_waste:too_small:tight": 73,
+    "paper_waste:too_small:expanded": 52,
+    "paper_waste:too_small:prodpad": 65,
+    "paper_waste:too_small:offcentre": 62,
+    "paper_waste:too_small:detector": 31,
+    "metal_cans:too_small:tight": 61,
+    "metal_cans:too_small:expanded": 33,
+    "metal_cans:too_small:prodpad": 48,
+    "metal_cans:too_small:offcentre": 43,
+    "metal_cans:too_small:detector": 21,
+    "ewaste": 2,
+    "food_waste": 8
+  },
+  "crop_size": {
+    "n": 6233,
+    "min_side_median": 121,
+    "under_64px_short_side": 1691,
+    "pct_under_64px": 27.13,
+    "under_32px": 0
+  },
+  "leakage": {
+    "taco_test_stems": 98,
+    "source_stems_used": 800,
+    "TACO_TEST_STEMS_IN_TRAINING_DATA": 0,
+    "taco_test_images_sha_matching_train_or_val_source": 0,
+    "examples": []
+  }
+}

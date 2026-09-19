@@ -223,7 +223,7 @@ def test_the_summary_counts_uncertain_separately(monkeypatch):
     result = waste_pipeline.analyze_waste(png_bytes(), "f.png", detector=object(), classifier=Alternating())
     assert result["summary"] == {
         "total_objects": 2, "biodegradable": 0, "non_biodegradable": 1, "uncertain": 1,
-        "duplicate_boxes_merged": 0, "non_waste_objects": 0,
+        "duplicate_boxes_merged": 0, "non_waste_objects": 0, "localisations_rejected": 0,
     }
 
 

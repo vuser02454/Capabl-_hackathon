@@ -662,6 +662,11 @@ export interface WasteSegregationDetection {
   alsoDetectedAs?: string[] | null;
   /** Which stage produced `classification`: detector (TACO taxonomy class) or classifier. */
   labelSource?: 'detector' | 'classifier' | null;
+  /**
+   * Set when the localisation gate refused this box BEFORE any crop was classified. Such a box is
+   * evidence about the detector, not a waste object, and must never be presented as one.
+   */
+  localisationRejected?: 'degenerate_box' | 'non_waste_object' | null;
   message?: string | null;
   /** Grad-CAM attribution, present only when requested with `explain`. */
   xai?: WasteXaiAttribution | null;
@@ -701,6 +706,8 @@ export interface WasteSegregationResult {
     duplicateBoxesMerged: number;
     /** Detected objects whose class rules out waste entirely — a person, a car. */
     nonWasteObjects: number;
+    /** Boxes the localisation gate refused before classification, for any reason. */
+    localisationsRejected: number;
   };
   message: string | null;
 }

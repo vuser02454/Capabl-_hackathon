@@ -1,9 +1,17 @@
-"""Two-stage waste analysis: detect objects, then classify each one.
+"""Waste analysis: detect objects, verify each localisation, then classify what survives.
 
-    image -> YOLO detection -> crop each box -> classifier -> segregation category
+    image -> YOLO detection -> verify localisation -> crop -> classifier -> segregation category
 
-The two stages are kept separate because they answer different questions and fail differently. The
+The stages are kept separate because they answer different questions and fail differently. The
 detector says *where* something is; the classifier says *what* it is.
+
+The verification step sits between them and is not optional. A classifier prediction is only
+meaningful once a valid waste localisation exists: this classifier has eight waste classes and a
+softmax that must sum to one across them, so asked about a person it answers `paper_waste` at 62%
+— above the assertion threshold, and wrong in a way no confidence gate can catch. `is_never_waste`
+was supposed to prevent that, but it matches the DETECTOR's class name against COCO names, and the
+production detector emits waste class names exclusively, so it never fires. See
+`waste_localisation.py`.
 
 When the detector itself emits a waste-taxonomy class (the TACO-trained `waste_detector.pt`),
 that class is the label. Measured on the held-out TACO test split, detector authority is four
@@ -31,6 +39,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from core.investigation import is_never_waste
 from services.waste.waste_classifier import ClassifierUnavailable, get_waste_classifier
+from services.waste.waste_localisation import non_waste_regions, verify_localisation
 
 logger = logging.getLogger("ecosentinel.waste.pipeline")
 
@@ -138,7 +147,7 @@ def analyze_waste(
     pass per object and explains a decision that has already been made, so it must not sit on the
     critical path of every upload.
     """
-    from services.water_vision_service import build_report, get_waste_pipeline_detector
+    from services.water_vision_service import build_report, exif_upright, get_waste_pipeline_detector
 
     try:
         from PIL import Image
@@ -154,7 +163,10 @@ def analyze_waste(
         return _empty(vision.message or "Visual detection did not run.", vision.status, model=vision.model)
 
     try:
-        image = Image.open(io.BytesIO(content)).convert("RGB")
+        # Upright, exactly as the detector saw it. `_decode_image` applies the EXIF orientation,
+        # so a crop taken from an untransposed frame here would be cut from different pixels than
+        # the box was drawn on — for a portrait phone photo, from a 90-degree rotation of them.
+        image = exif_upright(Image.open(io.BytesIO(content))).convert("RGB")
     except Exception as exc:  # noqa: BLE001
         return _empty(f"The image could not be decoded ({exc.__class__.__name__}).", "unavailable")
 
@@ -163,6 +175,11 @@ def analyze_waste(
 
     unique = _deduplicate(vision.detections)
     suppressed = len(vision.detections) - len(unique)
+
+    # One general-purpose pass over the frame, before any box is cropped. It is the only model
+    # here that has a name for "person" — the waste detector emits waste classes exclusively, so
+    # nothing downstream could otherwise tell that a box sits on someone.
+    non_waste = non_waste_regions(content, filename) if unique else []
 
     if observer is not None:
         observer.on_image(image, vision)
@@ -177,6 +194,40 @@ def analyze_waste(
             "detection_confidence": round(detection.confidence, 4),
             "also_detected_as": sorted(set(also_as)) or None,
         }
+
+        # Localisation is verified BEFORE the crop is taken, so the classifier is never asked
+        # about a region that is not a waste object. Its answer would be meaningless — it has
+        # eight waste classes and no way to abstain — and once a label exists it is very hard to
+        # keep it from being read as a finding.
+        #
+        # Skipped when the detector has ALREADY named something that cannot be waste. This gate
+        # exists to catch what the detector cannot say; where it can say it, the post-
+        # classification `is_never_waste` path below is the better answer, because it keeps the
+        # classifier's guess visible as a candidate. Pre-empting it would replace an informative
+        # "the classifier thought wood_waste, refused because this is a dog" with a bare "dog".
+        invalid = (
+            None if is_never_waste(detection.class_name)
+            else verify_localisation(bbox, vision.image_width, vision.image_height, non_waste)
+        )
+        if invalid is not None:
+            record.update(
+                classification=None, classification_confidence=None,
+                # Only a name from the waste taxonomy can be a waste candidate. A COCO `bottle`
+                # vetoed for sitting on a person has no waste guess to show, and putting the
+                # detector's vocabulary in this field would invent one.
+                candidate=detection.class_name if _taxonomy_classes(classifier).get(detection.class_name) else None,
+                segregation="uncertain", status="needs_review",
+                handling=None, display=None, label_source=None,
+                localisation_rejected=invalid["reason"],
+                message=(
+                    f"The detector localised this as '{detection.class_name}' at "
+                    f"{detection.confidence:.0%}. {invalid['detail']}"
+                ),
+            )
+            if observer is not None:
+                observer.on_detection(record, detection, bbox, None, {}, classifier)
+            detections.append(record)
+            continue
 
         crop = _crop(image, bbox)
         capture: Dict[str, Any] = {}
@@ -248,8 +299,18 @@ def analyze_waste(
         "non_biodegradable": sum(1 for d in detections if d.get("segregation") == "non_biodegradable"),
         # Counted separately and never folded into either category.
         "uncertain": sum(1 for d in detections if d.get("segregation") == "uncertain"),
-        # Objects the detector identified as something that cannot be waste at all.
-        "non_waste_objects": sum(1 for d in detections if is_never_waste(d["detected_object"])),
+        # Objects that are not waste. Two ways to be one, counted together because a reviewer
+        # cares that the box was refused, not by which check: the detector named something that
+        # cannot be litter (a COCO detector's `person`), or the localisation gate refused the box
+        # over a non-waste object the waste detector has no name for.
+        "non_waste_objects": sum(
+            1 for d in detections
+            if is_never_waste(d["detected_object"]) or d.get("localisation_rejected") == "non_waste_object"
+        ),
+        # Boxes refused before classification, whatever the reason. Reported rather than hidden:
+        # the difference between "the detector found nothing" and "it found three things and all
+        # three were refused" is the whole picture.
+        "localisations_rejected": sum(1 for d in detections if d.get("localisation_rejected")),
     }
 
     return {

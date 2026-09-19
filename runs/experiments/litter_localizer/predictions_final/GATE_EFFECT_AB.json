@@ -1,0 +1,27 @@
+{
+  "held_out": {
+    "images": 98,
+    "gt_boxes": 166,
+    "coco_never_waste_regions": 18
+  },
+  "A_production_6class": {
+    "detections": 187,
+    "kept": 176,
+    "rejected": 11,
+    "rejected_non_waste_object": 11,
+    "rejected_degenerate_box": 0,
+    "true_detections_kept": 90,
+    "true_detections_wrongly_rejected": 6,
+    "gate_cost_on_true_detections": 0.0625
+  },
+  "B_litter_localizer_final": {
+    "detections": 175,
+    "kept": 161,
+    "rejected": 14,
+    "rejected_non_waste_object": 14,
+    "rejected_degenerate_box": 0,
+    "true_detections_kept": 85,
+    "true_detections_wrongly_rejected": 6,
+    "gate_cost_on_true_detections": 0.0659
+  }
+}

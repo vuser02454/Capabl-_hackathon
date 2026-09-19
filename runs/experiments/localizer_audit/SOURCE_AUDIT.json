@@ -1,0 +1,275 @@
+{
+  "TACO": {
+    "semantics": "6 EcoSentinel MATERIAL classes, mapped from TACO's 60 categories",
+    "license": "TACO-master/LICENSE",
+    "splits": {
+      "train": {
+        "images": 742,
+        "boxes": 1358,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      },
+      "val": {
+        "images": 148,
+        "boxes": 290,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      },
+      "test": {
+        "images": 98,
+        "boxes": 166,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      }
+    },
+    "classes": {
+      "0": "ewaste",
+      "1": "food_waste",
+      "2": "metal_cans",
+      "3": "paper_waste",
+      "4": "plastic_bags",
+      "5": "plastic_bottles"
+    },
+    "negative_images_per_split": {
+      "train": 0,
+      "val": 0,
+      "test": 0
+    },
+    "negative_images_total": 0,
+    "image_sizes_top": [
+      [
+        [
+          480,
+          640
+        ],
+        349
+      ],
+      [
+        [
+          640,
+          480
+        ],
+        198
+      ],
+      [
+        [
+          292,
+          640
+        ],
+        83
+      ],
+      [
+        [
+          3120,
+          4160
+        ],
+        58
+      ]
+    ],
+    "box_area_fraction": {
+      "n": 1814,
+      "median": 0.01071,
+      "p90": 0.13588,
+      "max": 0.94194,
+      "pct_under_1pct_of_frame": 48.4
+    },
+    "exact_duplicate_groups": 0,
+    "exact_duplicates_spanning_splits": 0,
+    "cross_split_examples": []
+  },
+  "TUD-GV": {
+    "semantics": "single class 'litter'",
+    "license": "not recorded in repo",
+    "splits": {
+      "train": {
+        "images": 1057,
+        "boxes": 6330,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      },
+      "val": {
+        "images": 298,
+        "boxes": 1347,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      },
+      "test": {
+        "images": 146,
+        "boxes": 504,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      }
+    },
+    "classes": [
+      "litter"
+    ],
+    "negative_images_per_split": {
+      "train": 0,
+      "val": 0,
+      "test": 0
+    },
+    "negative_images_total": 0,
+    "image_sizes_top": [
+      [
+        [
+          1920,
+          1080
+        ],
+        1501
+      ]
+    ],
+    "box_area_fraction": {
+      "n": 8181,
+      "median": 0.00219,
+      "p90": 0.0066,
+      "max": 0.04979,
+      "pct_under_1pct_of_frame": 95.94
+    },
+    "exact_duplicate_groups": 0,
+    "exact_duplicates_spanning_splits": 0,
+    "cross_split_examples": []
+  },
+  "IWHR": {
+    "semantics": "single class 'floater' (VOC source)",
+    "license": "not recorded in repo",
+    "splits": {
+      "train": {
+        "images": 2204,
+        "boxes": 15075,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      },
+      "val": {
+        "images": 550,
+        "boxes": 7107,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      },
+      "test": {
+        "images": 246,
+        "boxes": 1507,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      }
+    },
+    "classes": {
+      "0": "floater"
+    },
+    "negative_images_per_split": {
+      "train": 0,
+      "val": 0,
+      "test": 0
+    },
+    "negative_images_total": 0,
+    "image_sizes_top": [
+      [
+        [
+          1920,
+          1080
+        ],
+        2934
+      ],
+      [
+        [
+          3840,
+          2160
+        ],
+        54
+      ],
+      [
+        [
+          880,
+          1920
+        ],
+        9
+      ],
+      [
+        [
+          1080,
+          1920
+        ],
+        2
+      ]
+    ],
+    "box_area_fraction": {
+      "n": 23689,
+      "median": 0.00847,
+      "p90": 0.06115,
+      "max": 0.63195,
+      "pct_under_1pct_of_frame": 53.87
+    },
+    "exact_duplicate_groups": 0,
+    "exact_duplicates_spanning_splits": 0,
+    "cross_split_examples": []
+  },
+  "Flow-Img": {
+    "semantics": "single class 'bottle' (an OBJECT claim, not a material claim)",
+    "license": "CC BY 4.0 (README.roboflow.txt)",
+    "splits": {
+      "train": {
+        "images": 1200,
+        "boxes": 3248,
+        "empty_label_files": 0,
+        "images_without_label": 0
+      }
+    },
+    "classes": [
+      "bottle"
+    ],
+    "negative_images_per_split": {
+      "train": 0
+    },
+    "negative_images_total": 0,
+    "image_sizes_top": [
+      [
+        [
+          640,
+          640
+        ],
+        1200
+      ]
+    ],
+    "box_area_fraction": {
+      "n": 3248,
+      "median": 0.00095,
+      "p90": 0.00685,
+      "max": 0.07381,
+      "pct_under_1pct_of_frame": 93.87
+    },
+    "exact_duplicate_groups": 0,
+    "exact_duplicates_spanning_splits": 0,
+    "cross_split_examples": []
+  },
+  "_cross_dataset": {
+    "TACO vs TUD-GV": {
+      "exact_sha256_shared": 0,
+      "near_duplicate_pairs_hamming<=2": 0,
+      "examples": []
+    },
+    "TACO vs IWHR": {
+      "exact_sha256_shared": 0,
+      "near_duplicate_pairs_hamming<=2": 0,
+      "examples": []
+    },
+    "TACO vs Flow-Img": {
+      "exact_sha256_shared": 0,
+      "near_duplicate_pairs_hamming<=2": 0,
+      "examples": []
+    },
+    "TUD-GV vs IWHR": {
+      "exact_sha256_shared": 0,
+      "near_duplicate_pairs_hamming<=2": 0,
+      "examples": []
+    },
+    "TUD-GV vs Flow-Img": {
+      "exact_sha256_shared": 0,
+      "near_duplicate_pairs_hamming<=2": 0,
+      "examples": []
+    },
+    "IWHR vs Flow-Img": {
+      "exact_sha256_shared": 0,
+      "near_duplicate_pairs_hamming<=2": 0,
+      "examples": []
+    }
+  }
+}

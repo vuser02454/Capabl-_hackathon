@@ -1,0 +1,850 @@
+{
+  "fixed_heldout": {
+    "images": 98,
+    "gt_boxes": 166
+  },
+  "classifier_weights": "/Users/vvijwal01gmail.com/agenticAI/runs/classification/best.pt",
+  "classifier_threshold": 0.6,
+  "match_iou": 0.5,
+  "detector_conf": 0.25,
+  "A_production_6class": {
+    "total_gt": 166,
+    "localised": 89,
+    "accepted_by_gate": 83,
+    "classified": 76,
+    "correct_material": 25,
+    "end_to_end_accuracy": 0.1506,
+    "localisation_recall": 0.5361,
+    "classifier_top1_on_accepted": 0.3289,
+    "assertions": 27,
+    "assertion_coverage": 0.1627,
+    "accuracy_among_assertions": 0.5185,
+    "end_to_end_asserted_correct": 14,
+    "per_class": {
+      "metal_cans": {
+        "gt": 28,
+        "localised": 13,
+        "accepted": 12,
+        "classified": 10,
+        "top1_correct": 3,
+        "asserted": 5,
+        "asserted_correct": 2
+      },
+      "paper_waste": {
+        "gt": 35,
+        "localised": 20,
+        "accepted": 20,
+        "classified": 19,
+        "top1_correct": 8,
+        "asserted": 7,
+        "asserted_correct": 4
+      },
+      "plastic_bags": {
+        "gt": 71,
+        "localised": 41,
+        "accepted": 38,
+        "classified": 34,
+        "top1_correct": 8,
+        "asserted": 10,
+        "asserted_correct": 4
+      },
+      "plastic_bottles": {
+        "gt": 32,
+        "localised": 15,
+        "accepted": 13,
+        "classified": 13,
+        "top1_correct": 6,
+        "asserted": 5,
+        "asserted_correct": 4
+      }
+    },
+    "top_confusions": [
+      [
+        "plastic_bags -> wood_waste",
+        9
+      ],
+      [
+        "plastic_bags -> plastic_bags",
+        8
+      ],
+      [
+        "paper_waste -> paper_waste",
+        8
+      ],
+      [
+        "plastic_bags -> ewaste",
+        7
+      ],
+      [
+        "plastic_bottles -> plastic_bottles",
+        6
+      ],
+      [
+        "plastic_bags -> paper_waste",
+        5
+      ],
+      [
+        "paper_waste -> wood_waste",
+        5
+      ],
+      [
+        "plastic_bags -> food_waste",
+        3
+      ],
+      [
+        "plastic_bottles -> ewaste",
+        3
+      ],
+      [
+        "metal_cans -> ewaste",
+        3
+      ]
+    ],
+    "plastic_bottle_crops": [
+      {
+        "image": "batch_10_000087.jpg",
+        "crop_wh": [
+          44,
+          26
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.8828,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.8828
+          ],
+          [
+            "paper_waste",
+            0.0478
+          ],
+          [
+            "ewaste",
+            0.0205
+          ]
+        ],
+        "asserted": "plastic_bottles"
+      },
+      {
+        "image": "batch_12_000084.jpg",
+        "crop_wh": [
+          263,
+          364
+        ],
+        "top1": "food_waste",
+        "conf": 0.2897,
+        "top3": [
+          [
+            "food_waste",
+            0.2897
+          ],
+          [
+            "ewaste",
+            0.2133
+          ],
+          [
+            "leaf_waste",
+            0.1835
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_13_000034.jpg",
+        "crop_wh": [
+          1280,
+          1162
+        ],
+        "top1": "ewaste",
+        "conf": 0.3755,
+        "top3": [
+          [
+            "ewaste",
+            0.3755
+          ],
+          [
+            "plastic_bottles",
+            0.2864
+          ],
+          [
+            "metal_cans",
+            0.1234
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_13_000034.jpg",
+        "crop_wh": [
+          943,
+          862
+        ],
+        "top1": "wood_waste",
+        "conf": 0.342,
+        "top3": [
+          [
+            "wood_waste",
+            0.342
+          ],
+          [
+            "ewaste",
+            0.2058
+          ],
+          [
+            "paper_waste",
+            0.1536
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_15_000072.jpg",
+        "crop_wh": [
+          468,
+          324
+        ],
+        "top1": "leaf_waste",
+        "conf": 0.3049,
+        "top3": [
+          [
+            "leaf_waste",
+            0.3049
+          ],
+          [
+            "wood_waste",
+            0.2194
+          ],
+          [
+            "metal_cans",
+            0.129
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_15_000072.jpg",
+        "crop_wh": [
+          318,
+          372
+        ],
+        "top1": "ewaste",
+        "conf": 0.5142,
+        "top3": [
+          [
+            "ewaste",
+            0.5142
+          ],
+          [
+            "leaf_waste",
+            0.1666
+          ],
+          [
+            "metal_cans",
+            0.0818
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_3_IMG_4996.JPG",
+        "crop_wh": [
+          72,
+          182
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.5678,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.5678
+          ],
+          [
+            "metal_cans",
+            0.1674
+          ],
+          [
+            "ewaste",
+            0.1197
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_6_000017.JPG",
+        "crop_wh": [
+          142,
+          68
+        ],
+        "top1": "paper_waste",
+        "conf": 0.6973,
+        "top3": [
+          [
+            "paper_waste",
+            0.6973
+          ],
+          [
+            "ewaste",
+            0.0969
+          ],
+          [
+            "metal_cans",
+            0.0829
+          ]
+        ],
+        "asserted": "paper_waste"
+      },
+      {
+        "image": "batch_6_000017.JPG",
+        "crop_wh": [
+          73,
+          162
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.8704,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.8704
+          ],
+          [
+            "plastic_bags",
+            0.0494
+          ],
+          [
+            "paper_waste",
+            0.0298
+          ]
+        ],
+        "asserted": "plastic_bottles"
+      },
+      {
+        "image": "batch_6_000076.JPG",
+        "crop_wh": [
+          68,
+          128
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.7373,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.7373
+          ],
+          [
+            "plastic_bags",
+            0.171
+          ],
+          [
+            "paper_waste",
+            0.0256
+          ]
+        ],
+        "asserted": "plastic_bottles"
+      },
+      {
+        "image": "batch_8_000028.jpg",
+        "crop_wh": [
+          115,
+          92
+        ],
+        "top1": "ewaste",
+        "conf": 0.4089,
+        "top3": [
+          [
+            "ewaste",
+            0.4089
+          ],
+          [
+            "paper_waste",
+            0.2018
+          ],
+          [
+            "plastic_bottles",
+            0.1953
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_8_000076.jpg",
+        "crop_wh": [
+          55,
+          29
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.6372,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.6372
+          ],
+          [
+            "plastic_bags",
+            0.0747
+          ],
+          [
+            "paper_waste",
+            0.0721
+          ]
+        ],
+        "asserted": "plastic_bottles"
+      },
+      {
+        "image": "batch_9_000008.jpg",
+        "crop_wh": [
+          140,
+          107
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.5644,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.5644
+          ],
+          [
+            "plastic_bags",
+            0.2691
+          ],
+          [
+            "paper_waste",
+            0.094
+          ]
+        ],
+        "asserted": null
+      }
+    ]
+  },
+  "B_litter_localizer_final": {
+    "total_gt": 166,
+    "localised": 86,
+    "accepted_by_gate": 80,
+    "classified": 71,
+    "correct_material": 27,
+    "end_to_end_accuracy": 0.1627,
+    "localisation_recall": 0.5181,
+    "classifier_top1_on_accepted": 0.3803,
+    "assertions": 27,
+    "assertion_coverage": 0.1627,
+    "accuracy_among_assertions": 0.4074,
+    "end_to_end_asserted_correct": 11,
+    "per_class": {
+      "metal_cans": {
+        "gt": 28,
+        "localised": 14,
+        "accepted": 13,
+        "classified": 10,
+        "top1_correct": 3,
+        "asserted": 5,
+        "asserted_correct": 2
+      },
+      "paper_waste": {
+        "gt": 35,
+        "localised": 20,
+        "accepted": 20,
+        "classified": 18,
+        "top1_correct": 10,
+        "asserted": 8,
+        "asserted_correct": 4
+      },
+      "plastic_bags": {
+        "gt": 71,
+        "localised": 36,
+        "accepted": 33,
+        "classified": 29,
+        "top1_correct": 8,
+        "asserted": 12,
+        "asserted_correct": 4
+      },
+      "plastic_bottles": {
+        "gt": 32,
+        "localised": 16,
+        "accepted": 14,
+        "classified": 14,
+        "top1_correct": 6,
+        "asserted": 2,
+        "asserted_correct": 1
+      }
+    },
+    "top_confusions": [
+      [
+        "paper_waste -> paper_waste",
+        10
+      ],
+      [
+        "plastic_bags -> plastic_bags",
+        8
+      ],
+      [
+        "plastic_bags -> wood_waste",
+        7
+      ],
+      [
+        "plastic_bags -> ewaste",
+        7
+      ],
+      [
+        "plastic_bottles -> plastic_bottles",
+        6
+      ],
+      [
+        "plastic_bottles -> ewaste",
+        5
+      ],
+      [
+        "plastic_bags -> paper_waste",
+        4
+      ],
+      [
+        "metal_cans -> ewaste",
+        4
+      ],
+      [
+        "paper_waste -> wood_waste",
+        4
+      ],
+      [
+        "plastic_bags -> food_waste",
+        3
+      ]
+    ],
+    "plastic_bottle_crops": [
+      {
+        "image": "batch_12_000084.jpg",
+        "crop_wh": [
+          241,
+          341
+        ],
+        "top1": "ewaste",
+        "conf": 0.3754,
+        "top3": [
+          [
+            "ewaste",
+            0.3754
+          ],
+          [
+            "food_waste",
+            0.2603
+          ],
+          [
+            "metal_cans",
+            0.0886
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_13_000034.jpg",
+        "crop_wh": [
+          1247,
+          1130
+        ],
+        "top1": "ewaste",
+        "conf": 0.5868,
+        "top3": [
+          [
+            "ewaste",
+            0.5868
+          ],
+          [
+            "plastic_bottles",
+            0.1412
+          ],
+          [
+            "metal_cans",
+            0.0951
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_13_000034.jpg",
+        "crop_wh": [
+          876,
+          830
+        ],
+        "top1": "wood_waste",
+        "conf": 0.3631,
+        "top3": [
+          [
+            "wood_waste",
+            0.3631
+          ],
+          [
+            "ewaste",
+            0.1618
+          ],
+          [
+            "food_waste",
+            0.1562
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_15_000072.jpg",
+        "crop_wh": [
+          533,
+          301
+        ],
+        "top1": "ewaste",
+        "conf": 0.1925,
+        "top3": [
+          [
+            "ewaste",
+            0.1925
+          ],
+          [
+            "leaf_waste",
+            0.1824
+          ],
+          [
+            "wood_waste",
+            0.172
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_3_IMG_4996.JPG",
+        "crop_wh": [
+          60,
+          179
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.4833,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.4833
+          ],
+          [
+            "metal_cans",
+            0.2377
+          ],
+          [
+            "ewaste",
+            0.1226
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_6_000017.JPG",
+        "crop_wh": [
+          143,
+          57
+        ],
+        "top1": "paper_waste",
+        "conf": 0.6562,
+        "top3": [
+          [
+            "paper_waste",
+            0.6562
+          ],
+          [
+            "ewaste",
+            0.1594
+          ],
+          [
+            "metal_cans",
+            0.0491
+          ]
+        ],
+        "asserted": "paper_waste"
+      },
+      {
+        "image": "batch_6_000017.JPG",
+        "crop_wh": [
+          52,
+          110
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.5885,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.5885
+          ],
+          [
+            "plastic_bags",
+            0.2873
+          ],
+          [
+            "metal_cans",
+            0.0544
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_6_000076.JPG",
+        "crop_wh": [
+          61,
+          124
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.6178,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.6178
+          ],
+          [
+            "plastic_bags",
+            0.2592
+          ],
+          [
+            "metal_cans",
+            0.0354
+          ]
+        ],
+        "asserted": "plastic_bottles"
+      },
+      {
+        "image": "batch_8_000007.jpg",
+        "crop_wh": [
+          100,
+          63
+        ],
+        "top1": "food_waste",
+        "conf": 0.2,
+        "top3": [
+          [
+            "food_waste",
+            0.2
+          ],
+          [
+            "metal_cans",
+            0.1966
+          ],
+          [
+            "ewaste",
+            0.168
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_8_000007.jpg",
+        "crop_wh": [
+          131,
+          96
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.4544,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.4544
+          ],
+          [
+            "metal_cans",
+            0.3653
+          ],
+          [
+            "ewaste",
+            0.0842
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_8_000028.jpg",
+        "crop_wh": [
+          108,
+          89
+        ],
+        "top1": "ewaste",
+        "conf": 0.5191,
+        "top3": [
+          [
+            "ewaste",
+            0.5191
+          ],
+          [
+            "plastic_bottles",
+            0.1846
+          ],
+          [
+            "wood_waste",
+            0.1069
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_8_000076.jpg",
+        "crop_wh": [
+          57,
+          29
+        ],
+        "top1": "ewaste",
+        "conf": 0.343,
+        "top3": [
+          [
+            "ewaste",
+            0.343
+          ],
+          [
+            "wood_waste",
+            0.2112
+          ],
+          [
+            "paper_waste",
+            0.1607
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_9_000008.jpg",
+        "crop_wh": [
+          134,
+          98
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.4758,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.4758
+          ],
+          [
+            "plastic_bags",
+            0.327
+          ],
+          [
+            "paper_waste",
+            0.0952
+          ]
+        ],
+        "asserted": null
+      },
+      {
+        "image": "batch_9_000008.jpg",
+        "crop_wh": [
+          124,
+          59
+        ],
+        "top1": "plastic_bottles",
+        "conf": 0.3592,
+        "top3": [
+          [
+            "plastic_bottles",
+            0.3592
+          ],
+          [
+            "ewaste",
+            0.2378
+          ],
+          [
+            "plastic_bags",
+            0.1929
+          ]
+        ],
+        "asserted": null
+      }
+    ]
+  }
+}

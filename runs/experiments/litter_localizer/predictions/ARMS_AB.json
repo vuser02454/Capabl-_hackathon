@@ -1,0 +1,157 @@
+{
+  "A_production_6class": {
+    "weights": "/Users/vvijwal01gmail.com/agenticAI/backend/models/waste_detector.pt",
+    "label": "A_production_6class",
+    "classes": [
+      "ewaste",
+      "food_waste",
+      "metal_cans",
+      "paper_waste",
+      "plastic_bags",
+      "plastic_bottles"
+    ],
+    "fixed_heldout": {
+      "images": 98,
+      "gt_boxes": 166
+    },
+    "class_agnostic_AP50": 0.4387,
+    "class_agnostic_AP50_95": 0.2612,
+    "at_conf_0.25_iou_0.3": {
+      "localised": 98,
+      "of_gt": 166,
+      "localisation_recall": 0.5904,
+      "detections": 187,
+      "detections_matching_a_gt_box": 108,
+      "unmatched_detections": 79,
+      "detection_precision": 0.5775,
+      "per_gt_class_localisation": {
+        "metal_cans": {
+          "localised": 13,
+          "gt": 28,
+          "recall": 0.4643
+        },
+        "paper_waste": {
+          "localised": 21,
+          "gt": 35,
+          "recall": 0.6
+        },
+        "plastic_bags": {
+          "localised": 43,
+          "gt": 71,
+          "recall": 0.6056
+        },
+        "plastic_bottles": {
+          "localised": 21,
+          "gt": 32,
+          "recall": 0.6562
+        }
+      }
+    },
+    "at_conf_0.25_iou_0.5": {
+      "localised": 89,
+      "of_gt": 166,
+      "localisation_recall": 0.5361,
+      "detections": 187,
+      "detections_matching_a_gt_box": 96,
+      "unmatched_detections": 91,
+      "detection_precision": 0.5134,
+      "per_gt_class_localisation": {
+        "metal_cans": {
+          "localised": 13,
+          "gt": 28,
+          "recall": 0.4643
+        },
+        "paper_waste": {
+          "localised": 20,
+          "gt": 35,
+          "recall": 0.5714
+        },
+        "plastic_bags": {
+          "localised": 41,
+          "gt": 71,
+          "recall": 0.5775
+        },
+        "plastic_bottles": {
+          "localised": 15,
+          "gt": 32,
+          "recall": 0.4688
+        }
+      }
+    }
+  },
+  "B_litter_localizer_interim": {
+    "weights": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/litter_localizer/checkpoints/best_interim_epoch9.pt",
+    "label": "B_litter_localizer_interim",
+    "classes": [
+      "litter"
+    ],
+    "fixed_heldout": {
+      "images": 98,
+      "gt_boxes": 166
+    },
+    "class_agnostic_AP50": 0.2948,
+    "class_agnostic_AP50_95": 0.1962,
+    "at_conf_0.25_iou_0.3": {
+      "localised": 80,
+      "of_gt": 166,
+      "localisation_recall": 0.4819,
+      "detections": 194,
+      "detections_matching_a_gt_box": 103,
+      "unmatched_detections": 91,
+      "detection_precision": 0.5309,
+      "per_gt_class_localisation": {
+        "2": {
+          "localised": 11,
+          "gt": 28,
+          "recall": 0.3929
+        },
+        "3": {
+          "localised": 18,
+          "gt": 35,
+          "recall": 0.5143
+        },
+        "4": {
+          "localised": 36,
+          "gt": 71,
+          "recall": 0.507
+        },
+        "5": {
+          "localised": 15,
+          "gt": 32,
+          "recall": 0.4688
+        }
+      }
+    },
+    "at_conf_0.25_iou_0.5": {
+      "localised": 69,
+      "of_gt": 166,
+      "localisation_recall": 0.4157,
+      "detections": 194,
+      "detections_matching_a_gt_box": 86,
+      "unmatched_detections": 108,
+      "detection_precision": 0.4433,
+      "per_gt_class_localisation": {
+        "2": {
+          "localised": 10,
+          "gt": 28,
+          "recall": 0.3571
+        },
+        "3": {
+          "localised": 18,
+          "gt": 35,
+          "recall": 0.5143
+        },
+        "4": {
+          "localised": 29,
+          "gt": 71,
+          "recall": 0.4085
+        },
+        "5": {
+          "localised": 12,
+          "gt": 32,
+          "recall": 0.375
+        }
+      }
+    }
+  }
+}

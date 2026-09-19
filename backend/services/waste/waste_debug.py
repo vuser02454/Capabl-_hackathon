@@ -265,7 +265,14 @@ class WasteDebugRecorder:
         if self.keep:
             from PIL import Image
 
-            manifest["original_image"] = _data_uri(Image.open(io.BytesIO(original_bytes)).convert("RGB"))
+            # Upright, matching the frame the boxes were drawn on. A sideways original beside
+            # upright coordinates would look exactly like a box-placement bug, which is the kind
+            # of false lead a diagnostic exists to prevent.
+            from services.water_vision_service import exif_upright
+
+            manifest["original_image"] = _data_uri(
+                exif_upright(Image.open(io.BytesIO(original_bytes))).convert("RGB")
+            )
             if self._annotated is not None:
                 manifest["detector_annotated_image"] = _data_uri(self._annotated)
         return manifest

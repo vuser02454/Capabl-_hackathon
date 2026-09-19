@@ -1,0 +1,501 @@
+{
+  "basis": "Regions labelled by COCO yolov8n at conf>=0.45, NOT by a human. Included only if the region overlaps no human litter annotation (IoU<=0.10) and is at least 32x32. Weaker evidence than the TACO ground truth used elsewhere. Regions from train/val were SEEN during training by both arms, so the absolute rate there is optimistic; the A-vs-B comparison stays valid because both arms saw byte-identical images.",
+  "probe_confidence": 0.45,
+  "detector_confidence": 0.25,
+  "splits_scanned": [
+    "train",
+    "val",
+    "test"
+  ],
+  "regions_per_coco_class": {
+    "car": 41,
+    "person": 25,
+    "bench": 16,
+    "zebra": 1,
+    "bird": 14,
+    "parking meter": 1,
+    "bus": 1,
+    "elephant": 2,
+    "sheep": 1,
+    "boat": 1,
+    "bicycle": 1,
+    "bed": 1,
+    "traffic light": 1,
+    "truck": 1,
+    "horse": 1,
+    "toilet": 1
+  },
+  "regions_per_split": {
+    "train": 76,
+    "val": 25,
+    "test": 8
+  },
+  "by_arm": {
+    "A_production_6class": {
+      "non_waste_regions_probed": 109,
+      "regions_with_at_least_one_detection": 39,
+      "false_positive_rate": 0.3578,
+      "total_false_detections": 48,
+      "per_split": {
+        "test": {
+          "regions": 8,
+          "fired": 3,
+          "rate": 0.375
+        },
+        "train": {
+          "regions": 76,
+          "fired": 21,
+          "rate": 0.2763
+        },
+        "val": {
+          "regions": 25,
+          "fired": 15,
+          "rate": 0.6
+        }
+      },
+      "per_coco_class": {
+        "bed": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 2,
+          "rate": 1.0
+        },
+        "bench": {
+          "regions": 16,
+          "fired": 11,
+          "detections": 15,
+          "rate": 0.6875
+        },
+        "bicycle": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "bird": {
+          "regions": 14,
+          "fired": 1,
+          "detections": 1,
+          "rate": 0.0714
+        },
+        "boat": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "bus": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "car": {
+          "regions": 41,
+          "fired": 14,
+          "detections": 16,
+          "rate": 0.3415
+        },
+        "elephant": {
+          "regions": 2,
+          "fired": 2,
+          "detections": 2,
+          "rate": 1.0
+        },
+        "horse": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "parking meter": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "person": {
+          "regions": 25,
+          "fired": 6,
+          "detections": 7,
+          "rate": 0.24
+        },
+        "sheep": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "toilet": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        },
+        "traffic light": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 2,
+          "rate": 1.0
+        },
+        "truck": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        },
+        "zebra": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        }
+      },
+      "person_regions": 25,
+      "person_regions_producing_detection": 6,
+      "examples": [
+        {
+          "image": "batch_7_000091.JPG",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.586,
+          "detector_said": "plastic_bottles",
+          "conf": 0.991,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_5_000112.JPG",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.488,
+          "detector_said": "plastic_bags",
+          "conf": 0.961,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_15_000078.jpg",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.706,
+          "detector_said": "metal_cans",
+          "conf": 0.918,
+          "n_boxes": 3
+        },
+        {
+          "image": "batch_5_000071.JPG",
+          "split": "train",
+          "region_is": "elephant",
+          "coco_conf": 0.519,
+          "detector_said": "plastic_bottles",
+          "conf": 0.888,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_1_000010.jpg",
+          "split": "val",
+          "region_is": "bed",
+          "coco_conf": 0.54,
+          "detector_said": "plastic_bottles",
+          "conf": 0.87,
+          "n_boxes": 2
+        },
+        {
+          "image": "batch_3_IMG_5064.JPG",
+          "split": "val",
+          "region_is": "traffic light",
+          "coco_conf": 0.918,
+          "detector_said": "plastic_bags",
+          "conf": 0.852,
+          "n_boxes": 2
+        },
+        {
+          "image": "batch_8_000034.jpg",
+          "split": "val",
+          "region_is": "car",
+          "coco_conf": 0.638,
+          "detector_said": "plastic_bags",
+          "conf": 0.851,
+          "n_boxes": 3
+        },
+        {
+          "image": "batch_12_000038.jpg",
+          "split": "val",
+          "region_is": "car",
+          "coco_conf": 0.514,
+          "detector_said": "plastic_bags",
+          "conf": 0.839,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_12_000038.jpg",
+          "split": "val",
+          "region_is": "car",
+          "coco_conf": 0.575,
+          "detector_said": "plastic_bottles",
+          "conf": 0.808,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_9_000035.jpg",
+          "split": "test",
+          "region_is": "elephant",
+          "coco_conf": 0.652,
+          "detector_said": "plastic_bags",
+          "conf": 0.786,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_15_000020.jpg",
+          "split": "val",
+          "region_is": "bench",
+          "coco_conf": 0.823,
+          "detector_said": "metal_cans",
+          "conf": 0.773,
+          "n_boxes": 2
+        },
+        {
+          "image": "batch_12_000087.jpg",
+          "split": "train",
+          "region_is": "bird",
+          "coco_conf": 0.558,
+          "detector_said": "plastic_bags",
+          "conf": 0.765,
+          "n_boxes": 1
+        }
+      ]
+    },
+    "B_litter_localizer_final": {
+      "non_waste_regions_probed": 109,
+      "regions_with_at_least_one_detection": 36,
+      "false_positive_rate": 0.3303,
+      "total_false_detections": 52,
+      "per_split": {
+        "test": {
+          "regions": 8,
+          "fired": 2,
+          "rate": 0.25
+        },
+        "train": {
+          "regions": 76,
+          "fired": 24,
+          "rate": 0.3158
+        },
+        "val": {
+          "regions": 25,
+          "fired": 10,
+          "rate": 0.4
+        }
+      },
+      "per_coco_class": {
+        "bed": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        },
+        "bench": {
+          "regions": 16,
+          "fired": 10,
+          "detections": 15,
+          "rate": 0.625
+        },
+        "bicycle": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "bird": {
+          "regions": 14,
+          "fired": 2,
+          "detections": 3,
+          "rate": 0.1429
+        },
+        "boat": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "bus": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        },
+        "car": {
+          "regions": 41,
+          "fired": 14,
+          "detections": 19,
+          "rate": 0.3415
+        },
+        "elephant": {
+          "regions": 2,
+          "fired": 2,
+          "detections": 3,
+          "rate": 1.0
+        },
+        "horse": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "parking meter": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 2,
+          "rate": 1.0
+        },
+        "person": {
+          "regions": 25,
+          "fired": 3,
+          "detections": 6,
+          "rate": 0.12
+        },
+        "sheep": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "toilet": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        },
+        "traffic light": {
+          "regions": 1,
+          "fired": 1,
+          "detections": 1,
+          "rate": 1.0
+        },
+        "truck": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        },
+        "zebra": {
+          "regions": 1,
+          "fired": 0,
+          "detections": 0,
+          "rate": 0.0
+        }
+      },
+      "person_regions": 25,
+      "person_regions_producing_detection": 3,
+      "examples": [
+        {
+          "image": "batch_7_000091.JPG",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.586,
+          "detector_said": "litter",
+          "conf": 0.956,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_5_000071.JPG",
+          "split": "train",
+          "region_is": "elephant",
+          "coco_conf": 0.519,
+          "detector_said": "litter",
+          "conf": 0.939,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_15_000020.jpg",
+          "split": "val",
+          "region_is": "bench",
+          "coco_conf": 0.823,
+          "detector_said": "litter",
+          "conf": 0.873,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_10_000099.jpg",
+          "split": "train",
+          "region_is": "car",
+          "coco_conf": 0.858,
+          "detector_said": "litter",
+          "conf": 0.872,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_3_IMG_4919.JPG",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.923,
+          "detector_said": "litter",
+          "conf": 0.858,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_10_000012.jpg",
+          "split": "train",
+          "region_is": "car",
+          "coco_conf": 0.831,
+          "detector_said": "litter",
+          "conf": 0.853,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_11_000032.jpg",
+          "split": "val",
+          "region_is": "bench",
+          "coco_conf": 0.82,
+          "detector_said": "litter",
+          "conf": 0.853,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_1_000010.jpg",
+          "split": "val",
+          "region_is": "bed",
+          "coco_conf": 0.54,
+          "detector_said": "litter",
+          "conf": 0.852,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_3_IMG_4893.JPG",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.844,
+          "detector_said": "litter",
+          "conf": 0.83,
+          "n_boxes": 3
+        },
+        {
+          "image": "batch_8_000034.jpg",
+          "split": "val",
+          "region_is": "car",
+          "coco_conf": 0.638,
+          "detector_said": "litter",
+          "conf": 0.8,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_11_000014.jpg",
+          "split": "train",
+          "region_is": "car",
+          "coco_conf": 0.829,
+          "detector_said": "litter",
+          "conf": 0.795,
+          "n_boxes": 1
+        },
+        {
+          "image": "batch_15_000078.jpg",
+          "split": "train",
+          "region_is": "bench",
+          "coco_conf": 0.706,
+          "detector_said": "litter",
+          "conf": 0.794,
+          "n_boxes": 4
+        }
+      ]
+    }
+  }
+}

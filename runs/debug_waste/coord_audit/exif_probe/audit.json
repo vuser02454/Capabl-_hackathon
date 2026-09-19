@@ -1,0 +1,133 @@
+{
+  "original_upright": [
+    480,
+    640
+  ],
+  "exif_orientation": 6,
+  "decoded_shape": [
+    640,
+    480,
+    3
+  ],
+  "letterbox": {
+    "gain": 1.0,
+    "resized_to": [
+      480,
+      640
+    ],
+    "pad_left_right": 80.0,
+    "pad_top_bottom": 0.0,
+    "network_input": [
+      640,
+      640
+    ]
+  },
+  "waste_orig_shape": [
+    640,
+    480
+  ],
+  "coco_orig_shape": [
+    640,
+    480
+  ],
+  "waste_boxes": [
+    {
+      "tag": "W1",
+      "cls": "metal_cans",
+      "conf": 0.889,
+      "xyxy": [
+        171.6,
+        150.8,
+        287.8,
+        423.6
+      ],
+      "raw": [
+        171.6048583984375,
+        150.84326171875,
+        287.78594970703125,
+        423.5892333984375
+      ]
+    }
+  ],
+  "coco_boxes": [
+    {
+      "tag": "C1",
+      "cls": "person",
+      "conf": 0.488,
+      "xyxy": [
+        324.8,
+        0.7,
+        479.5,
+        378.4
+      ],
+      "raw": [
+        324.76177978515625,
+        0.690887451171875,
+        479.47119140625,
+        378.3859558105469
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "waste": "W1",
+      "coco": "C1",
+      "iou": 0.0,
+      "coco_in_waste": 0.0,
+      "waste_in_coco": 0.0,
+      "veto_eligible": true,
+      "veto_fires": false
+    }
+  ],
+  "non_waste_regions": [
+    [
+      "person",
+      0.488,
+      [
+        324.8,
+        0.7,
+        479.5,
+        378.4
+      ]
+    ]
+  ],
+  "final": {
+    "status": "ok",
+    "model": "waste_detector",
+    "classifier_available": true,
+    "image_width": 480,
+    "image_height": 640,
+    "detections": [
+      {
+        "id": "WASTE-DET-001",
+        "bbox": [
+          171.6,
+          150.8,
+          287.8,
+          423.6
+        ],
+        "detected_object": "metal_cans",
+        "detection_confidence": 0.889,
+        "also_detected_as": null,
+        "classification": "metal_cans",
+        "classification_confidence": 0.8199,
+        "segregation": "non_biodegradable",
+        "handling": "recyclable",
+        "display": "Metal cans",
+        "status": "confirmed",
+        "label_source": "classifier",
+        "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+      }
+    ],
+    "summary": {
+      "total_objects": 1,
+      "duplicate_boxes_merged": 0,
+      "biodegradable": 0,
+      "non_biodegradable": 1,
+      "uncertain": 0,
+      "non_waste_objects": 0,
+      "localisations_rejected": 0
+    },
+    "message": null
+  }
+}

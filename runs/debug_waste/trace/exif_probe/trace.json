@@ -1,0 +1,222 @@
+{
+  "image": "/Users/vvijwal01gmail.com/agenticAI/runs/debug_waste/trace/exif_probe.jpg",
+  "image_size": [
+    640,
+    480
+  ],
+  "detector": {
+    "weights_path": "/Users/vvijwal01gmail.com/agenticAI/backend/models/waste_detector.pt",
+    "ui_label": "waste_detector",
+    "task": "detect",
+    "names": {
+      "0": "ewaste",
+      "1": "food_waste",
+      "2": "metal_cans",
+      "3": "paper_waste",
+      "4": "plastic_bags",
+      "5": "plastic_bottles"
+    },
+    "nc": 6,
+    "conf_threshold": 0.25,
+    "trained_from": "backend/models/yolov8n.pt",
+    "trained_on": "/Users/vvijwal01gmail.com/agenticAI/datasets/taco_yolo/data.yaml",
+    "train_metrics": {
+      "metrics/precision(B)": 0.4062,
+      "metrics/recall(B)": 0.3731,
+      "metrics/mAP50(B)": 0.3414,
+      "metrics/mAP50-95(B)": 0.2215,
+      "val/box_loss": 1.3963,
+      "val/cls_loss": 2.1018,
+      "val/dfl_loss": 1.2709,
+      "fitness": 0.2215
+    },
+    "trained_at": "2026-09-19T06:00:52.528173+05:30"
+  },
+  "classifier": {
+    "configured": true,
+    "available": true,
+    "weights": "/Users/vvijwal01gmail.com/agenticAI/runs/classification/best.pt",
+    "classes": [
+      "ewaste",
+      "food_waste",
+      "leaf_waste",
+      "metal_cans",
+      "paper_waste",
+      "plastic_bags",
+      "plastic_bottles",
+      "wood_waste"
+    ],
+    "threshold": 0.6,
+    "detail": "These weights do not record the preprocessing they were trained with, so the match with the served transform ('letterbox_v2') is unverified. It was chosen by measurement on real detector crops, not by matching."
+  },
+  "raw_detections": [
+    {
+      "n": 1,
+      "class": "metal_cans",
+      "conf": 0.889,
+      "xyxy": [
+        171.6,
+        150.8,
+        287.8,
+        423.6
+      ],
+      "crop_wh": [
+        116,
+        273
+      ],
+      "frame_fraction": 0.1032,
+      "semantic_category": "visible_surface_litter",
+      "is_never_waste_gate_fires": false
+    }
+  ],
+  "vision_status": "ok",
+  "vision_model_label": "waste_detector",
+  "coco_detections": [
+    {
+      "n": 1,
+      "class": "person",
+      "conf": 0.488,
+      "xyxy": [
+        324.8,
+        0.7,
+        479.5,
+        378.4
+      ]
+    }
+  ],
+  "waste_vs_coco_overlap": [
+    {
+      "waste_box": 1,
+      "waste_class": "metal_cans",
+      "matches": []
+    }
+  ],
+  "pipeline_result": {
+    "status": "ok",
+    "model": "waste_detector",
+    "classifier_available": true,
+    "image_width": 480,
+    "image_height": 640,
+    "detections": [
+      {
+        "id": "WASTE-DET-001",
+        "bbox": [
+          171.6,
+          150.8,
+          287.8,
+          423.6
+        ],
+        "detected_object": "metal_cans",
+        "detection_confidence": 0.889,
+        "also_detected_as": null,
+        "classification": "metal_cans",
+        "classification_confidence": 0.8199,
+        "segregation": "non_biodegradable",
+        "handling": "recyclable",
+        "display": "Metal cans",
+        "status": "confirmed",
+        "label_source": "classifier",
+        "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+      }
+    ],
+    "summary": {
+      "total_objects": 1,
+      "duplicate_boxes_merged": 0,
+      "biodegradable": 0,
+      "non_biodegradable": 1,
+      "uncertain": 0,
+      "non_waste_objects": 0,
+      "localisations_rejected": 0
+    },
+    "message": null
+  },
+  "controlled_crops": {
+    "__full_image__": {
+      "box": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "crop_wh": [
+        640,
+        480
+      ],
+      "classification": "paper_waste",
+      "confidence": 0.9007,
+      "candidate": null,
+      "top3": [
+        [
+          "paper_waste",
+          0.9007
+        ],
+        [
+          "metal_cans",
+          0.0427
+        ],
+        [
+          "food_waste",
+          0.018
+        ]
+      ]
+    },
+    "coco_1_person": {
+      "box": [
+        324.8,
+        0.7,
+        479.5,
+        378.4
+      ],
+      "crop_wh": [
+        155,
+        378
+      ],
+      "classification": null,
+      "confidence": 0.5847,
+      "candidate": "metal_cans",
+      "top3": [
+        [
+          "metal_cans",
+          0.5847
+        ],
+        [
+          "paper_waste",
+          0.3548
+        ],
+        [
+          "food_waste",
+          0.0176
+        ]
+      ]
+    },
+    "wastebox_1_metal_cans": {
+      "box": [
+        171.6,
+        150.8,
+        287.8,
+        423.6
+      ],
+      "crop_wh": [
+        116,
+        273
+      ],
+      "classification": "paper_waste",
+      "confidence": 0.8342,
+      "candidate": null,
+      "top3": [
+        [
+          "paper_waste",
+          0.8342
+        ],
+        [
+          "plastic_bottles",
+          0.0923
+        ],
+        [
+          "metal_cans",
+          0.0226
+        ]
+      ]
+    }
+  }
+}

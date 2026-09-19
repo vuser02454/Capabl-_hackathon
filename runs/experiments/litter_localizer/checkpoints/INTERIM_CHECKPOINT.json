@@ -1,0 +1,26 @@
+{
+  "loads": true,
+  "task": "detect",
+  "nc": 1,
+  "names": {
+    "0": "litter"
+  },
+  "checkpoint_epoch_field": 8,
+  "best_fitness": 0.26926,
+  "train_args_data": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/litter_localizer/dataset/data.yaml",
+  "train_args_epochs": 40,
+  "train_args_seed": 1337,
+  "train_args_imgsz": 640,
+  "train_metrics_at_best": {
+    "metrics/precision(B)": 0.53888,
+    "metrics/recall(B)": 0.44138,
+    "metrics/mAP50(B)": 0.41345,
+    "metrics/mAP50-95(B)": 0.26926,
+    "val/box_loss": 1.3861,
+    "val/cls_loss": 1.78885,
+    "val/dfl_loss": 1.31628,
+    "fitness": 0.26926
+  },
+  "training_completed": false,
+  "why": "process 70928 alive at epoch 12/40; no TRAINING COMPLETE marker; train_args.json absent"
+}

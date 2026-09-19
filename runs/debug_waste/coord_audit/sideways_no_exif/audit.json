@@ -1,0 +1,281 @@
+{
+  "original_upright": [
+    640,
+    480
+  ],
+  "exif_orientation": null,
+  "decoded_shape": [
+    480,
+    640,
+    3
+  ],
+  "letterbox": {
+    "gain": 1.0,
+    "resized_to": [
+      640,
+      480
+    ],
+    "pad_left_right": 0.0,
+    "pad_top_bottom": 80.0,
+    "network_input": [
+      640,
+      640
+    ]
+  },
+  "waste_orig_shape": [
+    480,
+    640
+  ],
+  "coco_orig_shape": [
+    480,
+    640
+  ],
+  "waste_boxes": [
+    {
+      "tag": "W1",
+      "cls": "metal_cans",
+      "conf": 0.962,
+      "xyxy": [
+        149.7,
+        192.1,
+        420.8,
+        311.6
+      ],
+      "raw": [
+        149.74700927734375,
+        192.09524536132812,
+        420.78228759765625,
+        311.62591552734375
+      ]
+    },
+    {
+      "tag": "W2",
+      "cls": "paper_waste",
+      "conf": 0.436,
+      "xyxy": [
+        1.7,
+        0.0,
+        286.7,
+        164.6
+      ],
+      "raw": [
+        1.655609130859375,
+        0.0,
+        286.6941223144531,
+        164.64622497558594
+      ]
+    },
+    {
+      "tag": "W3",
+      "cls": "paper_waste",
+      "conf": 0.283,
+      "xyxy": [
+        201.0,
+        194.1,
+        640.0,
+        480.0
+      ],
+      "raw": [
+        201.04840087890625,
+        194.0646514892578,
+        640.0,
+        480.0
+      ]
+    }
+  ],
+  "coco_boxes": [
+    {
+      "tag": "C1",
+      "cls": "person",
+      "conf": 0.705,
+      "xyxy": [
+        0.3,
+        0.2,
+        378.8,
+        154.8
+      ],
+      "raw": [
+        0.30023193359375,
+        0.22076416015625,
+        378.849365234375,
+        154.8345947265625
+      ]
+    },
+    {
+      "tag": "C2",
+      "cls": "person",
+      "conf": 0.407,
+      "xyxy": [
+        533.5,
+        1.4,
+        639.7,
+        477.5
+      ],
+      "raw": [
+        533.5220336914062,
+        1.36383056640625,
+        639.6738891601562,
+        477.4776611328125
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "waste": "W1",
+      "coco": "C1",
+      "iou": 0.0,
+      "coco_in_waste": 0.0,
+      "waste_in_coco": 0.0,
+      "veto_eligible": true,
+      "veto_fires": false
+    },
+    {
+      "waste": "W1",
+      "coco": "C2",
+      "iou": 0.0,
+      "coco_in_waste": 0.0,
+      "waste_in_coco": 0.0,
+      "veto_eligible": true,
+      "veto_fires": false
+    },
+    {
+      "waste": "W2",
+      "coco": "C1",
+      "iou": 0.7179,
+      "coco_in_waste": 0.753,
+      "waste_in_coco": 0.9391,
+      "veto_eligible": true,
+      "veto_fires": true
+    },
+    {
+      "waste": "W2",
+      "coco": "C2",
+      "iou": 0.0,
+      "coco_in_waste": 0.0,
+      "waste_in_coco": 0.0,
+      "veto_eligible": true,
+      "veto_fires": false
+    },
+    {
+      "waste": "W3",
+      "coco": "C1",
+      "iou": 0.0,
+      "coco_in_waste": 0.0,
+      "waste_in_coco": 0.0,
+      "veto_eligible": true,
+      "veto_fires": false
+    },
+    {
+      "waste": "W3",
+      "coco": "C2",
+      "iou": 0.2061,
+      "coco_in_waste": 0.5953,
+      "waste_in_coco": 0.2397,
+      "veto_eligible": true,
+      "veto_fires": false
+    }
+  ],
+  "non_waste_regions": [
+    [
+      "person",
+      0.705,
+      [
+        0.3,
+        0.2,
+        378.8,
+        154.8
+      ]
+    ],
+    [
+      "person",
+      0.407,
+      [
+        533.5,
+        1.4,
+        639.7,
+        477.5
+      ]
+    ]
+  ],
+  "final": {
+    "status": "ok",
+    "model": "waste_detector",
+    "classifier_available": true,
+    "image_width": 640,
+    "image_height": 480,
+    "detections": [
+      {
+        "id": "WASTE-DET-001",
+        "bbox": [
+          149.7,
+          192.1,
+          420.8,
+          311.6
+        ],
+        "detected_object": "metal_cans",
+        "detection_confidence": 0.962,
+        "also_detected_as": null,
+        "classification": "metal_cans",
+        "classification_confidence": 0.661,
+        "segregation": "non_biodegradable",
+        "handling": "recyclable",
+        "display": "Metal cans",
+        "status": "confirmed",
+        "label_source": "classifier",
+        "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+      },
+      {
+        "id": "WASTE-DET-002",
+        "bbox": [
+          1.7,
+          0.0,
+          286.7,
+          164.6
+        ],
+        "detected_object": "paper_waste",
+        "detection_confidence": 0.436,
+        "also_detected_as": null,
+        "classification": null,
+        "classification_confidence": null,
+        "candidate": "paper_waste",
+        "segregation": "uncertain",
+        "status": "needs_review",
+        "handling": null,
+        "display": null,
+        "label_source": null,
+        "localisation_rejected": "non_waste_object",
+        "message": "The detector localised this as 'paper_waste' at 44%. This region is a 'person' (70% confidence from the general-purpose detector, IoU 0.72), which cannot be waste, so no material is asserted."
+      },
+      {
+        "id": "WASTE-DET-003",
+        "bbox": [
+          201.0,
+          194.1,
+          640.0,
+          480.0
+        ],
+        "detected_object": "paper_waste",
+        "detection_confidence": 0.283,
+        "also_detected_as": null,
+        "classification": "paper_waste",
+        "classification_confidence": 0.7306,
+        "segregation": "biodegradable",
+        "handling": "fibre_recyclable",
+        "display": "Paper waste",
+        "status": "confirmed",
+        "label_source": "classifier",
+        "environmental_note": "Degrades naturally, and recoverable as fibre while it is still dry and clean."
+      }
+    ],
+    "summary": {
+      "total_objects": 3,
+      "duplicate_boxes_merged": 0,
+      "biodegradable": 1,
+      "non_biodegradable": 1,
+      "uncertain": 1,
+      "non_waste_objects": 1,
+      "localisations_rejected": 1
+    },
+    "message": null
+  }
+}
