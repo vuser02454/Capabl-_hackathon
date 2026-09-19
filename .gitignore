@@ -25,6 +25,12 @@ water_datasets/
 garbage_Dataset/
 TACO-master/
 
+# Dataset labels re-emitted under runs/ by the experiment harness. Same redistribution objection as
+# above: runs/experiments/litter_localizer/dataset/labels/ is TACO's annotations with the class ids
+# collapsed to one (see that experiment's EXPERIMENT_MANIFEST.json), so committing it redistributes
+# the dataset. Regenerable from the harness; the manifest that pins the split is kept.
+runs/experiments/**/dataset/labels/
+
 # Trained weights and training artefacts. Reproducible from the documented scripts and the
 # audited split manifests; the reports that justify them are kept (see below).
 runs/**/*.pt
