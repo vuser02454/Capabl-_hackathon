@@ -1,0 +1,47 @@
+{
+  "images_total": 1501,
+  "exact_duplicates": {
+    "groups": 0,
+    "extra_images": 0,
+    "images_involved": 0
+  },
+  "near_duplicates": {
+    "0": {
+      "pairs": 483,
+      "unique_images": 131,
+      "percent_of_dataset": 8.73,
+      "groups": 40,
+      "largest_group": 27,
+      "pairs_within_same_session": 481,
+      "pairs_crossing_sessions": 2
+    },
+    "2": {
+      "pairs": 3234,
+      "unique_images": 522,
+      "percent_of_dataset": 34.78,
+      "groups": 39,
+      "largest_group": 150,
+      "pairs_within_same_session": 3179,
+      "pairs_crossing_sessions": 55
+    },
+    "5": {
+      "pairs": 13238,
+      "unique_images": 968,
+      "percent_of_dataset": 64.49,
+      "groups": 66,
+      "largest_group": 505,
+      "pairs_within_same_session": 11538,
+      "pairs_crossing_sessions": 1700
+    },
+    "8": {
+      "pairs": 35476,
+      "unique_images": 1281,
+      "percent_of_dataset": 85.34,
+      "groups": 63,
+      "largest_group": 599,
+      "pairs_within_same_session": 24021,
+      "pairs_crossing_sessions": 11455
+    }
+  },
+  "csv_rows": 35476
+}

@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-09-18T22:48:39.686873+00:00",
+  "source": "TACO-master/data/annotations.json",
+  "output": "datasets/taco_yolo",
+  "taxonomy": {
+    "ecosentinel_classes_in_dataset": [
+      "ewaste",
+      "food_waste",
+      "metal_cans",
+      "paper_waste",
+      "plastic_bags",
+      "plastic_bottles"
+    ],
+    "classes_with_no_taco_data": [
+      "leaf_waste",
+      "wood_waste"
+    ],
+    "mapping_file": "training/config/taco_taxonomy_mapping.json"
+  },
+  "images": {
+    "with_usable_annotations": 988,
+    "written": {
+      "train": 742,
+      "val": 148,
+      "test": 98
+    },
+    "missing_on_disk": 0,
+    "missing_examples": []
+  },
+  "annotations": {
+    "converted": 1814,
+    "rejected": 0,
+    "rejection_reasons": {},
+    "rejected_examples": [],
+    "excluded_unmapped_categories": {
+      "Cigarette": 667,
+      "Unlabeled litter": 517,
+      "Other plastic": 273,
+      "Plastic bottle cap": 209,
+      "Plastic straw": 157,
+      "Broken glass": 138,
+      "Styrofoam piece": 112,
+      "Glass bottle": 104,
+      "Disposable plastic cup": 104,
+      "Pop tab": 99,
+      "Metal bottle cap": 80,
+      "Plastic lid": 77,
+      "Paper cup": 67,
+      "Aluminium foil": 62,
+      "Drink carton": 45,
+      "Disposable food container": 38,
+      "Plastic utensils": 37,
+      "Meal carton": 30,
+      "Rope & strings": 29,
+      "Scrap metal": 20,
+      "Foam food container": 15,
+      "Foam cup": 13,
+      "Metal lid": 10,
+      "Spread tub": 9,
+      "Squeezable tube": 7,
+      "Shoe": 7,
+      "Glass cup": 6,
+      "Glass jar": 6,
+      "Aluminium blister pack": 6,
+      "Other plastic container": 6,
+      "Six pack rings": 5,
+      "Paper straw": 4,
+      "Plastic glooves": 4,
+      "Tupperware": 4,
+      "Other plastic cup": 2,
+      "Carded blister pack": 1
+    },
+    "excluded_unmapped_total": 2970
+  },
+  "class_distribution": {
+    "train": {
+      "paper_waste": 261,
+      "plastic_bottles": 242,
+      "metal_cans": 205,
+      "plastic_bags": 640,
+      "food_waste": 8,
+      "ewaste": 2
+    },
+    "val": {
+      "plastic_bottles": 61,
+      "metal_cans": 40,
+      "plastic_bags": 134,
+      "paper_waste": 55
+    },
+    "test": {
+      "metal_cans": 28,
+      "plastic_bags": 71,
+      "plastic_bottles": 32,
+      "paper_waste": 35
+    }
+  },
+  "leakage": {
+    "cross_split_duplicate_groups": 0,
+    "examples": [],
+    "split_strategy": "by image id, so one image's annotations never span two splits"
+  },
+  "note": "Unmapped categories are excluded and counted, never merged into the nearest class. The source dataset is untouched."
+}

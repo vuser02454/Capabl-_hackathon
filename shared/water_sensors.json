@@ -1,0 +1,125 @@
+{
+  "description": "Location-aware water source registry. provider: demo (Demo Mode only), mqtt (readings pushed via MQTT bridge or POST /api/sensors/water/{id}/readings), firebase (ESP32 -> Firebase RTDB /sensors/{id}/latest), http_json (monitoring station JSON endpoint). kind: iot | monitoring_station.",
+  "sensors": [
+    {
+      "sensorId": "WTR-07",
+      "name": "Bellandur Lake Inlet",
+      "kind": "iot",
+      "provider": "demo",
+      "latitude": 12.9352,
+      "longitude": 77.6684,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "profileId": "bengaluru",
+      "enabled": true
+    },
+    {
+      "sensorId": "WTR-12",
+      "name": "Yamuna · ITO Barrage",
+      "kind": "iot",
+      "provider": "demo",
+      "latitude": 28.627,
+      "longitude": 77.2566,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "profileId": "delhi",
+      "enabled": true
+    },
+    {
+      "sensorId": "WTR-21",
+      "name": "Mithi River · Kurla",
+      "kind": "iot",
+      "provider": "demo",
+      "latitude": 19.0728,
+      "longitude": 72.8826,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "profileId": "mumbai",
+      "enabled": true
+    },
+    {
+      "sensorId": "WTR-31",
+      "name": "Adyar River · Kotturpuram",
+      "kind": "iot",
+      "provider": "demo",
+      "latitude": 13.0186,
+      "longitude": 80.2442,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "profileId": "chennai",
+      "enabled": true
+    },
+    {
+      "sensorId": "WTR-41",
+      "name": "Hussain Sagar · Tank Bund",
+      "kind": "iot",
+      "provider": "demo",
+      "latitude": 17.4239,
+      "longitude": 78.4738,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "profileId": "hyderabad",
+      "enabled": true
+    },
+    {
+      "sensorId": "WTR-51",
+      "name": "Mula-Mutha · Sangam",
+      "kind": "iot",
+      "provider": "demo",
+      "latitude": 18.5292,
+      "longitude": 73.8633,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "profileId": "pune",
+      "enabled": true
+    },
+    {
+      "sensorId": "WATER_001",
+      "name": "EcoSentinel Water Node 01",
+      "kind": "iot",
+      "provider": "mqtt",
+      "latitude": 12.972,
+      "longitude": 77.5951,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature",
+        "tds"
+      ],
+      "enabled": true
+    },
+    {
+      "sensorId": "WQ-STATION-EXAMPLE",
+      "name": "Example water monitoring station",
+      "kind": "monitoring_station",
+      "provider": "http_json",
+      "latitude": 12.95,
+      "longitude": 77.6,
+      "parameters": [
+        "ph",
+        "turbidity",
+        "temperature"
+      ],
+      "url": "",
+      "enabled": false
+    }
+  ]
+}

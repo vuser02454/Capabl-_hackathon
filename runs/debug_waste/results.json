@@ -1,0 +1,606 @@
+{
+  "generated_at": "2026-09-19T00:38:29.373735+00:00",
+  "note": "Produced by observing services.waste.waste_pipeline.analyze_waste, not by a separate debug implementation. classifier.class is the raw argmax before the confidence threshold and the non-waste gate; reported.* is what the API returned.",
+  "runs": [
+    {
+      "stem": "plastic_bottle",
+      "source_file": "00000003.jpg",
+      "generated_at": "2026-09-19T00:38:28.350654+00:00",
+      "original_path": "runs/debug_waste/original/plastic_bottle.jpg",
+      "detector_annotated_path": "runs/debug_waste/detector_annotated/plastic_bottle.png",
+      "raw_detections": 2,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "detector": {
+            "class": "bottle",
+            "confidence": 0.544,
+            "bbox": [
+              186.2,
+              9.3,
+              338.3,
+              492.1
+            ]
+          },
+          "classifier": {
+            "class": "plastic_bottles",
+            "confidence": 0.8633,
+            "top5": [
+              {
+                "class": "plastic_bottles",
+                "confidence": 0.8633
+              },
+              {
+                "class": "food_waste",
+                "confidence": 0.0313
+              },
+              {
+                "class": "metal_cans",
+                "confidence": 0.0283
+              },
+              {
+                "class": "plastic_bags",
+                "confidence": 0.022
+              },
+              {
+                "class": "ewaste",
+                "confidence": 0.0206
+              }
+            ]
+          },
+          "final_label": "plastic_bottles",
+          "crop_path": "runs/debug_waste/classifier_crops/plastic_bottle_WASTE-DET-001_crop.png",
+          "reported": {
+            "classification": "plastic_bottles",
+            "classification_confidence": 0.8633,
+            "candidate": null,
+            "segregation": "non_biodegradable",
+            "status": "confirmed",
+            "message": null
+          },
+          "taxonomy": {
+            "looked_up": "plastic_bottles",
+            "category": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Plastic bottles"
+          },
+          "model_input_path": "runs/debug_waste/classifier_crops/plastic_bottle_WASTE-DET-001_model_input.png"
+        }
+      ],
+      "pipeline_result": {
+        "status": "ok",
+        "model": "YOLOv8n",
+        "classifier_available": true,
+        "image_width": 500,
+        "image_height": 500,
+        "detections": [
+          {
+            "id": "WASTE-DET-001",
+            "bbox": [
+              186.2,
+              9.3,
+              338.3,
+              492.1
+            ],
+            "detected_object": "bottle",
+            "detection_confidence": 0.544,
+            "also_detected_as": [
+              "vase"
+            ],
+            "classification": "plastic_bottles",
+            "classification_confidence": 0.8633,
+            "segregation": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Plastic bottles",
+            "status": "confirmed",
+            "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+          }
+        ],
+        "summary": {
+          "total_objects": 1,
+          "duplicate_boxes_merged": 1,
+          "biodegradable": 0,
+          "non_biodegradable": 1,
+          "uncertain": 0,
+          "non_waste_objects": 0
+        },
+        "message": null
+      },
+      "actual_object": "plastic bottle",
+      "source": "garbage_Dataset/val/non_biodegradable/plastic_bottles/00000003.jpg"
+    },
+    {
+      "stem": "metal_can",
+      "source_file": "00000011.jpg",
+      "generated_at": "2026-09-19T00:38:28.544185+00:00",
+      "original_path": "runs/debug_waste/original/metal_can.jpg",
+      "detector_annotated_path": "runs/debug_waste/detector_annotated/metal_can.png",
+      "raw_detections": 1,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "detector": {
+            "class": "cup",
+            "confidence": 0.817,
+            "bbox": [
+              272.7,
+              131.3,
+              547.9,
+              547.7
+            ]
+          },
+          "classifier": {
+            "class": "metal_cans",
+            "confidence": 0.9705,
+            "top5": [
+              {
+                "class": "metal_cans",
+                "confidence": 0.9705
+              },
+              {
+                "class": "food_waste",
+                "confidence": 0.0131
+              },
+              {
+                "class": "paper_waste",
+                "confidence": 0.0081
+              },
+              {
+                "class": "wood_waste",
+                "confidence": 0.0038
+              },
+              {
+                "class": "ewaste",
+                "confidence": 0.0016
+              }
+            ]
+          },
+          "final_label": "metal_cans",
+          "crop_path": "runs/debug_waste/classifier_crops/metal_can_WASTE-DET-001_crop.png",
+          "reported": {
+            "classification": "metal_cans",
+            "classification_confidence": 0.9705,
+            "candidate": null,
+            "segregation": "non_biodegradable",
+            "status": "confirmed",
+            "message": null
+          },
+          "taxonomy": {
+            "looked_up": "metal_cans",
+            "category": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Metal cans"
+          },
+          "model_input_path": "runs/debug_waste/classifier_crops/metal_can_WASTE-DET-001_model_input.png"
+        }
+      ],
+      "pipeline_result": {
+        "status": "ok",
+        "model": "YOLOv8n",
+        "classifier_available": true,
+        "image_width": 845,
+        "image_height": 650,
+        "detections": [
+          {
+            "id": "WASTE-DET-001",
+            "bbox": [
+              272.7,
+              131.3,
+              547.9,
+              547.7
+            ],
+            "detected_object": "cup",
+            "detection_confidence": 0.817,
+            "also_detected_as": null,
+            "classification": "metal_cans",
+            "classification_confidence": 0.9705,
+            "segregation": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Metal cans",
+            "status": "confirmed",
+            "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+          }
+        ],
+        "summary": {
+          "total_objects": 1,
+          "duplicate_boxes_merged": 0,
+          "biodegradable": 0,
+          "non_biodegradable": 1,
+          "uncertain": 0,
+          "non_waste_objects": 0
+        },
+        "message": null
+      },
+      "actual_object": "metal can",
+      "source": "garbage_Dataset/val/non_biodegradable/metal_cans/00000011.jpg"
+    },
+    {
+      "stem": "paper",
+      "source_file": "00000005.jpg",
+      "generated_at": "2026-09-19T00:38:28.652463+00:00",
+      "original_path": "runs/debug_waste/original/paper.jpg",
+      "detector_annotated_path": "runs/debug_waste/detector_annotated/paper.png",
+      "raw_detections": 0,
+      "detections": [],
+      "pipeline_result": {
+        "status": "ok",
+        "model": "YOLOv8n",
+        "classifier_available": true,
+        "image_width": 1170,
+        "image_height": 587,
+        "detections": [],
+        "summary": {
+          "total_objects": 0,
+          "duplicate_boxes_merged": 0,
+          "biodegradable": 0,
+          "non_biodegradable": 0,
+          "uncertain": 0,
+          "non_waste_objects": 0
+        },
+        "message": null
+      },
+      "actual_object": "paper",
+      "source": "garbage_Dataset/val/biodegradable/paper_waste/00000005.jpg"
+    },
+    {
+      "stem": "plastic_bag",
+      "source_file": "00000001.jpg",
+      "generated_at": "2026-09-19T00:38:28.878944+00:00",
+      "original_path": "runs/debug_waste/original/plastic_bag.jpg",
+      "detector_annotated_path": "runs/debug_waste/detector_annotated/plastic_bag.png",
+      "raw_detections": 2,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "detector": {
+            "class": "vase",
+            "confidence": 0.309,
+            "bbox": [
+              198.9,
+              15.0,
+              598.9,
+              531.5
+            ]
+          },
+          "classifier": {
+            "class": "plastic_bags",
+            "confidence": 0.9618,
+            "top5": [
+              {
+                "class": "plastic_bags",
+                "confidence": 0.9618
+              },
+              {
+                "class": "plastic_bottles",
+                "confidence": 0.0098
+              },
+              {
+                "class": "metal_cans",
+                "confidence": 0.007
+              },
+              {
+                "class": "leaf_waste",
+                "confidence": 0.0066
+              },
+              {
+                "class": "ewaste",
+                "confidence": 0.0062
+              }
+            ]
+          },
+          "final_label": "plastic_bags",
+          "crop_path": "runs/debug_waste/classifier_crops/plastic_bag_WASTE-DET-001_crop.png",
+          "reported": {
+            "classification": "plastic_bags",
+            "classification_confidence": 0.9618,
+            "candidate": null,
+            "segregation": "non_biodegradable",
+            "status": "confirmed",
+            "message": null
+          },
+          "taxonomy": {
+            "looked_up": "plastic_bags",
+            "category": "non_biodegradable",
+            "handling": "persistent",
+            "display": "Plastic bags"
+          },
+          "model_input_path": "runs/debug_waste/classifier_crops/plastic_bag_WASTE-DET-001_model_input.png"
+        }
+      ],
+      "pipeline_result": {
+        "status": "ok",
+        "model": "YOLOv8n",
+        "classifier_available": true,
+        "image_width": 820,
+        "image_height": 550,
+        "detections": [
+          {
+            "id": "WASTE-DET-001",
+            "bbox": [
+              198.9,
+              15.0,
+              598.9,
+              531.5
+            ],
+            "detected_object": "vase",
+            "detection_confidence": 0.309,
+            "also_detected_as": [
+              "orange"
+            ],
+            "classification": "plastic_bags",
+            "classification_confidence": 0.9618,
+            "segregation": "non_biodegradable",
+            "handling": "persistent",
+            "display": "Plastic bags",
+            "status": "confirmed",
+            "environmental_note": "Non-degrading and poorly recovered; fragments rather than breaking down."
+          }
+        ],
+        "summary": {
+          "total_objects": 1,
+          "duplicate_boxes_merged": 1,
+          "biodegradable": 0,
+          "non_biodegradable": 1,
+          "uncertain": 0,
+          "non_waste_objects": 0
+        },
+        "message": null
+      },
+      "actual_object": "plastic bag",
+      "source": "garbage_Dataset/val/non_biodegradable/plastic_bags/00000001.jpg"
+    },
+    {
+      "stem": "person_and_aerosol_can",
+      "source_file": "batch_1_000059.jpg",
+      "generated_at": "2026-09-19T00:38:29.373192+00:00",
+      "original_path": "runs/debug_waste/original/person_and_aerosol_can.jpg",
+      "detector_annotated_path": "runs/debug_waste/detector_annotated/person_and_aerosol_can.png",
+      "raw_detections": 3,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "detector": {
+            "class": "mouse",
+            "confidence": 0.928,
+            "bbox": [
+              143.8,
+              86.6,
+              215.7,
+              138.4
+            ]
+          },
+          "classifier": {
+            "class": "plastic_bottles",
+            "confidence": 0.2734,
+            "top5": [
+              {
+                "class": "plastic_bottles",
+                "confidence": 0.2734
+              },
+              {
+                "class": "metal_cans",
+                "confidence": 0.1863
+              },
+              {
+                "class": "food_waste",
+                "confidence": 0.1348
+              },
+              {
+                "class": "paper_waste",
+                "confidence": 0.1218
+              },
+              {
+                "class": "ewaste",
+                "confidence": 0.1057
+              }
+            ]
+          },
+          "final_label": "uncertain",
+          "crop_path": "runs/debug_waste/classifier_crops/person_and_aerosol_can_WASTE-DET-001_crop.png",
+          "reported": {
+            "classification": null,
+            "classification_confidence": 0.2734,
+            "candidate": "plastic_bottles",
+            "segregation": "uncertain",
+            "status": "needs_review",
+            "message": "Top class 'plastic_bottles' at 27% is below the 60% threshold, so no segregation is asserted."
+          },
+          "taxonomy": {
+            "looked_up": "plastic_bottles",
+            "category": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Plastic bottles"
+          },
+          "model_input_path": "runs/debug_waste/classifier_crops/person_and_aerosol_can_WASTE-DET-001_model_input.png"
+        },
+        {
+          "id": "WASTE-DET-002",
+          "detector": {
+            "class": "person",
+            "confidence": 0.793,
+            "bbox": [
+              0.4,
+              358.0,
+              156.0,
+              639.4
+            ]
+          },
+          "classifier": {
+            "class": "paper_waste",
+            "confidence": 0.4637,
+            "top5": [
+              {
+                "class": "paper_waste",
+                "confidence": 0.4637
+              },
+              {
+                "class": "food_waste",
+                "confidence": 0.1493
+              },
+              {
+                "class": "plastic_bags",
+                "confidence": 0.1214
+              },
+              {
+                "class": "leaf_waste",
+                "confidence": 0.0769
+              },
+              {
+                "class": "plastic_bottles",
+                "confidence": 0.0563
+              }
+            ]
+          },
+          "final_label": "uncertain",
+          "crop_path": "runs/debug_waste/classifier_crops/person_and_aerosol_can_WASTE-DET-002_crop.png",
+          "reported": {
+            "classification": null,
+            "classification_confidence": 0.4637,
+            "candidate": "paper_waste",
+            "segregation": "uncertain",
+            "status": "needs_review",
+            "message": "Top class 'paper_waste' at 46% is below the 60% threshold, so no segregation is asserted."
+          },
+          "taxonomy": {
+            "looked_up": "paper_waste",
+            "category": "biodegradable",
+            "handling": "recyclable",
+            "display": "Paper waste"
+          },
+          "model_input_path": "runs/debug_waste/classifier_crops/person_and_aerosol_can_WASTE-DET-002_model_input.png"
+        },
+        {
+          "id": "WASTE-DET-003",
+          "detector": {
+            "class": "bottle",
+            "confidence": 0.687,
+            "bbox": [
+              203.6,
+              219.9,
+              304.7,
+              483.5
+            ]
+          },
+          "classifier": {
+            "class": "metal_cans",
+            "confidence": 0.9034,
+            "top5": [
+              {
+                "class": "metal_cans",
+                "confidence": 0.9034
+              },
+              {
+                "class": "food_waste",
+                "confidence": 0.0173
+              },
+              {
+                "class": "paper_waste",
+                "confidence": 0.017
+              },
+              {
+                "class": "wood_waste",
+                "confidence": 0.0157
+              },
+              {
+                "class": "plastic_bags",
+                "confidence": 0.0132
+              }
+            ]
+          },
+          "final_label": "metal_cans",
+          "crop_path": "runs/debug_waste/classifier_crops/person_and_aerosol_can_WASTE-DET-003_crop.png",
+          "reported": {
+            "classification": "metal_cans",
+            "classification_confidence": 0.9034,
+            "candidate": null,
+            "segregation": "non_biodegradable",
+            "status": "confirmed",
+            "message": null
+          },
+          "taxonomy": {
+            "looked_up": "metal_cans",
+            "category": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Metal cans"
+          },
+          "model_input_path": "runs/debug_waste/classifier_crops/person_and_aerosol_can_WASTE-DET-003_model_input.png"
+        }
+      ],
+      "pipeline_result": {
+        "status": "ok",
+        "model": "YOLOv8n",
+        "classifier_available": true,
+        "image_width": 480,
+        "image_height": 640,
+        "detections": [
+          {
+            "id": "WASTE-DET-001",
+            "bbox": [
+              143.8,
+              86.6,
+              215.7,
+              138.4
+            ],
+            "detected_object": "mouse",
+            "detection_confidence": 0.928,
+            "also_detected_as": null,
+            "classification": null,
+            "classification_confidence": 0.2734,
+            "segregation": "uncertain",
+            "status": "needs_review",
+            "candidate": "plastic_bottles",
+            "message": "Top class 'plastic_bottles' at 27% is below the 60% threshold, so no segregation is asserted."
+          },
+          {
+            "id": "WASTE-DET-002",
+            "bbox": [
+              0.4,
+              358.0,
+              156.0,
+              639.4
+            ],
+            "detected_object": "person",
+            "detection_confidence": 0.793,
+            "also_detected_as": null,
+            "classification": null,
+            "classification_confidence": 0.4637,
+            "segregation": "uncertain",
+            "status": "needs_review",
+            "candidate": "paper_waste",
+            "message": "Top class 'paper_waste' at 46% is below the 60% threshold, so no segregation is asserted."
+          },
+          {
+            "id": "WASTE-DET-003",
+            "bbox": [
+              203.6,
+              219.9,
+              304.7,
+              483.5
+            ],
+            "detected_object": "bottle",
+            "detection_confidence": 0.687,
+            "also_detected_as": null,
+            "classification": "metal_cans",
+            "classification_confidence": 0.9034,
+            "segregation": "non_biodegradable",
+            "handling": "recyclable",
+            "display": "Metal cans",
+            "status": "confirmed",
+            "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+          }
+        ],
+        "summary": {
+          "total_objects": 3,
+          "duplicate_boxes_merged": 0,
+          "biodegradable": 0,
+          "non_biodegradable": 1,
+          "uncertain": 2,
+          "non_waste_objects": 1
+        },
+        "message": null
+      },
+      "actual_object": "person + aerosol can (non-waste test)",
+      "source": "datasets/taco_yolo/images/test/batch_1_000059.jpg"
+    }
+  ]
+}

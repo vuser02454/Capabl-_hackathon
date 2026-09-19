@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-09-19T00:46:25.652338+00:00",
+  "data": "datasets/taco_yolo/data.yaml",
+  "pretrained_from": "backend/models/yolov8n.pt",
+  "device": "mps",
+  "args": {
+    "data": "datasets/taco_yolo/data.yaml",
+    "weights": "backend/models/yolov8n.pt",
+    "project": "runs/waste_detection",
+    "name": "taco_yolov8n",
+    "epochs": 40,
+    "batch": 16,
+    "imgsz": 640,
+    "patience": 12,
+    "workers": 4,
+    "device": "auto",
+    "seed": 1337,
+    "export": "backend/models/waste_detector.pt"
+  },
+  "run_dir": "/Users/vvijwal01gmail.com/agenticAI/runs/waste_detection/taco_yolov8n",
+  "exported_to": "backend/models/waste_detector.pt",
+  "note": "ewaste (2 train boxes) and food_waste (8, both with 0 validation boxes) cannot be learned from this dataset. Their metrics are not evidence of a training problem."
+}

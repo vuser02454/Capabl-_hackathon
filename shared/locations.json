@@ -1,0 +1,691 @@
+{
+  "locations": [
+    {
+      "id": "bengaluru",
+      "name": "Bengaluru",
+      "region": "Karnataka",
+      "lat": 12.9716,
+      "lon": 77.5946,
+      "aliases": [
+        "bangalore",
+        "blr"
+      ],
+      "air": {
+        "stationId": "KA-BLR-SB",
+        "stationName": "Silk Board · KSPCB",
+        "pm25": 91,
+        "pm10": 165,
+        "no2": 42,
+        "o3": 31,
+        "latitude": 12.9177,
+        "longitude": 77.6238
+      },
+      "water": {
+        "sensorId": "WTR-07",
+        "sensorName": "Bellandur Lake Inlet",
+        "status": "online",
+        "ph": 6.4,
+        "turbidity": 14,
+        "temperature": 27.4
+      },
+      "waste": {
+        "cameraId": "CAM-03",
+        "cameraName": "Varthur Drain Outfall",
+        "plastic": 12,
+        "paper": 5,
+        "other": 4,
+        "latitude": 12.9406,
+        "longitude": 77.747
+      },
+      "trend": {
+        "air": 0.7,
+        "water": 0.68,
+        "waste": 0.6
+      },
+      "map": {
+        "stations": [
+          {
+            "id": "KA-BLR-SB",
+            "type": "air",
+            "label": "Silk Board",
+            "x": 56,
+            "y": 64,
+            "primary": true
+          },
+          {
+            "id": "KA-BLR-HB",
+            "type": "air",
+            "label": "Hebbal",
+            "x": 47,
+            "y": 22,
+            "riskFactor": 0.78
+          },
+          {
+            "id": "KA-BLR-PN",
+            "type": "air",
+            "label": "Peenya",
+            "x": 22,
+            "y": 36,
+            "riskFactor": 0.9
+          },
+          {
+            "id": "WTR-07",
+            "type": "water",
+            "label": "Bellandur Lake",
+            "x": 72,
+            "y": 57,
+            "primary": true
+          },
+          {
+            "id": "WTR-03",
+            "type": "water",
+            "label": "Ulsoor Lake",
+            "x": 54,
+            "y": 41,
+            "riskFactor": 0.72
+          },
+          {
+            "id": "CAM-03",
+            "type": "waste",
+            "label": "Varthur Drain",
+            "x": 82,
+            "y": 67,
+            "primary": true
+          },
+          {
+            "id": "CAM-01",
+            "type": "waste",
+            "label": "KR Market",
+            "x": 40,
+            "y": 52,
+            "riskFactor": 0.85
+          }
+        ],
+        "waterBodies": [
+          {
+            "x": 72,
+            "y": 57,
+            "rx": 7,
+            "ry": 3.6
+          },
+          {
+            "x": 54,
+            "y": 41,
+            "rx": 2.8,
+            "ry": 2
+          },
+          {
+            "x": 31,
+            "y": 72,
+            "rx": 3.6,
+            "ry": 2.2
+          },
+          {
+            "x": 62,
+            "y": 18,
+            "rx": 3,
+            "ry": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "delhi",
+      "name": "Delhi",
+      "region": "NCT of Delhi",
+      "lat": 28.6139,
+      "lon": 77.209,
+      "aliases": [
+        "new delhi",
+        "ncr"
+      ],
+      "air": {
+        "stationId": "DL-AV-01",
+        "stationName": "Anand Vihar · DPCC",
+        "pm25": 168,
+        "pm10": 290,
+        "no2": 68,
+        "o3": 44,
+        "latitude": 28.6469,
+        "longitude": 77.3159
+      },
+      "water": {
+        "sensorId": "WTR-12",
+        "sensorName": "Yamuna · ITO Barrage",
+        "status": "online",
+        "ph": 7.9,
+        "turbidity": 9,
+        "temperature": 29.1
+      },
+      "waste": {
+        "cameraId": "CAM-02",
+        "cameraName": "Ghazipur Periphery",
+        "plastic": 9,
+        "paper": 4,
+        "other": 4,
+        "latitude": 28.6243,
+        "longitude": 77.3277
+      },
+      "trend": {
+        "air": 0.62,
+        "water": 0.8,
+        "waste": 0.7
+      },
+      "map": {
+        "stations": [
+          {
+            "id": "DL-AV-01",
+            "type": "air",
+            "label": "Anand Vihar",
+            "x": 70,
+            "y": 44,
+            "primary": true
+          },
+          {
+            "id": "DL-RK-02",
+            "type": "air",
+            "label": "R K Puram",
+            "x": 38,
+            "y": 62,
+            "riskFactor": 0.88
+          },
+          {
+            "id": "DL-PB-03",
+            "type": "air",
+            "label": "Punjabi Bagh",
+            "x": 26,
+            "y": 34,
+            "riskFactor": 0.92
+          },
+          {
+            "id": "WTR-12",
+            "type": "water",
+            "label": "ITO Barrage",
+            "x": 60,
+            "y": 46,
+            "primary": true
+          },
+          {
+            "id": "WTR-14",
+            "type": "water",
+            "label": "Okhla Barrage",
+            "x": 64,
+            "y": 74,
+            "riskFactor": 1.1
+          },
+          {
+            "id": "CAM-02",
+            "type": "waste",
+            "label": "Ghazipur",
+            "x": 80,
+            "y": 52,
+            "primary": true
+          },
+          {
+            "id": "CAM-06",
+            "type": "waste",
+            "label": "Chandni Chowk",
+            "x": 50,
+            "y": 30,
+            "riskFactor": 0.8
+          }
+        ],
+        "waterBodies": [
+          {
+            "x": 61,
+            "y": 38,
+            "rx": 1.6,
+            "ry": 9
+          },
+          {
+            "x": 63,
+            "y": 62,
+            "rx": 1.8,
+            "ry": 10
+          },
+          {
+            "x": 44,
+            "y": 78,
+            "rx": 3,
+            "ry": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "mumbai",
+      "name": "Mumbai",
+      "region": "Maharashtra",
+      "lat": 19.076,
+      "lon": 72.8777,
+      "aliases": [
+        "bombay"
+      ],
+      "air": {
+        "stationId": "MH-BKC-01",
+        "stationName": "Bandra Kurla Complex · MPCB",
+        "pm25": 48,
+        "pm10": 96,
+        "no2": 36,
+        "o3": 38,
+        "latitude": 19.066,
+        "longitude": 72.868
+      },
+      "water": {
+        "sensorId": "WTR-21",
+        "sensorName": "Mithi River · Kurla",
+        "status": "online",
+        "ph": 7.6,
+        "turbidity": 19,
+        "temperature": 28.6
+      },
+      "waste": {
+        "cameraId": "CAM-05",
+        "cameraName": "Dharavi Creek",
+        "plastic": 15,
+        "paper": 4,
+        "other": 5,
+        "latitude": 19.0476,
+        "longitude": 72.8563
+      },
+      "trend": {
+        "air": 0.85,
+        "water": 0.6,
+        "waste": 0.66
+      },
+      "map": {
+        "stations": [
+          {
+            "id": "MH-BKC-01",
+            "type": "air",
+            "label": "BKC",
+            "x": 50,
+            "y": 50,
+            "primary": true
+          },
+          {
+            "id": "MH-CL-02",
+            "type": "air",
+            "label": "Colaba",
+            "x": 30,
+            "y": 84,
+            "riskFactor": 0.7
+          },
+          {
+            "id": "MH-BR-03",
+            "type": "air",
+            "label": "Borivali",
+            "x": 46,
+            "y": 14,
+            "riskFactor": 0.8
+          },
+          {
+            "id": "WTR-21",
+            "type": "water",
+            "label": "Mithi River",
+            "x": 58,
+            "y": 44,
+            "primary": true
+          },
+          {
+            "id": "WTR-22",
+            "type": "water",
+            "label": "Powai Lake",
+            "x": 70,
+            "y": 34,
+            "riskFactor": 0.6
+          },
+          {
+            "id": "CAM-05",
+            "type": "waste",
+            "label": "Dharavi Creek",
+            "x": 48,
+            "y": 58,
+            "primary": true
+          },
+          {
+            "id": "CAM-08",
+            "type": "waste",
+            "label": "Juhu Beach",
+            "x": 34,
+            "y": 36,
+            "riskFactor": 0.9
+          }
+        ],
+        "waterBodies": [
+          {
+            "x": 70,
+            "y": 34,
+            "rx": 3.4,
+            "ry": 2.2
+          },
+          {
+            "x": 58,
+            "y": 45,
+            "rx": 5,
+            "ry": 1.4
+          },
+          {
+            "x": 8,
+            "y": 50,
+            "rx": 7,
+            "ry": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "chennai",
+      "name": "Chennai",
+      "region": "Tamil Nadu",
+      "lat": 13.0827,
+      "lon": 80.2707,
+      "aliases": [
+        "madras"
+      ],
+      "air": {
+        "stationId": "TN-AL-01",
+        "stationName": "Alandur · TNPCB",
+        "pm25": 38,
+        "pm10": 74,
+        "no2": 22,
+        "o3": 35,
+        "latitude": 13.0012,
+        "longitude": 80.206
+      },
+      "water": {
+        "sensorId": "WTR-31",
+        "sensorName": "Adyar River · Kotturpuram",
+        "status": "degraded",
+        "ph": 7.1,
+        "turbidity": null,
+        "temperature": 30.2
+      },
+      "waste": {
+        "cameraId": "CAM-01",
+        "cameraName": "Marina Beach North",
+        "plastic": 6,
+        "paper": 3,
+        "other": 2,
+        "latitude": 13.06,
+        "longitude": 80.2824
+      },
+      "trend": {
+        "air": 0.9,
+        "water": 0.9,
+        "waste": 0.8
+      },
+      "map": {
+        "stations": [
+          {
+            "id": "TN-AL-01",
+            "type": "air",
+            "label": "Alandur",
+            "x": 42,
+            "y": 64,
+            "primary": true
+          },
+          {
+            "id": "TN-MN-02",
+            "type": "air",
+            "label": "Manali",
+            "x": 58,
+            "y": 16,
+            "riskFactor": 1.25
+          },
+          {
+            "id": "WTR-31",
+            "type": "water",
+            "label": "Adyar River",
+            "x": 60,
+            "y": 60,
+            "primary": true
+          },
+          {
+            "id": "WTR-33",
+            "type": "water",
+            "label": "Cooum River",
+            "x": 60,
+            "y": 40,
+            "riskFactor": 1.2
+          },
+          {
+            "id": "CAM-01",
+            "type": "waste",
+            "label": "Marina Beach",
+            "x": 76,
+            "y": 46,
+            "primary": true
+          },
+          {
+            "id": "CAM-04",
+            "type": "waste",
+            "label": "T Nagar",
+            "x": 46,
+            "y": 50,
+            "riskFactor": 1.1
+          }
+        ],
+        "waterBodies": [
+          {
+            "x": 94,
+            "y": 50,
+            "rx": 8,
+            "ry": 48
+          },
+          {
+            "x": 62,
+            "y": 60,
+            "rx": 7,
+            "ry": 1.3
+          },
+          {
+            "x": 62,
+            "y": 40,
+            "rx": 7,
+            "ry": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "hyderabad",
+      "name": "Hyderabad",
+      "region": "Telangana",
+      "lat": 17.385,
+      "lon": 78.4867,
+      "aliases": [
+        "hyd",
+        "secunderabad"
+      ],
+      "air": {
+        "stationId": "TS-SN-01",
+        "stationName": "Sanathnagar · TSPCB",
+        "pm25": 57,
+        "pm10": 102,
+        "no2": 31,
+        "o3": 29,
+        "latitude": 17.4561,
+        "longitude": 78.4436
+      },
+      "water": {
+        "sensorId": "WTR-41",
+        "sensorName": "Hussain Sagar · Tank Bund",
+        "status": "online",
+        "ph": 7.3,
+        "turbidity": 7,
+        "temperature": 26.1
+      },
+      "waste": {
+        "cameraId": "CAM-04",
+        "cameraName": "Tank Bund Promenade",
+        "plastic": 7,
+        "paper": 3,
+        "other": 3,
+        "latitude": 17.418,
+        "longitude": 78.476
+      },
+      "trend": {
+        "air": 0.82,
+        "water": 0.85,
+        "waste": 0.75
+      },
+      "map": {
+        "stations": [
+          {
+            "id": "TS-SN-01",
+            "type": "air",
+            "label": "Sanathnagar",
+            "x": 40,
+            "y": 42,
+            "primary": true
+          },
+          {
+            "id": "TS-HC-02",
+            "type": "air",
+            "label": "HITEC City",
+            "x": 22,
+            "y": 52,
+            "riskFactor": 0.85
+          },
+          {
+            "id": "WTR-41",
+            "type": "water",
+            "label": "Hussain Sagar",
+            "x": 55,
+            "y": 46,
+            "primary": true
+          },
+          {
+            "id": "CAM-04",
+            "type": "waste",
+            "label": "Tank Bund",
+            "x": 60,
+            "y": 52,
+            "primary": true
+          },
+          {
+            "id": "CAM-07",
+            "type": "waste",
+            "label": "Charminar",
+            "x": 58,
+            "y": 76,
+            "riskFactor": 1.15
+          }
+        ],
+        "waterBodies": [
+          {
+            "x": 55,
+            "y": 45,
+            "rx": 5,
+            "ry": 3.4
+          },
+          {
+            "x": 30,
+            "y": 70,
+            "rx": 3.4,
+            "ry": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "id": "pune",
+      "name": "Pune",
+      "region": "Maharashtra",
+      "lat": 18.5204,
+      "lon": 73.8567,
+      "aliases": [
+        "poona"
+      ],
+      "air": {
+        "stationId": "MH-SJ-01",
+        "stationName": "Shivajinagar · IITM",
+        "pm25": 22,
+        "pm10": 45,
+        "no2": 18,
+        "o3": 26,
+        "latitude": 18.5308,
+        "longitude": 73.8475
+      },
+      "water": {
+        "sensorId": "WTR-51",
+        "sensorName": "Mula-Mutha · Sangam",
+        "status": "online",
+        "ph": 7.2,
+        "turbidity": 3,
+        "temperature": 24.8
+      },
+      "waste": {
+        "cameraId": "CAM-02",
+        "cameraName": "Aundh Riverside",
+        "plastic": 2,
+        "paper": 2,
+        "other": 1,
+        "latitude": 18.562,
+        "longitude": 73.812
+      },
+      "trend": {
+        "air": 1.05,
+        "water": 1.1,
+        "waste": 1.0
+      },
+      "map": {
+        "stations": [
+          {
+            "id": "MH-SJ-01",
+            "type": "air",
+            "label": "Shivajinagar",
+            "x": 46,
+            "y": 46,
+            "primary": true
+          },
+          {
+            "id": "MH-HD-02",
+            "type": "air",
+            "label": "Hadapsar",
+            "x": 74,
+            "y": 62,
+            "riskFactor": 1.3
+          },
+          {
+            "id": "WTR-51",
+            "type": "water",
+            "label": "Sangam",
+            "x": 52,
+            "y": 38,
+            "primary": true
+          },
+          {
+            "id": "CAM-02",
+            "type": "waste",
+            "label": "Aundh Riverside",
+            "x": 30,
+            "y": 30,
+            "primary": true
+          }
+        ],
+        "waterBodies": [
+          {
+            "x": 48,
+            "y": 36,
+            "rx": 14,
+            "ry": 1.4
+          },
+          {
+            "x": 40,
+            "y": 76,
+            "rx": 4,
+            "ry": 2.4
+          }
+        ]
+      }
+    }
+  ],
+  "noCoverage": [
+    "Leh",
+    "Port Blair",
+    "Kohima",
+    "Itanagar"
+  ]
+}

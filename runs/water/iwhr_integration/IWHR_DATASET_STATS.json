@@ -1,0 +1,146 @@
+{
+  "dataset": "IWHR_AI_Lable_Floater_V1",
+  "images_total": 3000,
+  "annotations_total": 3000,
+  "objects_total": 23689,
+  "classes": {
+    "floater": {
+      "objects": 23689,
+      "images": 3000
+    }
+  },
+  "images_with_no_objects": 0,
+  "objects_per_image": {
+    "min": 1,
+    "max": 43,
+    "mean": 7.9,
+    "median": 6.0,
+    "p90": 16.0,
+    "p99": 32.0
+  },
+  "image_dimensions": {
+    "1920x1080": 2934,
+    "3840x2160": 54,
+    "880x1920": 9,
+    "1080x1920": 2,
+    "1920x880": 1
+  },
+  "aspect_ratios": {
+    "1.778": 2988,
+    "0.458": 9,
+    "0.562": 2,
+    "2.182": 1
+  },
+  "bbox_pixels": {
+    "width": {
+      "min": 1.0,
+      "median": 157.0,
+      "max": 1919.0
+    },
+    "height": {
+      "min": 1.0,
+      "median": 118.0,
+      "max": 920.0
+    },
+    "area_median": 17675.0
+  },
+  "bbox_relative_area": {
+    "p1": 0.000156,
+    "p10": 0.001066,
+    "median": 0.008466,
+    "p90": 0.061159,
+    "max": 0.631947
+  },
+  "tiny_objects": {
+    "threshold_fraction_of_image_area": 0.01,
+    "count": 12761,
+    "percent": 53.87
+  },
+  "flags": {
+    "truncated_objects": 3829,
+    "difficult_objects": 0
+  },
+  "source_groups": {
+    "rubbish": {
+      "images": 1509,
+      "packages": [
+        "package1",
+        "package2"
+      ]
+    },
+    "image": {
+      "images": 442,
+      "packages": [
+        "package1"
+      ]
+    },
+    "fishing-1": {
+      "images": 366,
+      "packages": [
+        "package1",
+        "package2"
+      ]
+    },
+    "fishing-4": {
+      "images": 187,
+      "packages": [
+        "package2"
+      ]
+    },
+    "_bare_numeric": {
+      "images": 163,
+      "packages": [
+        "package1"
+      ]
+    },
+    "fishing-3": {
+      "images": 136,
+      "packages": [
+        "package1",
+        "package2"
+      ]
+    },
+    "2022-07-20": {
+      "images": 108,
+      "packages": [
+        "package1"
+      ]
+    },
+    "2022-08-18": {
+      "images": 70,
+      "packages": [
+        "package1"
+      ]
+    },
+    "5-11_mix_data": {
+      "images": 12,
+      "packages": [
+        "package1"
+      ]
+    },
+    "fishing-2": {
+      "images": 6,
+      "packages": [
+        "package1"
+      ]
+    },
+    "2022-06-18": {
+      "images": 1,
+      "packages": [
+        "package1"
+      ]
+    }
+  },
+  "duplicates": {
+    "exact_duplicate_sha256_groups": 0,
+    "exact_duplicate_extra_images": 0,
+    "exact_duplicates_cross_package": 0,
+    "identical_dhash_groups": 53,
+    "near_duplicate_pairs_by_hamming": {
+      "0": 103,
+      "2": 820,
+      "5": 2247,
+      "8": 3996
+    }
+  }
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp27__exp27_pic58__4obj.jpg",
+    "stem": "exp27_pic58",
+    "session": "exp27",
+    "objects": 4,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp27_pic58.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp56__exp56_525__7obj.jpg",
+    "stem": "exp56_525",
+    "session": "exp56",
+    "objects": 7,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp56_525.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp29__exp29_pic224__3obj.jpg",
+    "stem": "exp29_pic224",
+    "session": "exp29",
+    "objects": 3,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp29_pic224.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp55__exp55_344__11obj.jpg",
+    "stem": "exp55_344",
+    "session": "exp55",
+    "objects": 11,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp55_344.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp18__exp18_pic422__11obj.jpg",
+    "stem": "exp18_pic422",
+    "session": "exp18",
+    "objects": 11,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp18_pic422.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp50__exp50_pic272__3obj.jpg",
+    "stem": "exp50_pic272",
+    "session": "exp50",
+    "objects": 3,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp50_pic272.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp23__exp23_pic344__5obj.jpg",
+    "stem": "exp23_pic344",
+    "session": "exp23",
+    "objects": 5,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp23_pic344.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp16__exp16_pic289__5obj.jpg",
+    "stem": "exp16_pic289",
+    "session": "exp16",
+    "objects": 5,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp16_pic289.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp28__exp28_pic48__4obj.jpg",
+    "stem": "exp28_pic48",
+    "session": "exp28",
+    "objects": 4,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp28_pic48.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp14__exp14_pic191__3obj.jpg",
+    "stem": "exp14_pic191",
+    "session": "exp14",
+    "objects": 3,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp14_pic191.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp20__exp20_pic201__8obj.jpg",
+    "stem": "exp20_pic201",
+    "session": "exp20",
+    "objects": 8,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp20_pic201.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp53__exp53_pic77__5obj.jpg",
+    "stem": "exp53_pic77",
+    "session": "exp53",
+    "objects": 5,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp53_pic77.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp1__exp1_163__3obj.jpg",
+    "stem": "exp1_163",
+    "session": "exp1",
+    "objects": 3,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp1_163.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp6__exp6_96__4obj.jpg",
+    "stem": "exp6_96",
+    "session": "exp6",
+    "objects": 4,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp6_96.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp50__exp50_pic908__14obj.jpg",
+    "stem": "exp50_pic908",
+    "session": "exp50",
+    "objects": 14,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp50_pic908.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp50__exp50_pic909__14obj.jpg",
+    "stem": "exp50_pic909",
+    "session": "exp50",
+    "objects": 14,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp50_pic909.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp53__exp53_pic159__14obj.jpg",
+    "stem": "exp53_pic159",
+    "session": "exp53",
+    "objects": 14,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp53_pic159.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp11__exp11_116__1obj.jpg",
+    "stem": "exp11_116",
+    "session": "exp11",
+    "objects": 1,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp11_116.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp11__exp11_141__1obj.jpg",
+    "stem": "exp11_141",
+    "session": "exp11",
+    "objects": 1,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp11_141.jpg"
+  },
+  {
+    "preview": "runs/water/tudgv_integration/previews/exp11__exp11_16__1obj.jpg",
+    "stem": "exp11_16",
+    "session": "exp11",
+    "objects": 1,
+    "size": "1920x1080",
+    "source_image": "water_datasets/TUD-GV/images/exp11_16.jpg"
+  }
+]

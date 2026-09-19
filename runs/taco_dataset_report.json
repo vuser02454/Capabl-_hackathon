@@ -1,0 +1,467 @@
+{
+  "generated_at": "2026-09-18T22:36:17.002001+00:00",
+  "source": "TACO-master/data/annotations.json",
+  "format": {
+    "annotation_format": "COCO",
+    "bbox_convention": "[x, y, width, height] absolute pixels (COCO)",
+    "segmentation_available": true,
+    "bbox_available": true,
+    "declared_splits": "none - TACO ships a single annotation set with no train/val/test split"
+  },
+  "totals": {
+    "images_declared": 1500,
+    "annotations_declared": 4784,
+    "annotations_valid": 4777,
+    "annotations_invalid": 7,
+    "categories": 60,
+    "categories_with_annotations": 59,
+    "categories_empty": 1,
+    "images_without_annotations": 0,
+    "annotations_with_segmentation": 4777
+  },
+  "image_files": {
+    "present_on_disk": 0,
+    "missing_on_disk": 1500,
+    "note": "TACO distributes annotations separately from images. Run `python download.py` inside the TACO repository to fetch them before any conversion or training."
+  },
+  "invalid_annotations": {
+    "count": 7,
+    "reasons": {
+      "negative_origin": 7
+    },
+    "examples": [
+      {
+        "annotation_id": 371,
+        "image": "batch_10/000008.jpg",
+        "bbox": [
+          1003.0,
+          -1.0,
+          787.0,
+          411.0
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      },
+      {
+        "annotation_id": 387,
+        "image": "batch_10/000011.jpg",
+        "bbox": [
+          1408.0,
+          -1.0,
+          369.0,
+          471.0
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      },
+      {
+        "annotation_id": 707,
+        "image": "batch_11/000008.jpg",
+        "bbox": [
+          0.0,
+          -1.0,
+          1352.0,
+          2364.0
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      },
+      {
+        "annotation_id": 859,
+        "image": "batch_11/000077.jpg",
+        "bbox": [
+          -1.0,
+          366.0,
+          198.0,
+          307.0
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      },
+      {
+        "annotation_id": 1621,
+        "image": "batch_13/000056.jpg",
+        "bbox": [
+          799.0,
+          -1.0,
+          492.0,
+          484.0
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      },
+      {
+        "annotation_id": 1777,
+        "image": "batch_14/000048.jpg",
+        "bbox": [
+          171.03125,
+          -1.3166667,
+          518.35625,
+          413.4333367
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      },
+      {
+        "annotation_id": 2186,
+        "image": "batch_15/000078.jpg",
+        "bbox": [
+          1311.0,
+          -0.5,
+          286.0,
+          589.0
+        ],
+        "reasons": [
+          "negative_origin"
+        ]
+      }
+    ]
+  },
+  "duplicates": {
+    "duplicate_file_names": 0,
+    "duplicate_source_urls": 0,
+    "examples": []
+  },
+  "annotation_statistics": {
+    "min_area": 55.5,
+    "median_area": 14179.5,
+    "max_area": 7328035.5,
+    "mean_annotations_per_image": 3.19
+  },
+  "supercategory_distribution": {
+    "Plastic bag & wrapper": 848,
+    "Cigarette": 667,
+    "Unlabeled litter": 516,
+    "Bottle": 438,
+    "Bottle cap": 289,
+    "Can": 273,
+    "Other plastic": 273,
+    "Carton": 251,
+    "Cup": 192,
+    "Straw": 161,
+    "Paper": 147,
+    "Broken glass": 138,
+    "Styrofoam piece": 111,
+    "Pop tab": 99,
+    "Lid": 87,
+    "Plastic container": 72,
+    "Aluminium foil": 62,
+    "Plastic utensils": 37,
+    "Rope & strings": 29,
+    "Paper bag": 26,
+    "Scrap metal": 20,
+    "Food waste": 8,
+    "Squeezable tube": 7,
+    "Shoe": 7,
+    "Blister pack": 7,
+    "Glass jar": 6,
+    "Plastic glooves": 4,
+    "Battery": 2
+  },
+  "category_distribution": {
+    "Cigarette": {
+      "supercategory": "Cigarette",
+      "annotations": 667,
+      "images": 227
+    },
+    "Unlabeled litter": {
+      "supercategory": "Unlabeled litter",
+      "annotations": 516,
+      "images": 268
+    },
+    "Plastic film": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 449,
+      "images": 309
+    },
+    "Clear plastic bottle": {
+      "supercategory": "Bottle",
+      "annotations": 284,
+      "images": 224
+    },
+    "Other plastic": {
+      "supercategory": "Other plastic",
+      "annotations": 273,
+      "images": 171
+    },
+    "Other plastic wrapper": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 260,
+      "images": 184
+    },
+    "Drink can": {
+      "supercategory": "Can",
+      "annotations": 229,
+      "images": 151
+    },
+    "Plastic bottle cap": {
+      "supercategory": "Bottle cap",
+      "annotations": 209,
+      "images": 185
+    },
+    "Plastic straw": {
+      "supercategory": "Straw",
+      "annotations": 157,
+      "images": 110
+    },
+    "Broken glass": {
+      "supercategory": "Broken glass",
+      "annotations": 138,
+      "images": 15
+    },
+    "Styrofoam piece": {
+      "supercategory": "Styrofoam piece",
+      "annotations": 111,
+      "images": 77
+    },
+    "Glass bottle": {
+      "supercategory": "Bottle",
+      "annotations": 104,
+      "images": 74
+    },
+    "Disposable plastic cup": {
+      "supercategory": "Cup",
+      "annotations": 104,
+      "images": 91
+    },
+    "Pop tab": {
+      "supercategory": "Pop tab",
+      "annotations": 99,
+      "images": 71
+    },
+    "Other carton": {
+      "supercategory": "Carton",
+      "annotations": 93,
+      "images": 79
+    },
+    "Normal paper": {
+      "supercategory": "Paper",
+      "annotations": 81,
+      "images": 67
+    },
+    "Metal bottle cap": {
+      "supercategory": "Bottle cap",
+      "annotations": 80,
+      "images": 55
+    },
+    "Plastic lid": {
+      "supercategory": "Lid",
+      "annotations": 77,
+      "images": 69
+    },
+    "Paper cup": {
+      "supercategory": "Cup",
+      "annotations": 67,
+      "images": 62
+    },
+    "Corrugated carton": {
+      "supercategory": "Carton",
+      "annotations": 64,
+      "images": 41
+    },
+    "Aluminium foil": {
+      "supercategory": "Aluminium foil",
+      "annotations": 62,
+      "images": 43
+    },
+    "Single-use carrier bag": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 61,
+      "images": 49
+    },
+    "Other plastic bottle": {
+      "supercategory": "Bottle",
+      "annotations": 50,
+      "images": 45
+    },
+    "Drink carton": {
+      "supercategory": "Carton",
+      "annotations": 45,
+      "images": 41
+    },
+    "Tissues": {
+      "supercategory": "Paper",
+      "annotations": 42,
+      "images": 36
+    },
+    "Crisp packet": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 39,
+      "images": 35
+    },
+    "Disposable food container": {
+      "supercategory": "Plastic container",
+      "annotations": 38,
+      "images": 37
+    },
+    "Plastic utensils": {
+      "supercategory": "Plastic utensils",
+      "annotations": 37,
+      "images": 29
+    },
+    "Food Can": {
+      "supercategory": "Can",
+      "annotations": 34,
+      "images": 20
+    },
+    "Garbage bag": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 31,
+      "images": 20
+    },
+    "Meal carton": {
+      "supercategory": "Carton",
+      "annotations": 30,
+      "images": 27
+    },
+    "Rope & strings": {
+      "supercategory": "Rope & strings",
+      "annotations": 29,
+      "images": 28
+    },
+    "Paper bag": {
+      "supercategory": "Paper bag",
+      "annotations": 26,
+      "images": 23
+    },
+    "Scrap metal": {
+      "supercategory": "Scrap metal",
+      "annotations": 20,
+      "images": 12
+    },
+    "Foam food container": {
+      "supercategory": "Plastic container",
+      "annotations": 15,
+      "images": 13
+    },
+    "Foam cup": {
+      "supercategory": "Cup",
+      "annotations": 13,
+      "images": 11
+    },
+    "Magazine paper": {
+      "supercategory": "Paper",
+      "annotations": 12,
+      "images": 5
+    },
+    "Wrapping paper": {
+      "supercategory": "Paper",
+      "annotations": 12,
+      "images": 11
+    },
+    "Egg carton": {
+      "supercategory": "Carton",
+      "annotations": 11,
+      "images": 9
+    },
+    "Aerosol": {
+      "supercategory": "Can",
+      "annotations": 10,
+      "images": 10
+    },
+    "Metal lid": {
+      "supercategory": "Lid",
+      "annotations": 10,
+      "images": 6
+    },
+    "Spread tub": {
+      "supercategory": "Plastic container",
+      "annotations": 9,
+      "images": 9
+    },
+    "Food waste": {
+      "supercategory": "Food waste",
+      "annotations": 8,
+      "images": 7
+    },
+    "Squeezable tube": {
+      "supercategory": "Squeezable tube",
+      "annotations": 7,
+      "images": 6
+    },
+    "Shoe": {
+      "supercategory": "Shoe",
+      "annotations": 7,
+      "images": 6
+    },
+    "Glass cup": {
+      "supercategory": "Cup",
+      "annotations": 6,
+      "images": 4
+    },
+    "Glass jar": {
+      "supercategory": "Glass jar",
+      "annotations": 6,
+      "images": 4
+    },
+    "Aluminium blister pack": {
+      "supercategory": "Blister pack",
+      "annotations": 6,
+      "images": 6
+    },
+    "Other plastic container": {
+      "supercategory": "Plastic container",
+      "annotations": 6,
+      "images": 6
+    },
+    "Toilet tube": {
+      "supercategory": "Carton",
+      "annotations": 5,
+      "images": 3
+    },
+    "Six pack rings": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 5,
+      "images": 4
+    },
+    "Paper straw": {
+      "supercategory": "Straw",
+      "annotations": 4,
+      "images": 4
+    },
+    "Plastic glooves": {
+      "supercategory": "Plastic glooves",
+      "annotations": 4,
+      "images": 4
+    },
+    "Tupperware": {
+      "supercategory": "Plastic container",
+      "annotations": 4,
+      "images": 4
+    },
+    "Polypropylene bag": {
+      "supercategory": "Plastic bag & wrapper",
+      "annotations": 3,
+      "images": 3
+    },
+    "Pizza box": {
+      "supercategory": "Carton",
+      "annotations": 3,
+      "images": 3
+    },
+    "Battery": {
+      "supercategory": "Battery",
+      "annotations": 2,
+      "images": 2
+    },
+    "Other plastic cup": {
+      "supercategory": "Cup",
+      "annotations": 2,
+      "images": 2
+    },
+    "Carded blister pack": {
+      "supercategory": "Blister pack",
+      "annotations": 1,
+      "images": 1
+    }
+  },
+  "empty_categories": [
+    "Plastified paper bag"
+  ]
+}

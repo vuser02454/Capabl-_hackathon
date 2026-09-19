@@ -1,0 +1,94 @@
+{
+  "generated_at": "2026-09-19T11:02:30.826222+00:00",
+  "dataset": "IWHR_AI_Lable_Floater_V1",
+  "source_directory": "water_datasets/27376851",
+  "note": "Both packages were already extracted in the repository before this audit. Extraction was verified against the archives rather than repeated; see extraction_verified.",
+  "packages": [
+    {
+      "package": "IWHR_AI_Lable_Floater_V1-package1",
+      "zip_path": "water_datasets/27376851/IWHR_AI_Lable_Floater_V1-package1.zip",
+      "zip_bytes": 1016973959,
+      "zip_sha256": "b96a3e9da38934b938ca34d12f8a8bd40f5641755ed7b6fc66515bb256a3b716",
+      "zip_readable": true,
+      "integrity_test": "unzip -t: No errors detected",
+      "archive_entries_total": 3003,
+      "archive_files": 3000,
+      "archive_directories": [
+        "IWHR_AI_Lable_Floater_V1-package1/",
+        "IWHR_AI_Lable_Floater_V1-package1/Annotations/",
+        "IWHR_AI_Lable_Floater_V1-package1/JPEGImages/"
+      ],
+      "directory_structure": [
+        "IWHR_AI_Lable_Floater_V1-package1/Annotations",
+        "IWHR_AI_Lable_Floater_V1-package1/JPEGImages"
+      ],
+      "annotation_files_xml": 1500,
+      "image_files_jpg": 1500,
+      "uncompressed_bytes": 1022962942,
+      "stem_pairing_complete": true,
+      "stem_range": [
+        "0001",
+        "1500"
+      ],
+      "extracted_to": "water_datasets/27376851/IWHR_AI_Lable_Floater_V1-package1",
+      "extraction_verified": {
+        "method": "name set equality + 12 random files compared byte-for-byte against archive",
+        "names_identical": true,
+        "sampled_files": 12,
+        "sampled_mismatches": 0
+      }
+    },
+    {
+      "package": "IWHR_AI_Lable_Floater_V1-package2",
+      "zip_path": "water_datasets/27376851/IWHR_AI_Lable_Floater_V1-package2.zip",
+      "zip_bytes": 1219796963,
+      "zip_sha256": "7af8f17c2e555f19d648d6f01bbd5659e90dfe6b68e24a8344f05416434fe6ec",
+      "zip_readable": true,
+      "integrity_test": "unzip -t: No errors detected",
+      "archive_entries_total": 3003,
+      "archive_files": 3000,
+      "archive_directories": [
+        "IWHR_AI_Lable_Floater_V1-package2/",
+        "IWHR_AI_Lable_Floater_V1-package2/Annotations/",
+        "IWHR_AI_Lable_Floater_V1-package2/JPEGImages/"
+      ],
+      "directory_structure": [
+        "IWHR_AI_Lable_Floater_V1-package2/Annotations",
+        "IWHR_AI_Lable_Floater_V1-package2/JPEGImages"
+      ],
+      "annotation_files_xml": 1500,
+      "image_files_jpg": 1500,
+      "uncompressed_bytes": 1226193868,
+      "stem_pairing_complete": true,
+      "stem_range": [
+        "1501",
+        "3000"
+      ],
+      "extracted_to": "water_datasets/27376851/IWHR_AI_Lable_Floater_V1-package2",
+      "extraction_verified": {
+        "method": "name set equality + 12 random files compared byte-for-byte against archive",
+        "names_identical": true,
+        "sampled_files": 12,
+        "sampled_mismatches": 0
+      }
+    }
+  ],
+  "totals": {
+    "images": 3000,
+    "annotations": 3000,
+    "zip_bytes": 2236770922,
+    "uncompressed_bytes": 2249156810
+  },
+  "redundant_extraction_found": {
+    "path": "water_datasets/27376851/IWHR_AI_Lable_Floater_V1-package2 2",
+    "finding": "Byte-identical duplicate extraction of package2 (macOS double-unzip artifact). 3000 files, same relative names, 10/10 sampled files byte-identical.",
+    "action": "Recorded and EXCLUDED from all dataset counts. Not deleted."
+  },
+  "accompanying_material": {
+    "code to split and transform the dataset": [
+      "voc_label.py",
+      "split_train_val.py"
+    ],
+    "detectors": "9 zipped upstream detector repositories (yolov5/6/7/9, ultralytics, CenterNet2, faster-rcnn, retinanet, ssd.pytorch), 76 MB. Left unextracted - EcoSentinel already depends on Ultralytics."
+  }
+}

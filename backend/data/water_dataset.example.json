@@ -1,0 +1,17 @@
+{
+  "description": "Format example for ECOSENTINEL_WATER_DATASET_PATH. Replace with real observations (for example exported from a state or national water-quality monitoring programme). The record below is a PLACEHOLDER, not a real measurement — do not enable this file as-is.",
+  "observations": [
+    {
+      "siteId": "EXAMPLE-SITE-1",
+      "name": "Example monitoring site",
+      "latitude": 12.97,
+      "longitude": 77.59,
+      "observedAt": "2026-01-15T06:00:00Z",
+      "ph": 7.1,
+      "turbidity": 6.0,
+      "temperature": 24.0,
+      "tds": 420,
+      "source": "Placeholder record"
+    }
+  ]
+}

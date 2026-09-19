@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-09-18T18:36:05.882192+00:00",
+  "dataset": "garbage_Dataset",
+  "classes": [
+    "ewaste",
+    "food_waste",
+    "leaf_waste",
+    "metal_cans",
+    "paper_waste",
+    "plastic_bags",
+    "plastic_bottles",
+    "wood_waste"
+  ],
+  "device": "mps",
+  "args": {
+    "dataset": "garbage_Dataset",
+    "out": "runs/classification",
+    "epochs": 10,
+    "batch_size": 48,
+    "image_size": 224,
+    "lr": 0.0003,
+    "workers": 4,
+    "device": "auto",
+    "seed": 1337,
+    "patience": 3,
+    "limit_per_class": 0
+  },
+  "dataset_stats": {
+    "train_samples": 14046,
+    "val_samples": 1200,
+    "excluded_leaked_from_train": 111,
+    "excluded_unusable_train": 8,
+    "excluded_unusable_val": 1,
+    "train_distribution": {
+      "metal_cans": 670,
+      "plastic_bottles": 417,
+      "ewaste": 179,
+      "plastic_bags": 200,
+      "food_waste": 10050,
+      "leaf_waste": 1151,
+      "paper_waste": 794,
+      "wood_waste": 585
+    },
+    "val_distribution": {
+      "metal_cans": 69,
+      "plastic_bottles": 130,
+      "ewaste": 54,
+      "plastic_bags": 53,
+      "food_waste": 229,
+      "leaf_waste": 394,
+      "paper_waste": 212,
+      "wood_waste": 59
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5069691897940809,
+      "val_loss": 0.2809355974197388,
+      "val_accuracy": 0.9341666666666667,
+      "macro_precision": 0.9057058783286285,
+      "macro_recall": 0.9243292024101302,
+      "macro_f1": 0.9114249290832787
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3368139361174175,
+      "val_loss": 0.3114185753464699,
+      "val_accuracy": 0.92,
+      "macro_precision": 0.8853180779364589,
+      "macro_recall": 0.91649604357023,
+      "macro_f1": 0.8932433277599781
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.3131452908326499,
+      "val_loss": 0.2965126183629036,
+      "val_accuracy": 0.925,
+      "macro_precision": 0.8831362887704494,
+      "macro_recall": 0.9196372066067378,
+      "macro_f1": 0.895881307736063
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.3030062692764222,
+      "val_loss": 0.2721751835942268,
+      "val_accuracy": 0.9325,
+      "macro_precision": 0.8988095153687393,
+      "macro_recall": 0.9269994200165401,
+      "macro_f1": 0.9097015481585229
+    }
+  ],
+  "best": {
+    "epoch": 1,
+    "macro_f1": 0.9114249290832787
+  },
+  "duration_seconds": 344.0,
+  "versions": {
+    "torch": "2.8.0",
+    "numpy": "1.26.4"
+  }
+}

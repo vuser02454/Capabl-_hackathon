@@ -1,0 +1,250 @@
+{
+  "basis": "No annotated non-waste image set exists in this project. These regions are labelled by the COCO detector itself at >=0.45 confidence, not by a human, which is a weaker basis than the TACO ground truth used elsewhere in this report.",
+  "regions_per_coco_class": {
+    "cup": 2,
+    "mouse": 1,
+    "person": 2,
+    "chair": 1,
+    "book": 2,
+    "potted plant": 1,
+    "tv": 2,
+    "dining table": 2,
+    "cell phone": 1
+  },
+  "by_detector": {
+    "coco_yolov8n": {
+      "regions_probed": 14,
+      "waste_class_asserted_over_ordinary_object": 4,
+      "correctly_withheld_as_needs_review": 11,
+      "detail": [
+        {
+          "image": "batch_1_000043.jpg",
+          "coco_says": "cup",
+          "coco_confidence": 0.604,
+          "detector_class": "cup",
+          "detector_confidence": 0.604,
+          "final_class": "metal_cans",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_1_000059.jpg",
+          "coco_says": "mouse",
+          "coco_confidence": 0.913,
+          "detector_class": "mouse",
+          "detector_confidence": 0.913,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'plastic_bottles' at 31% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000059.jpg",
+          "coco_says": "person",
+          "coco_confidence": 0.805,
+          "detector_class": "person",
+          "detector_confidence": 0.805,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'paper_waste' at 48% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_10_000020.jpg",
+          "coco_says": "chair",
+          "coco_confidence": 0.587,
+          "detector_class": "chair",
+          "detector_confidence": 0.587,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'ewaste' at 46% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_10_000037.jpg",
+          "coco_says": "person",
+          "coco_confidence": 0.474,
+          "detector_class": "person",
+          "detector_confidence": 0.474,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'paper_waste' at 54% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_11_000003.jpg",
+          "coco_says": "book",
+          "coco_confidence": 0.502,
+          "detector_class": "book",
+          "detector_confidence": 0.502,
+          "final_class": "paper_waste",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_11_000006.jpg",
+          "coco_says": "potted plant",
+          "coco_confidence": 0.474,
+          "detector_class": "potted plant",
+          "detector_confidence": 0.474,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'paper_waste' at 38% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_11_000006.jpg",
+          "coco_says": "tv",
+          "coco_confidence": 0.46,
+          "detector_class": "tv",
+          "detector_confidence": 0.46,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'paper_waste' at 36% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_13_000054.jpg",
+          "coco_says": "book",
+          "coco_confidence": 0.696,
+          "detector_class": "book",
+          "detector_confidence": 0.696,
+          "final_class": "ewaste",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_1_000040.jpg",
+          "coco_says": "cup",
+          "coco_confidence": 0.823,
+          "detector_class": "cup",
+          "detector_confidence": 0.823,
+          "final_class": "metal_cans",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_1_000040.jpg",
+          "coco_says": "dining table",
+          "coco_confidence": 0.622,
+          "detector_class": "dining table",
+          "detector_confidence": 0.622,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'food_waste' at 40% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000047.jpg",
+          "coco_says": "dining table",
+          "coco_confidence": 0.578,
+          "detector_class": "dining table",
+          "detector_confidence": 0.578,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'metal_cans' at 52% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000061.jpg",
+          "coco_says": "cell phone",
+          "coco_confidence": 0.615,
+          "detector_class": "cell phone",
+          "detector_confidence": 0.615,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'metal_cans' at 32% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000061.jpg",
+          "coco_says": "cell phone",
+          "coco_confidence": 0.615,
+          "detector_class": "person",
+          "detector_confidence": 0.283,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'paper_waste' at 39% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_9_000050.jpg",
+          "coco_says": "tv",
+          "coco_confidence": 0.491,
+          "detector_class": "bench",
+          "detector_confidence": 0.66,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "The detector identified this as 'bench', which is not one of the waste classes, so no segregation is asserted."
+        }
+      ]
+    },
+    "taco_waste_detector": {
+      "regions_probed": 14,
+      "waste_class_asserted_over_ordinary_object": 3,
+      "correctly_withheld_as_needs_review": 4,
+      "detail": [
+        {
+          "image": "batch_1_000043.jpg",
+          "coco_says": "cup",
+          "coco_confidence": 0.604,
+          "detector_class": "metal_cans",
+          "detector_confidence": 0.909,
+          "final_class": "metal_cans",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_11_000003.jpg",
+          "coco_says": "book",
+          "coco_confidence": 0.502,
+          "detector_class": "paper_waste",
+          "detector_confidence": 0.979,
+          "final_class": "paper_waste",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_13_000054.jpg",
+          "coco_says": "book",
+          "coco_confidence": 0.696,
+          "detector_class": "paper_waste",
+          "detector_confidence": 0.951,
+          "final_class": "ewaste",
+          "final_status": "accepted",
+          "message": null
+        },
+        {
+          "image": "batch_1_000040.jpg",
+          "coco_says": "cup",
+          "coco_confidence": 0.823,
+          "detector_class": "metal_cans",
+          "detector_confidence": 0.985,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'metal_cans' at 56% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000047.jpg",
+          "coco_says": "dining table",
+          "coco_confidence": 0.578,
+          "detector_class": "plastic_bottles",
+          "detector_confidence": 0.541,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'food_waste' at 40% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000047.jpg",
+          "coco_says": "dining table",
+          "coco_confidence": 0.578,
+          "detector_class": "plastic_bottles",
+          "detector_confidence": 0.336,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'plastic_bags' at 24% is below the 60% threshold, so no segregation is asserted."
+        },
+        {
+          "image": "batch_1_000061.jpg",
+          "coco_says": "cell phone",
+          "coco_confidence": 0.615,
+          "detector_class": "metal_cans",
+          "detector_confidence": 0.985,
+          "final_class": null,
+          "final_status": "needs_review",
+          "message": "Top class 'metal_cans' at 33% is below the 60% threshold, so no segregation is asserted."
+        }
+      ]
+    }
+  }
+}

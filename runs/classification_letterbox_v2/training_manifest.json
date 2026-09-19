@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-09-19T00:15:10.692158+00:00",
+  "dataset": "garbage_Dataset",
+  "classes": [
+    "ewaste",
+    "food_waste",
+    "leaf_waste",
+    "metal_cans",
+    "paper_waste",
+    "plastic_bags",
+    "plastic_bottles",
+    "wood_waste"
+  ],
+  "device": "mps",
+  "args": {
+    "dataset": "garbage_Dataset",
+    "out": "runs/classification_letterbox_v2",
+    "epochs": 12,
+    "batch_size": 48,
+    "image_size": 224,
+    "lr": 0.0003,
+    "workers": 4,
+    "device": "auto",
+    "seed": 1337,
+    "patience": 3,
+    "limit_per_class": 0
+  },
+  "dataset_stats": {
+    "train_samples": 14046,
+    "val_samples": 1200,
+    "excluded_leaked_from_train": 111,
+    "excluded_unusable_train": 8,
+    "excluded_unusable_val": 1,
+    "train_distribution": {
+      "metal_cans": 670,
+      "plastic_bottles": 417,
+      "ewaste": 179,
+      "plastic_bags": 200,
+      "food_waste": 10050,
+      "leaf_waste": 1151,
+      "paper_waste": 794,
+      "wood_waste": 585
+    },
+    "val_distribution": {
+      "metal_cans": 69,
+      "plastic_bottles": 130,
+      "ewaste": 54,
+      "plastic_bags": 53,
+      "food_waste": 229,
+      "leaf_waste": 394,
+      "paper_waste": 212,
+      "wood_waste": 59
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5535101690311709,
+      "val_loss": 0.35808817744255067,
+      "val_accuracy": 0.8916666666666667,
+      "macro_precision": 0.8483253271232976,
+      "macro_recall": 0.8839729490441081,
+      "macro_f1": 0.8620946670091756
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3680400035412889,
+      "val_loss": 0.344756348580122,
+      "val_accuracy": 0.9116666666666666,
+      "macro_precision": 0.8801232451274361,
+      "macro_recall": 0.8996620162994469,
+      "macro_f1": 0.8834078604864658
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.3300109198973353,
+      "val_loss": 0.28799695760011673,
+      "val_accuracy": 0.9275,
+      "macro_precision": 0.8923937647806623,
+      "macro_recall": 0.9198977007404263,
+      "macro_f1": 0.9030380851484283
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.3176006639120875,
+      "val_loss": 0.29845582887530325,
+      "val_accuracy": 0.9175,
+      "macro_precision": 0.8752161277519692,
+      "macro_recall": 0.9047326316918793,
+      "macro_f1": 0.8852531910543128
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.30652758418011494,
+      "val_loss": 0.2899253171682358,
+      "val_accuracy": 0.9225,
+      "macro_precision": 0.8985585482419248,
+      "macro_recall": 0.9102872745155521,
+      "macro_f1": 0.900848502853468
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.30231255534773754,
+      "val_loss": 0.26559349238872526,
+      "val_accuracy": 0.9241666666666667,
+      "macro_precision": 0.8876984941665638,
+      "macro_recall": 0.9144622584214026,
+      "macro_f1": 0.8978737039406086
+    }
+  ],
+  "best": {
+    "epoch": 3,
+    "macro_f1": 0.9030380851484283
+  },
+  "duration_seconds": 1485.0,
+  "versions": {
+    "torch": "2.8.0",
+    "numpy": "1.26.4"
+  }
+}

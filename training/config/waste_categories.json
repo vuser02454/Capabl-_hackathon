@@ -1,0 +1,39 @@
+{
+  "_comment": [
+    "Segregation mapping for the waste classifier. Kept as data, not code, so the mapping can be",
+    "corrected for a locality without touching the pipeline — what counts as recyclable varies by",
+    "municipality, and a hard-coded mapping would quietly export one region's rules everywhere.",
+    "",
+    "`category` is the ML-facing segregation label. `handling` is an APPLICATION-LEVEL heuristic",
+    "and is deliberately separate: the model predicts what an object is, it does not know how a",
+    "given council processes it."
+  ],
+  "classes": {
+    "food_waste":      { "category": "biodegradable",     "handling": "organic",     "display": "Food waste" },
+    "leaf_waste":      { "category": "biodegradable",     "handling": "organic",     "display": "Leaf waste" },
+    "paper_waste":     { "category": "biodegradable",     "handling": "fibre_recyclable", "display": "Paper waste" },
+    "wood_waste":      { "category": "biodegradable",     "handling": "organic",     "display": "Wood waste" },
+    "plastic_bottles": { "category": "non_biodegradable", "handling": "recyclable",  "display": "Plastic bottles" },
+    "plastic_bags":    { "category": "non_biodegradable", "handling": "persistent",  "display": "Plastic bags" },
+    "metal_cans":      { "category": "non_biodegradable", "handling": "recyclable",  "display": "Metal cans" },
+    "ewaste":          { "category": "non_biodegradable", "handling": "hazardous",   "display": "E-waste" }
+  },
+  "handling_notes": {
+    "_comment": [
+      "Keyed by `handling`, not by material. 'recyclable' therefore had to describe plastic",
+      "bottles, metal cans AND paper at once, and said 'non-degrading' — so a paper card read",
+      "'biodegradable' and 'non-degrading' at the same time. Paper now has its own handling key.",
+      "Add a key rather than widening a note whenever a material does not fit one."
+    ],
+    "organic":          "Breaks down naturally; compostable in most systems.",
+    "recyclable":       "Non-degrading but widely recoverable through recycling streams.",
+    "fibre_recyclable": "Degrades naturally, and recoverable as fibre while it is still dry and clean.",
+    "persistent": "Non-degrading and poorly recovered; fragments rather than breaking down.",
+    "hazardous":  "Contains components requiring specialist handling; should not enter general waste."
+  },
+  "thresholds": {
+    "_comment": "Below these, the pipeline reports 'uncertain' rather than guessing.",
+    "detection_confidence": 0.25,
+    "classification_confidence": 0.60
+  }
+}

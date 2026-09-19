@@ -1,0 +1,191 @@
+[
+  {
+    "preview": "runs/water/iwhr_integration/previews/2022-06-18__package1_0001.jpg",
+    "source_group": "2022-06-18",
+    "split": "test",
+    "objects": 12,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0001.jpg",
+    "internal_filename": "2022-06-18-0020.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/2022-07-20__package1_0075.jpg",
+    "source_group": "2022-07-20",
+    "split": "val",
+    "objects": 7,
+    "size": "3840x2160",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0075.jpg",
+    "internal_filename": "2022-07-20-4873.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/2022-07-20__package1_0076.jpg",
+    "source_group": "2022-07-20",
+    "split": "val",
+    "objects": 6,
+    "size": "3840x2160",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0076.jpg",
+    "internal_filename": "2022-07-20-4919.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/2022-08-18__package1_0131.jpg",
+    "source_group": "2022-08-18",
+    "split": "test",
+    "objects": 23,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0131.jpg",
+    "internal_filename": "2022-08-18-236.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/2022-08-18__package1_0152.jpg",
+    "source_group": "2022-08-18",
+    "split": "test",
+    "objects": 10,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0152.jpg",
+    "internal_filename": "2022-08-18-377.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/5-11_mix_data__package1_0194.jpg",
+    "source_group": "5-11_mix_data",
+    "split": "test",
+    "objects": 5,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0194.jpg",
+    "internal_filename": "5-11_mix_data_5302.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/5-11_mix_data__package1_0198.jpg",
+    "source_group": "5-11_mix_data",
+    "split": "test",
+    "objects": 2,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0198.jpg",
+    "internal_filename": "5-11_mix_data_795.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/_bare_numeric__package1_0284.jpg",
+    "source_group": "_bare_numeric",
+    "split": "test",
+    "objects": 3,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0284.jpg",
+    "internal_filename": "4486.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/_bare_numeric__package1_0270.jpg",
+    "source_group": "_bare_numeric",
+    "split": "test",
+    "objects": 2,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0270.jpg",
+    "internal_filename": "4404.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-1__package2_2793.jpg",
+    "source_group": "fishing-1",
+    "split": "train",
+    "objects": 1,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2793.jpg",
+    "internal_filename": "fishing-1,712.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-1__package2_2960.jpg",
+    "source_group": "fishing-1",
+    "split": "train",
+    "objects": 3,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2960.jpg",
+    "internal_filename": "fishing-1,980.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-2__package1_0800.jpg",
+    "source_group": "fishing-2",
+    "split": "train",
+    "objects": 9,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0800.jpg",
+    "internal_filename": "fishing-2,901.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-2__package1_0855.jpg",
+    "source_group": "fishing-2",
+    "split": "train",
+    "objects": 2,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0855.jpg",
+    "internal_filename": "fishing-2,975.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-3__package2_1593.jpg",
+    "source_group": "fishing-3",
+    "split": "train",
+    "objects": 3,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/1593.jpg",
+    "internal_filename": "fishing-3,208.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-3__package2_2017.jpg",
+    "source_group": "fishing-3",
+    "split": "train",
+    "objects": 6,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2017.jpg",
+    "internal_filename": "fishing-3,926.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-4__package2_2635.jpg",
+    "source_group": "fishing-4",
+    "split": "train",
+    "objects": 1,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2635.jpg",
+    "internal_filename": "fishing-4,955.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/fishing-4__package2_2324.jpg",
+    "source_group": "fishing-4",
+    "split": "train",
+    "objects": 1,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2324.jpg",
+    "internal_filename": "fishing-4,422.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/image__package1_0388.jpg",
+    "source_group": "image",
+    "split": "val",
+    "objects": 28,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0388.jpg",
+    "internal_filename": "image-00105.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/image__package1_0613.jpg",
+    "source_group": "image",
+    "split": "val",
+    "objects": 11,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0613.jpg",
+    "internal_filename": "image-00695.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/rubbish__package2_2550.jpg",
+    "source_group": "rubbish",
+    "split": "train",
+    "objects": 7,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2550.jpg",
+    "internal_filename": "rubbish-4201.jpg"
+  },
+  {
+    "preview": "runs/water/iwhr_integration/previews/rubbish__package2_2485.jpg",
+    "source_group": "rubbish",
+    "split": "train",
+    "objects": 6,
+    "size": "1920x1080",
+    "original_image": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package2/JPEGImages/2485.jpg",
+    "internal_filename": "rubbish-4080.jpg"
+  }
+]

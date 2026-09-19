@@ -1,0 +1,135 @@
+[
+  {
+    "preview": "runs/water/flow_integration/previews/000001_jpg.rf._1obj.jpg",
+    "stem": "000001_jpg.rf.f119a0829dda943a21a13948be335c7c",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000001_jpg.rf.f119a0829dda943a21a13948be335c7c.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000101_jpg.rf._6obj.jpg",
+    "stem": "000101_jpg.rf.ec0427164517e826406f080be567c8b6",
+    "objects": 6,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000101_jpg.rf.ec0427164517e826406f080be567c8b6.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000201_jpg.rf._4obj.jpg",
+    "stem": "000201_jpg.rf.e38e8050cc4fccf6034b962f65f904e0",
+    "objects": 4,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000201_jpg.rf.e38e8050cc4fccf6034b962f65f904e0.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000301_jpg.rf._1obj.jpg",
+    "stem": "000301_jpg.rf.525ac0c95c1fa8a59bd2f559539d994f",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000301_jpg.rf.525ac0c95c1fa8a59bd2f559539d994f.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000401_jpg.rf._2obj.jpg",
+    "stem": "000401_jpg.rf.cd71f07aadb976d840b570910ef65ffd",
+    "objects": 2,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000401_jpg.rf.cd71f07aadb976d840b570910ef65ffd.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000501_jpg.rf._3obj.jpg",
+    "stem": "000501_jpg.rf.08fe490437f7aa9a476ab3bd7922e7e8",
+    "objects": 3,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000501_jpg.rf.08fe490437f7aa9a476ab3bd7922e7e8.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000601_jpg.rf._1obj.jpg",
+    "stem": "000601_jpg.rf.3c66c4021456e14315050c4bd12beb2a",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000601_jpg.rf.3c66c4021456e14315050c4bd12beb2a.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000701_jpg.rf._1obj.jpg",
+    "stem": "000701_jpg.rf.66720262511ba5afe20d5a50f1f60c0e",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000701_jpg.rf.66720262511ba5afe20d5a50f1f60c0e.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000801_jpg.rf._2obj.jpg",
+    "stem": "000801_jpg.rf.06f67d9ffe8b2d2769d6f192216f7dbc",
+    "objects": 2,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000801_jpg.rf.06f67d9ffe8b2d2769d6f192216f7dbc.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000901_jpg.rf._2obj.jpg",
+    "stem": "000901_jpg.rf.fc8e053e4a7fb938034dd8c217c70747",
+    "objects": 2,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000901_jpg.rf.fc8e053e4a7fb938034dd8c217c70747.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/001001_jpg.rf._7obj.jpg",
+    "stem": "001001_jpg.rf.485bcd81fb41dc6b92efabe94cd4f223",
+    "objects": 7,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/001001_jpg.rf.485bcd81fb41dc6b92efabe94cd4f223.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/001101_jpg.rf._2obj.jpg",
+    "stem": "001101_jpg.rf.a7f94cd7667a97e66685bb05c538499b",
+    "objects": 2,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/001101_jpg.rf.a7f94cd7667a97e66685bb05c538499b.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000200_jpg.rf._16obj.jpg",
+    "stem": "000200_jpg.rf.8beaf9186bed555a825804e7deb1b0de",
+    "objects": 16,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000200_jpg.rf.8beaf9186bed555a825804e7deb1b0de.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000238_jpg.rf._14obj.jpg",
+    "stem": "000238_jpg.rf.ee98acfabe6e044df27a98fa474324bb",
+    "objects": 14,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000238_jpg.rf.ee98acfabe6e044df27a98fa474324bb.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000598_jpg.rf._14obj.jpg",
+    "stem": "000598_jpg.rf.296be87d77bf8747aadd6248e2dd5168",
+    "objects": 14,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000598_jpg.rf.296be87d77bf8747aadd6248e2dd5168.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000670_jpg.rf._13obj.jpg",
+    "stem": "000670_jpg.rf.724141b1d54e796fa43bfc9822775b42",
+    "objects": 13,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000670_jpg.rf.724141b1d54e796fa43bfc9822775b42.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000002_jpg.rf._1obj.jpg",
+    "stem": "000002_jpg.rf.be4c1a429ee271023f3e9e9a31418c91",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000002_jpg.rf.be4c1a429ee271023f3e9e9a31418c91.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000003_jpg.rf._1obj.jpg",
+    "stem": "000003_jpg.rf.29e7917537e1b79a11b5b48fd133fd91",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000003_jpg.rf.29e7917537e1b79a11b5b48fd133fd91.jpg"
+  },
+  {
+    "preview": "runs/water/flow_integration/previews/000006_jpg.rf._1obj.jpg",
+    "stem": "000006_jpg.rf.ac6da4c3a6002735be3bf1d13821985a",
+    "objects": 1,
+    "size": "640x640",
+    "source_image": "water_datasets/Flow-Img.v2i.yolov8/train/images/000006_jpg.rf.ac6da4c3a6002735be3bf1d13821985a.jpg"
+  }
+]

@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-09-19T11:07:06.777875+00:00",
+  "source": "datasets/water/IWHR_AI_Lable_Floater_V1/raw (symlinked, never modified)",
+  "output": "/Users/vvijwal01gmail.com/agenticAI/datasets/water/IWHR_AI_Lable_Floater_V1_yolo",
+  "image_storage": "symlinks to raw/ - the derived tree duplicates no image bytes",
+  "classes": [
+    "floater"
+  ],
+  "nc": 1,
+  "split_unit": "connected component of (source session) U (dHash distance <= 2)",
+  "components": 6,
+  "component_sizes": [
+    2204,
+    442,
+    163,
+    108,
+    71,
+    12
+  ],
+  "split_counts": {
+    "train": 2204,
+    "val": 550,
+    "test": 246
+  },
+  "split_percent": {
+    "train": 73.5,
+    "val": 18.3,
+    "test": 8.2
+  },
+  "images_written": 3000,
+  "boxes_written": 23689,
+  "split_by_source_group": {
+    "2022-06-18": {
+      "test": 1
+    },
+    "2022-07-20": {
+      "val": 108
+    },
+    "2022-08-18": {
+      "test": 70
+    },
+    "5-11_mix_data": {
+      "test": 12
+    },
+    "_bare_numeric": {
+      "test": 163
+    },
+    "fishing-1": {
+      "train": 366
+    },
+    "fishing-2": {
+      "train": 6
+    },
+    "fishing-3": {
+      "train": 136
+    },
+    "fishing-4": {
+      "train": 187
+    },
+    "image": {
+      "val": 442
+    },
+    "rubbish": {
+      "train": 1509
+    }
+  },
+  "residual_cross_split_near_duplicates": {
+    "threshold_used_for_isolation": 2,
+    "count_at_any_recorded_distance": 6,
+    "by_distance": {
+      "8": 4,
+      "7": 2
+    },
+    "examples": [
+      {
+        "hamming": 8,
+        "a": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0153.jpg",
+        "b": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0711.jpg",
+        "split_a": "test",
+        "split_b": "val"
+      },
+      {
+        "hamming": 7,
+        "a": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0153.jpg",
+        "b": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0745.jpg",
+        "split_a": "test",
+        "split_b": "val"
+      },
+      {
+        "hamming": 7,
+        "a": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0153.jpg",
+        "b": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0748.jpg",
+        "split_a": "test",
+        "split_b": "val"
+      },
+      {
+        "hamming": 8,
+        "a": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0153.jpg",
+        "b": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0769.jpg",
+        "split_a": "test",
+        "split_b": "val"
+      },
+      {
+        "hamming": 8,
+        "a": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0153.jpg",
+        "b": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0776.jpg",
+        "split_a": "test",
+        "split_b": "val"
+      },
+      {
+        "hamming": 8,
+        "a": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0153.jpg",
+        "b": "datasets/water/IWHR_AI_Lable_Floater_V1/raw/package1/JPEGImages/0782.jpg",
+        "split_a": "test",
+        "split_b": "val"
+      }
+    ]
+  }
+}

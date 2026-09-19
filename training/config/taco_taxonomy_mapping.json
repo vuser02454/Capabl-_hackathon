@@ -1,0 +1,586 @@
+{
+  "generated_at": "2026-09-18T22:37:32.754652+00:00",
+  "purpose": "TACO category -> EcoSentinel classifier taxonomy. Reviewed per category; nothing auto-merged on name similarity.",
+  "ecosentinel_classes": [
+    "leaf_waste",
+    "food_waste",
+    "metal_cans",
+    "ewaste",
+    "plastic_bags",
+    "paper_waste",
+    "wood_waste",
+    "plastic_bottles"
+  ],
+  "status_meanings": {
+    "mapped": "Semantics genuinely match; safe to use as detection training data for that class.",
+    "partially_mapped": "Related but not identical. Usable with the caveat recorded; review before relying on it.",
+    "requires_review": "Plausible material overlap but a different object type. NOT merged automatically.",
+    "unsupported": "No EcoSentinel class covers this. Excluded rather than forced into the nearest class."
+  },
+  "summary": {
+    "taco_categories": 60,
+    "by_status": {
+      "requires_review": 10,
+      "mapped": 13,
+      "unsupported": 27,
+      "partially_mapped": 10
+    },
+    "annotations_total": 4784,
+    "annotations_usable_for_ecosentinel_classes": 1814,
+    "annotations_excluded": 2970,
+    "annotations_per_ecosentinel_class": {
+      "plastic_bags": 845,
+      "paper_waste": 351,
+      "plastic_bottles": 335,
+      "metal_cans": 273,
+      "food_waste": 8,
+      "ewaste": 2
+    },
+    "ecosentinel_classes_with_no_taco_data": [
+      "leaf_waste",
+      "wood_waste"
+    ]
+  },
+  "categories": {
+    "Cigarette": {
+      "taco_category_id": 59,
+      "taco_supercategory": "Cigarette",
+      "annotations": 667,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Largest TACO class (667). No EcoSentinel class covers cigarette butts; inventing one is out of scope and folding it into any existing class would be wrong."
+    },
+    "Unlabeled litter": {
+      "taco_category_id": 58,
+      "taco_supercategory": "Unlabeled litter",
+      "annotations": 517,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Unspecified litter (517). Unmappable by definition - the annotation records that the class is unknown."
+    },
+    "Plastic film": {
+      "taco_category_id": 36,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 451,
+      "ecosentinel_class": "plastic_bags",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.5,
+      "reasoning": "Film is flexible plastic but NOT a bag. Largest TACO plastic category (451). Merged only with this flag recorded; treating film and bags as identical was explicitly cautioned against."
+    },
+    "Clear plastic bottle": {
+      "taco_category_id": 5,
+      "taco_supercategory": "Bottle",
+      "annotations": 285,
+      "ecosentinel_class": "plastic_bottles",
+      "status": "mapped",
+      "mapping_confidence": 0.95,
+      "reasoning": "Directly a plastic drink bottle; matches the classifier class exactly."
+    },
+    "Other plastic": {
+      "taco_category_id": 29,
+      "taco_supercategory": "Other plastic",
+      "annotations": 273,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Catch-all plastic (273) with no consistent object type; would pollute whichever class it joined."
+    },
+    "Other plastic wrapper": {
+      "taco_category_id": 39,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 260,
+      "ecosentinel_class": "plastic_bags",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.5,
+      "reasoning": "A wrapper is flexible plastic packaging, not a bag. Same caveat as plastic film."
+    },
+    "Drink can": {
+      "taco_category_id": 12,
+      "taco_supercategory": "Can",
+      "annotations": 229,
+      "ecosentinel_class": "metal_cans",
+      "status": "mapped",
+      "mapping_confidence": 0.95,
+      "reasoning": "Aluminium drink can; matches metal_cans exactly."
+    },
+    "Plastic bottle cap": {
+      "taco_category_id": 7,
+      "taco_supercategory": "Bottle cap",
+      "annotations": 209,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Plastic but a cap, not a bottle (209). Merging would teach plastic_bottles to fire on caps."
+    },
+    "Plastic straw": {
+      "taco_category_id": 55,
+      "taco_supercategory": "Straw",
+      "annotations": 157,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic straw (157); not a bottle, bag or can."
+    },
+    "Broken glass": {
+      "taco_category_id": 9,
+      "taco_supercategory": "Broken glass",
+      "annotations": 138,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Glass. No EcoSentinel glass class."
+    },
+    "Styrofoam piece": {
+      "taco_category_id": 57,
+      "taco_supercategory": "Styrofoam piece",
+      "annotations": 112,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Expanded polystyrene is a distinct material with its own handling; no EcoSentinel class."
+    },
+    "Glass bottle": {
+      "taco_category_id": 6,
+      "taco_supercategory": "Bottle",
+      "annotations": 104,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Glass, not plastic. EcoSentinel has no glass class; mapping to plastic_bottles would be a material error with real recycling consequences."
+    },
+    "Disposable plastic cup": {
+      "taco_category_id": 21,
+      "taco_supercategory": "Cup",
+      "annotations": 104,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic cup; no matching class."
+    },
+    "Pop tab": {
+      "taco_category_id": 50,
+      "taco_supercategory": "Pop tab",
+      "annotations": 99,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.25,
+      "reasoning": "Metal fragment from a can, but not a can. 99 annotations of a very small object."
+    },
+    "Other carton": {
+      "taco_category_id": 14,
+      "taco_supercategory": "Carton",
+      "annotations": 93,
+      "ecosentinel_class": "paper_waste",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.55,
+      "reasoning": "Paperboard, but 'other' is heterogeneous."
+    },
+    "Normal paper": {
+      "taco_category_id": 33,
+      "taco_supercategory": "Paper",
+      "annotations": 82,
+      "ecosentinel_class": "paper_waste",
+      "status": "mapped",
+      "mapping_confidence": 0.95,
+      "reasoning": "Plain paper; exact match."
+    },
+    "Metal bottle cap": {
+      "taco_category_id": 8,
+      "taco_supercategory": "Bottle cap",
+      "annotations": 80,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.3,
+      "reasoning": "Metal, but a cap is not a can. Too small and distinct in form to fold into metal_cans without degrading that class."
+    },
+    "Plastic lid": {
+      "taco_category_id": 27,
+      "taco_supercategory": "Lid",
+      "annotations": 77,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Plastic lid, not a bottle or bag."
+    },
+    "Paper cup": {
+      "taco_category_id": 20,
+      "taco_supercategory": "Cup",
+      "annotations": 67,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.3,
+      "reasoning": "Paper cups are almost always polyethylene-lined and are not accepted as paper in most streams."
+    },
+    "Corrugated carton": {
+      "taco_category_id": 17,
+      "taco_supercategory": "Carton",
+      "annotations": 64,
+      "ecosentinel_class": "paper_waste",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.6,
+      "reasoning": "Cardboard is paper-based and widely recycled, but cartons are a distinct stream from loose paper."
+    },
+    "Aluminium foil": {
+      "taco_category_id": 0,
+      "taco_supercategory": "Aluminium foil",
+      "annotations": 62,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.3,
+      "reasoning": "Aluminium but neither a can nor rigid; recycling stream differs in practice."
+    },
+    "Single-use carrier bag": {
+      "taco_category_id": 40,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 61,
+      "ecosentinel_class": "plastic_bags",
+      "status": "mapped",
+      "mapping_confidence": 0.9,
+      "reasoning": "A plastic carrier bag; matches plastic_bags directly."
+    },
+    "Other plastic bottle": {
+      "taco_category_id": 4,
+      "taco_supercategory": "Bottle",
+      "annotations": 50,
+      "ecosentinel_class": "plastic_bottles",
+      "status": "mapped",
+      "mapping_confidence": 0.85,
+      "reasoning": "Plastic bottle of another type; same material and form factor."
+    },
+    "Drink carton": {
+      "taco_category_id": 16,
+      "taco_supercategory": "Carton",
+      "annotations": 45,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.25,
+      "reasoning": "Laminated carton (paper + polymer + often aluminium). Calling this paper_waste would misstate its recycling route."
+    },
+    "Tissues": {
+      "taco_category_id": 31,
+      "taco_supercategory": "Paper",
+      "annotations": 42,
+      "ecosentinel_class": "paper_waste",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.55,
+      "reasoning": "Paper fibre, but soiled tissue is generally not recyclable and is closer to organic/residual waste in handling."
+    },
+    "Crisp packet": {
+      "taco_category_id": 42,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 39,
+      "ecosentinel_class": "plastic_bags",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.45,
+      "reasoning": "Metallised laminate packet. Visually bag-like but a multi-layer laminate that is not recycled as film."
+    },
+    "Disposable food container": {
+      "taco_category_id": 45,
+      "taco_supercategory": "Plastic container",
+      "annotations": 38,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic container; no matching class."
+    },
+    "Plastic utensils": {
+      "taco_category_id": 49,
+      "taco_supercategory": "Plastic utensils",
+      "annotations": 37,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic cutlery; no matching class."
+    },
+    "Food Can": {
+      "taco_category_id": 10,
+      "taco_supercategory": "Can",
+      "annotations": 34,
+      "ecosentinel_class": "metal_cans",
+      "status": "mapped",
+      "mapping_confidence": 0.9,
+      "reasoning": "Steel/aluminium food can; same class semantics."
+    },
+    "Garbage bag": {
+      "taco_category_id": 38,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 31,
+      "ecosentinel_class": "plastic_bags",
+      "status": "mapped",
+      "mapping_confidence": 0.85,
+      "reasoning": "Plastic bag, larger format, same material and form."
+    },
+    "Meal carton": {
+      "taco_category_id": 18,
+      "taco_supercategory": "Carton",
+      "annotations": 30,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.25,
+      "reasoning": "Usually plastic- or wax-lined board; same objection as drink carton."
+    },
+    "Rope & strings": {
+      "taco_category_id": 51,
+      "taco_supercategory": "Rope & strings",
+      "annotations": 29,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Fibre/synthetic cordage; no matching class."
+    },
+    "Paper bag": {
+      "taco_category_id": 34,
+      "taco_supercategory": "Paper bag",
+      "annotations": 27,
+      "ecosentinel_class": "paper_waste",
+      "status": "mapped",
+      "mapping_confidence": 0.8,
+      "reasoning": "Paper material. Note it is a bag by form but paper by material; EcoSentinel segregates by material, so paper_waste is correct."
+    },
+    "Scrap metal": {
+      "taco_category_id": 52,
+      "taco_supercategory": "Scrap metal",
+      "annotations": 20,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.3,
+      "reasoning": "Metal but arbitrary form; merging would teach metal_cans to fire on any metal."
+    },
+    "Foam food container": {
+      "taco_category_id": 46,
+      "taco_supercategory": "Plastic container",
+      "annotations": 15,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "EPS foam container."
+    },
+    "Foam cup": {
+      "taco_category_id": 22,
+      "taco_supercategory": "Cup",
+      "annotations": 13,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "EPS foam; same as styrofoam."
+    },
+    "Magazine paper": {
+      "taco_category_id": 30,
+      "taco_supercategory": "Paper",
+      "annotations": 12,
+      "ecosentinel_class": "paper_waste",
+      "status": "mapped",
+      "mapping_confidence": 0.9,
+      "reasoning": "Printed paper stock; same class."
+    },
+    "Wrapping paper": {
+      "taco_category_id": 32,
+      "taco_supercategory": "Paper",
+      "annotations": 12,
+      "ecosentinel_class": "paper_waste",
+      "status": "mapped",
+      "mapping_confidence": 0.85,
+      "reasoning": "Paper-based wrapping."
+    },
+    "Egg carton": {
+      "taco_category_id": 15,
+      "taco_supercategory": "Carton",
+      "annotations": 11,
+      "ecosentinel_class": "paper_waste",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.6,
+      "reasoning": "Moulded pulp; paper-based."
+    },
+    "Aerosol": {
+      "taco_category_id": 11,
+      "taco_supercategory": "Can",
+      "annotations": 10,
+      "ecosentinel_class": "metal_cans",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.6,
+      "reasoning": "Metal pressurised can. Material matches but aerosols need separate handling (residual propellant), so segregation advice may differ."
+    },
+    "Metal lid": {
+      "taco_category_id": 28,
+      "taco_supercategory": "Lid",
+      "annotations": 10,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.3,
+      "reasoning": "Metal, not a can. Same objection as metal bottle cap."
+    },
+    "Spread tub": {
+      "taco_category_id": 43,
+      "taco_supercategory": "Plastic container",
+      "annotations": 9,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic tub; no matching class."
+    },
+    "Food waste": {
+      "taco_category_id": 25,
+      "taco_supercategory": "Food waste",
+      "annotations": 8,
+      "ecosentinel_class": "food_waste",
+      "status": "mapped",
+      "mapping_confidence": 0.9,
+      "reasoning": "Direct match, but only 8 annotations - far too few to train a detector for this class."
+    },
+    "Shoe": {
+      "taco_category_id": 53,
+      "taco_supercategory": "Shoe",
+      "annotations": 7,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Composite footwear; no matching class."
+    },
+    "Squeezable tube": {
+      "taco_category_id": 54,
+      "taco_supercategory": "Squeezable tube",
+      "annotations": 7,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Multi-material tube; no matching class."
+    },
+    "Aluminium blister pack": {
+      "taco_category_id": 2,
+      "taco_supercategory": "Blister pack",
+      "annotations": 6,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Pharmaceutical blister; mixed foil/plastic, no matching class."
+    },
+    "Glass cup": {
+      "taco_category_id": 23,
+      "taco_supercategory": "Cup",
+      "annotations": 6,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Glass. No EcoSentinel glass class."
+    },
+    "Glass jar": {
+      "taco_category_id": 26,
+      "taco_supercategory": "Glass jar",
+      "annotations": 6,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Glass. No EcoSentinel glass class."
+    },
+    "Other plastic container": {
+      "taco_category_id": 47,
+      "taco_supercategory": "Plastic container",
+      "annotations": 6,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic container; no matching class."
+    },
+    "Toilet tube": {
+      "taco_category_id": 13,
+      "taco_supercategory": "Carton",
+      "annotations": 5,
+      "ecosentinel_class": "paper_waste",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.6,
+      "reasoning": "Paperboard tube."
+    },
+    "Six pack rings": {
+      "taco_category_id": 37,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 5,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.2,
+      "reasoning": "Flexible plastic but a distinct rigid-ring form; would blur plastic_bags."
+    },
+    "Tupperware": {
+      "taco_category_id": 44,
+      "taco_supercategory": "Plastic container",
+      "annotations": 4,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Reusable container; arguably not waste at all."
+    },
+    "Plastic glooves": {
+      "taco_category_id": 48,
+      "taco_supercategory": "Plastic glooves",
+      "annotations": 4,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Plastic gloves; no matching class (TACO's own spelling retained)."
+    },
+    "Paper straw": {
+      "taco_category_id": 56,
+      "taco_supercategory": "Straw",
+      "annotations": 4,
+      "ecosentinel_class": null,
+      "status": "requires_review",
+      "mapping_confidence": 0.3,
+      "reasoning": "Paper but tiny; only 4 annotations."
+    },
+    "Pizza box": {
+      "taco_category_id": 19,
+      "taco_supercategory": "Carton",
+      "annotations": 3,
+      "ecosentinel_class": "paper_waste",
+      "status": "partially_mapped",
+      "mapping_confidence": 0.4,
+      "reasoning": "Cardboard but usually grease-contaminated, which excludes it from paper recycling in practice."
+    },
+    "Polypropylene bag": {
+      "taco_category_id": 41,
+      "taco_supercategory": "Plastic bag & wrapper",
+      "annotations": 3,
+      "ecosentinel_class": "plastic_bags",
+      "status": "mapped",
+      "mapping_confidence": 0.8,
+      "reasoning": "Plastic bag in PP rather than PE; still a bag."
+    },
+    "Battery": {
+      "taco_category_id": 1,
+      "taco_supercategory": "Battery",
+      "annotations": 2,
+      "ecosentinel_class": "ewaste",
+      "status": "mapped",
+      "mapping_confidence": 0.85,
+      "reasoning": "A battery is e-waste/hazardous. Only 2 annotations - unusable for detection training."
+    },
+    "Other plastic cup": {
+      "taco_category_id": 24,
+      "taco_supercategory": "Cup",
+      "annotations": 2,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Rigid plastic cup; no matching class."
+    },
+    "Carded blister pack": {
+      "taco_category_id": 3,
+      "taco_supercategory": "Blister pack",
+      "annotations": 1,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Card-backed blister; mixed material, no matching class."
+    },
+    "Plastified paper bag": {
+      "taco_category_id": 35,
+      "taco_supercategory": "Paper bag",
+      "annotations": 0,
+      "ecosentinel_class": null,
+      "status": "unsupported",
+      "mapping_confidence": 0.0,
+      "reasoning": "Zero annotations in the dataset, and laminated in any case."
+    }
+  }
+}

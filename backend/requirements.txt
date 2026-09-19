@@ -1,0 +1,34 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.5
+python-multipart>=0.0.9
+
+# Orchestration layer (agents/langgraph_orchestrator.py) — StateGraph fan-out/fan-in over the
+# existing specialist agents. Required for POST /api/analyze; works fully offline in demo mode.
+langgraph>=0.2
+langchain-core>=0.3
+
+# Optional: only needed if LLM_PROVIDER is set to enable the Coordinator's optional narrative
+# layer (agents/llm_reasoning.py). Uninstalled by default; install only the one you use.
+#   LLM_PROVIDER=gemini -> langchain-google-genai
+#   LLM_PROVIDER=openai -> langchain-openai
+#   LLM_PROVIDER=groq   -> langchain-groq
+
+# Reference-dataset appearance matching for the Water Agent
+# (services/water_dataset_match_service.py). Without these the matcher degrades to an
+# "unavailable" report; everything else in the API keeps working.
+pillow>=10
+numpy>=1.24
+
+# Optional: Water Pollution Vision (YOLO26) via LOCAL weights. Not installed by default —
+# ultralytics pulls in torch, which is large, and YOLO26 only loads on a build that actually
+# supports that architecture (a package named "ultralytics" is not sufficient on its own).
+# Verify against your exported weights before relying on this route.
+#   pip install ultralytics pillow numpy
+#
+# The Roboflow hosted route needs no extra dependency: it uses httpx, already required above
+# by services/openaq_service.py.
+
+# Explainability providers (OpenRouter, Groq). urllib is NOT sufficient here: Groq's Cloudflare
+# edge rejects it with error 1010 regardless of User-Agent, while requests is accepted.
+requests>=2.31

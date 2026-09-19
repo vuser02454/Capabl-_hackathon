@@ -1,0 +1,235 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-ink-950: #06080a;
+  --color-ink-900: #0a0d10;
+  --color-ink-850: #0e1216;
+  --color-ink-800: #13181d;
+  --color-ink-700: #1b2229;
+
+  --color-fg: #e6ebee;
+  --color-fg-muted: #9aa5ad;
+  --color-fg-subtle: #69757e;
+
+  --color-brand: #2dd4bf;
+  --color-brand-strong: #14b8a6;
+  --color-info: #60a5fa;
+
+  --color-risk-low: #34d399;
+  --color-risk-moderate: #f5b544;
+  --color-risk-high: #f26b6b;
+
+  --color-agent-air: #7dd3fc;
+  --color-agent-water: #7c9cff;
+  --color-agent-waste: #c79bff;
+  --color-agent-coordinator: #2dd4bf;
+
+  --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-scan: scan 3.4s ease-in-out infinite;
+  --animate-flow: flow 1.8s linear infinite;
+  --animate-spin-slow: spin 3s linear infinite;
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.9); opacity: 0.65; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes sensor-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+  }
+  @keyframes mote-drift {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { transform: translateY(-105vh) translateX(28px); opacity: 0; }
+  }
+  @keyframes scan {
+    0%, 100% { top: 3%; }
+    50% { top: 95%; }
+  }
+  @keyframes flow {
+    0% { top: -10%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-ink-950);
+  }
+  body {
+    @apply bg-ink-950 font-sans text-fg antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    min-height: 100vh;
+  }
+  ::selection {
+    background: rgb(45 212 191 / 0.3);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.12) transparent;
+  }
+}
+
+@layer components {
+  .app-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(56rem 36rem at 12% -12%, rgb(45 212 191 / 0.085), transparent 62%),
+      radial-gradient(48rem 32rem at 100% 0%, rgb(96 165 250 / 0.06), transparent 60%),
+      radial-gradient(40rem 28rem at 60% 115%, rgb(45 212 191 / 0.045), transparent 60%);
+  }
+  .app-backdrop::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.028) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 25%, transparent 80%);
+  }
+  .app-backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glass {
+    position: relative;
+    border-radius: 1rem;
+    border: 1px solid rgb(255 255 255 / 0.07);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.038), rgb(255 255 255 / 0.014));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.045),
+      0 12px 32px -16px rgb(0 0 0 / 0.6);
+  }
+  .glass-interactive {
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  }
+  .glass-interactive:hover {
+    border-color: rgb(255 255 255 / 0.13);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02));
+  }
+
+  .skeleton {
+    border-radius: 0.5rem;
+    background: linear-gradient(90deg, rgb(255 255 255 / 0.035) 25%, rgb(255 255 255 / 0.08) 50%, rgb(255 255 255 / 0.035) 75%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  .eyebrow {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-fg-subtle);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Landing: sensor zone markers ──────────────────────────────
+     A hotspot reads as instrumentation embedded in the environment rather than a button:
+     a faint core with a slow breathing ring, brightening on hover/focus. */
+  .sensor-core {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--zone, var(--color-brand));
+    /* The dark spread keeps the marker legible against a bright midday sky as well as night. */
+    box-shadow:
+      0 0 12px var(--zone, var(--color-brand)),
+      0 0 0 5px rgb(4 7 10 / 0.3);
+  }
+  .sensor-ring {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    border: 1.5px solid var(--zone, var(--color-brand));
+    box-shadow: 0 0 0 1px rgb(4 7 10 / 0.35);
+    opacity: 0.55;
+    animation: sensor-breathe 3.6s ease-in-out infinite;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .sensor-ring-active {
+    opacity: 0.95;
+    transform: scale(1.35);
+  }
+  /* Vertical stack of ticks above/below the core, so the zone stays findable before hover. */
+  .sensor-ring::before,
+  .sensor-ring::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: 10px;
+    margin-left: -0.5px;
+    background: linear-gradient(var(--zone, var(--color-brand)), transparent);
+    opacity: 0.65;
+  }
+  .sensor-ring::before { bottom: calc(100% + 4px); }
+  .sensor-ring::after { top: calc(100% + 4px); transform: rotate(180deg); }
+
+  .scene-mote {
+    position: absolute;
+    top: 100%;
+    width: 2px;
+    height: 2px;
+    border-radius: 9999px;
+    background: rgb(220 240 238 / 0.9);
+    animation: mote-drift linear infinite;
+  }
+
+  .flow-dot {
+    position: absolute;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    margin-left: -2.5px;
+    border-radius: 9999px;
+    background: var(--color-brand);
+    box-shadow: 0 0 10px var(--color-brand);
+    animation: var(--animate-flow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  .app-backdrop { display: none; }
+  body { background: #06080a; }
+}

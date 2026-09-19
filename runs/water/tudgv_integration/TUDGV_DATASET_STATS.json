@@ -1,0 +1,332 @@
+{
+  "dataset": "TUD-GV",
+  "audited_path": "water_datasets/TUD-GV",
+  "archive_present_on_disk": false,
+  "layout": {
+    "images": "images/",
+    "labels": "labels_txt/",
+    "classes": "classes.txt",
+    "note": "flat layout - no split directories of any kind"
+  },
+  "classes_file": {
+    "path": "water_datasets/TUD-GV/classes.txt",
+    "bytes": 6,
+    "content_literal": "litter",
+    "trailing_newline": false,
+    "class_count": 1
+  },
+  "annotation_format": "YOLO detection txt: <class_id> <x_center> <y_center> <width> <height>, normalised, 6 decimal places",
+  "images_total": 1501,
+  "label_files_total": 1501,
+  "image_extensions": {
+    ".jpg": 1501
+  },
+  "image_dimensions": {
+    "1920x1080": 1501
+  },
+  "image_format": {
+    "JPEG": 1501
+  },
+  "image_mode": {
+    "RGB": 1501
+  },
+  "objects_total": 8181,
+  "classes": [
+    "litter"
+  ],
+  "objects_per_class": {
+    "litter": 8181
+  },
+  "images_per_class": {
+    "litter": 1501
+  },
+  "images_with_no_objects": 0,
+  "integrity": {
+    "missing_images": 0,
+    "missing_labels": 0,
+    "orphan_labels": 0,
+    "duplicate_filename_stems": 0,
+    "non_image_files_in_images_dir": 0,
+    "non_txt_files_in_labels_dir": 0,
+    "zero_byte_images": 0,
+    "zero_byte_labels": 0,
+    "unreadable_or_corrupt_images": 0,
+    "every_image_has_label": true,
+    "every_label_has_image": true
+  },
+  "annotation_validation": {
+    "total_defect_rows": 50,
+    "class_id_not_in_classes_file": 0,
+    "coordinate_outside_0_1": 0,
+    "zero_or_negative_wh": 0,
+    "malformed_lines": 0,
+    "non_numeric": 0,
+    "duplicate_annotations": 0,
+    "empty_labels": 0,
+    "box_extends_past_frame": 50,
+    "box_extends_past_frame_max_overrun": 1e-06,
+    "box_extends_past_frame_assessment": "floating-point rounding at 6 decimal places (max 1e-6 = 0.0019 px on a 1920px frame), not an annotation defect; boxes kept"
+  },
+  "objects_per_image": {
+    "min": 1,
+    "median": 5,
+    "mean": 5.45,
+    "p90": 9.0,
+    "p99": 11.0,
+    "max": 14
+  },
+  "bbox_pixels_1920x1080": {
+    "width": {
+      "min": 17.0,
+      "median": 70.0,
+      "max": 416.0
+    },
+    "height": {
+      "min": 14.0,
+      "median": 68.0,
+      "max": 463.0
+    },
+    "area_median_px": 4543.0,
+    "aspect_ratio_median": 1.025
+  },
+  "bbox_relative_area": {
+    "p1": 0.000489,
+    "p5": 0.000874,
+    "p10": 0.001177,
+    "median": 0.002191,
+    "p90": 0.006597,
+    "p99": 0.018928,
+    "max": 0.049792
+  },
+  "tiny_objects": {
+    "under_1pct": 7849,
+    "under_1pct_percent": 95.94,
+    "under_0.1pct": 547,
+    "under_0.05pct": 86
+  },
+  "splits": {
+    "train": false,
+    "val": false,
+    "test": false,
+    "finding": "No split of any kind exists. All 1501 images are in one flat images/ directory."
+  },
+  "sequences": {
+    "filename_shapes": {
+      "exp#_#": 589,
+      "exp#_pic#": 912
+    },
+    "session_pattern": "exp<N>_<frame> and exp<N>_pic<frame>",
+    "session_count": 30,
+    "sessions": {
+      "exp27": {
+        "images": 151,
+        "objects": 777,
+        "objects_per_image": 5.15
+      },
+      "exp56": {
+        "images": 137,
+        "objects": 1144,
+        "objects_per_image": 8.35
+      },
+      "exp29": {
+        "images": 116,
+        "objects": 691,
+        "objects_per_image": 5.96
+      },
+      "exp55": {
+        "images": 103,
+        "objects": 889,
+        "objects_per_image": 8.63
+      },
+      "exp18": {
+        "images": 95,
+        "objects": 593,
+        "objects_per_image": 6.24
+      },
+      "exp50": {
+        "images": 80,
+        "objects": 417,
+        "objects_per_image": 5.21
+      },
+      "exp23": {
+        "images": 70,
+        "objects": 288,
+        "objects_per_image": 4.11
+      },
+      "exp16": {
+        "images": 67,
+        "objects": 386,
+        "objects_per_image": 5.76
+      },
+      "exp28": {
+        "images": 66,
+        "objects": 378,
+        "objects_per_image": 5.73
+      },
+      "exp14": {
+        "images": 54,
+        "objects": 220,
+        "objects_per_image": 4.07
+      },
+      "exp20": {
+        "images": 54,
+        "objects": 294,
+        "objects_per_image": 5.44
+      },
+      "exp53": {
+        "images": 52,
+        "objects": 332,
+        "objects_per_image": 6.38
+      },
+      "exp1": {
+        "images": 44,
+        "objects": 102,
+        "objects_per_image": 2.32
+      },
+      "exp6": {
+        "images": 43,
+        "objects": 162,
+        "objects_per_image": 3.77
+      },
+      "exp54": {
+        "images": 42,
+        "objects": 327,
+        "objects_per_image": 7.79
+      },
+      "exp25": {
+        "images": 33,
+        "objects": 113,
+        "objects_per_image": 3.42
+      },
+      "exp7": {
+        "images": 31,
+        "objects": 122,
+        "objects_per_image": 3.94
+      },
+      "exp8": {
+        "images": 31,
+        "objects": 97,
+        "objects_per_image": 3.13
+      },
+      "exp19": {
+        "images": 28,
+        "objects": 108,
+        "objects_per_image": 3.86
+      },
+      "exp2": {
+        "images": 28,
+        "objects": 35,
+        "objects_per_image": 1.25
+      },
+      "exp122": {
+        "images": 24,
+        "objects": 98,
+        "objects_per_image": 4.08
+      },
+      "exp24": {
+        "images": 23,
+        "objects": 75,
+        "objects_per_image": 3.26
+      },
+      "exp30": {
+        "images": 23,
+        "objects": 156,
+        "objects_per_image": 6.78
+      },
+      "exp121": {
+        "images": 21,
+        "objects": 66,
+        "objects_per_image": 3.14
+      },
+      "exp4": {
+        "images": 21,
+        "objects": 47,
+        "objects_per_image": 2.24
+      },
+      "exp9": {
+        "images": 21,
+        "objects": 128,
+        "objects_per_image": 6.1
+      },
+      "exp11": {
+        "images": 19,
+        "objects": 66,
+        "objects_per_image": 3.47
+      },
+      "exp5": {
+        "images": 18,
+        "objects": 55,
+        "objects_per_image": 3.06
+      },
+      "exp3": {
+        "images": 3,
+        "objects": 3,
+        "objects_per_image": 1.0
+      },
+      "exp82": {
+        "images": 3,
+        "objects": 12,
+        "objects_per_image": 4.0
+      }
+    },
+    "frame_indices_contiguous_within_session": false,
+    "note": "Frame indices within a session are non-contiguous, so frames were subsampled from longer recordings rather than taken consecutively."
+  },
+  "duplicates": {
+    "images_total": 1501,
+    "exact_duplicates": {
+      "groups": 0,
+      "extra_images": 0,
+      "images_involved": 0
+    },
+    "near_duplicates": {
+      "0": {
+        "pairs": 483,
+        "unique_images": 131,
+        "percent_of_dataset": 8.73,
+        "groups": 40,
+        "largest_group": 27,
+        "pairs_within_same_session": 481,
+        "pairs_crossing_sessions": 2
+      },
+      "2": {
+        "pairs": 3234,
+        "unique_images": 522,
+        "percent_of_dataset": 34.78,
+        "groups": 39,
+        "largest_group": 150,
+        "pairs_within_same_session": 3179,
+        "pairs_crossing_sessions": 55
+      },
+      "5": {
+        "pairs": 13238,
+        "unique_images": 968,
+        "percent_of_dataset": 64.49,
+        "groups": 66,
+        "largest_group": 505,
+        "pairs_within_same_session": 11538,
+        "pairs_crossing_sessions": 1700
+      },
+      "8": {
+        "pairs": 35476,
+        "unique_images": 1281,
+        "percent_of_dataset": 85.34,
+        "groups": 63,
+        "largest_group": 599,
+        "pairs_within_same_session": 24021,
+        "pairs_crossing_sessions": 11455
+      }
+    },
+    "csv_rows": 35476
+  },
+  "provenance": {
+    "readme": null,
+    "license_file": null,
+    "citation": null,
+    "doi": null,
+    "exif": "absent from all sampled images (JFIF density headers only)",
+    "authors": null,
+    "publication": null,
+    "license_status": "LICENSE_NOT_VERIFIED"
+  }
+}

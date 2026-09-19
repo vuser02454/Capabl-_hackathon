@@ -1,0 +1,1133 @@
+{
+  "dataset": "garbage_Dataset",
+  "generated_at": "2026-09-18T18:26:52.346077+00:00",
+  "splits": {
+    "train": {
+      "images": 14165,
+      "valid_images": 14158,
+      "classes": 8,
+      "class_distribution": {
+        "food_waste": 10066,
+        "leaf_waste": 1179,
+        "paper_waste": 860,
+        "metal_cans": 670,
+        "wood_waste": 586,
+        "plastic_bottles": 417,
+        "plastic_bags": 200,
+        "ewaste": 180
+      },
+      "imbalance_ratio": 55.9
+    },
+    "val": {
+      "images": 1201,
+      "valid_images": 1201,
+      "classes": 8,
+      "class_distribution": {
+        "leaf_waste": 394,
+        "food_waste": 229,
+        "paper_waste": 212,
+        "plastic_bottles": 130,
+        "metal_cans": 69,
+        "wood_waste": 59,
+        "ewaste": 55,
+        "plastic_bags": 53
+      },
+      "imbalance_ratio": 7.4
+    }
+  },
+  "problems": {
+    "unreadable_or_invalid": [
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/amendoim-30x60.jpg",
+        "reason": "too small (30x60)"
+      },
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/argentine-osage-orange-27x60.jpg",
+        "reason": "too small (27x60)"
+      },
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/beefwood-qs-s-22x60.jpg",
+        "reason": "too small (22x60)"
+      },
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/limber-pine-24x60.jpg",
+        "reason": "too small (24x60)"
+      },
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/madagascar-rosewood-s-30x60.jpg",
+        "reason": "too small (30x60)"
+      },
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/tanga-tanga-s-30x60.jpg",
+        "reason": "too small (30x60)"
+      },
+      {
+        "path": "garbage_Dataset/train/biodegradable/wood_waste/tambotie-s-30x60.jpg",
+        "reason": "too small (30x60)"
+      }
+    ],
+    "duplicates_within_split": [
+      {
+        "hash": "d74078441e02e9ac",
+        "count": 2,
+        "locations": [
+          "train/food_waste/1_201.jpg",
+          "train/food_waste/1_167.jpg"
+        ]
+      },
+      {
+        "hash": "e29600907e30d4cd",
+        "count": 2,
+        "locations": [
+          "train/food_waste/6_50.jpg",
+          "train/food_waste/6_174.jpg"
+        ]
+      },
+      {
+        "hash": "1a07b1ee2994778c",
+        "count": 2,
+        "locations": [
+          "train/food_waste/00000101.jpg",
+          "train/food_waste/00000126.jpg"
+        ]
+      },
+      {
+        "hash": "41fbe61f306d73c0",
+        "count": 2,
+        "locations": [
+          "train/food_waste/10_564.jpg",
+          "train/food_waste/10_181.jpg"
+        ]
+      },
+      {
+        "hash": "3eafb5a92d19de51",
+        "count": 2,
+        "locations": [
+          "train/food_waste/7_212.jpg",
+          "train/food_waste/7_32.jpg"
+        ]
+      },
+      {
+        "hash": "957c12342a9188b5",
+        "count": 2,
+        "locations": [
+          "train/food_waste/1_308.jpg",
+          "train/food_waste/1_250.jpg"
+        ]
+      },
+      {
+        "hash": "48f68128fce03887",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000110.jpg",
+          "train/leaf_waste/00000094.jpg"
+        ]
+      },
+      {
+        "hash": "61598d123e6d521f",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000111.jpg",
+          "train/leaf_waste/00000096.jpg"
+        ]
+      },
+      {
+        "hash": "819ed996ab9d2230",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000100.jpg",
+          "train/leaf_waste/00000116.jpg"
+        ]
+      },
+      {
+        "hash": "b3449b1a838726ab",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000084.jpg",
+          "train/leaf_waste/00000134.jpg"
+        ]
+      },
+      {
+        "hash": "a2bbbe1b26b936d8",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000093.jpg",
+          "train/leaf_waste/00000109.jpg"
+        ]
+      },
+      {
+        "hash": "1b6aaa98d528ec4e",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/00000101.jpg",
+          "train/paper_waste/00000102.jpg"
+        ]
+      },
+      {
+        "hash": "06e27a605c22baca",
+        "count": 2,
+        "locations": [
+          "train/plastic_bags/00000099.jpg",
+          "train/plastic_bags/00000105.jpg"
+        ]
+      },
+      {
+        "hash": "5bd67cc1c4ff4685",
+        "count": 2,
+        "locations": [
+          "train/plastic_bags/00000100.jpg",
+          "train/plastic_bags/00000094.jpg"
+        ]
+      },
+      {
+        "hash": "719cc5c2ed975f58",
+        "count": 2,
+        "locations": [
+          "train/plastic_bags/00000103.jpg",
+          "train/plastic_bags/00000097.jpg"
+        ]
+      },
+      {
+        "hash": "850f6c77716e262e",
+        "count": 2,
+        "locations": [
+          "train/wood_waste/00000110.jpg",
+          "train/wood_waste/00000086.jpg"
+        ]
+      },
+      {
+        "hash": "f8de3163e4e3a683",
+        "count": 2,
+        "locations": [
+          "train/wood_waste/00000137.jpg",
+          "train/wood_waste/00000035.jpg"
+        ]
+      },
+      {
+        "hash": "960579a27bab7d30",
+        "count": 2,
+        "locations": [
+          "val/food_waste/00000114.jpg",
+          "val/food_waste/00000068.jpg"
+        ]
+      },
+      {
+        "hash": "2cb70eef73d62374",
+        "count": 2,
+        "locations": [
+          "val/paper_waste/00000099.jpg",
+          "val/paper_waste/00000103.jpg"
+        ]
+      },
+      {
+        "hash": "daa6d225ad3ec762",
+        "count": 2,
+        "locations": [
+          "val/paper_waste/00000104.jpg",
+          "val/paper_waste/00000100.jpg"
+        ]
+      }
+    ],
+    "duplicates_across_splits": [
+      {
+        "hash": "c42a6c75b0582dcd",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_21.jpg",
+          "val/food_waste/2_297.jpg"
+        ]
+      },
+      {
+        "hash": "a7b1aa3bbc5a281a",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_1072.jpg",
+          "val/food_waste/2_209.jpg"
+        ]
+      },
+      {
+        "hash": "b0590ed41465e35e",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_1112.jpg",
+          "val/food_waste/2_325.jpg"
+        ]
+      },
+      {
+        "hash": "1ade78dc0805ed39",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_37.jpg",
+          "val/food_waste/2_278.jpg"
+        ]
+      },
+      {
+        "hash": "df0cb41b1801795d",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_1429.jpg",
+          "val/food_waste/2_211.jpg"
+        ]
+      },
+      {
+        "hash": "967c4223ed285440",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_1004.jpg",
+          "val/food_waste/2_331.jpg"
+        ]
+      },
+      {
+        "hash": "3b64363fa7e32de0",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_188.jpg",
+          "val/food_waste/2_224.jpg"
+        ]
+      },
+      {
+        "hash": "d2c316f335dfbbb9",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_604.jpg",
+          "val/food_waste/2_310.jpg"
+        ]
+      },
+      {
+        "hash": "4b02c789a8ef7669",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_78.jpg",
+          "val/food_waste/2_231.jpg"
+        ]
+      },
+      {
+        "hash": "16b6e9e152eac574",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_1202.jpg",
+          "val/food_waste/2_244.jpg"
+        ]
+      },
+      {
+        "hash": "9a986520896b9423",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_88.jpg",
+          "val/food_waste/2_217.jpg"
+        ]
+      },
+      {
+        "hash": "9e938f8b9b98bbe2",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_146.jpg",
+          "val/food_waste/2_216.jpg"
+        ]
+      },
+      {
+        "hash": "fabfedf103230759",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_540.jpg",
+          "val/food_waste/2_282.jpg"
+        ]
+      },
+      {
+        "hash": "3068e5e33d6b4681",
+        "count": 2,
+        "locations": [
+          "train/food_waste/00000095.jpg",
+          "val/food_waste/00000104.jpg"
+        ]
+      },
+      {
+        "hash": "470deb9a832d7936",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_645.jpg",
+          "val/food_waste/2_235.jpg"
+        ]
+      },
+      {
+        "hash": "9bcd591804a8f9a3",
+        "count": 2,
+        "locations": [
+          "train/food_waste/2_1246.jpg",
+          "val/food_waste/2_236.jpg"
+        ]
+      },
+      {
+        "hash": "e96ff59a5eaa36eb",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/61a602c4-02e3-49e5-9858-5b1d4d4795f7___RS_Early.B 7875.JPG",
+          "val/leaf_waste/61a602c4-02e3-49e5-9858-5b1d4d4795f7___RS_Early.B 7875.JPG"
+        ]
+      },
+      {
+        "hash": "bcb0da78129338e4",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/63f9b76b-c491-4ed3-923b-087967ea9268___RS_Early.B 7161.JPG",
+          "val/leaf_waste/63f9b76b-c491-4ed3-923b-087967ea9268___RS_Early.B 7161.JPG"
+        ]
+      },
+      {
+        "hash": "a92fa598bad2bc35",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/060fd5a7-1606-4a59-895b-604c90d6b414___RS_Early.B 7205.JPG",
+          "val/leaf_waste/060fd5a7-1606-4a59-895b-604c90d6b414___RS_Early.B 7205.JPG"
+        ]
+      },
+      {
+        "hash": "59f3a61b0bc51d1b",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/67f2bf79-1d71-4748-bcd6-a65006f12981___RS_Early.B 7289.JPG",
+          "val/leaf_waste/67f2bf79-1d71-4748-bcd6-a65006f12981___RS_Early.B 7289.JPG"
+        ]
+      },
+      {
+        "hash": "3e126c7f5643d7ed",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/61f4f7c5-cebe-471a-9be9-b595255b7fb4___RS_Early.B 7029.JPG",
+          "val/leaf_waste/61f4f7c5-cebe-471a-9be9-b595255b7fb4___RS_Early.B 7029.JPG"
+        ]
+      },
+      {
+        "hash": "091dc276216c40df",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/59f90f4b-add8-4f50-af1f-052b35aa99e1___RS_Early.B 9001.JPG",
+          "val/leaf_waste/59f90f4b-add8-4f50-af1f-052b35aa99e1___RS_Early.B 9001.JPG"
+        ]
+      },
+      {
+        "hash": "2c1aeebde1955ceb",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000105.jpg",
+          "val/leaf_waste/00000090.jpg"
+        ]
+      },
+      {
+        "hash": "e32b830683129269",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/66c5930d-2169-4ec1-9919-28088d5447f7___RS_Early.B 8822.JPG",
+          "val/leaf_waste/66c5930d-2169-4ec1-9919-28088d5447f7___RS_Early.B 8822.JPG"
+        ]
+      },
+      {
+        "hash": "4724a32543d88db4",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/66a98640-59d3-4c9b-9853-773c78ac6375___RS_Early.B 6784.JPG",
+          "val/leaf_waste/66a98640-59d3-4c9b-9853-773c78ac6375___RS_Early.B 6784.JPG"
+        ]
+      },
+      {
+        "hash": "6bd97558a19778d0",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/68a9df4a-f803-4cf1-bfce-1a637a2befcc___RS_Early.B 7654.JPG",
+          "val/leaf_waste/68a9df4a-f803-4cf1-bfce-1a637a2befcc___RS_Early.B 7654.JPG"
+        ]
+      },
+      {
+        "hash": "71315c1cb6d23823",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/64e41485-8bd1-4b5d-9482-023eb07d8a89___RS_Early.B 9078.JPG",
+          "val/leaf_waste/64e41485-8bd1-4b5d-9482-023eb07d8a89___RS_Early.B 9078.JPG"
+        ]
+      },
+      {
+        "hash": "040b408e17df2a8a",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000103.jpg",
+          "val/leaf_waste/00000088.jpg"
+        ]
+      },
+      {
+        "hash": "886978538ced0234",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/64ced002-f0b1-42b2-b448-b7b3655e38c1___RS_Early.B 9010.JPG",
+          "val/leaf_waste/64ced002-f0b1-42b2-b448-b7b3655e38c1___RS_Early.B 9010.JPG"
+        ]
+      },
+      {
+        "hash": "0c722b3031260488",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/65b66b8f-2117-4876-85bd-23941349231f___RS_Early.B 7219.JPG",
+          "val/leaf_waste/65b66b8f-2117-4876-85bd-23941349231f___RS_Early.B 7219.JPG"
+        ]
+      },
+      {
+        "hash": "e45f2af4470f714b",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/69a20537-e5fd-4f1e-8800-ef9aa4fa4766___RS_Early.B 8111.JPG",
+          "val/leaf_waste/69a20537-e5fd-4f1e-8800-ef9aa4fa4766___RS_Early.B 8111.JPG"
+        ]
+      },
+      {
+        "hash": "17d4c39ec21d273d",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/68f056c9-4989-4809-b597-3739ff66afc3___RS_Early.B 8748.JPG",
+          "val/leaf_waste/68f056c9-4989-4809-b597-3739ff66afc3___RS_Early.B 8748.JPG"
+        ]
+      },
+      {
+        "hash": "3e20ef824956162a",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/64cab763-3fa2-483c-abc6-1d203f26f88e___RS_Early.B 6671.JPG",
+          "val/leaf_waste/64cab763-3fa2-483c-abc6-1d203f26f88e___RS_Early.B 6671.JPG"
+        ]
+      },
+      {
+        "hash": "1b9c0a2b2032d803",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/63f59fdf-973f-4d9e-a1ac-4a21cdfb9393___RS_Early.B 8794.JPG",
+          "val/leaf_waste/63f59fdf-973f-4d9e-a1ac-4a21cdfb9393___RS_Early.B 8794.JPG"
+        ]
+      },
+      {
+        "hash": "56e74965253015b9",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/66b6c6d1-fe63-4c7e-8054-bdf6ff67ff57___RS_Early.B 7514.JPG",
+          "val/leaf_waste/66b6c6d1-fe63-4c7e-8054-bdf6ff67ff57___RS_Early.B 7514.JPG"
+        ]
+      },
+      {
+        "hash": "f149b908684de815",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/65f6e2f1-300b-42f0-bcc8-467753411947___RS_Early.B 7591.JPG",
+          "val/leaf_waste/65f6e2f1-300b-42f0-bcc8-467753411947___RS_Early.B 7591.JPG"
+        ]
+      },
+      {
+        "hash": "d94d9cfed68e6b4b",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000097.jpg",
+          "val/leaf_waste/00000113.jpg"
+        ]
+      },
+      {
+        "hash": "29a2a6cb069acd30",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/63b61694-16e9-4ef4-ad6f-5e27d2c9eed9___RS_Early.B 6871.JPG",
+          "val/leaf_waste/63b61694-16e9-4ef4-ad6f-5e27d2c9eed9___RS_Early.B 6871.JPG"
+        ]
+      },
+      {
+        "hash": "3d44edd0e43b78e2",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/65cac614-d354-44f4-870b-dbb4fe26e120___RS_Early.B 8193.JPG",
+          "val/leaf_waste/65cac614-d354-44f4-870b-dbb4fe26e120___RS_Early.B 8193.JPG"
+        ]
+      },
+      {
+        "hash": "fd854b67e79a596e",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/00000122.jpg",
+          "val/leaf_waste/00000091.jpg"
+        ]
+      },
+      {
+        "hash": "08020de1524baaaf",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/62e81304-8d1b-46ed-a79a-52cf53a63919___RS_Early.B 7363.JPG",
+          "val/leaf_waste/62e81304-8d1b-46ed-a79a-52cf53a63919___RS_Early.B 7363.JPG"
+        ]
+      },
+      {
+        "hash": "93154753245a355d",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/065fc68f-88c9-4fc3-b0a6-a6f5e1072eaa___RS_Early.B 7174.JPG",
+          "val/leaf_waste/065fc68f-88c9-4fc3-b0a6-a6f5e1072eaa___RS_Early.B 7174.JPG"
+        ]
+      },
+      {
+        "hash": "6357780cddd1615f",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/61d53ca2-a8e2-4e5d-b8cd-3f9608b74fc1___RS_Early.B 6746.JPG",
+          "val/leaf_waste/61d53ca2-a8e2-4e5d-b8cd-3f9608b74fc1___RS_Early.B 6746.JPG"
+        ]
+      },
+      {
+        "hash": "985f026f0b7c72fc",
+        "count": 2,
+        "locations": [
+          "train/leaf_waste/61da9830-ebfd-483a-88dd-a66fcff4c457___RS_Early.B 7817.JPG",
+          "val/leaf_waste/61da9830-ebfd-483a-88dd-a66fcff4c457___RS_Early.B 7817.JPG"
+        ]
+      },
+      {
+        "hash": "0d8032903e348d87",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper526.jpg",
+          "val/paper_waste/paper526.jpg"
+        ]
+      },
+      {
+        "hash": "8bcd2587bab0e7a5",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper532.jpg",
+          "val/paper_waste/paper532.jpg"
+        ]
+      },
+      {
+        "hash": "2bfd415e787ffaa6",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper533.jpg",
+          "val/paper_waste/paper533.jpg"
+        ]
+      },
+      {
+        "hash": "5f0563d1616649c3",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper527.jpg",
+          "val/paper_waste/paper527.jpg"
+        ]
+      },
+      {
+        "hash": "19de2c32e6481800",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper531.jpg",
+          "val/paper_waste/paper531.jpg"
+        ]
+      },
+      {
+        "hash": "8b80857da6f4f7f2",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper525.jpg",
+          "val/paper_waste/paper525.jpg"
+        ]
+      },
+      {
+        "hash": "c903c6a409b65c0c",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper519.jpg",
+          "val/paper_waste/paper519.jpg"
+        ]
+      },
+      {
+        "hash": "c2fe4f61c9855674",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper518.jpg",
+          "val/paper_waste/paper518.jpg"
+        ]
+      },
+      {
+        "hash": "3028470d0eee7c5c",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper524.jpg",
+          "val/paper_waste/paper524.jpg"
+        ]
+      },
+      {
+        "hash": "69c9f05c80d97470",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper530.jpg",
+          "val/paper_waste/paper530.jpg"
+        ]
+      },
+      {
+        "hash": "c2a71d79ff42ff3c",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper508.jpg",
+          "val/paper_waste/paper508.jpg"
+        ]
+      },
+      {
+        "hash": "14ef96013dfd73a1",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper534.jpg",
+          "val/paper_waste/paper534.jpg"
+        ]
+      },
+      {
+        "hash": "5157000af5c64bb6",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper520.jpg",
+          "val/paper_waste/paper520.jpg"
+        ]
+      },
+      {
+        "hash": "4f512939aa5ccda5",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper521.jpg",
+          "val/paper_waste/paper521.jpg"
+        ]
+      },
+      {
+        "hash": "b1873815e7343f96",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper535.jpg",
+          "val/paper_waste/paper535.jpg"
+        ]
+      },
+      {
+        "hash": "97e55747804aaba3",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper509.jpg",
+          "val/paper_waste/paper509.jpg"
+        ]
+      },
+      {
+        "hash": "09e7eccd73b0f56d",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper523.jpg",
+          "val/paper_waste/paper523.jpg"
+        ]
+      },
+      {
+        "hash": "6a24f95698f17964",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper537.jpg",
+          "val/paper_waste/paper537.jpg"
+        ]
+      },
+      {
+        "hash": "4809a161e34e14df",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper536.jpg",
+          "val/paper_waste/paper536.jpg"
+        ]
+      },
+      {
+        "hash": "e958ecbe96178e04",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper522.jpg",
+          "val/paper_waste/paper522.jpg"
+        ]
+      },
+      {
+        "hash": "84f3c2cda395f5ce",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper545.jpg",
+          "val/paper_waste/paper545.jpg"
+        ]
+      },
+      {
+        "hash": "96e4321c9db53697",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper551.jpg",
+          "val/paper_waste/paper551.jpg"
+        ]
+      },
+      {
+        "hash": "ffbdf7c4ccb857bc",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/cardboard325.jpg",
+          "val/paper_waste/cardboard325.jpg"
+        ]
+      },
+      {
+        "hash": "873e89cca019d57e",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper550.jpg",
+          "val/paper_waste/paper550.jpg"
+        ]
+      },
+      {
+        "hash": "fc2c6afef0dbdf81",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper544.jpg",
+          "val/paper_waste/paper544.jpg"
+        ]
+      },
+      {
+        "hash": "7b5f712e8ea0c176",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper552.jpg",
+          "val/paper_waste/paper552.jpg"
+        ]
+      },
+      {
+        "hash": "eda36d177b6ad3bc",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper546.jpg",
+          "val/paper_waste/paper546.jpg"
+        ]
+      },
+      {
+        "hash": "cf3ca7021af61d06",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/cardboard327.jpg",
+          "val/paper_waste/cardboard327.jpg"
+        ]
+      },
+      {
+        "hash": "546a15ddf1837d41",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/cardboard326.jpg",
+          "val/paper_waste/cardboard326.jpg"
+        ]
+      },
+      {
+        "hash": "06a3fd636f031d89",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper547.jpg",
+          "val/paper_waste/paper547.jpg"
+        ]
+      },
+      {
+        "hash": "ada930715b728377",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper553.jpg",
+          "val/paper_waste/paper553.jpg"
+        ]
+      },
+      {
+        "hash": "7d248992b164c7d3",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper557.jpg",
+          "val/paper_waste/paper557.jpg"
+        ]
+      },
+      {
+        "hash": "761132411c4fcc44",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper543.jpg",
+          "val/paper_waste/paper543.jpg"
+        ]
+      },
+      {
+        "hash": "fae969f6c21d5184",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper542.jpg",
+          "val/paper_waste/paper542.jpg"
+        ]
+      },
+      {
+        "hash": "54783d495508ba31",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper556.jpg",
+          "val/paper_waste/paper556.jpg"
+        ]
+      },
+      {
+        "hash": "c3a2a284f11776a3",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper540.jpg",
+          "val/paper_waste/paper540.jpg"
+        ]
+      },
+      {
+        "hash": "dae4a870646cd9b6",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper554.jpg",
+          "val/paper_waste/paper554.jpg"
+        ]
+      },
+      {
+        "hash": "864d3e080dbbfd68",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper555.jpg",
+          "val/paper_waste/paper555.jpg"
+        ]
+      },
+      {
+        "hash": "c4888283b8ad6f05",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper541.jpg",
+          "val/paper_waste/paper541.jpg"
+        ]
+      },
+      {
+        "hash": "c0cd76e305f4f20a",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper564.jpg",
+          "val/paper_waste/paper564.jpg"
+        ]
+      },
+      {
+        "hash": "54528f7358c406be",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper558.jpg",
+          "val/paper_waste/paper558.jpg"
+        ]
+      },
+      {
+        "hash": "f2897fe901c4e34a",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper559.jpg",
+          "val/paper_waste/paper559.jpg"
+        ]
+      },
+      {
+        "hash": "1ec12a8ca7d10883",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper562.jpg",
+          "val/paper_waste/paper562.jpg"
+        ]
+      },
+      {
+        "hash": "7a4bc026bd4687a1",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper563.jpg",
+          "val/paper_waste/paper563.jpg"
+        ]
+      },
+      {
+        "hash": "e3e78970390cc464",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper549.jpg",
+          "val/paper_waste/paper549.jpg"
+        ]
+      },
+      {
+        "hash": "afffd4d9451b375e",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper561.jpg",
+          "val/paper_waste/paper561.jpg"
+        ]
+      },
+      {
+        "hash": "b57558462cb51318",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/cardboard328.jpg",
+          "val/paper_waste/cardboard328.jpg"
+        ]
+      },
+      {
+        "hash": "cf4d6f56134e7a8a",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper560.jpg",
+          "val/paper_waste/paper560.jpg"
+        ]
+      },
+      {
+        "hash": "3364b945cd88b723",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper548.jpg",
+          "val/paper_waste/paper548.jpg"
+        ]
+      },
+      {
+        "hash": "acd37b751c0377de",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper507.jpg",
+          "val/paper_waste/paper507.jpg"
+        ]
+      },
+      {
+        "hash": "fb34d9969f59f79b",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper513.jpg",
+          "val/paper_waste/paper513.jpg"
+        ]
+      },
+      {
+        "hash": "8389eea3660c3bfc",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper512.jpg",
+          "val/paper_waste/paper512.jpg"
+        ]
+      },
+      {
+        "hash": "993d5f73ac457e4b",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper506.jpg",
+          "val/paper_waste/paper506.jpg"
+        ]
+      },
+      {
+        "hash": "a5225d6c8997c630",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper510.jpg",
+          "val/paper_waste/paper510.jpg"
+        ]
+      },
+      {
+        "hash": "a29f26705f053e3c",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper504.jpg",
+          "val/paper_waste/paper504.jpg"
+        ]
+      },
+      {
+        "hash": "6ffb73b219c5762d",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper538.jpg",
+          "val/paper_waste/paper538.jpg"
+        ]
+      },
+      {
+        "hash": "26029bd2af59b209",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper539.jpg",
+          "val/paper_waste/paper539.jpg"
+        ]
+      },
+      {
+        "hash": "1eae712ac200b7a5",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper505.jpg",
+          "val/paper_waste/paper505.jpg"
+        ]
+      },
+      {
+        "hash": "44c3a8746de76469",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper511.jpg",
+          "val/paper_waste/paper511.jpg"
+        ]
+      },
+      {
+        "hash": "41db990d64d3070a",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper529.jpg",
+          "val/paper_waste/paper529.jpg"
+        ]
+      },
+      {
+        "hash": "ad73f6f573594005",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper515.jpg",
+          "val/paper_waste/paper515.jpg"
+        ]
+      },
+      {
+        "hash": "b60d9d17bc142739",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper514.jpg",
+          "val/paper_waste/paper514.jpg"
+        ]
+      },
+      {
+        "hash": "cc1e46f9638b8c20",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper528.jpg",
+          "val/paper_waste/paper528.jpg"
+        ]
+      },
+      {
+        "hash": "2192c4e4d3e7abbe",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper516.jpg",
+          "val/paper_waste/paper516.jpg"
+        ]
+      },
+      {
+        "hash": "944939b365cc992a",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper517.jpg",
+          "val/paper_waste/paper517.jpg"
+        ]
+      },
+      {
+        "hash": "c180ebcfa2a33dc1",
+        "count": 2,
+        "locations": [
+          "train/paper_waste/paper503.jpg",
+          "val/paper_waste/paper503.jpg"
+        ]
+      },
+      {
+        "hash": "8486e17d4804c7ab",
+        "count": 2,
+        "locations": [
+          "train/wood_waste/00000077.jpg",
+          "val/wood_waste/00000229.jpg"
+        ]
+      }
+    ]
+  },
+  "totals": {
+    "images": 15366,
+    "valid_images": 15359,
+    "invalid_images": 7,
+    "duplicate_groups_within_split": 20,
+    "duplicate_groups_across_splits": 111,
+    "smallest_dimension_seen": 33,
+    "median_smallest_dimension": 418
+  },
+  "leakage_clean": false,
+  "note": "Nothing was deleted. Problems are listed so a human decides; silently dropping data changes what the model learned without leaving a record."
+}

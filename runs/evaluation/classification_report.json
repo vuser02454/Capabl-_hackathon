@@ -1,0 +1,182 @@
+{
+  "generated_at": "2026-09-18T18:37:17.721255+00:00",
+  "weights": "runs/classification/best.pt",
+  "dataset": "garbage_Dataset",
+  "device": "mps",
+  "classes": [
+    "ewaste",
+    "food_waste",
+    "leaf_waste",
+    "metal_cans",
+    "paper_waste",
+    "plastic_bags",
+    "plastic_bottles",
+    "wood_waste"
+  ],
+  "validation_images": 1200,
+  "accuracy": 0.9342,
+  "macro_precision": 0.9057,
+  "macro_recall": 0.9243,
+  "macro_f1": 0.9114,
+  "per_class": {
+    "ewaste": {
+      "precision": 0.8929,
+      "recall": 0.9259,
+      "f1": 0.9091,
+      "support": 54
+    },
+    "food_waste": {
+      "precision": 0.9646,
+      "recall": 0.952,
+      "f1": 0.9582,
+      "support": 229
+    },
+    "leaf_waste": {
+      "precision": 0.9974,
+      "recall": 0.9898,
+      "f1": 0.9936,
+      "support": 394
+    },
+    "metal_cans": {
+      "precision": 0.8608,
+      "recall": 0.9855,
+      "f1": 0.9189,
+      "support": 69
+    },
+    "paper_waste": {
+      "precision": 0.8616,
+      "recall": 0.9104,
+      "f1": 0.8853,
+      "support": 212
+    },
+    "plastic_bags": {
+      "precision": 0.8772,
+      "recall": 0.9434,
+      "f1": 0.9091,
+      "support": 53
+    },
+    "plastic_bottles": {
+      "precision": 0.9796,
+      "recall": 0.7385,
+      "f1": 0.8421,
+      "support": 130
+    },
+    "wood_waste": {
+      "precision": 0.8116,
+      "recall": 0.9492,
+      "f1": 0.875,
+      "support": 59
+    }
+  },
+  "confusion_matrix": [
+    [
+      50,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      2
+    ],
+    [
+      2,
+      218,
+      1,
+      0,
+      5,
+      0,
+      0,
+      3
+    ],
+    [
+      0,
+      4,
+      390,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      68,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      1,
+      0,
+      1,
+      193,
+      5,
+      2,
+      7
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      50,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      9,
+      23,
+      2,
+      96,
+      0
+    ],
+    [
+      1,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      56
+    ]
+  ],
+  "mean_confidence": 0.894,
+  "dataset_stats": {
+    "train_samples": 14046,
+    "val_samples": 1200,
+    "excluded_leaked_from_train": 111,
+    "excluded_unusable_train": 8,
+    "excluded_unusable_val": 1,
+    "train_distribution": {
+      "metal_cans": 670,
+      "plastic_bottles": 417,
+      "ewaste": 179,
+      "plastic_bags": 200,
+      "food_waste": 10050,
+      "leaf_waste": 1151,
+      "paper_waste": 794,
+      "wood_waste": 585
+    },
+    "val_distribution": {
+      "metal_cans": 69,
+      "plastic_bottles": 130,
+      "ewaste": 54,
+      "plastic_bags": 53,
+      "food_waste": 229,
+      "leaf_waste": 394,
+      "paper_waste": 212,
+      "wood_waste": 59
+    }
+  },
+  "note": "Accuracy alone is misleading on this distribution. Macro F1 and the per-class recall below are what show whether the rare classes are recognised at all."
+}

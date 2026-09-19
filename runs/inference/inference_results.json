@@ -1,0 +1,234 @@
+{
+  "generated_at": "2026-09-18T18:37:41.143711+00:00",
+  "source": "/tmp/wastetest",
+  "pipeline_status": {
+    "detector": {
+      "provider": "local",
+      "configured": true,
+      "available": true,
+      "model": "YOLOv8n",
+      "detail": null
+    },
+    "classifier": {
+      "configured": true,
+      "available": true,
+      "weights": "/Users/vvijwal01gmail.com/agenticAI/runs/classification/best.pt",
+      "classes": [
+        "ewaste",
+        "food_waste",
+        "leaf_waste",
+        "metal_cans",
+        "paper_waste",
+        "plastic_bags",
+        "plastic_bottles",
+        "wood_waste"
+      ],
+      "threshold": 0.6,
+      "detail": null
+    }
+  },
+  "results": [
+    {
+      "status": "ok",
+      "model": "YOLOv8n",
+      "classifier_available": true,
+      "image_width": 545,
+      "image_height": 366,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "bbox": [
+            519.1,
+            196.3,
+            528.1,
+            222.9
+          ],
+          "detected_object": "person",
+          "detection_confidence": 0.415,
+          "classification": null,
+          "classification_confidence": null,
+          "segregation": "uncertain",
+          "status": "needs_review",
+          "message": "The detected region is too small to classify reliably."
+        },
+        {
+          "id": "WASTE-DET-002",
+          "bbox": [
+            510.2,
+            199.5,
+            518.1,
+            222.6
+          ],
+          "detected_object": "person",
+          "detection_confidence": 0.363,
+          "classification": null,
+          "classification_confidence": null,
+          "segregation": "uncertain",
+          "status": "needs_review",
+          "message": "The detected region is too small to classify reliably."
+        }
+      ],
+      "summary": {
+        "total_objects": 2,
+        "biodegradable": 0,
+        "non_biodegradable": 0,
+        "uncertain": 2
+      },
+      "message": null
+    },
+    {
+      "status": "ok",
+      "model": "YOLOv8n",
+      "classifier_available": true,
+      "image_width": 995,
+      "image_height": 1400,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "bbox": [
+            356.4,
+            279.4,
+            662.7,
+            1344.9
+          ],
+          "detected_object": "bottle",
+          "detection_confidence": 0.656,
+          "classification": "plastic_bottles",
+          "classification_confidence": 0.8939,
+          "segregation": "non_biodegradable",
+          "handling": "recyclable",
+          "display": "Plastic bottles",
+          "status": "confirmed",
+          "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+        },
+        {
+          "id": "WASTE-DET-002",
+          "bbox": [
+            355.4,
+            255.7,
+            663.6,
+            1327.3
+          ],
+          "detected_object": "vase",
+          "detection_confidence": 0.395,
+          "classification": "plastic_bottles",
+          "classification_confidence": 0.8751,
+          "segregation": "non_biodegradable",
+          "handling": "recyclable",
+          "display": "Plastic bottles",
+          "status": "confirmed",
+          "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+        }
+      ],
+      "summary": {
+        "total_objects": 2,
+        "biodegradable": 0,
+        "non_biodegradable": 2,
+        "uncertain": 0
+      },
+      "message": null
+    },
+    {
+      "status": "ok",
+      "model": "YOLOv8n",
+      "classifier_available": true,
+      "image_width": 600,
+      "image_height": 400,
+      "detections": [
+        {
+          "id": "WASTE-DET-001",
+          "bbox": [
+            160.0,
+            105.0,
+            339.3,
+            360.4
+          ],
+          "detected_object": "cup",
+          "detection_confidence": 0.674,
+          "classification": "metal_cans",
+          "classification_confidence": 0.9868,
+          "segregation": "non_biodegradable",
+          "handling": "recyclable",
+          "display": "Metal cans",
+          "status": "confirmed",
+          "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+        },
+        {
+          "id": "WASTE-DET-002",
+          "bbox": [
+            77.0,
+            0.8,
+            248.7,
+            263.3
+          ],
+          "detected_object": "bottle",
+          "detection_confidence": 0.433,
+          "classification": "metal_cans",
+          "classification_confidence": 0.9718,
+          "segregation": "non_biodegradable",
+          "handling": "recyclable",
+          "display": "Metal cans",
+          "status": "confirmed",
+          "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+        },
+        {
+          "id": "WASTE-DET-003",
+          "bbox": [
+            380.7,
+            178.5,
+            497.8,
+            329.5
+          ],
+          "detected_object": "cup",
+          "detection_confidence": 0.402,
+          "classification": "metal_cans",
+          "classification_confidence": 0.9958,
+          "segregation": "non_biodegradable",
+          "handling": "recyclable",
+          "display": "Metal cans",
+          "status": "confirmed",
+          "environmental_note": "Non-degrading but widely recoverable through recycling streams."
+        },
+        {
+          "id": "WASTE-DET-004",
+          "bbox": [
+            425.9,
+            141.6,
+            482.1,
+            220.3
+          ],
+          "detected_object": "spoon",
+          "detection_confidence": 0.324,
+          "classification": null,
+          "classification_confidence": 0.2511,
+          "segregation": "uncertain",
+          "status": "needs_review",
+          "candidate": "metal_cans",
+          "message": "Top class 'metal_cans' at 25% is below the 60% threshold, so no segregation is asserted."
+        }
+      ],
+      "summary": {
+        "total_objects": 4,
+        "biodegradable": 0,
+        "non_biodegradable": 3,
+        "uncertain": 1
+      },
+      "message": null
+    },
+    {
+      "status": "ok",
+      "model": "YOLOv8n",
+      "classifier_available": true,
+      "image_width": 550,
+      "image_height": 366,
+      "detections": [],
+      "summary": {
+        "total_objects": 0,
+        "biodegradable": 0,
+        "non_biodegradable": 0,
+        "uncertain": 0
+      },
+      "message": null
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Unmatched-detection counts are in ab_test_report.json under 'detections_matching_no_annotation'. Region-level probes over ordinary objects are in ab_false_positive_probe.json. No annotated non-waste image set exists in this project, so no false-positive rate against human labels is claimed beyond those unmatched counts.

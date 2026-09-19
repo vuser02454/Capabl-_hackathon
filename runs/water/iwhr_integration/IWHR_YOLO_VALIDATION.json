@@ -1,0 +1,23 @@
+{
+  "dataset": "/Users/vvijwal01gmail.com/agenticAI/datasets/water/IWHR_AI_Lable_Floater_V1_yolo",
+  "classes": {
+    "0": "floater"
+  },
+  "nc": 1,
+  "images_per_split": {
+    "train": 2204,
+    "val": 550,
+    "test": 246
+  },
+  "boxes_per_split": {
+    "train": 15075,
+    "val": 7107,
+    "test": 1507
+  },
+  "images_total": 3000,
+  "boxes_total": 23689,
+  "identical_images_across_splits": 0,
+  "failures": [],
+  "warnings": [],
+  "verdict": "PASS"
+}

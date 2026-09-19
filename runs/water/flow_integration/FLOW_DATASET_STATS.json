@@ -1,0 +1,142 @@
+{
+  "dataset": "Flow-Img.v2i.yolov8 (Roboflow export)",
+  "audited_path": "water_datasets/Flow-Img.v2i.yolov8",
+  "archive_zip_present_on_disk": false,
+  "roboflow": {
+    "workspace": "small-objects-5irpk",
+    "project": "flow-img",
+    "version": 2,
+    "license": "CC BY 4.0",
+    "url": "https://universe.roboflow.com/small-objects-5irpk/flow-img/dataset/2",
+    "exported": "July 14, 2025 12:55 PM GMT",
+    "version_label": "v2 2025-01-21 3:00pm",
+    "attribution": "Provided by a Roboflow user"
+  },
+  "declared_splits": {
+    "train": "../train/images",
+    "val": "../valid/images",
+    "test": "../test/images"
+  },
+  "split_dirs_present": {
+    "train": true,
+    "valid": false,
+    "val": false,
+    "test": false
+  },
+  "images_total": 1200,
+  "labels_total": 1200,
+  "objects_total": 3248,
+  "nc": 1,
+  "class_names": [
+    "bottle"
+  ],
+  "class_distribution": {
+    "bottle": {
+      "objects": 3248,
+      "images": 1200
+    }
+  },
+  "images_with_no_objects": 0,
+  "objects_per_image": {
+    "min": 1,
+    "median": 2.0,
+    "mean": 2.71,
+    "p90": 5.0,
+    "p99": 11.0,
+    "max": 16
+  },
+  "image_dimensions": {
+    "640x640": 1200
+  },
+  "image_format": {
+    "JPEG": 1200
+  },
+  "image_mode": {
+    "RGB": 1200
+  },
+  "bbox_pixels_at_640": {
+    "width": {
+      "min": 3.0,
+      "median": 20.0,
+      "max": 188.5
+    },
+    "height": {
+      "min": 3.5,
+      "median": 19.5,
+      "max": 213.5
+    },
+    "aspect_ratio_median": 0.986
+  },
+  "bbox_relative_area": {
+    "p1": 8.5e-05,
+    "p10": 0.00021,
+    "median": 0.000946,
+    "p90": 0.006859,
+    "max": 0.073813
+  },
+  "tiny_objects": {
+    "threshold_fraction_of_image_area": 0.01,
+    "count": 3049,
+    "percent": 93.87,
+    "under_0.1pct": 1682,
+    "under_0.05pct": 1039
+  },
+  "invalid_labels": {
+    "total": 0,
+    "missing_images": 0,
+    "missing_labels": 0,
+    "empty_labels": 0,
+    "coordinates_outside_0_1": 0,
+    "zero_or_negative_wh": 0,
+    "malformed_lines": 0,
+    "unknown_class_ids": 0,
+    "duplicate_annotations": 0,
+    "boxes_past_frame": 0
+  },
+  "duplicates": {
+    "exact_sha256_groups": 0,
+    "exact_extra_images": 0,
+    "near_duplicate_by_hamming": {
+      "0": {
+        "pairs": 9,
+        "images": 18,
+        "groups": 9,
+        "largest": 2
+      },
+      "2": {
+        "pairs": 73,
+        "images": 108,
+        "groups": 45,
+        "largest": 6
+      },
+      "5": {
+        "pairs": 369,
+        "images": 351,
+        "groups": 96,
+        "largest": 36
+      },
+      "8": {
+        "pairs": 1054,
+        "images": 583,
+        "groups": 99,
+        "largest": 136
+      }
+    }
+  },
+  "source_filename_provenance": {
+    "pattern": "<original_stem>_jpg.rf.<32-hex>",
+    "original_stems": "zero-padded 6-digit sequential",
+    "range": [
+      "000001",
+      "001200"
+    ],
+    "count": 1200,
+    "contiguous_no_gaps": true
+  },
+  "preprocessing_declared_by_export": [
+    "Auto-orientation of pixel data (EXIF-orientation stripping)",
+    "Resize to 640x640 (Stretch)"
+  ],
+  "augmentation_declared_by_export": "None",
+  "exif_present": false
+}
