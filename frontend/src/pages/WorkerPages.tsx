@@ -329,8 +329,13 @@ export function WorkerMapPage() {
     }
   };
 
-  const fitBounds = route?.found && route.route.length > 1
+  const fitBounds: Array<[number, number]> | null = route?.found && route.route.length > 1
     ? route.route.map((point) => [point.latitude, point.longitude] as [number, number])
+    : startPoint && destination
+    ? [
+        [startPoint.latitude, startPoint.longitude] as [number, number],
+        [destination.latitude, destination.longitude] as [number, number],
+      ]
     : null;
 
   return (
@@ -418,7 +423,7 @@ export function WorkerMapPage() {
           center={center}
           zoom={14}
           height={440}
-          recenterTo={focusAlert ?? recenterTo ?? (geo.fix ? [geo.fix.latitude, geo.fix.longitude] : null)}
+          recenterTo={focusAlert ?? recenterTo ?? (destination && !startPoint ? [destination.latitude, destination.longitude] : null) ?? (geo.fix ? [geo.fix.latitude, geo.fix.longitude] : null)}
           routes={routeLines}
           fitBounds={fitBounds}
           onPick={pickingStart || pickingDestination ? handlePick : undefined}

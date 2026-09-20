@@ -68,9 +68,12 @@ export type RouteLine = {
 /** Frame a whole route at once. Separate from `Recenter`, which only moves the centre. */
 function FitTo({ bounds }: { bounds: Array<[number, number]> | null }) {
   const map = useMap();
+  const key = bounds ? bounds.map((b) => `${b[0].toFixed(5)},${b[1].toFixed(5)}`).join(';') : '';
   useEffect(() => {
-    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [40, 40] });
-  }, [bounds, map]);
+    if (bounds && bounds.length > 1) {
+      map.fitBounds(bounds, { padding: [48, 48], maxZoom: 16 });
+    }
+  }, [key, map]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
 }
 

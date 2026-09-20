@@ -55,7 +55,7 @@ BBOX_PADDING_METERS = 600.0
 MAX_BBOX_PADDING_METERS = 2_500.0
 
 #: Refuse rather than fetch a city. Overpass would serve it and the graph search would crawl.
-MAX_SPAN_METERS = 12_000.0
+MAX_SPAN_METERS = 20_000.0
 
 #: How far a start or destination may sit from the nearest path before routing is impossible.
 MAX_SNAP_METERS = 800.0
@@ -278,7 +278,7 @@ class OSMGraphProvider:
         self,
         endpoint: str = DEFAULT_ENDPOINT,
         user_agent: str = DEFAULT_USER_AGENT,
-        timeout: float = 25.0,
+        timeout: float = 35.0,
         min_interval_s: float = 2.0,
         cache_size: int = 16,
         opener: Callable[..., Any] = urlopen,

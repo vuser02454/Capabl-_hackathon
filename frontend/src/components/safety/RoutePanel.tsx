@@ -149,9 +149,9 @@ export function RoutePanel({
       {destination && (
         <div className="rounded-lg border border-black/[0.06] bg-black/[0.02] px-3 py-2.5">
           <p className="text-xs text-fg">
-            \ud83d\udccd Destination {destination.confirmed ? 'selected' : 'chosen'}
+            📍 Destination {destination.confirmed ? 'selected' : 'chosen'}
             <span className="text-fg-muted">
-              {' '}\u00b7 {destination.source === 'text_search' ? 'Search result' : 'Selected on map'}
+              {' · '}{destination.source === 'text_search' ? 'Search result' : 'Selected on map'}
             </span>
           </p>
           {destination.label && <p className="mt-0.5 truncate text-[11px] text-fg-muted">{destination.label}</p>}
@@ -171,8 +171,8 @@ export function RoutePanel({
               {/* Routing needs a start; say so plainly rather than disabling with no explanation. */}
               {!hasStart && (
                 <p className="mt-2 rounded-lg border border-risk-moderate/25 bg-risk-moderate/[0.07] px-2.5 py-1.5 text-[11.5px] text-risk-moderate">
-                  {startMessage ?? 'Current location unavailable.'} Use \u201cFind My Location\u201d or
-                  \u201cSet Start on Map\u201d above to choose a starting point.
+                  {startMessage ?? 'Current location unavailable.'} Use "Find My Location" or
+                  "Set Start on Map" above to choose a starting point.
                 </p>
               )}
               <Button className="mt-2" size="sm" variant="primary"
@@ -235,7 +235,7 @@ function RouteResult({
       {adjusted && (
         <div className="mt-2 rounded-lg border border-risk-moderate/25 bg-risk-moderate/[0.08] px-2.5 py-2">
           <p className="flex items-center gap-1.5 text-[12px] font-semibold text-risk-moderate">
-            <ShieldAlert className="size-3.5" /> \u26a0 Route adjusted for safety: avoiding published safety alert within {route.safetyRadiusMeters ?? 500} m. Detour: {detour} m (+{pct}%).
+            <ShieldAlert className="size-3.5" /> ⚠️ Route adjusted for safety: avoiding published safety alert within {route.safetyRadiusMeters ?? 500} m. Detour: {detour} m (+{pct}%).
           </p>
           <p className="mt-1 text-[11.5px] leading-relaxed text-fg-muted">
             The shortest route ({metres(route.shortestDistanceMeters)}) entered a published
@@ -256,7 +256,7 @@ function RouteResult({
       {unclear && (
         <div className="mt-2 rounded-lg border border-risk-high/25 bg-risk-high/[0.07] px-2.5 py-2">
           <p className="flex items-center gap-1.5 text-[12px] font-semibold text-risk-high">
-            <AlertTriangle className="size-3.5" /> \u26a0 No alternative route avoids the published safety alert. Displaying shortest route with safety caution.
+            <AlertTriangle className="size-3.5" /> ⚠️ No alternative route avoids the published safety alert. Displaying shortest route with safety caution.
           </p>
           <p className="mt-1 text-[11.5px] leading-relaxed text-fg-muted">
             {route.alternativesEvaluated} route{route.alternativesEvaluated === 1 ? ' was' : 's were'}{' '}
@@ -275,9 +275,9 @@ function RouteResult({
 
       {route.selected === 'shortest' && (
         <p className="mt-1.5 text-[11.5px] text-fg-muted">
-          \u2713 Shortest route. No published safety alert within {route.safetyRadiusMeters ?? 500} m
+          ✓ Shortest route. No published safety alert within {route.safetyRadiusMeters ?? 500} m
           {typeof route.nearestAlertMeters === 'number' &&
-            ` \u00b7 nearest is ${route.nearestAlertMeters} m away`}
+            ` · nearest is ${route.nearestAlertMeters} m away`}
           .
         </p>
       )}
@@ -285,7 +285,7 @@ function RouteResult({
       <p className="mt-2 font-mono text-[10px] text-fg-subtle">
         Dijkstra over {route.graph.nodes.toLocaleString()} OpenStreetMap nodes
         {route.graph.startSnapMeters > 30 &&
-          ` \u00b7 ${route.graph.startSnapMeters} m from your start to the nearest path`}
+          ` · ${route.graph.startSnapMeters} m from your start to the nearest path`}
       </p>
     </div>
   );
