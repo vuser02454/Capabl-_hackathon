@@ -105,8 +105,9 @@ describe('what the button does not do', () => {
     expect(after).toBe(before);
   });
 
-  it('sits beside System Status rather than among the navigation links', () => {
+  it('is rendered in the sidebar footer rather than among the navigation links', () => {
     renderSidebar('worker');
-    expect(screen.getAllByText('System Status').length).toBeGreaterThan(0);
+    expect(loginButtons().length).toBeGreaterThan(0);
+    expect(screen.queryByText('System Status')).toBeNull();
   });
 });

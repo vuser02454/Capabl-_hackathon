@@ -91,7 +91,7 @@ const STEP_COLORS: Record<StepStatus, string> = {
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { route, navigate } = useNavigation();
-  const { systemStatus, state } = useAnalysis();
+  const { state } = useAnalysis();
   const { role } = useRole();
   // A worker's sidebar shows only their three screens. This is clarity, not access control —
   // the worker API is what actually withholds reports and unpublished hotspots.
@@ -162,7 +162,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         ))}
       </nav>
 
-      <div className="p-3 space-y-2">
+      <div className="p-3">
         <button
           type="button"
           onClick={() => {
@@ -175,25 +175,6 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <LogIn className="size-4 shrink-0 text-fg-subtle" />
           <span>Back to Login</span>
         </button>
-
-        <div className="rounded-xl border border-black/[0.06] bg-black/[0.025] p-3.5">
-          <p className="eyebrow">System Status</p>
-          <div className="mt-2 flex items-center gap-2 text-xs font-medium text-fg">
-            <StatusDot color={STATUS_TONE_COLORS[systemStatus.tone]} pulse={systemStatus.tone !== 'offline'} />
-            {systemStatus.label}
-          </div>
-          <div className="mt-3 grid grid-cols-4 gap-1" aria-hidden>
-            {(['air', 'water', 'waste', 'coordinator'] as AgentId[]).map((agent) => (
-              <span key={agent} className="h-1 rounded-full transition-colors duration-500" style={{ background: STEP_COLORS[state.steps[agent].status] }} />
-            ))}
-          </div>
-          <div className="mt-1.5 grid grid-cols-4 gap-1 text-center text-[9px] text-fg-subtle">
-            <span>AIR</span>
-            <span>WATER</span>
-            <span>WASTE</span>
-            <span>COORD</span>
-          </div>
-        </div>
       </div>
     </div>
   );
