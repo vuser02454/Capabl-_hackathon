@@ -84,10 +84,21 @@ from services.water_dataset_match_service import build_match_report, get_dataset
 from services.water_sensor_service import get_water_provider
 from services.water_sensor_service import WaterSourceRegistry, load_registry, reading_cache
 
+from contextlib import asynccontextmanager  # noqa: E402
+from safety import store as safety_store  # noqa: E402
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    safety_store.init()
+    yield
+
+
 app = FastAPI(
     title="EcoSentinel AI API",
     version="1.1.0",
     description="Multi-agent environmental monitoring and risk assessment.",
+    lifespan=lifespan,
 )
 
 app.add_middleware(

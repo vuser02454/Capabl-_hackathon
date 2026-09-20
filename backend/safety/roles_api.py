@@ -678,6 +678,7 @@ def _published_alert_circles() -> List[Dict[str, Any]]:
     worker is never shown, and letting one bend a route would leak its existence through the
     shape of the path. The 1 km hotspot-analysis radius plays no part in routing at all.
     """
+    store.init()
     return [
         {"id": row["id"], "title": row["title"], "severity": row["severity"],
          "latitude": row["latitude"], "longitude": row["longitude"],
