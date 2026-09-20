@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import { AppLayout } from './components/layout/AppLayout';
+import { ErrorBoundary } from './components/layout/ErrorBoundary';
 import { AnalysisProvider } from './context/AnalysisContext';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { RoleProvider } from './context/RoleContext';
@@ -72,16 +73,20 @@ function RouteView() {
 
 export default function App() {
   return (
-    <SettingsProvider>
-      <ToastProvider>
-        <AnalysisProvider>
-          <NavigationProvider>
-            <RoleProvider>
-              <RouteView />
-            </RoleProvider>
-          </NavigationProvider>
-        </AnalysisProvider>
-      </ToastProvider>
-    </SettingsProvider>
+    // Outside every provider on purpose: a provider that throws while initialising is exactly
+    // the crash that produces a blank page, and a boundary inside them could not catch it.
+    <ErrorBoundary>
+      <SettingsProvider>
+        <ToastProvider>
+          <AnalysisProvider>
+            <NavigationProvider>
+              <RoleProvider>
+                <RouteView />
+              </RoleProvider>
+            </NavigationProvider>
+          </AnalysisProvider>
+        </ToastProvider>
+      </SettingsProvider>
+    </ErrorBoundary>
   );
 }
