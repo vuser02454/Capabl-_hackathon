@@ -682,10 +682,13 @@ export interface SafetyChatResponse {
 // the worker shape simply does not carry those fields.
 
 export type NotificationType =
-  | 'REPORT_SUBMITTED' | 'ANNOUNCEMENT' | 'DIRECT_MESSAGE' | 'SAFETY_ALERT';
+  | 'REPORT_SUBMITTED' | 'ANNOUNCEMENT' | 'DIRECT_MESSAGE' | 'SAFETY_ALERT' | 'WORKER_MESSAGE';
 
 export interface WorkerNotification {
   id: number;
+  /** Present only for a message a person chose to send. Never on a report notification. */
+  senderEmployeeId?: string | null;
+  senderName?: string | null;
   type: NotificationType;
   title: string;
   message: string;
@@ -713,4 +716,11 @@ export interface NotificationFeed<T> {
   count: number;
   unreadCount: number;
   note?: string;
+}
+
+export interface WorkerDirectory {
+  admin: { label: string; employeeId: string };
+  /** Identity only — enough to address a message, and nothing more. */
+  colleagues: Array<{ employeeId: string; name: string; department: string | null }>;
+  note: string;
 }

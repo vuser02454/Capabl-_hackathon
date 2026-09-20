@@ -1098,7 +1098,14 @@ NOTIFICATION_TYPES = (
     "ANNOUNCEMENT",         # admin -> workers, broadcast
     "DIRECT_MESSAGE",       # admin -> one worker
     "SAFETY_ALERT",         # admin -> workers, tied to a published alert
+    "WORKER_MESSAGE",       # worker -> the safety admin, or worker -> a named colleague
 )
+
+#: Message types whose SENDER is shown to the recipient. A message nobody can attribute is worse
+#: than one they can: the reader cannot judge it, reply to it, or report it as misuse. This is
+#: deliberately narrow — it covers messages a person chose to send, never the automatic
+#: REPORT_SUBMITTED notification, which carries another worker's report evidence.
+ATTRIBUTED_TYPES = ("WORKER_MESSAGE", "DIRECT_MESSAGE", "ANNOUNCEMENT")
 
 
 def create_notification(payload: Dict[str, Any], path: Optional[Path] = None) -> int:
@@ -1150,10 +1157,11 @@ def notifications_for(role: str, employee_id: Optional[str] = None, limit: int =
 
     with connect(path) as conn:
         rows = conn.execute(
-            f"""SELECT n.*, r.read_at AS receipt_read_at
+            f"""SELECT n.*, r.read_at AS receipt_read_at, u.name AS sender_name
                 FROM safety_notification n
                 LEFT JOIN notification_read r
                        ON r.notification_id = n.id AND r.employee_id = ?
+                LEFT JOIN safety_user u ON u.employee_id = n.sender_employee_id
                 WHERE {where}
                 ORDER BY n.id DESC LIMIT ?""",
             tuple(params),

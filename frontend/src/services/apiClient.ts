@@ -20,6 +20,7 @@ import type {
   AdminNotification,
   AdminRoutesResponse,
   NotificationFeed,
+  WorkerDirectory,
   WorkerNotification,
   MyReportsResponse,
   RouteEvent,
@@ -369,6 +370,28 @@ export class ApiClient {
     return this.request<{ unreadCount: number }>(
       `/api/worker/notifications/${id}/read?employee_id=${encodeURIComponent(employeeId)}`,
       { method: 'POST' }, 20000, signal);
+  }
+
+  /** Who this worker can message: the safety admin, and colleagues. Identity only. */
+  workerDirectory(employeeId: string, signal?: AbortSignal) {
+    return this.request<WorkerDirectory>(
+      `/api/worker/directory?employee_id=${encodeURIComponent(employeeId)}`, {}, 20000, signal);
+  }
+
+  /** Send a message to the safety admin and/or named colleagues. Recipients see the sender. */
+  workerSendNotification(body: {
+    employeeId: string; title: string; message: string;
+    toAdmin: boolean; recipientEmployeeIds?: string[];
+  }, signal?: AbortSignal) {
+    return this.request<{ ids: number[]; count: number; sentToAdmin: boolean;
+                          sentToColleagues: number; note: string }>(
+      '/api/worker/notifications/send', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          employee_id: body.employeeId, title: body.title, message: body.message,
+          to_admin: body.toAdmin, recipient_employee_ids: body.recipientEmployeeIds ?? null,
+        }),
+      }, 20000, signal);
   }
 
   workerAlerts(signal?: AbortSignal) {

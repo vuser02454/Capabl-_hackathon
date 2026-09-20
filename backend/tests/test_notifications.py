@@ -198,10 +198,11 @@ def test_a_worker_never_sees_another_workers_report_evidence(client, db):
 
     body = client.get("/api/worker/notifications", params={"employee_id": "EMP002"}).json()
     blob = json.dumps(body).lower()
-    for leaked in ("senderemployeeid", "reportid", "gpsaccuracy", "metadata",
-                   "riskfactors", "hazards"):
+    # Evidence about somebody else's report. None of this may ever reach a worker.
+    for leaked in ("reportid", "gpsaccuracy", "metadata", "riskfactors", "hazards"):
         assert leaked not in blob, f"the worker payload leaked {leaked!r}"
-    # And the admin's report notification is not in a worker's list at all.
+    # The report notification itself is addressed to SAFETY_ADMIN, so it is not in the list at
+    # all — which is what keeps reporting anonymous between workers.
     assert all(n["type"] != "REPORT_SUBMITTED" for n in body["notifications"])
 
 
@@ -269,3 +270,139 @@ def test_the_notification_tables_are_added_without_disturbing_existing_rows(db):
     assert store.count() == before
     assert store.get_report(report_id) is not None
     assert store.count_notifications() == 0
+
+
+# --- worker-initiated messages -------------------------------------------------------------------
+#
+# Two directions now exist, and they have different privacy properties. A REPORT stays anonymous
+# to other workers; a MESSAGE a worker chooses to send is attributed to them. The tests below pin
+# both halves, because the value of the second depends on the first still holding.
+
+def test_a_worker_can_message_the_safety_admin(client, db):
+    response = client.post("/api/worker/notifications/send", json={
+        "title": "Bay 7 still wet", "message": "Barrier is up but the floor is not dry.",
+        "employee_id": "EMP001", "to_admin": True})
+    assert response.status_code == 200
+    assert response.json()["sentToAdmin"] is True
+
+    admin = client.get("/api/admin/notifications").json()["notifications"][0]
+    assert admin["type"] == "WORKER_MESSAGE"
+    assert admin["senderEmployeeId"] == "EMP001"
+    assert admin["title"] == "Bay 7 still wet"
+
+
+def test_a_worker_can_message_a_colleague(client, db):
+    client.post("/api/worker/notifications/send", json={
+        "title": "Spare harness", "message": "Left one in the store for you.",
+        "employee_id": "EMP001", "to_admin": False, "recipient_employee_ids": ["EMP002"]})
+
+    received = client.get("/api/worker/notifications",
+                          params={"employee_id": "EMP002"}).json()["notifications"][0]
+    assert received["title"] == "Spare harness"
+    # Attributed: an anonymous message cannot be weighed, answered, or reported as misuse.
+    assert received["senderEmployeeId"] == "EMP001"
+    assert received["senderName"] == "Worker 001"
+
+
+def test_a_colleague_message_reaches_nobody_else(client, db):
+    store.upsert_user({"employee_id": "EMP003", "name": "Worker 003",
+                       "email": "emp003@example.com", "role": "WORKER", "department": "Warehouse"})
+    client.post("/api/worker/notifications/send", json={
+        "title": "For EMP002 only", "message": "x",
+        "employee_id": "EMP001", "to_admin": False, "recipient_employee_ids": ["EMP002"]})
+
+    assert client.get("/api/worker/notifications",
+                      params={"employee_id": "EMP002"}).json()["count"] == 1
+    assert client.get("/api/worker/notifications",
+                      params={"employee_id": "EMP003"}).json()["count"] == 0
+
+
+def test_a_worker_can_message_the_admin_and_colleagues_at_once(client, db):
+    body = client.post("/api/worker/notifications/send", json={
+        "title": "Oil again in Bay 7", "message": "Same spot as yesterday.",
+        "employee_id": "EMP001", "to_admin": True,
+        "recipient_employee_ids": ["EMP002"]}).json()
+    assert body["count"] == 2
+    assert body["sentToAdmin"] is True and body["sentToColleagues"] == 1
+
+
+def test_messaging_yourself_is_a_no_op_not_an_error(client, db):
+    body = client.post("/api/worker/notifications/send", json={
+        "title": "note to self", "message": "x", "employee_id": "EMP001",
+        "to_admin": False, "recipient_employee_ids": ["EMP001"]})
+    # Refusing would be pedantic; silently duplicating it into your own inbox would be worse.
+    assert body.status_code == 200
+    assert body.json()["count"] == 0
+
+
+def test_a_message_needs_at_least_one_recipient(client, db):
+    assert client.post("/api/worker/notifications/send", json={
+        "title": "t", "message": "m", "employee_id": "EMP001",
+        "to_admin": False, "recipient_employee_ids": []}).status_code == 422
+
+
+def test_messaging_an_unknown_worker_is_refused(client, db):
+    assert client.post("/api/worker/notifications/send", json={
+        "title": "t", "message": "m", "employee_id": "EMP001",
+        "to_admin": False, "recipient_employee_ids": ["NOBODY"]}).status_code == 404
+
+
+def test_an_unknown_sender_cannot_send(client, db):
+    assert client.post("/api/worker/notifications/send", json={
+        "title": "t", "message": "m", "employee_id": "GHOST", "to_admin": True}).status_code == 404
+
+
+def test_a_worker_message_is_not_a_safety_report(client, db):
+    """It is not analysed, does not become evidence, and does not enter pattern detection."""
+    before = store.count()
+    body = client.post("/api/worker/notifications/send", json={
+        "title": "Oil spill in Bay 7", "message": "Looks like a big one.",
+        "employee_id": "EMP001", "to_admin": True}).json()
+    assert store.count() == before          # no report row was created
+    assert "not a safety report" in body["note"]
+
+
+# --- what the directory exposes, and what it does not ----------------------------------------------
+
+def test_the_directory_lists_colleagues_by_identity_only(client, db):
+    body = client.get("/api/worker/directory", params={"employee_id": "EMP001"}).json()
+    assert body["admin"]["employeeId"] == "ADMIN001"
+    assert [c["employeeId"] for c in body["colleagues"]] == ["EMP002"]
+    # Enough to address a message, and nothing more: no reports, locations, counts or history.
+    assert set(body["colleagues"][0]) == {"employeeId", "name", "department"}
+
+
+def test_the_directory_omits_the_caller(client, db):
+    body = client.get("/api/worker/directory", params={"employee_id": "EMP001"}).json()
+    assert all(c["employeeId"] != "EMP001" for c in body["colleagues"])
+
+
+def test_the_directory_says_that_messaging_reveals_your_id(client, db):
+    body = client.get("/api/worker/directory", params={"employee_id": "EMP001"}).json()
+    # The posture change is stated where the choice is made, not buried.
+    assert "shows them your employee ID" in body["note"]
+    assert "reports stay anonymous" in body["note"].lower()
+
+
+def test_an_unknown_worker_cannot_read_the_directory(client, db):
+    assert client.get("/api/worker/directory",
+                      params={"employee_id": "NOBODY"}).status_code == 404
+
+
+# --- reporting stays anonymous even though messaging is attributed ------------------------------------
+
+def test_filing_a_report_is_still_never_attributed_to_a_worker_for_other_workers(client, db):
+    """The guarantee messaging must not erode.
+
+    A worker-sent MESSAGE is attributed. The automatic REPORT_SUBMITTED notification is not in
+    ATTRIBUTED_TYPES and is addressed to SAFETY_ADMIN, so no worker-visible payload can carry
+    who filed what.
+    """
+    _submit(client, "EMP001")
+    assert "REPORT_SUBMITTED" not in store.ATTRIBUTED_TYPES
+
+    for employee_id in ("EMP001", "EMP002"):
+        body = client.get("/api/worker/notifications",
+                          params={"employee_id": employee_id}).json()
+        assert all(n["type"] != "REPORT_SUBMITTED" for n in body["notifications"])
+        assert "EMP001" not in json.dumps(body)

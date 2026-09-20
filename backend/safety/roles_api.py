@@ -1296,8 +1296,16 @@ def _notification(row: Dict[str, Any], *, for_worker: bool) -> Dict[str, Any]:
         "expiresAt": row.get("expires_at"),
     }
     if for_worker:
-        # A worker sees the message, not who filed what. Sender, report id, GPS accuracy and the
-        # extracted risk factors are admin-side evidence about another worker's report.
+        # A worker sees the message, never the evidence behind somebody else's report: no report
+        # id, no GPS accuracy, no extracted risk factors.
+        #
+        # The SENDER is the one exception, and only for a message a person chose to send. An
+        # unattributable message is worse than an attributed one — the reader cannot weigh it,
+        # answer it, or report misuse. The automatic REPORT_SUBMITTED notification is not in
+        # ATTRIBUTED_TYPES, so a worker can never learn who filed a report this way.
+        if row.get("notification_type") in store.ATTRIBUTED_TYPES:
+            shaped["senderEmployeeId"] = row.get("sender_employee_id")
+            shaped["senderName"] = row.get("sender_name")
         return shaped
     return {
         **shaped,
@@ -1421,3 +1429,85 @@ async def worker_mark_all_read(employee_id: str = Query(..., alias="employee_id"
     marked = await run_in_threadpool(
         store.mark_all_notifications_read, "WORKER", worker["employee_id"])
     return {"marked": marked, "unreadCount": 0}
+
+
+# --- worker-initiated messages ------------------------------------------------------------
+#
+# The other direction. A worker can message the safety admin, and can message named colleagues.
+#
+# Worker-to-worker messaging deliberately relaxes the anonymity this system otherwise keeps
+# between workers: to address a colleague you must know they exist, and they see who wrote to
+# you. That is stated in the API response rather than left implicit, and it is why the directory
+# below exposes only an id, a name and a department — never anyone's reports, location or
+# history. Reporting stays anonymous: a REPORT_SUBMITTED notification is never attributed to a
+# worker in any worker-visible payload.
+
+class WorkerMessageRequest(BaseModel):
+    title: str = Field(min_length=1, max_length=200)
+    message: str = Field(min_length=1, max_length=4000)
+    #: Who is writing. Required — an unattributable message cannot be weighed or answered.
+    employee_id: str
+    #: "admin" sends to the safety team. Otherwise the named colleagues.
+    to_admin: bool = True
+    recipient_employee_ids: Optional[List[str]] = None
+
+
+@worker_router.get("/directory")
+async def worker_directory(employee_id: str = Query(..., alias="employee_id")) -> Dict[str, Any]:
+    """Who a worker can message: the safety admin, and their colleagues.
+
+    Identity only — an id, a name and a department. No reports, no locations, no history, no
+    counts. Enough to address a message to somebody, and nothing more.
+    """
+    await run_in_threadpool(_require_worker, employee_id)
+    workers = await run_in_threadpool(store.list_users, "WORKER")
+    return {
+        "admin": {"label": "Safety Admin", "employeeId": "ADMIN001"},
+        "colleagues": [
+            {"employeeId": w["employee_id"], "name": w["name"], "department": w["department"]}
+            for w in workers if w["employee_id"] != employee_id
+        ],
+        "note": ("Messaging a colleague shows them your employee ID. Safety reports stay "
+                 "anonymous to other workers — this is separate from reporting."),
+    }
+
+
+@worker_router.post("/notifications/send")
+async def worker_send_notification(request: WorkerMessageRequest) -> Dict[str, Any]:
+    """Send a message to the safety admin, or to named colleagues."""
+    sender = await run_in_threadpool(_require_worker, request.employee_id)
+    targets = [e.strip() for e in (request.recipient_employee_ids or []) if e.strip()]
+
+    if not request.to_admin and not targets:
+        raise HTTPException(status_code=422,
+                            detail="Choose the safety admin or at least one colleague.")
+
+    base = {
+        "notification_type": "WORKER_MESSAGE",
+        "sender_employee_id": sender["employee_id"],
+        "title": request.title,
+        "message": request.message,
+    }
+
+    created: List[int] = []
+    if request.to_admin:
+        created.append(await run_in_threadpool(store.create_notification, {
+            **base, "recipient_role": "SAFETY_ADMIN", "recipient_employee_id": None}))
+
+    for recipient in targets:
+        if recipient == sender["employee_id"]:
+            continue                      # messaging yourself is a no-op, not an error
+        worker = await run_in_threadpool(store.find_user, recipient)
+        if worker is None or worker["role"] != "WORKER":
+            raise HTTPException(status_code=404,
+                                detail=f"No worker with employee id {recipient!r}.")
+        created.append(await run_in_threadpool(store.create_notification, {
+            **base, "recipient_role": "WORKER", "recipient_employee_id": recipient}))
+
+    return {
+        "ids": created, "count": len(created),
+        "sentToAdmin": request.to_admin,
+        "sentToColleagues": len([t for t in targets if t != sender["employee_id"]]),
+        "note": ("Recipients see your employee ID. This is a message, not a safety report — "
+                 "it is not analysed, does not create a hotspot, and does not affect routing."),
+    }

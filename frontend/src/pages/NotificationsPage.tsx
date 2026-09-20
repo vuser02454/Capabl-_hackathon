@@ -10,7 +10,7 @@
  * routing. Only a published safety alert does, and the panel says so where the send button is,
  * because "I told the workers" and "I changed their routes" are different acts.
  */
-import { Bell, BellOff, CheckCheck, Loader2, Megaphone, Send } from 'lucide-react';
+import { Bell, BellOff, CheckCheck, Loader2, Megaphone, Send, Users } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { DashboardCard } from '../components/ui/DashboardCard';
@@ -18,7 +18,7 @@ import { Chip } from '../components/ui/primitives';
 import { useNavigation } from '../context/NavigationContext';
 import { useRole } from '../context/RoleContext';
 import { useSettings } from '../context/SettingsContext';
-import type { AdminNotification, WorkerNotification } from '../types/safety';
+import type { AdminNotification, WorkerDirectory, WorkerNotification } from '../types/safety';
 
 const EMPLOYEE_KEY = 'ecosentinel.employeeId.v1';
 
@@ -27,6 +27,7 @@ const TYPE_LABEL: Record<string, string> = {
   ANNOUNCEMENT: 'Announcement',
   DIRECT_MESSAGE: 'Message',
   SAFETY_ALERT: 'Safety alert',
+  WORKER_MESSAGE: 'From a colleague',
 };
 
 const SEVERITY_TONE: Record<string, string> = {
@@ -310,7 +311,13 @@ function WorkerNotifications() {
                 </div>
                 <p className="mt-0.5 text-[12px] leading-relaxed text-fg-muted">{item.message}</p>
                 <p className="mt-1 font-mono text-[10px] text-fg-subtle">
-                  {TYPE_LABEL[item.type] ?? item.type} · {item.createdAt.slice(0, 16).replace('T', ' ')}
+                  {TYPE_LABEL[item.type] ?? item.type}
+                  {/* Only a message a person chose to send carries a sender. A report
+                      notification never reaches a worker, so this can never reveal a reporter. */}
+                  {item.senderEmployeeId
+                    ? ` · from ${item.senderName ?? item.senderEmployeeId}`
+                    : ' · Safety team'}
+                  {` · ${item.createdAt.slice(0, 16).replace('T', ' ')}`}
                 </p>
               </button>
             </li>
@@ -323,6 +330,132 @@ function WorkerNotifications() {
           </p>
         )}
       </DashboardCard>
+
+      {employeeId.trim() && (
+        <WorkerComposer employeeId={employeeId.trim()} onSent={() => void load(employeeId)} />
+      )}
     </div>
+  );
+}
+
+/**
+ * A worker writing to the safety team, or to a colleague.
+ *
+ * The admin is pre-selected because it is the common case and the safe one. Choosing a colleague
+ * is a deliberate extra act, and the panel says what it costs: the recipient sees who wrote to
+ * them. That is a real change from how reporting works — a report stays anonymous to other
+ * workers — so it is stated at the point of choosing rather than discovered afterwards.
+ */
+function WorkerComposer({ employeeId, onSent }: { employeeId: string; onSent: () => void }) {
+  const { api } = useSettings();
+  const [directory, setDirectory] = useState<WorkerDirectory | null>(null);
+  const [toAdmin, setToAdmin] = useState(true);
+  const [colleagues, setColleagues] = useState<string[]>([]);
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        setDirectory(await api.workerDirectory(employeeId));
+      } catch {
+        /* the admin option still works without the colleague list */
+      }
+    })();
+  }, [api, employeeId]);
+
+  const toggle = (id: string) =>
+    setColleagues((current) =>
+      current.includes(id) ? current.filter((x) => x !== id) : [...current, id]);
+
+  const send = async () => {
+    if (!title.trim() || !message.trim()) {
+      setError('A title and a message are both required.');
+      return;
+    }
+    if (!toAdmin && colleagues.length === 0) {
+      setError('Choose the safety team or at least one colleague.');
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    setResult(null);
+    try {
+      const body = await api.workerSendNotification({
+        employeeId, title: title.trim(), message: message.trim(),
+        toAdmin, recipientEmployeeIds: colleagues,
+      });
+      const parts = [
+        body.sentToAdmin ? 'the safety team' : null,
+        body.sentToColleagues > 0 ? `${body.sentToColleagues} colleague(s)` : null,
+      ].filter(Boolean);
+      setResult(`Sent to ${parts.join(' and ')}.`);
+      setTitle('');
+      setMessage('');
+      setColleagues([]);
+      onSent();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Could not send the message.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <DashboardCard title="Send a message" subtitle="To the safety team, or to a colleague"
+                   icon={Send} iconColor="#2563eb">
+      <div className="space-y-2">
+        <input value={title} onChange={(e) => setTitle(e.target.value)}
+               placeholder="Subject" aria-label="Message subject"
+               className="w-full rounded-lg border border-black/[0.08] bg-black/[0.02] px-3 py-2 text-xs text-fg outline-none focus:border-brand/40" />
+        <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={3}
+                  placeholder="Message" aria-label="Message body"
+                  className="w-full resize-y rounded-lg border border-black/[0.08] bg-black/[0.02] px-3 py-2 text-xs text-fg outline-none focus:border-brand/40" />
+
+        <label className="flex items-center gap-2 text-[12px] text-fg">
+          <input type="checkbox" checked={toAdmin} onChange={(e) => setToAdmin(e.target.checked)}
+                 aria-label="Send to the safety team" className="size-3.5 accent-current" />
+          Safety team
+        </label>
+
+        {directory && directory.colleagues.length > 0 && (
+          <div className="rounded-lg border border-black/[0.06] bg-black/[0.02] p-2.5">
+            <p className="eyebrow mb-1.5 flex items-center gap-1.5">
+              <Users className="size-3" /> Colleagues
+            </p>
+            <div className="flex max-h-32 flex-wrap gap-1.5 overflow-y-auto">
+              {directory.colleagues.map((person) => (
+                <button key={person.employeeId} type="button"
+                        onClick={() => toggle(person.employeeId)}
+                        aria-pressed={colleagues.includes(person.employeeId)}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] transition ${
+                          colleagues.includes(person.employeeId)
+                            ? 'border-brand/40 bg-brand/[0.12] text-fg'
+                            : 'border-black/[0.08] bg-black/[0.02] text-fg-muted hover:text-fg'}`}>
+                  {person.employeeId} · {person.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-end">
+          <Button size="sm" variant="primary" icon={busy ? Loader2 : Send} loading={busy}
+                  onClick={() => void send()}>Send</Button>
+        </div>
+      </div>
+
+      {result && <p className="mt-2 text-[11.5px] text-risk-low">{result}</p>}
+      {error && <p className="mt-2 text-[11.5px] text-risk-high">{error}</p>}
+
+      {/* The posture change, stated where the choice is made. */}
+      <p className="mt-2 text-[10.5px] leading-relaxed text-fg-subtle">
+        {directory?.note
+          ?? 'Messaging a colleague shows them your employee ID. Safety reports stay anonymous to other workers — this is separate from reporting.'}
+      </p>
+    </DashboardCard>
   );
 }
