@@ -104,8 +104,19 @@ Dijkstra runs in `safety/routing.py` over a road graph this backend builds from 
 geometry fetched through Overpass. **No external routing service is called** — OSM supplies the
 roads, not the route.
 
-Overpass is slow and unevenly loaded: a real query for a city block measures ~20 s, so the client
-allows 30 s and falls through a list of mirrors before giving up.
+Routing supports journeys up to **20 km** apart. Overpass is slow and unevenly loaded, and its
+cost scales with the area, so the fetch budget scales with the distance asked for — from 30 s for
+a city block to 75 s for a cross-city walk — and falls through a list of mirrors before giving up.
+
+Measured against the live API:
+
+| Separation | Graph | Route | Fetch |
+| --- | --- | --- | --- |
+| 1.4 km | 2,672 nodes | 2.0 km | ~4 s |
+| 18.5 km | 63,749 nodes | 23.5 km | ~22 s |
+
+A single fixed budget could not serve both ends of that range, and overrunning it is not a loud
+failure — it silently produces the direct-line estimate described below.
 
 ### When map data cannot be loaded
 

@@ -63,6 +63,16 @@ BBOX_PADDING_METERS = 600.0
 #: Ceiling on the padding above. Past this the graph grows faster than the detour it enables.
 MAX_BBOX_PADDING_METERS = 2_500.0
 
+#: Overpass cost scales with the area queried, so one fixed timeout cannot serve both ends of the
+#: supported range. Measured against the live API: a city block (~1.4 km apart) fetches in ~8 s
+#: and returns 2,700 nodes; a cross-city walk (18.5 km) takes ~20 s and returns 64,000. A single
+#: 30 s budget leaves a long route only 10 s of headroom, and exceeding it does not fail loudly —
+#: it falls through to the direct-line estimate, which is the bug this scaling exists to prevent.
+MIN_FETCH_TIMEOUT_S = 30.0
+MAX_FETCH_TIMEOUT_S = 75.0
+#: Seconds of budget per kilometre of separation, on top of the minimum.
+FETCH_TIMEOUT_PER_KM_S = 2.5
+
 #: Refuse rather than fetch a city. Overpass would serve it and the graph search would crawl.
 MAX_SPAN_METERS = 20_000.0
 
@@ -322,13 +332,24 @@ class OSMGraphProvider:
             cache_dir = configured or None
         self.cache_dir: Optional[Path] = Path(cache_dir) if cache_dir else None
 
-    def _overpass_ql(self, box: Tuple[float, float, float, float]) -> str:
+    def timeout_for(self, span_meters: float) -> float:
+        """How long to allow for a query covering this separation.
+
+        Scales with distance because Overpass cost does. Clamped at both ends: the floor keeps a
+        small query from being cut short on a loaded day, the ceiling stops a pathological request
+        from holding a worker on a spinner indefinitely.
+        """
+        scaled = MIN_FETCH_TIMEOUT_S + (span_meters / 1000.0) * FETCH_TIMEOUT_PER_KM_S
+        return min(MAX_FETCH_TIMEOUT_S, max(MIN_FETCH_TIMEOUT_S, scaled))
+
+    def _overpass_ql(self, box: Tuple[float, float, float, float],
+                     timeout_s: Optional[float] = None) -> str:
         south, west, north, east = box
         highways = "|".join(WALKABLE_HIGHWAYS)
         # `out geom` returns each way's full coordinate list, so one request yields both the
         # topology and the geometry — no second call to resolve node ids to positions.
         return (
-            f"[out:json][timeout:{int(self.timeout)}];"
+            f"[out:json][timeout:{int(timeout_s or self.timeout)}];"
             f'way["highway"~"^({highways})$"]'
             f'["area"!~"yes"]'
             f"({south:.6f},{west:.6f},{north:.6f},{east:.6f});"
@@ -343,8 +364,9 @@ class OSMGraphProvider:
         """
         return [self.endpoint] + [m for m in OVERPASS_MIRRORS if m != self.endpoint]
 
-    def _fetch(self, body: str) -> Dict[str, Any]:
+    def _fetch(self, body: str, timeout_s: Optional[float] = None) -> Dict[str, Any]:
         last: Optional[Exception] = None
+        budget = timeout_s or self.timeout
 
         for endpoint in self._endpoints():
             for attempt in (1, 2):
@@ -354,7 +376,7 @@ class OSMGraphProvider:
                     headers={"User-Agent": self.user_agent, "Accept": "application/json"},
                 )
                 try:
-                    with self.opener(request, timeout=self.timeout) as response:
+                    with self.opener(request, timeout=budget) as response:
                         return json.loads(response.read().decode("utf-8"))
                 except HTTPError as exc:
                     last = exc
@@ -466,7 +488,9 @@ class OSMGraphProvider:
                 if wait > 0:
                     self.sleep(wait)
             self._last_request = self.clock()
-            payload = self._fetch(self._overpass_ql(box))
+            # Budget scaled to the separation; see MIN_FETCH_TIMEOUT_S.
+            budget = self.timeout_for(span)
+            payload = self._fetch(self._overpass_ql(box, budget), budget)
             graph = self.build_graph(payload)
             self._write_disk(key, payload)
             self._cache[key] = graph

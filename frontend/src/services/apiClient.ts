@@ -235,7 +235,10 @@ export class ApiClient {
         ...(body.safetyRadiusMeters != null
           ? { safety_radius_meters: body.safetyRadiusMeters } : {}),
       }),
-    }, 90000, signal);
+      // A 20 km route fetches ~64,000 OpenStreetMap nodes and the backend allows itself up to
+      // 75 s for that. Aborting at 90 s would cut off a request the server was about to answer,
+      // and the worker would see a failure for a route that had actually been computed.
+    }, 150000, signal);
   }
 
   /** The worker's own profile. `employeeId` identifies whose records to return; it is not a

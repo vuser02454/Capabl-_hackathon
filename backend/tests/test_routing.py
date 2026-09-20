@@ -740,3 +740,45 @@ def test_the_fallback_is_a_straight_corridor_not_a_road_network():
                                    graph.nearest_node(*destination)[0])
     straight = routing.haversine_meters(*start, *destination)
     assert graph.path_length_meters(path) / straight < 1.05
+
+
+# --- the fetch budget scales with the distance asked for --------------------------------------
+#
+# The supported range spans a city block to a 20 km cross-city walk, and Overpass cost scales
+# with the area. Measured live: 1.4 km apart fetches ~2,700 nodes in ~4 s; 18.5 km apart fetches
+# ~64,000 nodes in ~22 s. One fixed budget cannot serve both — and exceeding it does not fail
+# loudly, it silently produces a direct-line estimate, which is the defect this guards.
+
+def test_the_limit_supports_a_twenty_kilometre_walk():
+    assert routing.MAX_SPAN_METERS == 20_000
+
+
+def test_a_long_route_gets_a_bigger_budget_than_a_short_one():
+    provider = routing.OSMGraphProvider()
+    short = provider.timeout_for(1_400)
+    long = provider.timeout_for(18_500)
+    assert long > short
+    # The long case measured ~22 s; the budget must leave real headroom, not just clear it.
+    assert long >= 60
+
+
+def test_the_budget_is_clamped_at_both_ends():
+    provider = routing.OSMGraphProvider()
+    # A tiny query still gets enough to survive a loaded day.
+    assert provider.timeout_for(50) >= routing.MIN_FETCH_TIMEOUT_S
+    # And nothing holds a worker on a spinner indefinitely.
+    assert provider.timeout_for(20_000) <= routing.MAX_FETCH_TIMEOUT_S
+
+
+def test_the_server_side_query_budget_matches_the_client_one():
+    """Overpass aborts on its own `[timeout:N]`, so a larger client budget alone achieves nothing."""
+    provider = routing.OSMGraphProvider()
+    box = routing.bounding_box([(13.0075, 77.6959), (12.8452, 77.6602)])
+    query = provider._overpass_ql(box, 75.0)      # noqa: SLF001
+    assert "[timeout:75]" in query
+
+
+def test_a_journey_beyond_the_limit_is_refused_before_anything_is_fetched():
+    service = routing.RoutingService(_provider())
+    with pytest.raises(routing.RoutingError, match="limited to 20 km"):
+        service.route((13.0, 77.6), (12.5, 77.2))
