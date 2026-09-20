@@ -677,6 +677,36 @@ def test_mirrors_are_tried_so_one_slow_host_does_not_force_an_estimate():
     assert len(set(endpoints)) == len(endpoints)
 
 
+def test_retries_share_one_fetch_budget_instead_of_multiplying_it():
+    """A timed-out endpoint must leave no second full timeout for every mirror.
+
+    This is the browser-spinner regression: a 66 s cross-city request previously received up to
+    six 66 s socket timeouts.  The fake opener advances the monotonic clock just as a real socket
+    timeout does, so the assertion is independent of wall-clock test timing.
+    """
+    now = [0.0]
+    attempts = []
+
+    def opener(_request, timeout=None):
+        attempts.append(timeout)
+        now[0] += timeout
+        raise TimeoutError("slow overpass")
+
+    provider = routing.OSMGraphProvider(
+        opener=opener,
+        clock=lambda: now[0],
+        sleep=lambda seconds: now.__setitem__(0, now[0] + seconds),
+        min_interval_s=0,
+        cache_dir=None,
+    )
+
+    with pytest.raises(routing.RoutingError, match="Map data is unavailable"):
+        provider._fetch("[out:json];out;", timeout_s=7.0)  # noqa: SLF001 — fetch budget contract
+
+    assert attempts == [7.0]
+    assert now[0] == pytest.approx(7.0)
+
+
 def test_a_real_graph_is_labelled_openstreetmap():
     graph = routing.OSMGraphProvider.build_graph(OSM_PAYLOAD)
     assert graph.source == "openstreetmap"

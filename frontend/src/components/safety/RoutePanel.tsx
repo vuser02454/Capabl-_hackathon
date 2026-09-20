@@ -181,6 +181,11 @@ export function RoutePanel({
                       onClick={() => void calculate()}>
                 Calculate Route
               </Button>
+              {calculating && (
+                <p role="status" className="mt-2 text-[11.5px] text-fg-muted">
+                  Loading walking paths and checking published alerts…
+                </p>
+              )}
             </>
           )}
         </div>

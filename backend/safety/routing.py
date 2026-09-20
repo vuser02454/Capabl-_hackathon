@@ -365,30 +365,48 @@ class OSMGraphProvider:
         return [self.endpoint] + [m for m in OVERPASS_MIRRORS if m != self.endpoint]
 
     def _fetch(self, body: str, timeout_s: Optional[float] = None) -> Dict[str, Any]:
+        """Fetch map data without letting retries multiply the route's time budget.
+
+        ``timeout_s`` is the entire allowance for this graph fetch, not the allowance for
+        each attempt.  Previously a slow first endpoint could consume (for example) 66 seconds,
+        then each retry and each mirror received another 66 seconds.  The web client had already
+        given up after 150 seconds while this worker thread was still retrying.  A deadline makes
+        the fallback path dependable: we either obtain mapped geometry within the advertised
+        budget or return a clearly labelled estimate.
+        """
         last: Optional[Exception] = None
         budget = timeout_s or self.timeout
+        deadline = self.clock() + budget
 
         for endpoint in self._endpoints():
             for attempt in (1, 2):
+                remaining = deadline - self.clock()
+                if remaining <= 0:
+                    break
                 request = Request(
                     endpoint,
                     data=urlencode({"data": body}).encode("utf-8"),
                     headers={"User-Agent": self.user_agent, "Accept": "application/json"},
                 )
                 try:
-                    with self.opener(request, timeout=budget) as response:
+                    # A socket timeout must never exceed the budget left for every retry.
+                    with self.opener(request, timeout=remaining) as response:
                         return json.loads(response.read().decode("utf-8"))
                 except HTTPError as exc:
                     last = exc
                     if exc.code in self.RETRY_STATUSES and attempt == 1:
-                        self.sleep(self.RETRY_PAUSE_S)
-                        continue
+                        pause = min(self.RETRY_PAUSE_S, max(0.0, deadline - self.clock()))
+                        if pause > 0:
+                            self.sleep(pause)
+                            continue
                     break                      # a hard error here: try the next mirror
                 except (URLError, socket.timeout, TimeoutError, ConnectionError, ValueError) as exc:
                     last = exc
                     if attempt == 1:
-                        self.sleep(self.RETRY_PAUSE_S)
-                        continue
+                        pause = min(self.RETRY_PAUSE_S, max(0.0, deadline - self.clock()))
+                        if pause > 0:
+                            self.sleep(pause)
+                            continue
                     break
 
         if isinstance(last, HTTPError):
