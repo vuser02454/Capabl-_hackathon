@@ -1,5 +1,11 @@
 # EcoSentinel — C3 Safety Intelligence
 
+[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-780%20passed-brightgreen.svg)](#quick-start)
+[![Frontend Tests](https://img.shields.io/badge/Frontend%20Tests-184%20passed-brightgreen.svg)](#quick-start)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x%20clean-blue.svg)](#quick-start)
+[![Framework](https://img.shields.io/badge/Orchestrator-LangGraph-orange.svg)](#the-agent-workflow)
+[![Maps](https://img.shields.io/badge/Maps-OpenStreetMap%20%7C%20Leaflet-green.svg)](#worker-routing--dijkstra-and-conditional-safety)
+
 An incident-precursor detection system for workplace safety. Workers report hazards from their
 phones with a photo and a confirmed GPS fix; a LangGraph agent workflow extracts the facts,
 classifies the risk, finds geographic clusters, routes emergencies to the relevant authority and
@@ -44,8 +50,8 @@ Open <http://localhost:5174>, let the landing animation play, then choose **Work
 
 ```bash
 # verify
-cd backend && python -m pytest -q          # 683 tests
-cd frontend && npx vitest run              # 113 tests
+cd backend && python -m pytest -q          # 780 tests passed
+cd frontend && npm run test                # 184 tests passed
 cd frontend && npm run typecheck           # clean
 ```
 
@@ -216,13 +222,17 @@ location-writing routes exist.
 ## Database
 
 ```text
-safety_user ──┬── worker_location   (explicit events only, never a trail)
-              ├── worker_route_event (one per explicit route request; stores both geometries)
-              └── safety_report ──── report_analysis
-                        │                photo file on disk, path in the row
-                        └── safety_hotspot ── safety_announcement
-                                   ├── admin_action           (what a human did)
-                                   └── recommendation_feedback (was the advice useful)
+safety_user ──┬── worker_location       (explicit events only, never a trail)
+              ├── worker_route_event    (one per explicit route request; stores both geometries)
+              ├── safety_report ────────┬── report_analysis (extracted facts & cited evidence)
+              │                         └── pattern_analysis (recurring hazard detection)
+              │                                  │
+              │                                  └── safety_hotspot ── safety_announcement
+              │                                             ├── admin_action           (what a human did)
+              │                                             └── recommendation_feedback (advice utility)
+              │
+              ├── safety_notification   (messages, hazard alerts & peer comms)
+              └── notification_read     (per-worker read receipts for broadcasts)
 ```
 
 SQLite via the standard library, no ORM. Migrations are additive `ALTER TABLE` statements, so an
@@ -234,15 +244,18 @@ existing database is upgraded in place and never rebuilt.
 `GET /api/worker/me` · `GET /api/worker/reports` · `GET /api/worker/reports/{id}` ·
 `GET /api/worker/location-history` · `POST /api/worker/locations` ·
 `GET /api/worker/routes` · `GET /api/worker/routes/{id}` · `GET /api/worker/cautions` ·
-`POST /api/worker/verify-location` ·
-`GET /api/worker/alerts` · `GET /api/worker/map` · `POST /api/worker/route`
+`POST /api/worker/verify-location` · `GET /api/worker/alerts` · `GET /api/worker/map` ·
+`POST /api/worker/route` · `GET /api/worker/notifications` ·
+`POST /api/worker/notifications/{id}/read` · `POST /api/worker/notifications/read-all` ·
+`GET /api/worker/directory` · `POST /api/worker/notifications/send`
 
 **Admin** — `GET /api/admin/dashboard` · `/map` · `/reports` · `/reports/{id}` ·
 `/reports/{id}/photo` · `/hotspots` · `/hotspots/{id}` · `POST /hotspots/{id}/{action}` ·
 `POST /hotspots/flag` · `/announcements` · `/actions` · `/feedback` · `/workers` ·
 `/workers/{employee_id}/reports` · `/workers/{employee_id}/routes` · `/routes` ·
 `/routes/{id}` · `/alerts/{id}/affected-workers` · `/alerts/{id}/rerouted-workers` ·
-`POST /seed-demo-data`
+`/notifications` · `POST /notifications/{id}/read` · `POST /notifications/read-all` ·
+`POST /notifications/send` · `POST /seed-demo-data`
 
 **Assistant** — `POST /api/safety/chat`
 
@@ -253,20 +266,24 @@ Full schemas at <http://127.0.0.1:8000/docs>.
 
 ## Screens
 
-| Route | |
+| Route | Description |
 | --- | --- |
-| `/` | Landing animation, then **Continue as** Worker / Safety Admin |
+| `/` | Interactive landing story (photographed 50-frame day-night sequence) → choose Worker / Safety Admin |
+| `/safety` | C3 Safety Command: active hazard overview, high-level metrics, and quick triage actions |
+| `/notifications` | Notification & Communication Centre: alerts, safety messages, peer messaging, broadcast management |
 | `/worker/report` | Describe the hazard, take a live photo, confirm a location |
 | `/worker/my-reports` | The worker's own history, each report on the map |
-| `/worker/map` | Published alerts, destination search, routing |
+| `/worker/map` | Published alerts, destination search, routing with safe detour intelligence |
 | `/worker/alerts` | Published alerts as a list |
+| `/worker/my-routes` | The worker's own recorded routes and why any changed |
 | `/admin/dashboard` | Counts, domain breakdown, review queue |
-| `/admin/map` | Reports, candidates, investigations, published alerts |
+| `/admin/map` | Reports, candidates, investigations, published alerts on OpenStreetMap |
 | `/admin/hotspots` | Review queue: evidence, history, authority, actions, publish |
 | `/admin/reports` | Every report with its photo and provenance |
 | `/admin/announcements` | What workers can currently see |
 | `/admin/worker-routes` | Route Intelligence: recorded decisions, original vs selected route |
-| `/worker/my-routes` | The worker's own recorded routes and why any changed |
+| `/analyze` | Live Incident Simulator: interactive LangGraph workflow trace and evidence extraction |
+| `/patterns` | Pattern & Hotspot Intelligence: recurring hazard families, department breakdown, spatial clustering |
 
 ## Demo data
 
@@ -342,21 +359,42 @@ have to know about each other.
 > return another worker's rows — but anyone may pass any id. **A real deployment must put
 > authentication in front of `/api/admin/*` and `/api/worker/*`.**
 
-## Notifications
+## Notifications and Colleague Messaging
 
-Worker → Admin and Admin → Worker, in one `safety_notification` table.
+Worker ↔ Admin and Worker ↔ Colleague, unified in the `safety_notification` and `notification_read` tables.
 
-Filing a report raises an admin notification carrying the report id, risk level, extracted
-hazards, coordinates, GPS accuracy and location source — enough to act on, and clickable through
-to the incident. A failure to notify never costs the report.
-
-Admins can broadcast to every worker or target named employee ids. A worker's payload is a strict
-subset: no sender, no report id, no GPS accuracy, no extracted risk factors. Broadcast read state
-lives in `notification_read` per reader, so one worker opening an announcement does not mark it
-read for the other fourteen.
+- **Automated Incident Triage**: Filing a report immediately raises an admin notification carrying
+  the report id, risk level, extracted hazards, coordinates, GPS accuracy, and location source. This
+  is clickable through to the incident details. A failure to notify never aborts or rolls back the report.
+- **Admin Broadcasts & Targeting**: Safety admins can broadcast announcements to all workers or target
+  specific employee IDs. A worker's payload is a strict privacy subset: no sender identity, no report ID,
+  no raw GPS accuracy, and no internal extracted risk factors.
+- **Worker-to-Safety Messaging**: Workers can compose direct inquiries or hazard warnings to the
+  safety team (`POST /api/worker/notifications/send`).
+- **Worker-to-Worker (Peer) Messaging**: Workers can also notify named colleagues about emergent hazards
+  in their work area. A safe directory endpoint (`GET /api/worker/directory`) lists addressable colleagues
+  showing only `employee_id`, `name`, and `department` — never locations, report histories, or status.
+- **Deliberate Narrow Attribution**: Messages sent explicitly by a person reveal their sender handle so
+  they can be evaluated, answered, or reported for misuse. Conversely, the automated `REPORT_SUBMITTED`
+  notification is strictly unattributed and delivered only to the safety team, preserving reporting privacy.
+- **Per-Reader Read Receipts**: Read states for broadcast messages live in `notification_read` per employee,
+  ensuring one worker reading an alert does not clear it for other recipients.
 
 > **A notification is a message, not a hazard.** Only a published safety alert affects routing.
 > The send panel says so, and a test asserts an announcement leaves a route byte-identical.
+
+## System Resilience & Error Boundary
+
+Workplace safety systems must fail visibly, gracefully, and informatively:
+
+- **Top-Level ErrorBoundary**: The React application root is wrapped with an outer `<ErrorBoundary>`
+  outside all context providers. If an unhandled exception or stale module resolution crash occurs during
+  initialization, the application displays an informative error card rather than an unhelpful blank screen.
+- **Actionable Diagnostics**: The error screen displays the error message, an expandable component stack
+  trace, and targeted remediation advice (such as stale dev-server module cache detection).
+- **Graceful Network & Sensor Degradation**: When geolocation permissions are denied, OpenStreetMap Overpass
+  is slow/rate-limited, or optional LLM keys are absent, the system degrades to deterministic local fallbacks
+  without blocking worker workflows.
 
 ---
 
@@ -426,21 +464,28 @@ environmental agents, not for Safety Intelligence:
 │   │   ├── pages/                # Worker, Admin and Safety pages (plus retained environmental)
 │   │   │   ├── WorkerPages.tsx        # report, alerts, map (with destination routing)
 │   │   │   ├── MyReportsPage.tsx      # the worker's own report history
+│   │   │   ├── MyRoutesPage.tsx       # the worker's recorded routes & safe detours
 │   │   │   ├── AdminPages.tsx         # dashboard, reports, hotspot review, announcements
-│   │   │   └── AdminMapPage.tsx       # reports, candidates and published alerts on OSM
-│   │   ├── components/           # agents, architecture, charts, coordinator, map, ui...
-│   │   │   ├── safety/                # SafetyMap (Leaflet/OSM), LocationPicker,
+│   │   │   ├── AdminMapPage.tsx       # reports, candidates and published alerts on OSM
+│   │   │   ├── WorkerRoutesPage.tsx   # route intelligence: recorded decisions, original vs served path
+│   │   │   ├── NotificationsPage.tsx  # bidirectional alerts, peer messaging, colleague directory
+│   │   │   ├── SafetyDashboardPage.tsx# C3 Safety Command: hazard triage & status
+│   │   │   ├── AnalyzeReportPage.tsx  # interactive LangGraph workflow trace
+│   │   │   └── PatternIntelligencePage.tsx # recurring hazard families & cluster analysis
+│   │   ├── components/           # safety, layout, agents, architecture, charts, ui...
+│   │   │   ├── layout/                # AppLayout, Sidebar, TopBar, ErrorBoundary
+│   │   │   ├── safety/                # SafetyMap (Leaflet/OSM), LocationPicker, SafetyChat,
 │   │   │   │                          # LivePhotoCapture, RoutePanel, IncidentIntelligence
 │   │   │   ├── dashboard/            # LocationBar, LocationSelector, DataProvenance
 │   │   │   └── coordinator/          # CoordinatorPanel, DecisionPanel (decision + trace)
 │   │   ├── hooks/                 # useBrowserLocation (one-shot GPS), usePlaceSearch, useLiveLocation
 │   │   ├── services/              # API client, analysis engine, providers, history
-│   │   ├── context/               # Analysis / Navigation / Settings / Toast contexts
+│   │   ├── context/               # Analysis / Navigation / Settings / Toast / Role contexts
 │   │   └── lib/                   # formatting, risk scoring, routing helpers
-│   ├── vitest.config.ts           # jsdom test env for the location hooks
+│   ├── vitest.config.ts           # jsdom test env (184 tests across 18 suites)
 │   └── vite.config.ts
 └── backend/                      # FastAPI service
-    ├── main.py                   # app entry point; mounts the safety, worker and admin routers
+    ├── main.py                   # app entry point; mounts safety, worker, admin & chat routers
     ├── safety/                    # C3 Safety Intelligence — the primary product
     │   ├── rules.py                   # hazard/control regexes, weights, thresholds (deterministic)
     │   ├── agents.py                  # Parser, Risk, Pattern, Advisor agents
@@ -454,6 +499,7 @@ environmental agents, not for Safety Intelligence:
     │   ├── store.py                   # SQLite schema, additive migrations, all persistence
     │   ├── api.py                     # analysis + analytics routes
     │   ├── roles_api.py               # /api/worker/* and /api/admin/* (the privacy boundary)
+    │   ├── chat_tools.py              # controlled read-only tools for grounded assistant
     │   ├── llm.py                     # optional Groq narration; everything works without it
     │   ├── service.py                 # corpus operations and seeding
     │   └── synthetic.py               # the 47 original synthetic reports
@@ -484,11 +530,13 @@ environmental agents, not for Safety Intelligence:
     │   └── location_service.py        # one LocationContext per analysis; geographic context resolver
     ├── data/safety.db             # SQLite store (gitignored; recreated on first run)
     ├── scripts/                   # check_openaq.py connectivity check
-    └── tests/                     # pytest suite, 683 tests
+    └── tests/                     # pytest suite, 780 tests across 37 test files
         ├── test_safety_agents.py          # extraction, scoring, classification
         ├── test_safety_geo.py             # the 1 km rule, review flow, privacy boundary
         ├── test_safety_intelligence.py    # domain routing, authority lookup, history, actions
         ├── test_routing.py                # Dijkstra, Yen, conditional safety routing
+        ├── test_route_history_and_chat.py # route event logging and grounded chat tools
+        ├── test_notifications.py          # worker/admin notifications, messaging, read tracking
         └── test_worker_persistence.py     # identity, location events, report history
 ```
 

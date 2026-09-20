@@ -70,7 +70,7 @@ export function SafetyChat({
         index === previous.length - 1 ? { ...turn, error: message } : turn));
     } finally {
       setBusy(false);
-      endRef.current?.scrollIntoView({ behavior: 'smooth' });
+      endRef.current?.scrollIntoView?.({ behavior: 'smooth' });
     }
   };
 
