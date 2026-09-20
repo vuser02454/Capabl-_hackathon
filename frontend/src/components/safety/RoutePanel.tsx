@@ -216,6 +216,8 @@ function RouteResult({
 
   const adjusted = route.selected === 'alternative';
   const unclear = route.selected === 'none_clear';
+  /* Read from the response, not inferred from a node count: a small real graph is still real. */
+  const estimated = (route.geometrySource ?? route.graph.source) === 'estimated';
   const detour =
     route.distanceMeters != null && route.shortestDistanceMeters != null
       ? Math.max(0, Math.round(route.distanceMeters - route.shortestDistanceMeters))
@@ -275,15 +277,28 @@ function RouteResult({
 
       {route.selected === 'shortest' && (
         <p className="mt-1.5 text-[11.5px] text-fg-muted">
-          ✓ Shortest route. No published safety alert within {route.safetyRadiusMeters ?? 500} m
+          {estimated ? 'Estimated direct line.' : '✓ Shortest route.'} No published safety alert
+          within {route.safetyRadiusMeters ?? 500} m
           {typeof route.nearestAlertMeters === 'number' &&
             ` · nearest is ${route.nearestAlertMeters} m away`}
           .
         </p>
       )}
 
+      {/* An estimated line is not a route over roads and must never be shown as one. The warning
+          comes before the distance, so the figure is read in the right light. */}
+      {estimated && (
+        <p className="mt-2 rounded-lg border border-risk-moderate/30 bg-risk-moderate/[0.09] px-2.5 py-2 text-[11.5px] leading-relaxed text-risk-moderate">
+          <AlertTriangle className="mr-1 inline size-3.5" />
+          {route.estimateWarning
+            ?? 'OpenStreetMap data could not be loaded, so this is a direct-line estimate. It does not follow roads or footpaths — check the route yourself before using it.'}
+        </p>
+      )}
+
       <p className="mt-2 font-mono text-[10px] text-fg-subtle">
-        Dijkstra over {route.graph.nodes.toLocaleString()} OpenStreetMap nodes
+        {estimated
+          ? `Direct-line estimate over ${route.graph.nodes.toLocaleString()} generated points — not map data`
+          : `Dijkstra over ${route.graph.nodes.toLocaleString()} OpenStreetMap nodes`}
         {route.graph.startSnapMeters > 30 &&
           ` · ${route.graph.startSnapMeters} m from your start to the nearest path`}
       </p>

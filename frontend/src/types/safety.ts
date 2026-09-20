@@ -539,8 +539,14 @@ export interface RouteResponse {
     edges: number;
     startSnapMeters: number;
     destinationSnapMeters: number;
+    /** "openstreetmap" for mapped ways, "estimated" for the direct-line fallback. */
+    source?: string;
   };
   algorithm?: string;
+  /** "openstreetmap" or "estimated". Decides what the UI is allowed to claim. */
+  geometrySource?: string;
+  /** Present only when the geometry was estimated, and shown prominently when it is. */
+  estimateWarning?: string | null;
   note: string;
 }
 

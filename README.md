@@ -104,6 +104,23 @@ Dijkstra runs in `safety/routing.py` over a road graph this backend builds from 
 geometry fetched through Overpass. **No external routing service is called** — OSM supplies the
 roads, not the route.
 
+Overpass is slow and unevenly loaded: a real query for a city block measures ~20 s, so the client
+allows 30 s and falls through a list of mirrors before giving up.
+
+### When map data cannot be loaded
+
+If every mirror fails the backend returns a **direct-line estimate** rather than nothing — and
+labels it as one. The response carries `geometrySource: "estimated"`, the algorithm string says
+the points were generated locally, and the UI replaces the node count with *"N generated points —
+not map data"* plus a warning that the line does not follow roads.
+
+> This matters because it went wrong once. An earlier change cut the Overpass timeout to 12 s,
+> below what a real query costs, so every request fell through to the estimate — and the estimate
+> was rendered as *"Dijkstra over 95 OpenStreetMap nodes"*. A straight line across a street grid
+> was presented as a mapped route. Route length gives it away: a real route here measures **1.48x**
+> its straight-line distance, a fabricated one **1.00x**. Tests now pin the timeout, the mirror
+> list, and the rule that generated geometry is never described as OpenStreetMap.
+
 The safety rule is **conditional**, which is the part most easily got wrong:
 
 ```text

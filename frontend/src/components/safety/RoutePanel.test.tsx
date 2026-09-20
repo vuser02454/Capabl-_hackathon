@@ -322,6 +322,48 @@ describe('when no route avoids the alert', () => {
   });
 });
 
+describe('geometry provenance', () => {
+  /* Regression for a real incident: a fabricated straight-line lattice was rendered as
+     "Dijkstra over 95 OpenStreetMap nodes". A generated line must never read as map data. */
+
+  it('labels an estimated route as generated, not as OpenStreetMap', () => {
+    renderPanel({ destination: DESTINATION, route: routeResult({
+      geometrySource: 'estimated',
+      estimateWarning: 'OpenStreetMap data could not be loaded, so this is a direct-line estimate. '
+                       + 'It does not follow roads or footpaths — check the route yourself before using it.',
+      graph: { nodes: 95, edges: 120, startSnapMeters: 0, destinationSnapMeters: 0,
+               source: 'estimated' },
+    }) });
+
+    expect(screen.getByText(/95 generated points — not map data/i)).toBeTruthy();
+    expect(screen.queryByText(/OpenStreetMap nodes/i)).toBeNull();
+  });
+
+  it('warns the worker that an estimate does not follow roads', () => {
+    renderPanel({ destination: DESTINATION, route: routeResult({
+      geometrySource: 'estimated',
+      estimateWarning: 'OpenStreetMap data could not be loaded, so this is a direct-line estimate. '
+                       + 'It does not follow roads or footpaths — check the route yourself before using it.',
+    }) });
+    expect(screen.getByText(/does not follow roads or footpaths/i)).toBeTruthy();
+  });
+
+  it('does not tick an estimate as a confirmed shortest route', () => {
+    renderPanel({ destination: DESTINATION, route: routeResult({ geometrySource: 'estimated' }) });
+    // The tick reads as "we checked this against the map", which is exactly what did not happen.
+    expect(screen.getByText(/Estimated direct line/i)).toBeTruthy();
+    expect(screen.queryByText(/✓ Shortest route/)).toBeNull();
+  });
+
+  it('still credits OpenStreetMap when the geometry really came from it', () => {
+    renderPanel({ destination: DESTINATION, route: routeResult({
+      geometrySource: 'openstreetmap' }) });
+    expect(screen.getByText(/5,165 OpenStreetMap nodes/i)).toBeTruthy();
+    expect(screen.queryByText(/generated points/i)).toBeNull();
+    expect(screen.queryByText(/does not follow roads/i)).toBeNull();
+  });
+});
+
 describe('attribution and failure', () => {
   it('attributes the path to Dijkstra over an OSM graph', () => {
     renderPanel({ destination: DESTINATION, route: routeResult() });

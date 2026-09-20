@@ -655,3 +655,88 @@ def test_map_data_failure_is_a_503_with_an_explanation(client, monkeypatch):
     body = response.json()
     assert body["error"]["code"] == "SERVICE_UNAVAILABLE"
     assert "Map data is unavailable" in body["error"]["message"]
+
+
+# --- provenance: a generated line must never be presented as map data ------------------------------
+#
+# Regression for a real incident. The Overpass timeout had been cut to 12 s while a genuine query
+# for a city block measures ~21 s, so every request timed out and a fabricated straight-line
+# lattice took over — and was then labelled "Dijkstra over 95 OpenStreetMap nodes". The deployed
+# app drew a perfectly straight line across a dense street grid and called it a mapped route.
+
+def test_the_overpass_timeout_is_long_enough_for_a_real_query():
+    """12 s was below the measured cost of a real city-block query and made failure the norm."""
+    assert routing.OSMGraphProvider().timeout >= 25
+
+
+def test_mirrors_are_tried_so_one_slow_host_does_not_force_an_estimate():
+    provider = routing.OSMGraphProvider()
+    endpoints = provider._endpoints()          # noqa: SLF001 — asserting the fallback order
+    assert endpoints[0] == provider.endpoint
+    assert len(endpoints) >= 2
+    assert len(set(endpoints)) == len(endpoints)
+
+
+def test_a_real_graph_is_labelled_openstreetmap():
+    graph = routing.OSMGraphProvider.build_graph(OSM_PAYLOAD)
+    assert graph.source == "openstreetmap"
+
+
+def test_the_fallback_graph_is_labelled_estimated():
+    graph = routing.build_fallback_graph((12.97, 77.59), (12.98, 77.60))
+    # The attribute exists so no caller can describe this geometry without knowing what it is.
+    assert graph.source == "estimated"
+
+
+def test_a_route_over_the_fallback_never_claims_openstreetmap():
+    graph = routing.build_fallback_graph((12.9700, 77.5900), (12.9800, 77.5900))
+    start = graph.nearest_node(12.9700, 77.5900)[0]
+    end = graph.nearest_node(12.9800, 77.5900)[0]
+    path, _cost = routing.dijkstra(graph, start, end)
+
+    described = routing.RoutingService._describe(  # noqa: SLF001
+        graph, path, [], routing.ROUTE_SAFETY_RADIUS_METERS)
+
+    assert described["geometry_source"] == "estimated"
+    # Naming OpenStreetMap is fine — saying it was UNREACHABLE is the explanation. What must
+    # never appear is the claim that the route was computed over it.
+    assert "Dijkstra over an OpenStreetMap" not in described["algorithm"]
+    assert "generated here" in described["algorithm"]
+    assert "do not follow roads" in described["algorithm"]
+    # And it says so in words a worker can act on, rather than only in a machine field.
+    assert described["estimate_warning"]
+    assert "does not follow roads" in described["estimate_warning"]
+
+
+def test_a_route_over_real_map_data_says_so_and_carries_no_warning():
+    graph = routing.OSMGraphProvider.build_graph(OSM_PAYLOAD)
+    path, _cost = routing.dijkstra(graph, 1, 4)
+    described = routing.RoutingService._describe(  # noqa: SLF001
+        graph, path, [], routing.ROUTE_SAFETY_RADIUS_METERS)
+
+    assert described["geometry_source"] == "openstreetmap"
+    assert "Dijkstra over an OpenStreetMap" in described["algorithm"]
+    assert described["estimate_warning"] is None
+
+
+def test_the_graph_stats_expose_the_source_beside_the_node_count():
+    """A node count printed without its source is what made an invented lattice read as mapped."""
+    graph = routing.build_fallback_graph((12.97, 77.59), (12.98, 77.60))
+    stats = routing.graph_stats(graph, 0, 0)
+    assert stats["source"] == "estimated"
+    assert "nodes" in stats
+
+
+def test_the_fallback_is_a_straight_corridor_not_a_road_network():
+    """Documents what the fallback actually is, so nobody mistakes it for routing.
+
+    Its length tracks the straight-line distance almost exactly. A real road route does not —
+    the live KR Puram route measured 1.48x its straight line, while the fabricated one measured
+    1.00x, which is what gave the incident away on screen.
+    """
+    start, destination = (13.02965, 77.69455), (13.02768, 77.68218)
+    graph = routing.build_fallback_graph(start, destination)
+    path, _cost = routing.dijkstra(graph, graph.nearest_node(*start)[0],
+                                   graph.nearest_node(*destination)[0])
+    straight = routing.haversine_meters(*start, *destination)
+    assert graph.path_length_meters(path) / straight < 1.05

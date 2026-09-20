@@ -45,6 +45,15 @@ from safety.geo import haversine_meters
 logger = logging.getLogger(__name__)
 
 DEFAULT_ENDPOINT = "https://overpass-api.de/api/interpreter"
+
+#: Tried in order when the primary is slow, rate-limited or blocked. Overpass instances differ
+#: markedly in load, and a real query for a city block measured 21 s against the primary — the
+#: reason an earlier 12 s timeout made every request fail and fall through to an estimate.
+OVERPASS_MIRRORS = (
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.osm.ch/api/interpreter",
+)
 DEFAULT_USER_AGENT = "EcoSentinel-Safety/1.0 (hackathon project; pedestrian routing)"
 
 #: Padding added around the start/destination bounding box, so a route is free to bow outwards
@@ -121,6 +130,10 @@ class RoadGraph:
         self.nodes: Dict[int, Tuple[float, float]] = {}
         #: node -> list of (neighbour, metres, highway)
         self.adjacency: Dict[int, List[Tuple[int, float, str]]] = {}
+        #: "openstreetmap" for real mapped ways, "estimated" for the direct-line fallback.
+        #: Carried on the graph so no caller can describe a route without knowing which it is —
+        #: labelling an invented lattice as OpenStreetMap is what this attribute exists to stop.
+        self.source: str = "openstreetmap"
 
     def add_node(self, node_id: int, latitude: float, longitude: float) -> None:
         self.nodes[node_id] = (latitude, longitude)
@@ -278,7 +291,7 @@ class OSMGraphProvider:
         self,
         endpoint: str = DEFAULT_ENDPOINT,
         user_agent: str = DEFAULT_USER_AGENT,
-        timeout: float = 12.0,
+        timeout: float = 30.0,
         min_interval_s: float = 2.0,
         cache_size: int = 16,
         opener: Callable[..., Any] = urlopen,
@@ -322,27 +335,44 @@ class OSMGraphProvider:
             f"out geom;"
         )
 
+    def _endpoints(self) -> List[str]:
+        """The configured endpoint first, then the remaining mirrors.
+
+        Instances differ a lot in load; trying a second one costs a few seconds and is far
+        better than falling through to an estimated straight line.
+        """
+        return [self.endpoint] + [m for m in OVERPASS_MIRRORS if m != self.endpoint]
+
     def _fetch(self, body: str) -> Dict[str, Any]:
-        for attempt in (1, 2):
-            request = Request(
-                self.endpoint,
-                data=urlencode({"data": body}).encode("utf-8"),
-                headers={"User-Agent": self.user_agent, "Accept": "application/json"},
-            )
-            try:
-                with self.opener(request, timeout=self.timeout) as response:
-                    return json.loads(response.read().decode("utf-8"))
-            except HTTPError as exc:
-                if exc.code in self.RETRY_STATUSES and attempt == 1:
-                    self.sleep(self.RETRY_PAUSE_S)
-                    continue
-                raise RoutingError(
-                    f"Map data is unavailable right now (OpenStreetMap HTTP {exc.code}).") from exc
-            except (URLError, socket.timeout, TimeoutError, ConnectionError, ValueError) as exc:
-                if attempt == 1:
-                    self.sleep(self.RETRY_PAUSE_S)
-                    continue
-                raise RoutingError("Map data is unavailable right now.") from exc
+        last: Optional[Exception] = None
+
+        for endpoint in self._endpoints():
+            for attempt in (1, 2):
+                request = Request(
+                    endpoint,
+                    data=urlencode({"data": body}).encode("utf-8"),
+                    headers={"User-Agent": self.user_agent, "Accept": "application/json"},
+                )
+                try:
+                    with self.opener(request, timeout=self.timeout) as response:
+                        return json.loads(response.read().decode("utf-8"))
+                except HTTPError as exc:
+                    last = exc
+                    if exc.code in self.RETRY_STATUSES and attempt == 1:
+                        self.sleep(self.RETRY_PAUSE_S)
+                        continue
+                    break                      # a hard error here: try the next mirror
+                except (URLError, socket.timeout, TimeoutError, ConnectionError, ValueError) as exc:
+                    last = exc
+                    if attempt == 1:
+                        self.sleep(self.RETRY_PAUSE_S)
+                        continue
+                    break
+
+        if isinstance(last, HTTPError):
+            raise RoutingError(
+                f"Map data is unavailable right now (OpenStreetMap HTTP {last.code}).") from last
+        raise RoutingError("Map data is unavailable right now.") from last
         raise RoutingError("Map data is unavailable right now.")
 
     @staticmethod
@@ -680,14 +710,19 @@ def build_fallback_graph(
     destination: Tuple[float, float],
     step_meters: float = 75.0,
 ) -> RoadGraph:
-    """Construct a connected, walkable road network connecting start and destination.
+    """A DIRECT-LINE ESTIMATE between start and destination. Not a road network.
 
-    Used when OpenStreetMap's public Overpass API is unavailable, rate-limited, or blocked by
-    cloud network firewalls. This guarantees that workers are never stranded with 'Map data is
-    unavailable' and can always receive a safe walking route that evaluates and avoids any
-    published safety alerts.
+    These points are generated here, not read from any map. They do not correspond to streets,
+    footpaths, crossings or obstacles, and a path across them may run through a building, a
+    river or a motorway. It exists so a worker is not left with nothing when OpenStreetMap is
+    unreachable, and every route built on it is marked `geometry_source: "estimated"` so it can
+    never be presented as a mapped route.
+
+    Published safety alerts are still evaluated against it — a straight-line corridor is a poor
+    route but a perfectly good thing to measure a hazard distance along.
     """
     graph = RoadGraph()
+    graph.source = "estimated"
     span = haversine_meters(start[0], start[1], destination[0], destination[1])
     steps = max(4, min(120, int(span / max(20.0, step_meters))))
 
@@ -982,6 +1017,7 @@ class RoutingService:
     def _describe(graph: RoadGraph, path: Sequence[int], alerts, safety_radius) -> Dict[str, Any]:
         """The parts of a response that describe one path. Distance is always ground distance."""
         distance = graph.path_length_meters(path)
+        estimated = graph.source != "openstreetmap"
         return {
             "route": graph.coordinates(path),
             "node_path": list(path),
@@ -989,7 +1025,17 @@ class RoutingService:
             "walking_seconds": round(distance / WALKING_SPEED_MPS),
             "alerts_near_route": alerts_intersecting(graph, path, alerts, safety_radius),
             "nearest_alert_meters": nearest_alert_distance(graph, path, alerts),
-            "algorithm": "Dijkstra over an OpenStreetMap walking graph built in this service",
+            # The single field everything downstream reads to decide what it may claim.
+            "geometry_source": graph.source,
+            "algorithm": (
+                "Direct-line estimate — OpenStreetMap was unreachable, so these points were "
+                "generated here and do not follow roads"
+                if estimated else
+                "Dijkstra over an OpenStreetMap walking graph built in this service"),
+            "estimate_warning": (
+                "OpenStreetMap data could not be loaded, so this is a direct-line estimate. It "
+                "does not follow roads or footpaths — check the route yourself before using it."
+                if estimated else None),
         }
 
     @staticmethod
@@ -1004,6 +1050,9 @@ def graph_stats(graph: RoadGraph, start_offset: float, end_offset: float) -> Dic
     return {
         "nodes": graph.node_count,
         "edges": graph.edge_count,
+        # "openstreetmap" or "estimated". A UI that prints a node count must print this too,
+        # or an invented lattice reads as mapped data.
+        "source": graph.source,
         # How far the worker must walk off-network to reach the route, stated rather than hidden.
         "start_snap_meters": round(start_offset),
         "destination_snap_meters": round(end_offset),
