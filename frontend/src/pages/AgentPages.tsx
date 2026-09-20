@@ -11,6 +11,7 @@ import { WaterVisionPanel } from '../components/agents/WaterVisionPanel';
 import { ParameterRadar } from '../components/charts/ParameterRadar';
 import { TrendChart } from '../components/charts/TrendChart';
 import { RANGE_OPTIONS, seriesChange, seriesFor } from '../components/charts/TrendsSection';
+import { PollutantDetailCard } from '../components/agents/PollutantDetailCard';
 import { Button } from '../components/ui/Button';
 import { DashboardCard } from '../components/ui/DashboardCard';
 import { DataModeBadge } from '../components/ui/DataModeBadge';
@@ -39,7 +40,7 @@ function Stat({ label, value, hint }: { label: string; value: string; hint?: str
 }
 
 export function AirAgentPage() {
-  const { display, environment } = useAnalysis();
+  const { display, environment, state } = useAnalysis();
   const { range, control } = useRange();
   const air = display.air;
   const history = environment?.history[range] ?? [];
@@ -47,53 +48,57 @@ export function AirAgentPage() {
   return (
     <AgentDetailLayout agent="air">
       {air && (
-        <div className="grid gap-4 xl:grid-cols-5">
-          <DashboardCard title="Pollutant measurements" subtitle={`${air.stationName} · normalized against WHO guidelines`} icon={Gauge} iconColor={AGENT_META.air.color} className="xl:col-span-3">
-            <MeasurementTable measurements={air.measurements} />
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              <Stat label="India NAQI" value={air.aqi === null ? '—' : String(air.aqi)} hint={air.aqiCategory ?? undefined} />
-              <Stat label="Dominant" value={air.dominantPollutant ?? '—'} hint="Highest sub-index" />
-              <Stat
-                label="Station"
-                value={air.isMock ? air.stationId : air.stationId.replace('OPENAQ-', '#')}
-                hint={`${air.stationDistanceKm != null ? `${air.stationDistanceKm.toFixed(1)} km · ` : ''}${air.referenceGrade === false ? 'Low-cost sensor' : 'Reference grade'}`}
-              />
-              <Stat label="Anomalies" value={String(air.anomalies.length)} hint="vs 24-h baseline" />
-            </div>
-            {air.sourceUrl && (
-              <a href={air.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-xs text-brand hover:underline">
-                View station on OpenAQ <ArrowUpRight className="size-3" />
-              </a>
-            )}
-            {air.pollutantSources && Object.keys(air.pollutantSources).length > 0 && (
-              <div className="mt-3 rounded-xl border border-black/[0.05] bg-black/[0.015] p-3">
-                <p className="eyebrow mb-1.5">Reading sources</p>
-                <ul className="space-y-1 text-xs">
-                  {Object.entries(air.pollutantSources).map(([key, source]) => (
-                    <li key={key} className="flex justify-between gap-3">
-                      <span className="text-fg-subtle">{POLLUTANT_LABELS[key] ?? key}</span>
-                      <span className="truncate text-right text-fg-muted">{source}</span>
-                    </li>
-                  ))}
-                </ul>
+        <div className="space-y-6">
+          <div className="grid gap-4 xl:grid-cols-5">
+            <DashboardCard title="Pollutant measurements" subtitle={`${air.stationName} · normalized against WHO guidelines`} icon={Gauge} iconColor={AGENT_META.air.color} className="xl:col-span-3">
+              <MeasurementTable measurements={air.measurements} />
+              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                <Stat label="India NAQI" value={air.aqi === null ? '—' : String(air.aqi)} hint={air.aqiCategory ?? undefined} />
+                <Stat label="Dominant" value={air.dominantPollutant ?? '—'} hint="Highest sub-index" />
+                <Stat
+                  label="Station"
+                  value={air.isMock ? air.stationId : air.stationId.replace('OPENAQ-', '#')}
+                  hint={`${air.stationDistanceKm != null ? `${air.stationDistanceKm.toFixed(1)} km · ` : ''}${air.referenceGrade === false ? 'Low-cost sensor' : 'Reference grade'}`}
+                />
+                <Stat label="Anomalies" value={String(air.anomalies.length)} hint="vs 24-h baseline" />
               </div>
-            )}
-          </DashboardCard>
-          <TrendChart
-            className="xl:col-span-2"
-            title="PM2.5 Trend"
-            icon={AGENT_META.air.icon}
-            color={AGENT_META.air.color}
-            unit="µg/m³"
-            decimals={1}
-            height={260}
-            data={seriesFor(history, range, 'pm25')}
-            rangeLabel={air.isMock ? RANGE_LABELS[range] : `${RANGE_LABELS[range]} · demo history`}
-            threshold={{ value: 15, label: 'WHO guideline' }}
-            current={air.pm25}
-            change={seriesChange(history, 'pm25')}
-            toolbar={control('air')}
-          />
+              {air.sourceUrl && (
+                <a href={air.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-xs text-brand hover:underline">
+                  View station on OpenAQ <ArrowUpRight className="size-3" />
+                </a>
+              )}
+              {air.pollutantSources && Object.keys(air.pollutantSources).length > 0 && (
+                <div className="mt-3 rounded-xl border border-black/[0.05] bg-black/[0.015] p-3">
+                  <p className="eyebrow mb-1.5">Reading sources</p>
+                  <ul className="space-y-1 text-xs">
+                    {Object.entries(air.pollutantSources).map(([key, source]) => (
+                      <li key={key} className="flex justify-between gap-3">
+                        <span className="text-fg-subtle">{POLLUTANT_LABELS[key] ?? key}</span>
+                        <span className="truncate text-right text-fg-muted">{source}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </DashboardCard>
+            <TrendChart
+              className="xl:col-span-2"
+              title="PM2.5 Trend"
+              icon={AGENT_META.air.icon}
+              color={AGENT_META.air.color}
+              unit="µg/m³"
+              decimals={1}
+              height={260}
+              data={seriesFor(history, range, 'pm25')}
+              rangeLabel={air.isMock ? RANGE_LABELS[range] : `${RANGE_LABELS[range]} · demo history`}
+              threshold={{ value: 15, label: 'WHO guideline' }}
+              current={air.pm25}
+              change={seriesChange(history, 'pm25')}
+              toolbar={control('air')}
+            />
+          </div>
+
+          <PollutantDetailCard airResult={air} geographicContext={state.result?.geographicContext} />
         </div>
       )}
     </AgentDetailLayout>
@@ -228,9 +233,12 @@ export function WasteAgentPage() {
           iconColor={AGENT_META.waste.color}
           className="xl:col-span-3"
           actions={
-            <Button size="sm" variant="ghost" icon={Camera} disabled={running} onClick={() => void runAnalysis()}>
-              Re-run scenario
-            </Button>
+            <div className="flex items-center gap-2">
+              <DataModeBadge tone="demo" label="Simulated" size="sm" />
+              <Button size="sm" variant="ghost" icon={Camera} disabled={running} onClick={() => void runAnalysis()}>
+                Re-run scenario
+              </Button>
+            </div>
           }
         >
           <div className="mb-3 flex items-start gap-2 rounded-lg border border-risk-moderate/25 bg-risk-moderate/[0.07] px-3 py-2">
@@ -256,7 +264,14 @@ export function WasteAgentPage() {
           )}
         </DashboardCard>
 
-        <DashboardCard title="Scenario results" subtitle={waste ? `${waste.model}` : 'Waiting for the scenario'} icon={AGENT_META.waste.icon} iconColor={AGENT_META.waste.color} className="xl:col-span-2">
+        <DashboardCard
+          title="Scenario results"
+          subtitle={waste ? `${waste.model}` : 'Waiting for the scenario'}
+          icon={AGENT_META.waste.icon}
+          iconColor={AGENT_META.waste.color}
+          className="xl:col-span-2"
+          actions={<DataModeBadge tone="demo" label="Simulated" size="sm" />}
+        >
           {waste && (
             <>
               <div className="grid grid-cols-2 gap-2">

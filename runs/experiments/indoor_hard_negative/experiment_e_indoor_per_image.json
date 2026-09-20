@@ -1,0 +1,1632 @@
+{
+  "experiment": "E",
+  "confidence_threshold": 0.25,
+  "test_images": 55,
+  "note": "Every detection on these images is a false positive (all ground-truth labels empty).",
+  "provenance": {
+    "model_architecture": "YOLOv8n (ultralytics 8.4.155)",
+    "pretrained_base": "backend/models/yolov8n.pt",
+    "checkpoint_used": "runs/experiments/indoor_hard_negative/exp_e_yolov8n/weights/best.pt",
+    "checkpoint_sha256": "184c6af984895eb11c0dbb65c6f9549b0f1a715c0d0459ca81169b54bd541a06",
+    "last_pt_sha256": "c6ac047d513ec8155649a03bdf9dea5bf35feb923c02d5e3846d187da37152da",
+    "baseline_checkpoint": "backend/models/waste_detector.pt",
+    "baseline_sha256": "06f49c649ac327113dc401e53fb6d6d6db1731f012c7ecf882262cbe53be1990",
+    "dataset_path": "runs/experiments/indoor_hard_negative/dataset/data.yaml",
+    "train_images": 877,
+    "val_images": 183,
+    "taco_test_images": 98,
+    "indoor_test_images": 55,
+    "epochs_configured": 40,
+    "epochs_completed": 37,
+    "best_epoch": 25,
+    "patience": 12,
+    "early_stopped": true,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0": 0.01,
+    "seed": 1337,
+    "device": "mps",
+    "confidence_threshold": 0.25,
+    "timestamp_utc": "2026-09-19T20:56:24.978222+00:00",
+    "git_commit": "f111bc953fb702b10a2cd675367b50da1c38b059"
+  },
+  "baseline": [
+    {
+      "image_id": "indoor_neg_0002.jpg",
+      "width": 500,
+      "height": 790,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0004.jpg",
+      "width": 960,
+      "height": 1312,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0005.jpg",
+      "width": 500,
+      "height": 779,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0009.jpg",
+      "width": 960,
+      "height": 1300,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.2772,
+          "bbox": [
+            309.2,
+            714.2,
+            571.4,
+            928.9
+          ],
+          "bbox_norm": [
+            0.3221,
+            0.5494,
+            0.5952,
+            0.7145
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0012.jpg",
+      "width": 960,
+      "height": 1338,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0013.jpg",
+      "width": 960,
+      "height": 1305,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0014.jpg",
+      "width": 960,
+      "height": 1299,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0035.jpg",
+      "width": 500,
+      "height": 797,
+      "num_detections": 1,
+      "classes": [
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "paper_waste",
+          "confidence": 0.4945,
+          "bbox": [
+            0.0,
+            0.0,
+            277.3,
+            149.4
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0,
+            0.5546,
+            0.1875
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0036.jpg",
+      "width": 500,
+      "height": 778,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0038.jpg",
+      "width": 960,
+      "height": 640,
+      "num_detections": 1,
+      "classes": [
+        "metal_cans"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.2585,
+          "bbox": [
+            74.2,
+            124.8,
+            391.5,
+            425.2
+          ],
+          "bbox_norm": [
+            0.0773,
+            0.195,
+            0.4078,
+            0.6644
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0039.jpg",
+      "width": 960,
+      "height": 640,
+      "num_detections": 1,
+      "classes": [
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "paper_waste",
+          "confidence": 0.3275,
+          "bbox": [
+            574.7,
+            437.3,
+            615.2,
+            474.5
+          ],
+          "bbox_norm": [
+            0.5986,
+            0.6833,
+            0.6408,
+            0.7414
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0045.jpg",
+      "width": 500,
+      "height": 766,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0046.jpg",
+      "width": 500,
+      "height": 813,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.5636,
+          "bbox": [
+            44.9,
+            227.4,
+            469.7,
+            490.6
+          ],
+          "bbox_norm": [
+            0.0898,
+            0.2797,
+            0.9394,
+            0.6034
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0047.jpg",
+      "width": 500,
+      "height": 764,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bottles"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bottles",
+          "confidence": 0.4255,
+          "bbox": [
+            0.0,
+            0.0,
+            487.2,
+            584.1
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0,
+            0.9744,
+            0.7645
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0048.jpg",
+      "width": 500,
+      "height": 776,
+      "num_detections": 1,
+      "classes": [
+        "metal_cans"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.2599,
+          "bbox": [
+            6.5,
+            18.2,
+            500.0,
+            223.6
+          ],
+          "bbox_norm": [
+            0.013,
+            0.0235,
+            1.0,
+            0.2881
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0054.jpg",
+      "width": 500,
+      "height": 810,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0055.jpg",
+      "width": 500,
+      "height": 826,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0056.jpg",
+      "width": 500,
+      "height": 776,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0058.jpg",
+      "width": 500,
+      "height": 754,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0059.jpg",
+      "width": 500,
+      "height": 836,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0070.jpg",
+      "width": 500,
+      "height": 782,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.8705,
+          "bbox": [
+            167.9,
+            279.9,
+            352.5,
+            463.5
+          ],
+          "bbox_norm": [
+            0.3358,
+            0.3579,
+            0.705,
+            0.5927
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0071.jpg",
+      "width": 500,
+      "height": 766,
+      "num_detections": 2,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.9077,
+          "bbox": [
+            172.7,
+            293.5,
+            347.6,
+            456.3
+          ],
+          "bbox_norm": [
+            0.3454,
+            0.3832,
+            0.6952,
+            0.5957
+          ]
+        },
+        {
+          "class": "plastic_bags",
+          "confidence": 0.3573,
+          "bbox": [
+            225.8,
+            260.7,
+            290.4,
+            321.4
+          ],
+          "bbox_norm": [
+            0.4516,
+            0.3403,
+            0.5808,
+            0.4196
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0072.jpg",
+      "width": 500,
+      "height": 841,
+      "num_detections": 2,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.802,
+          "bbox": [
+            175.5,
+            321.7,
+            373.4,
+            503.6
+          ],
+          "bbox_norm": [
+            0.351,
+            0.3825,
+            0.7468,
+            0.5988
+          ]
+        },
+        {
+          "class": "plastic_bags",
+          "confidence": 0.4551,
+          "bbox": [
+            174.2,
+            324.5,
+            216.7,
+            362.8
+          ],
+          "bbox_norm": [
+            0.3484,
+            0.3859,
+            0.4334,
+            0.4314
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0075.jpg",
+      "width": 500,
+      "height": 796,
+      "num_detections": 2,
+      "classes": [
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "paper_waste",
+          "confidence": 0.6936,
+          "bbox": [
+            0.0,
+            0.0,
+            460.0,
+            335.2
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0,
+            0.92,
+            0.4211
+          ]
+        },
+        {
+          "class": "paper_waste",
+          "confidence": 0.51,
+          "bbox": [
+            0.0,
+            23.4,
+            500.0,
+            711.5
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0294,
+            1.0,
+            0.8938
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0079.jpg",
+      "width": 500,
+      "height": 767,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0086.jpg",
+      "width": 500,
+      "height": 832,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0087.jpg",
+      "width": 500,
+      "height": 760,
+      "num_detections": 3,
+      "classes": [
+        "metal_cans",
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.5612,
+          "bbox": [
+            349.4,
+            603.9,
+            495.5,
+            755.0
+          ],
+          "bbox_norm": [
+            0.6988,
+            0.7946,
+            0.991,
+            0.9934
+          ]
+        },
+        {
+          "class": "metal_cans",
+          "confidence": 0.3146,
+          "bbox": [
+            209.8,
+            588.9,
+            354.1,
+            720.7
+          ],
+          "bbox_norm": [
+            0.4196,
+            0.7749,
+            0.7082,
+            0.9483
+          ]
+        },
+        {
+          "class": "paper_waste",
+          "confidence": 0.3034,
+          "bbox": [
+            0.0,
+            0.0,
+            500.0,
+            529.9
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0,
+            1.0,
+            0.6972
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0088.jpg",
+      "width": 500,
+      "height": 757,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0095.jpg",
+      "width": 500,
+      "height": 729,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0102.jpg",
+      "width": 960,
+      "height": 1320,
+      "num_detections": 1,
+      "classes": [
+        "metal_cans"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.8041,
+          "bbox": [
+            213.2,
+            308.0,
+            738.5,
+            819.1
+          ],
+          "bbox_norm": [
+            0.2221,
+            0.2333,
+            0.7693,
+            0.6205
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0104.jpg",
+      "width": 500,
+      "height": 942,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0113.jpg",
+      "width": 960,
+      "height": 1270,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.4056,
+          "bbox": [
+            246.1,
+            308.7,
+            816.1,
+            914.8
+          ],
+          "bbox_norm": [
+            0.2564,
+            0.2431,
+            0.8501,
+            0.7203
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0115.jpg",
+      "width": 500,
+      "height": 799,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0116.jpg",
+      "width": 960,
+      "height": 1271,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0117.jpg",
+      "width": 500,
+      "height": 701,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.6479,
+          "bbox": [
+            73.1,
+            213.9,
+            382.5,
+            685.5
+          ],
+          "bbox_norm": [
+            0.1462,
+            0.3051,
+            0.765,
+            0.9779
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0118.jpg",
+      "width": 500,
+      "height": 732,
+      "num_detections": 1,
+      "classes": [
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "paper_waste",
+          "confidence": 0.2529,
+          "bbox": [
+            0.0,
+            142.7,
+            486.2,
+            725.9
+          ],
+          "bbox_norm": [
+            0.0,
+            0.1949,
+            0.9724,
+            0.9917
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0119.jpg",
+      "width": 500,
+      "height": 752,
+      "num_detections": 2,
+      "classes": [
+        "metal_cans"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.8317,
+          "bbox": [
+            125.0,
+            294.0,
+            489.6,
+            752.0
+          ],
+          "bbox_norm": [
+            0.25,
+            0.391,
+            0.9792,
+            1.0
+          ]
+        },
+        {
+          "class": "metal_cans",
+          "confidence": 0.4211,
+          "bbox": [
+            0.0,
+            294.6,
+            481.0,
+            752.0
+          ],
+          "bbox_norm": [
+            0.0,
+            0.3918,
+            0.962,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0121.jpg",
+      "width": 960,
+      "height": 1451,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0129.jpg",
+      "width": 960,
+      "height": 1475,
+      "num_detections": 2,
+      "classes": [
+        "paper_waste",
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.4154,
+          "bbox": [
+            0.0,
+            2.7,
+            792.1,
+            583.6
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0018,
+            0.8251,
+            0.3957
+          ]
+        },
+        {
+          "class": "paper_waste",
+          "confidence": 0.3672,
+          "bbox": [
+            0.0,
+            0.0,
+            796.1,
+            585.5
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0,
+            0.8293,
+            0.3969
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0131.jpg",
+      "width": 960,
+      "height": 1632,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0132.jpg",
+      "width": 960,
+      "height": 1285,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0133.jpg",
+      "width": 960,
+      "height": 1789,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0159.jpg",
+      "width": 500,
+      "height": 802,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0162.jpg",
+      "width": 500,
+      "height": 819,
+      "num_detections": 1,
+      "classes": [
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "paper_waste",
+          "confidence": 0.5589,
+          "bbox": [
+            0.0,
+            190.0,
+            486.2,
+            819.0
+          ],
+          "bbox_norm": [
+            0.0,
+            0.232,
+            0.9724,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0165.jpg",
+      "width": 960,
+      "height": 1424,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0186.jpg",
+      "width": 500,
+      "height": 775,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0189.jpg",
+      "width": 500,
+      "height": 852,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0190.jpg",
+      "width": 500,
+      "height": 779,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0200.jpg",
+      "width": 500,
+      "height": 750,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.2667,
+          "bbox": [
+            0.0,
+            0.5,
+            495.6,
+            647.4
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0007,
+            0.9912,
+            0.8632
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0212.jpg",
+      "width": 960,
+      "height": 1282,
+      "num_detections": 1,
+      "classes": [
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "paper_waste",
+          "confidence": 0.7285,
+          "bbox": [
+            0.0,
+            0.0,
+            908.0,
+            516.5
+          ],
+          "bbox_norm": [
+            0.0,
+            0.0,
+            0.9458,
+            0.4029
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0213.jpg",
+      "width": 960,
+      "height": 1322,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0214.jpg",
+      "width": 500,
+      "height": 665,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0217.jpg",
+      "width": 960,
+      "height": 1242,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0220.jpg",
+      "width": 960,
+      "height": 1244,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0224.jpg",
+      "width": 960,
+      "height": 1238,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    }
+  ],
+  "experiment_e": [
+    {
+      "image_id": "indoor_neg_0002.jpg",
+      "width": 500,
+      "height": 790,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0004.jpg",
+      "width": 960,
+      "height": 1312,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0005.jpg",
+      "width": 500,
+      "height": 779,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0009.jpg",
+      "width": 960,
+      "height": 1300,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0012.jpg",
+      "width": 960,
+      "height": 1338,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0013.jpg",
+      "width": 960,
+      "height": 1305,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0014.jpg",
+      "width": 960,
+      "height": 1299,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0035.jpg",
+      "width": 500,
+      "height": 797,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0036.jpg",
+      "width": 500,
+      "height": 778,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0038.jpg",
+      "width": 960,
+      "height": 640,
+      "num_detections": 1,
+      "classes": [
+        "metal_cans"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.5913,
+          "bbox": [
+            154.3,
+            124.0,
+            399.2,
+            432.5
+          ],
+          "bbox_norm": [
+            0.1607,
+            0.1938,
+            0.4158,
+            0.6758
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0039.jpg",
+      "width": 960,
+      "height": 640,
+      "num_detections": 1,
+      "classes": [
+        "metal_cans"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.3771,
+          "bbox": [
+            324.4,
+            370.0,
+            477.0,
+            565.8
+          ],
+          "bbox_norm": [
+            0.3379,
+            0.5781,
+            0.4969,
+            0.8841
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0045.jpg",
+      "width": 500,
+      "height": 766,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0046.jpg",
+      "width": 500,
+      "height": 813,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.7486,
+          "bbox": [
+            43.3,
+            223.7,
+            474.0,
+            492.4
+          ],
+          "bbox_norm": [
+            0.0866,
+            0.2752,
+            0.948,
+            0.6057
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0047.jpg",
+      "width": 500,
+      "height": 764,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0048.jpg",
+      "width": 500,
+      "height": 776,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0054.jpg",
+      "width": 500,
+      "height": 810,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0055.jpg",
+      "width": 500,
+      "height": 826,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0056.jpg",
+      "width": 500,
+      "height": 776,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0058.jpg",
+      "width": 500,
+      "height": 754,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0059.jpg",
+      "width": 500,
+      "height": 836,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0070.jpg",
+      "width": 500,
+      "height": 782,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.8058,
+          "bbox": [
+            169.0,
+            292.7,
+            343.5,
+            465.0
+          ],
+          "bbox_norm": [
+            0.338,
+            0.3743,
+            0.687,
+            0.5946
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0071.jpg",
+      "width": 500,
+      "height": 766,
+      "num_detections": 1,
+      "classes": [
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.6971,
+          "bbox": [
+            172.1,
+            273.1,
+            341.9,
+            458.8
+          ],
+          "bbox_norm": [
+            0.3442,
+            0.3565,
+            0.6838,
+            0.599
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0072.jpg",
+      "width": 500,
+      "height": 841,
+      "num_detections": 2,
+      "classes": [
+        "paper_waste",
+        "plastic_bags"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bags",
+          "confidence": 0.5105,
+          "bbox": [
+            168.7,
+            281.2,
+            369.6,
+            514.4
+          ],
+          "bbox_norm": [
+            0.3374,
+            0.3344,
+            0.7392,
+            0.6117
+          ]
+        },
+        {
+          "class": "paper_waste",
+          "confidence": 0.4425,
+          "bbox": [
+            169.8,
+            278.4,
+            370.6,
+            511.5
+          ],
+          "bbox_norm": [
+            0.3396,
+            0.331,
+            0.7412,
+            0.6082
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0075.jpg",
+      "width": 500,
+      "height": 796,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0079.jpg",
+      "width": 500,
+      "height": 767,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0086.jpg",
+      "width": 500,
+      "height": 832,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0087.jpg",
+      "width": 500,
+      "height": 760,
+      "num_detections": 2,
+      "classes": [
+        "plastic_bottles"
+      ],
+      "detections": [
+        {
+          "class": "plastic_bottles",
+          "confidence": 0.378,
+          "bbox": [
+            19.6,
+            629.1,
+            158.0,
+            756.1
+          ],
+          "bbox_norm": [
+            0.0392,
+            0.8278,
+            0.316,
+            0.9949
+          ]
+        },
+        {
+          "class": "plastic_bottles",
+          "confidence": 0.251,
+          "bbox": [
+            350.9,
+            624.6,
+            495.3,
+            756.6
+          ],
+          "bbox_norm": [
+            0.7018,
+            0.8218,
+            0.9906,
+            0.9955
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0088.jpg",
+      "width": 500,
+      "height": 757,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0095.jpg",
+      "width": 500,
+      "height": 729,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0102.jpg",
+      "width": 960,
+      "height": 1320,
+      "num_detections": 2,
+      "classes": [
+        "metal_cans",
+        "paper_waste"
+      ],
+      "detections": [
+        {
+          "class": "metal_cans",
+          "confidence": 0.883,
+          "bbox": [
+            224.6,
+            309.4,
+            731.5,
+            811.5
+          ],
+          "bbox_norm": [
+            0.234,
+            0.2344,
+            0.762,
+            0.6148
+          ]
+        },
+        {
+          "class": "paper_waste",
+          "confidence": 0.2636,
+          "bbox": [
+            5.0,
+            1097.4,
+            139.6,
+            1308.0
+          ],
+          "bbox_norm": [
+            0.0052,
+            0.8314,
+            0.1454,
+            0.9909
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "indoor_neg_0104.jpg",
+      "width": 500,
+      "height": 942,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0113.jpg",
+      "width": 960,
+      "height": 1270,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0115.jpg",
+      "width": 500,
+      "height": 799,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0116.jpg",
+      "width": 960,
+      "height": 1271,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0117.jpg",
+      "width": 500,
+      "height": 701,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0118.jpg",
+      "width": 500,
+      "height": 732,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0119.jpg",
+      "width": 500,
+      "height": 752,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0121.jpg",
+      "width": 960,
+      "height": 1451,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0129.jpg",
+      "width": 960,
+      "height": 1475,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0131.jpg",
+      "width": 960,
+      "height": 1632,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0132.jpg",
+      "width": 960,
+      "height": 1285,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0133.jpg",
+      "width": 960,
+      "height": 1789,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0159.jpg",
+      "width": 500,
+      "height": 802,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0162.jpg",
+      "width": 500,
+      "height": 819,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0165.jpg",
+      "width": 960,
+      "height": 1424,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0186.jpg",
+      "width": 500,
+      "height": 775,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0189.jpg",
+      "width": 500,
+      "height": 852,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0190.jpg",
+      "width": 500,
+      "height": 779,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0200.jpg",
+      "width": 500,
+      "height": 750,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0212.jpg",
+      "width": 960,
+      "height": 1282,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0213.jpg",
+      "width": 960,
+      "height": 1322,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0214.jpg",
+      "width": 500,
+      "height": 665,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0217.jpg",
+      "width": 960,
+      "height": 1242,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0220.jpg",
+      "width": 960,
+      "height": 1244,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    },
+    {
+      "image_id": "indoor_neg_0224.jpg",
+      "width": 960,
+      "height": 1238,
+      "num_detections": 0,
+      "classes": [],
+      "detections": []
+    }
+  ]
+}

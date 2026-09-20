@@ -1,15 +1,21 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import {
+  Bell,
+  Crosshair,
+  FileSearch,
+  HardHat,
   FileText,
   LayoutDashboard,
-  Map as MapIcon,
+  LogIn,
   Settings as SettingsIcon,
+  TrendingUp,
   Workflow,
   X,
   type LucideIcon,
 } from 'lucide-react';
 import { useAnalysis, type StepStatus } from '../../context/AnalysisContext';
 import { useNavigation } from '../../context/NavigationContext';
+import { useRole } from '../../context/RoleContext';
 import { cn } from '../../lib/format';
 import type { RouteId } from '../../lib/routes';
 import type { AgentId } from '../../types/agents';
@@ -24,21 +30,37 @@ interface NavEntry {
   agent?: AgentId;
 }
 
-const GROUPS: Array<{ label: string; items: NavEntry[] }> = [
+type Group = { label: string; items: NavEntry[] };
+
+// A worker sees only their own three screens. Keeping the admin entries out of their sidebar is a
+// clarity measure, not a security one — the privacy guarantee is enforced by the worker API, which
+// never returns raw reports or unpublished hotspots whatever the client asks for.
+const WORKER_GROUPS: Group[] = [
   {
-    label: 'Monitor',
+    label: 'Worker',
     items: [
-      { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-      { id: 'map', label: 'Environmental Map', icon: MapIcon },
+      { id: 'worker-report', label: 'Report Issue', icon: HardHat },
+      { id: 'worker-map', label: 'Safety Map', icon: Crosshair },
+      { id: 'worker-alerts', label: 'Alerts', icon: TrendingUp },
+      { id: 'worker-my-reports', label: 'My Reports', icon: FileText },
+      { id: 'worker-my-routes', label: 'My Routes', icon: Crosshair },
+      { id: 'notifications', label: 'Notifications', icon: Bell },
     ],
   },
+];
+
+// The environmental agents (air/water/waste/coordinator) are no longer the product and are out of
+// the primary navigation. Their routes still resolve, so a bookmarked URL keeps working.
+const GROUPS: Group[] = [
   {
-    label: 'Agents',
+    label: 'Safety Intelligence',
     items: [
-      { id: 'air', label: 'Air Agent', icon: AGENT_META.air.icon, agent: 'air' },
-      { id: 'water', label: 'Water Agent', icon: AGENT_META.water.icon, agent: 'water' },
-      { id: 'waste', label: 'Waste Agent', icon: AGENT_META.waste.icon, agent: 'waste' },
-      { id: 'coordinator', label: 'Coordinator', icon: AGENT_META.coordinator.icon, agent: 'coordinator' },
+      { id: 'safety', label: 'Dashboard', icon: LayoutDashboard },
+      { id: 'analyze', label: 'Analyze Report', icon: FileSearch },
+      { id: 'patterns', label: 'Pattern Intelligence', icon: TrendingUp },
+      { id: 'admin-map', label: 'Safety Map', icon: Crosshair },
+      { id: 'admin-worker-routes', label: 'Route Intelligence', icon: TrendingUp },
+      { id: 'notifications', label: 'Notifications', icon: Bell },
     ],
   },
   {
@@ -70,6 +92,10 @@ const STEP_COLORS: Record<StepStatus, string> = {
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { route, navigate } = useNavigation();
   const { systemStatus, state } = useAnalysis();
+  const { role } = useRole();
+  // A worker's sidebar shows only their three screens. This is clarity, not access control —
+  // the worker API is what actually withholds reports and unpublished hotspots.
+  const groups = role === 'worker' ? WORKER_GROUPS : GROUPS;
 
   return (
     <div className="flex h-full flex-col">
@@ -79,12 +105,12 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <p className="text-[15px] font-semibold tracking-tight text-fg">
             EcoSentinel <span className="text-brand">AI</span>
           </p>
-          <p className="text-[10.5px] text-fg-subtle">Environmental intelligence</p>
+          <p className="text-[10.5px] text-fg-subtle">Safety Intelligence</p>
         </div>
       </div>
 
       <nav className="flex-1 space-y-5 overflow-y-auto px-3 py-5" aria-label="Main navigation">
-        {GROUPS.map((group) => (
+        {groups.map((group) => (
           <div key={group.label}>
             <p className="eyebrow mb-1.5 px-3">{group.label}</p>
             <ul className="space-y-0.5">
@@ -136,7 +162,20 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         ))}
       </nav>
 
-      <div className="p-3">
+      <div className="p-3 space-y-2">
+        <button
+          type="button"
+          onClick={() => {
+            navigate('landing');
+            onNavigate?.();
+          }}
+          aria-label="Back to Login"
+          className="flex h-9 w-full items-center gap-2.5 rounded-lg border border-black/[0.06] bg-black/[0.025] px-3 text-[13px] font-medium text-fg-muted transition-colors hover:border-black/10 hover:bg-black/[0.05] hover:text-fg"
+        >
+          <LogIn className="size-4 shrink-0 text-fg-subtle" />
+          <span>Back to Login</span>
+        </button>
+
         <div className="rounded-xl border border-black/[0.06] bg-black/[0.025] p-3.5">
           <p className="eyebrow">System Status</p>
           <div className="mt-2 flex items-center gap-2 text-xs font-medium text-fg">

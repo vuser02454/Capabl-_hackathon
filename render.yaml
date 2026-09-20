@@ -1,0 +1,46 @@
+# Render service definition for the C3 Safety Intelligence backend.
+#
+# A PERSISTENT DISK IS REQUIRED, not optional. This service keeps its SQLite database and the
+# photos workers upload on the local filesystem, and Render's ordinary filesystem is ephemeral:
+# without the disk below, every deploy and every restart silently discards all reports, users,
+# route history and photos. The disk is mounted at /var/data and the three path variables point
+# into it.
+services:
+  - type: web
+    name: ecosentinel-safety-api
+    runtime: python
+    plan: starter          # a paid plan is required for a persistent disk
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+
+    disk:
+      name: safety-data
+      mountPath: /var/data
+      sizeGB: 1
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+
+      # Storage on the mounted disk. Without these the app writes to the ephemeral filesystem.
+      - key: ECOSENTINEL_DB_PATH
+        value: /var/data/safety.db
+      - key: ECOSENTINEL_REPORTS_PATH
+        value: /var/data/report_photos
+      - key: ECOSENTINEL_ROUTE_CACHE_DIR
+        value: /var/data/route_graph_cache
+
+      # The deployed frontend's origin. Set this to the Vercel URL once it exists.
+      - key: ECOSENTINEL_CORS_ORIGINS
+        sync: false
+
+      # Identifies this deployment to OpenStreetMap, as their usage policy requires.
+      - key: ECOSENTINEL_NOMINATIM_USER_AGENT
+        value: "EcoSentinel-Safety/1.0 (hackathon deployment)"
+
+      # Optional. The system is fully functional without an LLM — risk classification is
+      # deterministic either way; Groq only phrases summaries. Set in the dashboard, never here.
+      - key: GROQ_API_KEY
+        sync: false

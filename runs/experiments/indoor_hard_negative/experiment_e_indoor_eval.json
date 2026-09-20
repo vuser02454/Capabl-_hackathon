@@ -1,0 +1,57 @@
+{
+  "experiment": "E",
+  "model": "YOLOv8n",
+  "hard_negatives": "indoor",
+  "test_images": 55,
+  "confidence_threshold": 0.25,
+  "baseline": {
+    "fp_images": 21,
+    "fp_image_rate": 0.3818,
+    "total_false_detections": 28,
+    "class_counts": {
+      "metal_cans": 7,
+      "paper_waste": 9,
+      "plastic_bags": 11,
+      "plastic_bottles": 1
+    }
+  },
+  "experiment_e": {
+    "fp_images": 8,
+    "fp_image_rate": 0.1455,
+    "total_false_detections": 11,
+    "class_counts": {
+      "metal_cans": 3,
+      "paper_waste": 2,
+      "plastic_bags": 4,
+      "plastic_bottles": 2
+    }
+  },
+  "provenance": {
+    "model_architecture": "YOLOv8n (ultralytics 8.4.155)",
+    "pretrained_base": "backend/models/yolov8n.pt",
+    "checkpoint_used": "runs/experiments/indoor_hard_negative/exp_e_yolov8n/weights/best.pt",
+    "checkpoint_sha256": "184c6af984895eb11c0dbb65c6f9549b0f1a715c0d0459ca81169b54bd541a06",
+    "last_pt_sha256": "c6ac047d513ec8155649a03bdf9dea5bf35feb923c02d5e3846d187da37152da",
+    "baseline_checkpoint": "backend/models/waste_detector.pt",
+    "baseline_sha256": "06f49c649ac327113dc401e53fb6d6d6db1731f012c7ecf882262cbe53be1990",
+    "dataset_path": "runs/experiments/indoor_hard_negative/dataset/data.yaml",
+    "train_images": 877,
+    "val_images": 183,
+    "taco_test_images": 98,
+    "indoor_test_images": 55,
+    "epochs_configured": 40,
+    "epochs_completed": 37,
+    "best_epoch": 25,
+    "patience": 12,
+    "early_stopped": true,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0": 0.01,
+    "seed": 1337,
+    "device": "mps",
+    "confidence_threshold": 0.25,
+    "timestamp_utc": "2026-09-19T20:56:24.978222+00:00",
+    "git_commit": "f111bc953fb702b10a2cd675367b50da1c38b059"
+  },
+  "note": "All 55 indoor label files are empty, so every detection is a false positive by construction. Independently recomputed; reproduces runs/experiments/indoor_hard_negative/baseline_indoor_eval.json exactly."
+}

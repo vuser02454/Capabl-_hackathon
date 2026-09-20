@@ -1,0 +1,186 @@
+{
+  "question": "Is Experiment E's improvement attributable to the 225 indoor hard negatives?",
+  "control_equivalence": {
+    "finding": "Experiment F reproduced backend/models/waste_detector.pt BIT-EXACTLY",
+    "weight_tensors_compared": 355,
+    "bit_identical_tensors": 355,
+    "max_abs_weight_delta": 0.0,
+    "indoor_detections_bit_identical_images": "55/55",
+    "implication": "The control IS the production baseline, so production-vs-E and F-vs-E are the same comparison. The only difference between F and E is the 225 indoor negatives (135 train + 35 val)."
+  },
+  "indoor_effect_F_to_E": {
+    "total_false_detections": {
+      "F": 28,
+      "E": 11,
+      "reduction": 17,
+      "relative_reduction_pct": 60.71
+    },
+    "fp_images": {
+      "F": 21,
+      "E": 8,
+      "reduction": 13,
+      "relative_reduction_pct": 61.9
+    },
+    "fp_image_rate": {
+      "F": 0.3818,
+      "E": 0.1455,
+      "absolute_change_pts": -23.63,
+      "relative_reduction_pct": 61.89
+    },
+    "per_class": {
+      "metal_cans": {
+        "F": 7,
+        "E": 3,
+        "change": -4
+      },
+      "paper_waste": {
+        "F": 9,
+        "E": 2,
+        "change": -7
+      },
+      "plastic_bags": {
+        "F": 11,
+        "E": 4,
+        "change": -7
+      },
+      "plastic_bottles": {
+        "F": 1,
+        "E": 2,
+        "change": 1
+      }
+    }
+  },
+  "taco_effect_F_to_E": {
+    "mAP50": {
+      "F": 0.3016,
+      "E": 0.3294,
+      "delta": 0.0278
+    },
+    "mAP50_95": {
+      "F": 0.19,
+      "E": 0.2131,
+      "delta": 0.0231
+    },
+    "precision": {
+      "F": 0.3024,
+      "E": 0.3485,
+      "delta": 0.0461
+    },
+    "recall": {
+      "F": 0.3592,
+      "E": 0.3964,
+      "delta": 0.0372
+    }
+  },
+  "taco_per_class_F_to_E": {
+    "metal_cans": {
+      "F_recall": 0.3571,
+      "E_recall": 0.2857,
+      "delta_recall": -0.0714,
+      "F_mAP50": 0.3791,
+      "E_mAP50": 0.2964,
+      "delta_mAP50": -0.0827
+    },
+    "paper_waste": {
+      "F_recall": 0.2571,
+      "E_recall": 0.2303,
+      "delta_recall": -0.0268,
+      "F_mAP50": 0.2204,
+      "E_mAP50": 0.3319,
+      "delta_mAP50": 0.1115
+    },
+    "plastic_bags": {
+      "F_recall": 0.4789,
+      "E_recall": 0.507,
+      "delta_recall": 0.0281,
+      "F_mAP50": 0.282,
+      "E_mAP50": 0.3066,
+      "delta_mAP50": 0.0246
+    },
+    "plastic_bottles": {
+      "F_recall": 0.3438,
+      "E_recall": 0.5625,
+      "delta_recall": 0.2187,
+      "F_mAP50": 0.325,
+      "E_mAP50": 0.3826,
+      "delta_mAP50": 0.0576
+    }
+  },
+  "per_image_audit": {
+    "images_fixed_by_E": [
+      "indoor_neg_0009.jpg",
+      "indoor_neg_0035.jpg",
+      "indoor_neg_0047.jpg",
+      "indoor_neg_0048.jpg",
+      "indoor_neg_0075.jpg",
+      "indoor_neg_0113.jpg",
+      "indoor_neg_0117.jpg",
+      "indoor_neg_0118.jpg",
+      "indoor_neg_0119.jpg",
+      "indoor_neg_0129.jpg",
+      "indoor_neg_0162.jpg",
+      "indoor_neg_0200.jpg",
+      "indoor_neg_0212.jpg"
+    ],
+    "images_still_fp_under_E": [
+      "indoor_neg_0038.jpg",
+      "indoor_neg_0039.jpg",
+      "indoor_neg_0046.jpg",
+      "indoor_neg_0070.jpg",
+      "indoor_neg_0071.jpg",
+      "indoor_neg_0072.jpg",
+      "indoor_neg_0087.jpg",
+      "indoor_neg_0102.jpg"
+    ],
+    "images_where_F_and_E_differ": [
+      "indoor_neg_0009.jpg",
+      "indoor_neg_0035.jpg",
+      "indoor_neg_0047.jpg",
+      "indoor_neg_0048.jpg",
+      "indoor_neg_0071.jpg",
+      "indoor_neg_0075.jpg",
+      "indoor_neg_0087.jpg",
+      "indoor_neg_0102.jpg",
+      "indoor_neg_0113.jpg",
+      "indoor_neg_0117.jpg",
+      "indoor_neg_0118.jpg",
+      "indoor_neg_0119.jpg",
+      "indoor_neg_0129.jpg",
+      "indoor_neg_0162.jpg",
+      "indoor_neg_0200.jpg",
+      "indoor_neg_0212.jpg"
+    ],
+    "images_where_E_regressed_vs_F": [
+      "indoor_neg_0102.jpg"
+    ]
+  },
+  "outcome": "A",
+  "outcome_description": "Control has high indoor FP rate; E dramatically reduces it while improving TACO performance. Strong evidence indoor hard negatives are responsible.",
+  "provenance": {
+    "model_architecture": "YOLOv8n",
+    "pretrained_checkpoint": "backend/models/yolov8n.pt",
+    "checkpoint": "runs/experiments/indoor_hard_negative/exp_f_yolov8n_control/weights/best.pt",
+    "checkpoint_sha256": "0da4d2e01758e977b75403a0991a5482b4811f0b754bb6df17f257952a054445",
+    "dataset_path": "runs/experiments/indoor_hard_negative/dataset_control/data.yaml",
+    "train_count": 742,
+    "val_count": 148,
+    "taco_test_count": 98,
+    "indoor_test_count": 55,
+    "epochs_configured": 40,
+    "epochs_completed": 40,
+    "best_epoch": 35,
+    "early_stopped": false,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0_requested": 0.01,
+    "lr0_effective": 0.001,
+    "optimizer": "AdamW (optimizer=auto overrode lr0)",
+    "seed": 1337,
+    "device": "mps",
+    "confidence_threshold": 0.25,
+    "ultralytics_version": "8.4.155",
+    "torch_version": "2.8.0",
+    "git_commit": "f111bc953fb702b10a2cd675367b50da1c38b059",
+    "timestamp_utc": "2026-09-19T21:54:06.772841+00:00"
+  }
+}

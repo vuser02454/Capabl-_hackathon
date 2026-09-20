@@ -11,6 +11,34 @@ import type {
   WaterDatasetMatch,
 } from '../types/agents';
 import type {
+  AdminActionRow,
+  AdminDashboard,
+  AdminMapData,
+  AdminReportDetail,
+  AdminReportRow,
+  HotspotDetail,
+  AdminNotification,
+  AdminRoutesResponse,
+  NotificationFeed,
+  WorkerNotification,
+  MyReportsResponse,
+  RouteEvent,
+  RouteSummary,
+  SafetyChatResponse,
+  PublicAlert,
+  WorkerProfile,
+  RouteResponse,
+  SafetyAnalysisResult,
+  SafetyHotspot,
+
+  WorkerSubmission,
+  SafetyHealth,
+  SafetyOverview,
+  SafetyPatterns,
+  SafetyReportRow,
+  WorkflowNode,
+} from '../types/safety';
+import type {
   AiStatusResponse,
   ChatResponse,
   FrameScanVerdict,
@@ -148,6 +176,382 @@ export class ApiClient {
    * `explain` adds a Grad-CAM attribution per classified crop. It costs a backward pass per
    * object, so it is opt-in rather than on by default.
    */
+  // --- Worker ----------------------------------------------------------------------------------
+
+  /** Submit a worker report. Location is optional at every level — GPS denial must not block it. */
+  submitWorkerReport(
+    body: {
+      reportText: string; latitude?: number | null; longitude?: number | null;
+      gpsAccuracy?: number | null; locationSource?: string; locationText?: string | null;
+      locationCapturedAt?: string | null; employeeId?: string | null;
+    },
+    signal?: AbortSignal,
+  ) {
+    const payload: Record<string, unknown> = {
+      report_text: body.reportText,
+      latitude: body.latitude ?? null,
+      longitude: body.longitude ?? null,
+      gps_accuracy: body.gpsAccuracy ?? null,
+      location_source: body.locationSource ?? 'unknown',
+      location_text: body.locationText ?? null,
+      location_captured_at: body.locationCapturedAt ?? null,
+    };
+    if (body.employeeId) {
+      payload.employee_id = body.employeeId;
+    }
+    return this.request<WorkerSubmission>('/api/worker/reports', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }, 90000, signal);
+  }
+
+  /** Attach a photo to a report that is already filed.
+   *
+   * A second request on purpose: the report text is the thing that matters, and a camera or
+   * upload failure must not take the report down with it. */
+  attachReportPhoto(reportId: number, file: File, capturedAt?: string, signal?: AbortSignal) {
+    const form = new FormData();
+    form.append('file', file);
+    form.append('photo_source', 'live_camera');
+    if (capturedAt) form.append('captured_at', capturedAt);
+    return this.request<{ reportId: number; photoSource: string; photoUrl: string }>(
+      `/api/worker/reports/${reportId}/photo`, { method: 'POST', body: form }, 60000, signal);
+  }
+
+  /** Ask the backend for a walking route. Dijkstra runs server-side over an OSM road graph.
+   *
+   * There is no mode to choose: the backend returns the shortest route unless it enters a
+   * published alert's safety radius, and only then looks for an alternative. */
+  workerRoute(body: {
+    start: { latitude: number; longitude: number };
+    destination: { latitude: number; longitude: number };
+    safetyRadiusMeters?: number;
+  }, signal?: AbortSignal) {
+    return this.request<RouteResponse>('/api/worker/route', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        start: body.start, destination: body.destination,
+        ...(body.safetyRadiusMeters != null
+          ? { safety_radius_meters: body.safetyRadiusMeters } : {}),
+      }),
+    }, 90000, signal);
+  }
+
+  /** The worker's own profile. `employeeId` identifies whose records to return; it is not a
+   *  credential, and the backend says so in the response. */
+  workerMe(employeeId: string, signal?: AbortSignal) {
+    return this.request<{ worker: WorkerProfile; reportCount: number;
+                          locationEventCount: number; note: string }>(
+      `/api/worker/me?employee_id=${encodeURIComponent(employeeId)}`, {}, 20000, signal);
+  }
+
+  /** The worker's own report history. The backend filters to their rows in SQL. */
+  myReports(employeeId: string, signal?: AbortSignal) {
+    return this.request<MyReportsResponse>(
+      `/api/worker/reports?employee_id=${encodeURIComponent(employeeId)}`, {}, 30000, signal);
+  }
+
+  /** Is this coordinate in India? Used for a GPS fix and for a tapped map point — the two
+   *  sources that Nominatim's search filter has not already checked. */
+  verifyLocationInIndia(latitude: number, longitude: number, signal?: AbortSignal) {
+    return this.request<{
+      accepted: boolean; verified: boolean; countryCode: string | null;
+      reason: string | null; place: string | null; method: string;
+    }>('/api/worker/verify-location', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ latitude, longitude }),
+    }, 20000, signal);
+  }
+
+  /** Cautions and published alerts near a point. Cautions never affect routing. */
+  workerCautions(latitude: number, longitude: number, signal?: AbortSignal) {
+    return this.request<{
+      alerts: PublicAlert[];
+      cautions: Array<{ area: string; hazard: string; message: string; severity: string }>;
+      radiusMeters: number; priority: string; note: string;
+    }>(`/api/worker/cautions?latitude=${latitude}&longitude=${longitude}`, {}, 20000, signal);
+  }
+
+  /** This worker's own recorded routes. Filtered by employee_id in SQL on the server. */
+  workerRoutes(employeeId: string, signal?: AbortSignal) {
+    return this.request<{ routes: RouteEvent[]; count: number; note: string }>(
+      `/api/worker/routes?employee_id=${encodeURIComponent(employeeId)}`, {}, 30000, signal);
+  }
+
+  adminRoutes(filters: {
+    employeeId?: string; classification?: string; alertId?: number;
+    department?: string; since?: string; until?: string;
+  } = {}, signal?: AbortSignal) {
+    const query = new URLSearchParams();
+    if (filters.employeeId) query.set('employee_id', filters.employeeId);
+    if (filters.classification) query.set('classification', filters.classification);
+    if (filters.alertId != null) query.set('alert_id', String(filters.alertId));
+    if (filters.department) query.set('department', filters.department);
+    if (filters.since) query.set('since', filters.since);
+    if (filters.until) query.set('until', filters.until);
+    const suffix = query.toString() ? `?${query}` : '';
+    return this.request<AdminRoutesResponse>(`/api/admin/routes${suffix}`, {}, 30000, signal);
+  }
+
+  adminWorkerRoutes(employeeId: string, signal?: AbortSignal) {
+    return this.request<{ worker: WorkerProfile; routes: RouteEvent[]; count: number;
+                          summary: RouteSummary }>(
+      `/api/admin/workers/${encodeURIComponent(employeeId)}/routes`, {}, 30000, signal);
+  }
+
+  adminAlertAffectedWorkers(alertId: number, signal?: AbortSignal) {
+    return this.request<{ alertId: number; count: number; evidence: string; coverageNote: string;
+                          workers: Array<Record<string, unknown>> }>(
+      `/api/admin/alerts/${alertId}/affected-workers`, {}, 30000, signal);
+  }
+
+  adminAlertReroutedWorkers(alertId: number, signal?: AbortSignal) {
+    return this.request<{ alertId: number; count: number; coverageNote: string;
+                          workers: Array<Record<string, unknown>> }>(
+      `/api/admin/alerts/${alertId}/rerouted-workers`, {}, 30000, signal);
+  }
+
+  /** Ask the grounded safety assistant. It reads the database through fixed read-only tools. */
+  safetyChat(body: {
+    question: string; role: 'admin' | 'worker'; employeeId?: string;
+    context?: Record<string, unknown>;
+  }, signal?: AbortSignal) {
+    return this.request<SafetyChatResponse>('/api/safety/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: body.question, role: body.role,
+        employee_id: body.employeeId ?? null, context: body.context ?? null,
+      }),
+    }, 60000, signal);
+  }
+
+  // --- Notifications ---------------------------------------------------------------------
+
+  adminNotifications(unreadOnly = false, signal?: AbortSignal) {
+    return this.request<NotificationFeed<AdminNotification>>(
+      `/api/admin/notifications?unread_only=${unreadOnly}`, {}, 20000, signal);
+  }
+
+  adminMarkNotificationRead(id: number, signal?: AbortSignal) {
+    return this.request<{ unreadCount: number }>(
+      `/api/admin/notifications/${id}/read`, { method: 'POST' }, 20000, signal);
+  }
+
+  adminMarkAllNotificationsRead(signal?: AbortSignal) {
+    return this.request<{ marked: number; unreadCount: number }>(
+      '/api/admin/notifications/read-all', { method: 'POST' }, 20000, signal);
+  }
+
+  /** Broadcast to every worker, or target named workers. Not a published alert — no routing effect. */
+  adminSendNotification(body: {
+    title: string; message: string; severity?: string; employeeIds?: string[];
+    latitude?: number | null; longitude?: number | null; radiusMeters?: number | null;
+  }, signal?: AbortSignal) {
+    return this.request<{ ids: number[]; count: number; delivery: string; note: string }>(
+      '/api/admin/notifications/send', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: body.title, message: body.message, severity: body.severity ?? 'MEDIUM',
+          employee_ids: body.employeeIds ?? null,
+          latitude: body.latitude ?? null, longitude: body.longitude ?? null,
+          radius_meters: body.radiusMeters ?? null,
+        }),
+      }, 20000, signal);
+  }
+
+  workerNotifications(employeeId: string, unreadOnly = false, signal?: AbortSignal) {
+    return this.request<NotificationFeed<WorkerNotification>>(
+      `/api/worker/notifications?employee_id=${encodeURIComponent(employeeId)}&unread_only=${unreadOnly}`,
+      {}, 20000, signal);
+  }
+
+  workerMarkNotificationRead(employeeId: string, id: number, signal?: AbortSignal) {
+    return this.request<{ unreadCount: number }>(
+      `/api/worker/notifications/${id}/read?employee_id=${encodeURIComponent(employeeId)}`,
+      { method: 'POST' }, 20000, signal);
+  }
+
+  workerAlerts(signal?: AbortSignal) {
+    return this.request<{ alerts: PublicAlert[]; count: number }>('/api/worker/alerts', {}, 20000, signal);
+  }
+
+  workerMap(signal?: AbortSignal) {
+    return this.request<{ alerts: PublicAlert[]; note: string }>('/api/worker/map', {}, 20000, signal);
+  }
+
+  // --- Admin -----------------------------------------------------------------------------------
+
+  adminMap(signal?: AbortSignal) {
+    return this.request<AdminMapData>('/api/admin/map', {}, 30000, signal);
+  }
+
+  adminHotspots(signal?: AbortSignal) {
+    return this.request<{ hotspots: SafetyHotspot[]; count: number }>('/api/admin/hotspots', {}, 20000, signal);
+  }
+
+  adminHotspotDetail(id: number, signal?: AbortSignal) {
+    return this.request<HotspotDetail>(`/api/admin/hotspots/${id}`, {}, 30000, signal);
+  }
+
+  adminHotspotAction(id: number, action: string, notes?: string, signal?: AbortSignal) {
+    return this.request<{ hotspot: SafetyHotspot; status: string }>(
+      `/api/admin/hotspots/${id}/${action}`,
+      { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notes: notes ?? null }) },
+      20000, signal);
+  }
+
+  adminFlagHotspot(body: {
+    latitude: number;
+    longitude: number;
+    reason: string;
+    severity?: string;
+    radius_meters?: number;
+    location_text?: string | null;
+  }, signal?: AbortSignal) {
+    return this.request<{ hotspot: SafetyHotspot; flagSource: string }>(
+      '/api/admin/hotspots/flag',
+      { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body) },
+      20000, signal);
+  }
+
+  /** Absolute URL for a backend-served asset, for use in an <img src>.
+   *
+   * Photos are fetched by the browser directly rather than through `request`, so they need the
+   * same base URL that `request` prepends. Returned as a plain string so an <img> can use it. */
+  absoluteUrl(path: string): string {
+    return `${this.baseUrl}${path}`;
+  }
+
+  adminAnnouncements(signal?: AbortSignal) {
+    return this.request<{ announcements: Array<Record<string, unknown>>; count: number }>(
+      '/api/admin/announcements', {}, 20000, signal);
+  }
+
+  adminDashboard(signal?: AbortSignal) {
+    return this.request<AdminDashboard>('/api/admin/dashboard', {}, 30000, signal);
+  }
+
+  adminReports(limit = 200, signal?: AbortSignal) {
+    return this.request<{ reports: AdminReportRow[]; count: number }>(
+      `/api/admin/reports?limit=${limit}`, {}, 30000, signal);
+  }
+
+  adminReportDetail(id: number, signal?: AbortSignal) {
+    return this.request<AdminReportDetail>(`/api/admin/reports/${id}`, {}, 30000, signal);
+  }
+
+  adminRecordAction(body: {
+    actionTaken: string; hotspotId?: number | null; reportId?: number | null;
+    authorityContacted?: string | null; adminNotes?: string | null;
+    outcome?: string | null; followUpRequired?: boolean;
+  }, signal?: AbortSignal) {
+    return this.request<{ id: number; label: string; note: string }>('/api/admin/actions', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action_taken: body.actionTaken, hotspot_id: body.hotspotId ?? null,
+        report_id: body.reportId ?? null, authority_contacted: body.authorityContacted ?? null,
+        admin_notes: body.adminNotes ?? null, outcome: body.outcome ?? null,
+        follow_up_required: body.followUpRequired ?? false,
+      }),
+    }, 20000, signal);
+  }
+
+  adminActions(hotspotId?: number, signal?: AbortSignal) {
+    const query = hotspotId != null ? `?hotspot_id=${hotspotId}` : '';
+    return this.request<{ actions: AdminActionRow[]; count: number;
+                          available: Array<{ id: string; label: string }> }>(
+      `/api/admin/actions${query}`, {}, 20000, signal);
+  }
+
+  adminRecordFeedback(body: {
+    useful: boolean; hotspotId?: number | null; reportId?: number | null;
+    reason?: string | null; comment?: string | null;
+  }, signal?: AbortSignal) {
+    return this.request<{ id: number; note: string }>('/api/admin/feedback', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        useful: body.useful, hotspot_id: body.hotspotId ?? null,
+        report_id: body.reportId ?? null, reason: body.reason ?? null,
+        comment: body.comment ?? null,
+      }),
+    }, 20000, signal);
+  }
+
+  adminFlagLocation(
+    body: { latitude: number; longitude: number; reason: string; severity?: string; locationText?: string },
+    signal?: AbortSignal,
+  ) {
+    return this.request<{ hotspot: SafetyHotspot }>('/api/admin/hotspots/flag', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...body, location_text: body.locationText ?? null }),
+    }, 20000, signal);
+  }
+
+  adminPublishAnnouncement(
+    body: { title: string; message: string; severity?: string; hotspotId?: number;
+            latitude?: number | null; longitude?: number | null; locationText?: string | null },
+    signal?: AbortSignal,
+  ) {
+    return this.request<{ id: number }>('/api/admin/announcements', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: body.title, message: body.message, severity: body.severity ?? 'HIGH',
+        hotspot_id: body.hotspotId ?? null, latitude: body.latitude ?? null,
+        longitude: body.longitude ?? null, location_text: body.locationText ?? null,
+      }),
+    }, 20000, signal);
+  }
+
+  // --- C3 Safety Intelligence ----------------------------------------------------------------
+
+  /** Run one report through the four-agent workflow. `persist: false` previews without storing. */
+  analyzeSafetyReport(reportText: string, persist = true, signal?: AbortSignal) {
+    return this.request<SafetyAnalysisResult>(
+      '/api/reports/analyze',
+      { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ report_text: reportText, source: 'user', persist }) },
+      // The graph makes up to three Groq calls; generous but bounded.
+      90000,
+      signal,
+    );
+  }
+
+  /** Seed or re-seed the synthetic demo corpus. Deterministic and offline. */
+  seedSafetyCorpus(force = false, signal?: AbortSignal) {
+    return this.request<{ processed: number; failed: number; totalInStore: number; seeded: boolean }>(
+      '/api/reports/batch-analyze',
+      { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ use_synthetic: true, force }) },
+      120000,
+      signal,
+    );
+  }
+
+  safetyOverview(signal?: AbortSignal) {
+    return this.request<SafetyOverview>('/api/analytics/overview', {}, 30000, signal);
+  }
+
+  safetyPatterns(interpret = true, signal?: AbortSignal) {
+    return this.request<SafetyPatterns>(
+      `/api/analytics/patterns?interpret=${interpret}`, {}, 60000, signal);
+  }
+
+  safetyReports(limit = 100, signal?: AbortSignal) {
+    return this.request<{ count: number; reports: SafetyReportRow[] }>(
+      `/api/reports?limit=${limit}`, {}, 20000, signal);
+  }
+
+  safetyHealth(signal?: AbortSignal) {
+    return this.request<SafetyHealth>('/api/health', {}, 10000, signal);
+  }
+
+  safetyWorkflow(signal?: AbortSignal) {
+    return this.request<{ nodes: WorkflowNode[]; llmAvailable: boolean; llmModel: string | null }>(
+      '/api/agents/workflow', {}, 10000, signal);
+  }
+
   segregateWaste(file: File | Blob, signal?: AbortSignal, explain = false) {
     const form = new FormData();
     form.append('file', file, file instanceof File ? file.name : 'waste.jpg');
@@ -198,7 +602,13 @@ export class ApiClient {
   searchPlaces(query: string, limit = 5, signal?: AbortSignal) {
     return this.request<PlaceSearchResponse>(
       '/api/location/search',
-      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query, limit }) },
+      {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        // India-only application. The backend applies this as Nominatim's own `countrycodes`
+        // filter AND re-checks each result's structured country_code, so "Whitefield" resolves
+        // to Bengaluru rather than New Hampshire.
+        body: JSON.stringify({ query, limit, country_codes: 'in' }),
+      },
       12000,
       signal,
     );

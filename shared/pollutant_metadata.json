@@ -1,0 +1,245 @@
+{
+  "version": "2021-who-cpcb-1.0",
+  "disclaimer": "Health information is general population-level information based on published air-quality guidance. It is not a medical diagnosis. Actual health risk depends on concentration, exposure duration, individual susceptibility and other factors.",
+  "authoritative_sources": [
+    {
+      "code": "WHO_2021",
+      "name": "WHO Global Air Quality Guidelines (2021)",
+      "publisher": "World Health Organization",
+      "type": "health_guideline",
+      "note": "Health-based recommendations. WHO notes that guideline levels do not represent a concentration below which absolutely no health effect can occur."
+    },
+    {
+      "code": "CPCB_NAAQS_2009",
+      "name": "India National Ambient Air Quality Standards (NAAQS 2009)",
+      "publisher": "Central Pollution Control Board (CPCB), Ministry of Environment, Forest and Climate Change, Government of India",
+      "type": "regulatory_standard",
+      "note": "Statutory ambient air quality standards for industrial, residential, rural, and other areas in India."
+    }
+  ],
+  "pollutants": {
+    "pm25": {
+      "key": "pm25",
+      "code": "PM2.5",
+      "name": "Fine Particulate Matter",
+      "unit": "µg/m³",
+      "description": "Inhalable particulate matter with aerodynamic diameter of 2.5 micrometres or smaller, capable of penetrating deep into alveolar regions of the lungs and entering the bloodstream.",
+      "is_secondary_pollutant": false,
+      "source_type": "direct_and_secondary",
+      "secondary_formation": "Forms directly through mechanical wear and combustion, and secondarily in the atmosphere via nucleation and chemical condensation of precursor gases (SO₂, NOₓ, NH₃, VOCs).",
+      "precursor_pollutants": ["SO₂", "NOₓ", "NH₃", "VOCs"],
+      "health_effects": [
+        "Respiratory irritation and reduced lung function",
+        "Cardiovascular effects and aggravation of pre-existing heart disease",
+        "Long-term exposure is associated with increased risk of cardiovascular mortality, chronic respiratory disease, and lung cancer"
+      ],
+      "vulnerable_groups": [
+        "Children with developing lung capacity",
+        "Elderly individuals",
+        "Persons with pre-existing cardiovascular or respiratory disease",
+        "Outdoor workers with elevated inhalation rates"
+      ],
+      "primary_sources": [
+        { "category": "Transport", "description": "Vehicle exhaust, tyre and brake wear, and diesel engine emissions", "icon": "Car" },
+        { "category": "Industry", "description": "Industrial manufacturing, smelting, and processing plants", "icon": "Factory" },
+        { "category": "Power Generation", "description": "Thermal power plants, coal and oil combustion", "icon": "Zap" },
+        { "category": "Household Combustion", "description": "Residential cooking and heating with solid fuels (wood, coal, dung)", "icon": "Home" },
+        { "category": "Biomass & Agriculture", "description": "Agricultural crop residue burning and forest/waste fires", "icon": "Wheat" },
+        { "category": "Dust & Construction", "description": "Construction activities, unpaved road dust, and demolition", "icon": "HardHat" }
+      ],
+      "guideline_references": {
+        "who_2021": [
+          { "averaging_period": "24-hour", "value": 15.0, "unit": "µg/m³", "label": "WHO 24-hour AQG" },
+          { "averaging_period": "annual", "value": 5.0, "unit": "µg/m³", "label": "WHO Annual AQG" }
+        ],
+        "cpcb_naaqs": [
+          { "averaging_period": "24-hour", "value": 60.0, "unit": "µg/m³", "label": "CPCB 24-hour Standard" },
+          { "averaging_period": "annual", "value": 40.0, "unit": "µg/m³", "label": "CPCB Annual Standard" }
+        ]
+      }
+    },
+    "pm10": {
+      "key": "pm10",
+      "code": "PM10",
+      "name": "Inhalable Coarse Particulate Matter",
+      "unit": "µg/m³",
+      "description": "Inhalable particles with aerodynamic diameter of 10 micrometres or smaller, typically depositing in the upper respiratory tract and trachea.",
+      "is_secondary_pollutant": false,
+      "source_type": "direct",
+      "secondary_formation": null,
+      "precursor_pollutants": [],
+      "health_effects": [
+        "Respiratory tract irritation, coughing, and throat discomfort",
+        "Aggravation of asthma and chronic obstructive pulmonary disease (COPD)",
+        "Long-term exposure is associated with impaired respiratory health and increased respiratory symptoms"
+      ],
+      "vulnerable_groups": [
+        "Children",
+        "Elderly individuals",
+        "Persons with active asthma or respiratory allergies"
+      ],
+      "primary_sources": [
+        { "category": "Road Dust & Traffic", "description": "Resuspension of road dust and mechanical abrasion from vehicle traffic", "icon": "Car" },
+        { "category": "Construction & Demolition", "description": "Building construction, excavation, earthmoving, and demolition dust", "icon": "HardHat" },
+        { "category": "Mining & Quarrying", "description": "Extraction, crushing, screening, and handling of aggregate materials", "icon": "Pickaxe" },
+        { "category": "Agriculture & Wind Dust", "description": "Field tilling, open soil erosion, and wind-blown dust", "icon": "Wind" },
+        { "category": "Combustion", "description": "Industrial and commercial combustion emissions", "icon": "Flame" }
+      ],
+      "guideline_references": {
+        "who_2021": [
+          { "averaging_period": "24-hour", "value": 45.0, "unit": "µg/m³", "label": "WHO 24-hour AQG" },
+          { "averaging_period": "annual", "value": 15.0, "unit": "µg/m³", "label": "WHO Annual AQG" }
+        ],
+        "cpcb_naaqs": [
+          { "averaging_period": "24-hour", "value": 100.0, "unit": "µg/m³", "label": "CPCB 24-hour Standard" },
+          { "averaging_period": "annual", "value": 60.0, "unit": "µg/m³", "label": "CPCB Annual Standard" }
+        ]
+      }
+    },
+    "no2": {
+      "key": "no2",
+      "code": "NO₂",
+      "name": "Nitrogen Dioxide",
+      "unit": "µg/m³",
+      "description": "A reddish-brown reactive gas produced primarily during high-temperature fuel combustion, serving as a key precursor for ozone and secondary particulate matter.",
+      "is_secondary_pollutant": false,
+      "source_type": "direct",
+      "secondary_formation": null,
+      "precursor_pollutants": [],
+      "health_effects": [
+        "Airway inflammation and respiratory irritation",
+        "Worsened respiratory symptoms and increased bronchial reactivity in people with asthma",
+        "Long-term exposure is associated with increased risk of respiratory infections and childhood asthma development"
+      ],
+      "vulnerable_groups": [
+        "Individuals with asthma or airway hyper-reactivity",
+        "Children",
+        "Elderly persons with chronic heart or lung disease"
+      ],
+      "primary_sources": [
+        { "category": "Road Traffic", "description": "Internal combustion engines, particularly diesel vehicles and heavy lorries", "icon": "Car" },
+        { "category": "Power Generation", "description": "Fossil fuel thermal power stations and gas turbines", "icon": "Zap" },
+        { "category": "Industrial Combustion", "description": "Industrial boilers, process furnaces, and kiln firing", "icon": "Factory" },
+        { "category": "Off-road Machinery", "description": "Construction equipment, diesel locomotives, and marine transport", "icon": "Truck" }
+      ],
+      "guideline_references": {
+        "who_2021": [
+          { "averaging_period": "24-hour", "value": 25.0, "unit": "µg/m³", "label": "WHO 24-hour AQG" },
+          { "averaging_period": "annual", "value": 10.0, "unit": "µg/m³", "label": "WHO Annual AQG" }
+        ],
+        "cpcb_naaqs": [
+          { "averaging_period": "24-hour", "value": 80.0, "unit": "µg/m³", "label": "CPCB 24-hour Standard" },
+          { "averaging_period": "annual", "value": 40.0, "unit": "µg/m³", "label": "CPCB Annual Standard" }
+        ]
+      }
+    },
+    "o3": {
+      "key": "o3",
+      "code": "O₃",
+      "name": "Ground-Level Ozone",
+      "unit": "µg/m³",
+      "description": "A secondary pollutant formed not by direct emissions, but through photochemical reactions between precursor gases (nitrogen oxides and volatile organic compounds) in the presence of sunlight and heat.",
+      "is_secondary_pollutant": true,
+      "source_type": "secondary",
+      "secondary_formation": "Formed in the troposphere by photochemical oxidation of VOCs and CO catalysed by nitrogen oxides (NOₓ) under ultraviolet solar radiation. Ground-level ozone is not emitted directly by industrial smokestacks or motor vehicles.",
+      "precursor_pollutants": ["NOₓ (Nitrogen Oxides)", "VOCs (Volatile Organic Compounds)"],
+      "health_effects": [
+        "Airway irritation, coughing, throat dryness, and chest tightness",
+        "Temporary reduction in lung function and inflammation of lung tissue",
+        "Short-term exposure can aggravate asthma and trigger respiratory hospital admissions"
+      ],
+      "vulnerable_groups": [
+        "Outdoor workers and physically active individuals",
+        "Children playing outdoors during sunny peak hours",
+        "Persons with pre-existing asthma or chronic respiratory illness"
+      ],
+      "primary_sources": [
+        { "category": "Precursor: Traffic Emissions", "description": "Vehicular NOₓ and unburnt hydrocarbon/VOC emissions reacting photochemically", "icon": "Car" },
+        { "category": "Precursor: Industrial Solvents", "description": "Industrial paints, chemical solvents, surface coatings, and petroleum refining releasing VOCs", "icon": "Factory" },
+        { "category": "Precursor: Fossil Combustion", "description": "Power plant and industrial burner NOₓ emissions", "icon": "Zap" },
+        { "category": "Precursor: Biogenic VOCs", "description": "Natural plant-emitted volatile organics (isoprene, terpenes) reacting with urban NOₓ", "icon": "Trees" }
+      ],
+      "guideline_references": {
+        "who_2021": [
+          { "averaging_period": "8-hour", "value": 100.0, "unit": "µg/m³", "label": "WHO 8-hour AQG" }
+        ],
+        "cpcb_naaqs": [
+          { "averaging_period": "8-hour", "value": 100.0, "unit": "µg/m³", "label": "CPCB 8-hour Standard" },
+          { "averaging_period": "1-hour", "value": 180.0, "unit": "µg/m³", "label": "CPCB 1-hour Standard" }
+        ]
+      }
+    },
+    "so2": {
+      "key": "so2",
+      "code": "SO₂",
+      "name": "Sulfur Dioxide",
+      "unit": "µg/m³",
+      "description": "A colourless gas with a pungent, irritating odour, released mainly during the combustion of sulfur-bearing fossil fuels such as coal and crude oil.",
+      "is_secondary_pollutant": false,
+      "source_type": "direct",
+      "secondary_formation": null,
+      "precursor_pollutants": [],
+      "health_effects": [
+        "Airway irritation and bronchoconstriction within minutes of exposure",
+        "Can worsen respiratory symptoms, especially in susceptible individuals with asthma",
+        "High concentration exposure can cause eye irritation and aggravate cardiovascular distress"
+      ],
+      "vulnerable_groups": [
+        "Asthma patients and individuals with bronchial hyper-responsiveness",
+        "Children and elderly individuals",
+        "Individuals with active chronic obstructive pulmonary disease"
+      ],
+      "primary_sources": [
+        { "category": "Thermal Power Plants", "description": "Coal-fired and heavy fuel-oil electricity generation facilities", "icon": "Zap" },
+        { "category": "Industrial Combustion", "description": "Industrial process boilers, furnaces, and chemical firing", "icon": "Factory" },
+        { "category": "Metal Smelting", "description": "Smelting and roasting of sulfide ores (copper, zinc, lead, iron)", "icon": "Layers" },
+        { "category": "Oil Refineries", "description": "Petroleum refining, catalytic cracking, and fuel desulfurization", "icon": "Flame" }
+      ],
+      "guideline_references": {
+        "who_2021": [
+          { "averaging_period": "24-hour", "value": 40.0, "unit": "µg/m³", "label": "WHO 24-hour AQG" }
+        ],
+        "cpcb_naaqs": [
+          { "averaging_period": "24-hour", "value": 80.0, "unit": "µg/m³", "label": "CPCB 24-hour Standard" },
+          { "averaging_period": "annual", "value": 50.0, "unit": "µg/m³", "label": "CPCB Annual Standard" }
+        ]
+      }
+    },
+    "co": {
+      "key": "co",
+      "code": "CO",
+      "name": "Carbon Monoxide",
+      "unit": "mg/m³",
+      "description": "A colourless, odourless, and tasteless toxic gas produced by the incomplete combustion of carbonaceous fuels.",
+      "is_secondary_pollutant": false,
+      "source_type": "direct",
+      "secondary_formation": null,
+      "precursor_pollutants": [],
+      "health_effects": [
+        "Reduces oxygen delivery to organs and tissues through formation of carboxyhemoglobin (COHb)",
+        "At elevated concentrations, causes headache, dizziness, impaired psychomotor skills, and fatigue",
+        "Severe acute exposure can result in loss of consciousness, cardiovascular collapse, and acute poisoning"
+      ],
+      "vulnerable_groups": [
+        "Individuals with coronary artery disease or cardiovascular conditions",
+        "Fetuses and pregnant individuals",
+        "Elderly individuals with compromised circulatory function"
+      ],
+      "primary_sources": [
+        { "category": "Incomplete Vehicle Combustion", "description": "Petrol and diesel motor vehicles operating under rich fuel-air mixture or cold start", "icon": "Car" },
+        { "category": "Household Solid Fuels", "description": "Unvented or poorly ventilated biomass cookstoves, fireplaces, and charcoal burners", "icon": "Home" },
+        { "category": "Industrial Incomplete Combustion", "description": "Foundries, metallurgical processing, blast furnaces, and chemical plants", "icon": "Factory" },
+        { "category": "Biomass & Agricultural Fires", "description": "Smouldering field residue, open waste burning, and wildfires", "icon": "Flame" }
+      ],
+      "guideline_references": {
+        "who_2021": [
+          { "averaging_period": "24-hour", "value": 4.0, "unit": "mg/m³", "label": "WHO 24-hour AQG" }
+        ],
+        "cpcb_naaqs": [
+          { "averaging_period": "8-hour", "value": 2.0, "unit": "mg/m³", "label": "CPCB 8-hour Standard" },
+          { "averaging_period": "1-hour", "value": 4.0, "unit": "mg/m³", "label": "CPCB 1-hour Standard" }
+        ]
+      }
+    }
+  }
+}

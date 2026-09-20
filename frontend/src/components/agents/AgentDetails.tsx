@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { TriangleAlert, Braces, Check, ChevronRight, Copy, Cpu, FileOutput, LogIn, Play, Search, Workflow, Wrench } from 'lucide-react';
-import { useMemo, useState, type ReactNode } from 'react';
+import { TriangleAlert, Braces, Check, ChevronDown, ChevronRight, ChevronUp, Copy, Cpu, Factory, FileOutput, HeartPulse, LogIn, Play, Search, Workflow, Wrench } from 'lucide-react';
+import { Fragment, useMemo, useState, type ReactNode } from 'react';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { useSettings } from '../../context/SettingsContext';
 import { cn, formatDateTime, formatValue, pct } from '../../lib/format';
@@ -8,6 +8,7 @@ import { MEASUREMENT_STATUS_STYLES } from '../../lib/risk';
 import type { AgentId, Measurement, SpecialistAgentId, SpecialistResult } from '../../types/agents';
 import { Button } from '../ui/Button';
 import { DashboardCard } from '../ui/DashboardCard';
+import { DataModeBadge } from '../ui/DataModeBadge';
 import { ErrorState } from '../ui/ErrorState';
 import { LoadingState } from '../ui/LoadingState';
 import { Chip, ProgressBar } from '../ui/primitives';
@@ -65,6 +66,12 @@ export function AgentPipelineSpec({ agent, stacked = false }: { agent: AgentId; 
 }
 
 export function MeasurementTable({ measurements }: { measurements: Measurement[] }) {
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
+
+  const toggleExpand = (key: string) => {
+    setExpandedKey((prev) => (prev === key ? null : key));
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[540px] text-left text-xs">
@@ -80,33 +87,155 @@ export function MeasurementTable({ measurements }: { measurements: Measurement[]
         <tbody>
           {measurements.map((m) => {
             const status = MEASUREMENT_STATUS_STYLES[m.status];
+            const isExpanded = expandedKey === m.key;
+            const hasHealthData = Boolean(m.healthEffects?.length || m.majorSources?.length);
+
             return (
-              <tr key={m.key} className="border-b border-black/[0.04] last:border-0">
-                <td className="py-2.5 pr-3 font-medium text-fg">{m.label}</td>
-                <td className="py-2.5 pr-3 text-fg tabular">
-                  {formatValue(m.value)} <span className="text-fg-subtle">{m.value !== null && m.unit}</span>
-                </td>
-                <td className="py-2.5 pr-3 text-fg-muted tabular">
-                  {m.threshold === null ? '—' : `${m.threshold} ${m.unit}`}
-                  {m.thresholdLabel && <span className="block text-[10px] text-fg-subtle">{m.thresholdLabel}</span>}
-                </td>
-                <td className="py-2.5 pr-3">
-                  {m.subScore === null ? (
-                    <span className="text-fg-subtle">—</span>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <ProgressBar value={m.subScore} color={status.color} height={4} />
-                      <span className="w-8 text-fg-muted tabular">{pct(m.subScore)}</span>
+              <Fragment key={m.key}>
+                <tr className="border-b border-black/[0.04] last:border-0 hover:bg-black/[0.01]">
+                  <td className="py-2.5 pr-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-medium text-fg">{m.label}</span>
+                      {m.averagingPeriod && (
+                        <span className="rounded bg-black/[0.04] px-1 py-0.2 text-[9.5px] font-mono text-fg-muted">
+                          {m.averagingPeriod === '24-hour' ? '24-h' : m.averagingPeriod === '8-hour' ? '8-h' : m.averagingPeriod}
+                        </span>
+                      )}
+                      {hasHealthData && (
+                        <button
+                          type="button"
+                          onClick={() => toggleExpand(m.key)}
+                          className={cn(
+                            'ml-1 inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-medium transition-colors',
+                            isExpanded
+                              ? 'bg-brand/10 text-brand'
+                              : 'bg-black/[0.03] text-fg-subtle hover:bg-black/[0.06] hover:text-fg',
+                          )}
+                          title="View health effects and emission sources"
+                        >
+                          Health & Sources
+                          {isExpanded ? <ChevronUp className="size-2.5" /> : <ChevronDown className="size-2.5" />}
+                        </button>
+                      )}
                     </div>
-                  )}
-                </td>
-                <td className="py-2.5">
-                  <span className={cn('inline-flex items-center gap-1.5', status.text)}>
-                    <span className="size-1.5 rounded-full" style={{ background: status.color }} />
-                    {status.label}
-                  </span>
-                </td>
-              </tr>
+                  </td>
+                  <td className="py-2.5 pr-3 text-fg tabular">
+                    {formatValue(m.value)} <span className="text-fg-subtle">{m.value !== null && m.unit}</span>
+                  </td>
+                  <td className="py-2.5 pr-3 text-fg-muted tabular">
+                    {m.whoReference != null ? (
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-medium text-fg">
+                            {m.whoReference} {m.unit}
+                          </span>
+                          {m.ratioToReference != null && (
+                            <span
+                              className={cn(
+                                'rounded px-1 py-0.2 text-[10px] font-semibold',
+                                m.ratioToReference >= 2.0
+                                  ? 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300'
+                                  : m.ratioToReference > 1.0
+                                  ? 'bg-amber-100 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300'
+                                  : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300',
+                              )}
+                            >
+                              {m.ratioToReference}× ref
+                            </span>
+                          )}
+                        </div>
+                        <span className="block text-[10px] text-fg-subtle">
+                          WHO {m.whoAveragingPeriod ?? '24-h'} AQG
+                        </span>
+                        {m.cpcbStandard != null && (
+                          <span className="block text-[9.5px] text-fg-muted">
+                            CPCB: {m.cpcbStandard} {m.unit} ({m.cpcbAveragingPeriod ?? '24-h'})
+                          </span>
+                        )}
+                      </div>
+                    ) : m.threshold === null ? (
+                      '—'
+                    ) : (
+                      <>
+                        {m.threshold} {m.unit}
+                        {m.thresholdLabel && <span className="block text-[10px] text-fg-subtle">{m.thresholdLabel}</span>}
+                      </>
+                    )}
+                  </td>
+                  <td className="py-2.5 pr-3">
+                    {m.subScore === null ? (
+                      <span className="text-fg-subtle">—</span>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <ProgressBar value={m.subScore} color={status.color} height={4} />
+                        <span className="w-8 text-fg-muted tabular">{pct(m.subScore)}</span>
+                      </div>
+                    )}
+                  </td>
+                  <td className="py-2.5">
+                    <span className={cn('inline-flex items-center gap-1.5', status.text)}>
+                      <span className="size-1.5 rounded-full" style={{ background: status.color }} />
+                      {status.label}
+                    </span>
+                  </td>
+                </tr>
+
+                {/* Expandable Health & Sources Drawer */}
+                {isExpanded && hasHealthData && (
+                  <tr className="border-b border-black/[0.04] bg-black/[0.015]">
+                    <td colSpan={5} className="px-3 py-3">
+                      <div className="grid gap-3 rounded-lg border border-black/[0.05] bg-white/80 p-3 text-xs md:grid-cols-2">
+                        {/* Health Guidance */}
+                        {m.healthEffects && m.healthEffects.length > 0 && (
+                          <div className="space-y-1.5">
+                            <div className="flex items-center gap-1.5 font-semibold text-fg">
+                              <HeartPulse className="size-3.5 text-red-500" />
+                              <span>Health Guidance</span>
+                            </div>
+                            <ul className="space-y-1 text-[11px] text-fg-subtle">
+                              {m.healthEffects.map((h, i) => (
+                                <li key={i} className="flex items-start gap-1.5">
+                                  <span className="mt-1 size-1 shrink-0 rounded-full bg-red-400" />
+                                  <span>{h}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Major Emission Sources */}
+                        {m.majorSources && m.majorSources.length > 0 && (
+                          <div className="space-y-1.5">
+                            <div className="flex items-center gap-1.5 font-semibold text-fg">
+                              <Factory className="size-3.5 text-blue-500" />
+                              <span>Major Emission Sources</span>
+                            </div>
+
+                            {m.isSecondaryPollutant && (
+                              <p className="rounded bg-amber-50 p-1.5 text-[10.5px] text-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
+                                <strong>Secondary formation: </strong>
+                                Forms through photochemical reactions of NOₓ and VOCs in sunlight. Not emitted directly.
+                              </p>
+                            )}
+
+                            <div className="flex flex-wrap gap-1.5 pt-0.5">
+                              {m.majorSources.map((s, i) => (
+                                <span
+                                  key={i}
+                                  className="rounded border border-black/[0.06] bg-black/[0.02] px-2 py-0.5 text-[10.5px] text-fg-muted"
+                                  title={s.description}
+                                >
+                                  {s.category}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             );
           })}
         </tbody>
@@ -221,10 +350,16 @@ export function AgentDetailLayout({ agent, children }: { agent: SpecialistAgentI
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-lg font-semibold tracking-tight text-fg">{meta.name}</h2>
                 {result && !pending[agent] && <RiskBadge level={result.riskLevel} suffix="RISK" size="md" />}
-                {result?.isMock && <Chip>Mock data source</Chip>}
+                {result?.isMock && <DataModeBadge label="Simulated demo data" tone="demo" size="md" />}
                 {result && !result.isMock && <Chip color="#059669">Live data</Chip>}
               </div>
               <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-fg-muted">{meta.role}</p>
+              {result?.isMock && (
+                <p className="mt-2 max-w-2xl text-xs leading-relaxed text-risk-moderate">
+                  The risk score, confidence and every figure below are generated demo values — not
+                  measurements, and not produced from a camera image.
+                </p>
+              )}
               {result && (
                 <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-fg-subtle">
                   <span>

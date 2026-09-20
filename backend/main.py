@@ -13,6 +13,7 @@ from typing import Optional
 
 from fastapi import FastAPI, File, Form, Header, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
@@ -67,6 +68,7 @@ from schemas import (
     ReverseGeocodeRequest,
     WasteImageAnalysis,
     WastePipelineStatus,
+    GeminiWasteResult,
     WasteSegregationResult,
     WaterBody,
     WaterDatasetMatch,
@@ -95,6 +97,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# --- C3 Safety Intelligence -----------------------------------------------------------------
+# Mounted as its own router. The environmental endpoints above are unchanged; this is additive.
+from safety.api import router as safety_router  # noqa: E402
+from safety.roles_api import admin_router, chat_router, worker_router  # noqa: E402
+
+app.include_router(safety_router)
+app.include_router(worker_router)
+app.include_router(admin_router)
+app.include_router(chat_router)
+
 
 def _error(status: int, code: str, message: str) -> JSONResponse:
     return JSONResponse(status_code=status, content={"error": {"code": code, "message": message}})
@@ -113,6 +125,20 @@ async def handle_domain_error(_: Request, exc: EcoSentinelError) -> JSONResponse
     return _error(exc.status_code, exc.code, exc.message)
 
 
+@app.exception_handler(StarletteHTTPException)
+async def handle_http_error(_: Request, exc: StarletteHTTPException) -> JSONResponse:
+    """Wrap HTTPException into the same envelope every other error uses.
+
+    Without this, FastAPI emits {"detail": ...} while the frontend reads {"error": {"message": ...}},
+    so a handler's carefully worded message ("Map data is unavailable right now.") reached the user
+    as a generic HTTP-status string. The code is derived from the status so the client can branch.
+    """
+    codes = {400: "BAD_REQUEST", 404: "NOT_FOUND", 413: "PAYLOAD_TOO_LARGE",
+             415: "UNSUPPORTED_MEDIA_TYPE", 422: "VALIDATION_ERROR", 503: "SERVICE_UNAVAILABLE"}
+    detail = exc.detail if isinstance(exc.detail, str) else "Request failed."
+    return _error(exc.status_code, codes.get(exc.status_code, "REQUEST_FAILED"), detail)
+
+
 @app.exception_handler(RequestValidationError)
 async def handle_validation_error(_: Request, exc: RequestValidationError) -> JSONResponse:
     first = exc.errors()[0] if exc.errors() else {}
@@ -126,6 +152,17 @@ async def handle_unexpected_error(_: Request, exc: Exception) -> JSONResponse:
 
 
 # --------------------------------------------------------------------------- system
+
+
+@app.get("/health")
+def platform_health() -> dict:
+    """Liveness probe for the hosting platform (Render).
+
+    Deliberately trivial and unversioned: a health check that touches the database or an LLM
+    reports the platform unhealthy when a dependency is degraded, and the platform responds by
+    restarting a process that was serving fine. `/api/health` is the rich one.
+    """
+    return {"status": "ok", "service": "EcoSentinel Safety Intelligence"}
 
 
 @app.get("/api/health")
@@ -174,12 +211,18 @@ def search_places(request: PlaceSearchRequest) -> PlaceSearchResponse:
 
     Lets any place be analysed, not only the presets in shared/locations.json. Water features are
     flagged with `isWater` so a UI can surface lakes and rivers ahead of generic addresses.
+
+    Restricted to India by default (`country_codes="in"`). The restriction is applied as
+    Nominatim's own filter AND re-checked against each result's structured `country_code`, so a
+    result is kept because its address says India, not because the query mentioned it.
     """
-    matches, cached = get_geocoder().search(request.query, request.limit)
+    matches, cached = get_geocoder().search(
+        request.query, request.limit, request.country_codes)
     return PlaceSearchResponse(
         query=request.query,
         matches=[PlaceMatch(**match.as_dict()) for match in matches],
         cached=cached,
+        countryCodes=request.country_codes or None,
     )
 
 
@@ -656,6 +699,40 @@ async def segregate_waste(
         analyze_waste, content, file.filename or "image.jpg", None, None, None, explain
     )
     return WasteSegregationResult.model_validate(result)
+
+
+@app.post("/api/waste/gemini-detect", response_model=GeminiWasteResult)
+async def gemini_detect_waste(
+    file: UploadFile = File(...),
+    save_candidate: bool = Query(
+        False,
+        description=(
+            "Stage the image and Gemini's annotations under datasets/waste_user_candidates/pending "
+            "for human review. Off by default: an unreviewed pseudo-label is not training data."
+        ),
+    ),
+) -> GeminiWasteResult:
+    """EXPERIMENTAL second opinion from Gemini, for comparison against the production detector.
+
+    This is NOT the production path and never calls YOLO. `POST /api/waste/segregate` is
+    unchanged and still runs `waste_detector.pt`; Gemini is not consulted when that endpoint is
+    uncertain. Whether it ever should be is a decision for the numbers this endpoint collects.
+
+    `confidence` is always null. Gemini returns a label and a box, not a calibrated probability,
+    and a fabricated score would be compared against YOLO's real one.
+    """
+    content = validate_image(await file.read(), file.content_type, settings.max_upload_bytes)
+
+    from services.waste import gemini_detect as gemini
+
+    result = await run_in_threadpool(gemini.detect, content, file.filename or "image.jpg")
+
+    if save_candidate and not result.get("error"):
+        result["candidate"] = await run_in_threadpool(
+            gemini.save_candidate, content, file.filename or "image.jpg", result
+        )
+
+    return GeminiWasteResult.model_validate(result)
 
 
 @app.post("/api/waste/debug")

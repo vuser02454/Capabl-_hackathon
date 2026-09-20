@@ -20,7 +20,11 @@ class FakeGeocoder:
         self.calls.append((lat, lon))
         if self.error:
             raise self.error
-        return GeocodedPlace("Bengaluru, Karnataka, India", "Bengaluru", "Karnataka", "India", "560001", "Shivajinagar", None), False
+        return GeocodedPlace(
+            display_name="Bengaluru, Karnataka, India", city="Bengaluru", state="Karnataka",
+            country="India", country_code="in", postcode="560001",
+            neighbourhood="Shivajinagar", water_feature=None,
+        ), False
 
 
 def test_reverse_geocode_endpoint(monkeypatch):

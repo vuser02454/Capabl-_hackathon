@@ -50,3 +50,26 @@ runs/**/*.png
 runs/**/*.jpg
 runs/**/*.jpeg
 yolov8n.pt
+backend/.env*
+
+# Local safety-report database. Holds worker-submitted report text and GPS fixes — reporter
+# content, not source. The schema lives in backend/safety/store.py and the file is recreated on
+# first run, so nothing is lost by keeping it out of history.
+backend/data/*.db
+
+# Cached OpenStreetMap road graphs for worker routing. Refetched on demand; the Overpass query
+# that produces them is in backend/safety/routing.py, so nothing is lost by keeping them out.
+backend/data/route_graph_cache/
+
+# Worker-uploaded photo evidence. Personal content captured by real people at real locations —
+# it belongs on the deployment's persistent disk, never in source history.
+backend/data/report_photos/
+
+# Frontend local environment. `.env.example` IS committed; a developer's own .env is not.
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Ultralytics label caches. Regenerated automatically from the label files beside them; the
+# labels and manifests ARE kept, because those are the evidence.
+*.cache

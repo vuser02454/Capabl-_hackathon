@@ -6,6 +6,8 @@
  *   Output:     AirAgentResult
  */
 import type { LocationProfile } from '../../data/locations';
+import { getPollutantMetadata } from '../../data/pollutantMetadata';
+import { evaluateComparison } from '../../lib/pollutantInterpretation';
 import { clamp, formatNumber, riskLevelFor, roundHalfUp } from '../../lib/risk';
 import type { AirAgentResult, Finding, Measurement } from '../../types/agents';
 import { AppError } from '../errors';
@@ -15,11 +17,21 @@ import type { Agent, AgentTrace } from './agent';
 
 type PollutantKey = 'pm25' | 'pm10' | 'no2' | 'o3';
 
-const POLLUTANTS: Array<{ key: PollutantKey; label: string; weight: number; reference: number; guideline: number; finding: string }> = [
-  { key: 'pm25', label: 'PM2.5', weight: 0.55, reference: 100, guideline: 15, finding: 'Elevated PM2.5' },
-  { key: 'pm10', label: 'PM10', weight: 0.25, reference: 180, guideline: 45, finding: 'Elevated PM10' },
-  { key: 'no2', label: 'NO₂', weight: 0.12, reference: 80, guideline: 25, finding: 'Elevated NO₂' },
-  { key: 'o3', label: 'O₃', weight: 0.08, reference: 100, guideline: 100, finding: 'Elevated ozone' },
+const POLLUTANTS: Array<{
+  key: PollutantKey;
+  label: string;
+  weight: number;
+  reference: number;
+  guideline: number;
+  finding: string;
+  averagingPeriod: string;
+  cpcbStandard: number;
+  cpcbAveragingPeriod: string;
+}> = [
+  { key: 'pm25', label: 'PM2.5', weight: 0.55, reference: 100, guideline: 15, finding: 'Elevated PM2.5', averagingPeriod: '24-hour', cpcbStandard: 60, cpcbAveragingPeriod: '24-hour' },
+  { key: 'pm10', label: 'PM10', weight: 0.25, reference: 180, guideline: 45, finding: 'Elevated PM10', averagingPeriod: '24-hour', cpcbStandard: 100, cpcbAveragingPeriod: '24-hour' },
+  { key: 'no2', label: 'NO₂', weight: 0.12, reference: 80, guideline: 25, finding: 'Elevated NO₂', averagingPeriod: '24-hour', cpcbStandard: 80, cpcbAveragingPeriod: '24-hour' },
+  { key: 'o3', label: 'O₃', weight: 0.08, reference: 100, guideline: 100, finding: 'Elevated ozone', averagingPeriod: '8-hour', cpcbStandard: 100, cpcbAveragingPeriod: '8-hour' },
 ];
 
 const NAQI: Record<'pm25' | 'pm10', Array<[number, number, number, number]>> = {
@@ -67,16 +79,53 @@ export class AirQualityAgent implements Agent<LocationProfile, AirAgentResult> {
     let weightTotal = 0;
 
     for (const p of POLLUTANTS) {
+      const meta = getPollutantMetadata(p.key);
+      const healthEffects = meta?.health_effects ?? null;
+      const isSecondary = meta?.is_secondary_pollutant ?? false;
+      const precursors = meta?.precursor_pollutants ?? null;
+      const majorSources = meta?.primary_sources ?? null;
+
       const value = reading[p.key];
       if (value === null || value < 0) {
         warnings.push(`${p.label} reading unavailable from ${reading.stationName}`);
-        measurements.push({ key: p.key, label: p.label, value: null, unit: 'µg/m³', threshold: p.guideline, thresholdLabel: 'WHO guideline', subScore: null, status: 'missing' });
+        measurements.push({
+          key: p.key,
+          label: p.label,
+          value: null,
+          unit: 'µg/m³',
+          threshold: p.guideline,
+          thresholdLabel: 'WHO guideline',
+          subScore: null,
+          status: 'missing',
+          averagingPeriod: p.averagingPeriod,
+          whoReference: p.guideline,
+          whoAveragingPeriod: p.averagingPeriod,
+          cpcbStandard: p.cpcbStandard,
+          cpcbAveragingPeriod: p.cpcbAveragingPeriod,
+          comparisonStatus: 'missing_data',
+          comparisonNote: 'Measurement unavailable.',
+          healthEffects,
+          majorSources,
+          isSecondaryPollutant: isSecondary,
+          precursorPollutants: precursors,
+        });
         continue;
       }
       const subScore = clamp(value / p.reference);
       weighted += p.weight * subScore;
       weightTotal += p.weight;
       const exceeds = value > p.guideline;
+
+      const comp = evaluateComparison(
+        value,
+        'µg/m³',
+        p.averagingPeriod,
+        p.guideline,
+        'µg/m³',
+        p.averagingPeriod,
+        subScore,
+      );
+
       measurements.push({
         key: p.key,
         label: p.label,
@@ -86,6 +135,21 @@ export class AirQualityAgent implements Agent<LocationProfile, AirAgentResult> {
         thresholdLabel: 'WHO guideline',
         subScore: roundHalfUp(subScore),
         status: subScore >= 0.7 ? 'critical' : exceeds ? 'elevated' : 'normal',
+        averagingPeriod: p.averagingPeriod,
+        whoReference: p.guideline,
+        whoAveragingPeriod: p.averagingPeriod,
+        cpcbStandard: p.cpcbStandard,
+        cpcbAveragingPeriod: p.cpcbAveragingPeriod,
+        ratioToReference: comp.ratio,
+        differenceToReference: comp.difference,
+        percentageDifference: comp.percentageDifference,
+        interpretationLabel: comp.interpretationLabel,
+        comparisonStatus: comp.status,
+        comparisonNote: comp.note,
+        healthEffects,
+        majorSources,
+        isSecondaryPollutant: isSecondary,
+        precursorPollutants: precursors,
       });
       if (exceeds) {
         findings.push({

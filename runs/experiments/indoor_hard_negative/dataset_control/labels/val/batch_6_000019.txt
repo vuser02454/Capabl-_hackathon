@@ -1,0 +1,1 @@
+../../../dataset/labels/val/batch_6_000019.txt

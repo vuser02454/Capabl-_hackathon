@@ -21,6 +21,7 @@ import type { WasteSegregationResult } from '../../types/agents';
 import { Button } from '../ui/Button';
 import { CameraCapture, cameraSupported } from '../ui/CameraCapture';
 import { DashboardCard } from '../ui/DashboardCard';
+import { DataModeBadge } from '../ui/DataModeBadge';
 
 const SEGREGATION_STYLE: Record<string, string> = {
   biodegradable: 'text-risk-low border-risk-low/30 bg-risk-low/[0.08]',
@@ -81,6 +82,7 @@ export function RealWasteDetection() {
       subtitle="YOLO detection + trained waste classifier — not simulated"
       icon={ScanSearch}
       iconColor="#2563eb"
+      actions={<DataModeBadge tone="live" label="Real model" size="md" />}
     >
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">

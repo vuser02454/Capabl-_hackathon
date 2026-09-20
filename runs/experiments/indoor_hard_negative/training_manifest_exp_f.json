@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-19T21:50:38.543256+00:00",
+  "purpose": "EXPERIMENT F (CONTROL) - TACO only, NO indoor hard negatives",
+  "data_yaml": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/dataset_control/data.yaml",
+  "pretrained_base": "/Users/vvijwal01gmail.com/agenticAI/backend/models/yolov8n.pt",
+  "device": "mps",
+  "seed": 1337,
+  "epochs": 40,
+  "patience": 12,
+  "batch": 16,
+  "imgsz": 640,
+  "run_dir": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/exp_f_yolov8n_control",
+  "best_checkpoint": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/exp_f_yolov8n_control/weights/best.pt",
+  "saved_checkpoints": [
+    "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/checkpoints/best_exp_f.pt",
+    "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/checkpoints/last_exp_f.pt"
+  ],
+  "metrics_summary": {
+    "mAP50": 0.34150405703864906,
+    "mAP50_95": 0.22155127091741744,
+    "precision": 0.40621656449501264,
+    "recall": 0.37483247881308807
+  }
+}

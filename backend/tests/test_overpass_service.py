@@ -245,7 +245,7 @@ class StubNominatim:
         self.payload = payload
         self.queries: List[str] = []
 
-    def search(self, query: str, limit: int) -> Any:
+    def search(self, query: str, limit: int, country_codes=None) -> Any:
         self.queries.append(query)
         return self.payload
 

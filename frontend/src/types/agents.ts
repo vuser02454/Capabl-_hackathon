@@ -27,6 +27,21 @@ export interface Measurement {
   thresholdLabel: string | null;
   subScore: number | null;
   status: MeasurementStatus;
+  averagingPeriod?: string | null;
+  whoReference?: number | null;
+  whoAveragingPeriod?: string | null;
+  cpcbStandard?: number | null;
+  cpcbAveragingPeriod?: string | null;
+  ratioToReference?: number | null;
+  differenceToReference?: number | null;
+  percentageDifference?: number | null;
+  interpretationLabel?: string | null;
+  comparisonStatus?: string | null;
+  comparisonNote?: string | null;
+  healthEffects?: string[] | null;
+  majorSources?: Array<{ category: string; description: string; icon?: string; is_contextual?: boolean }> | null;
+  isSecondaryPollutant?: boolean | null;
+  precursorPollutants?: string[] | null;
 }
 
 export interface Finding {

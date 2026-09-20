@@ -1,0 +1,141 @@
+{
+  "experiment": "E",
+  "confidence_threshold": 0.25,
+  "test_images": 55,
+  "indoor_hard_negative": {
+    "fp_image_rate": {
+      "baseline": 0.3818,
+      "experiment_e": 0.1455,
+      "absolute_change": -0.2363,
+      "relative_reduction_pct": 61.89
+    },
+    "fp_images": {
+      "baseline": 21,
+      "experiment_e": 8,
+      "reduction": 13,
+      "relative_reduction_pct": 61.9
+    },
+    "total_false_detections": {
+      "baseline": 28,
+      "experiment_e": 11,
+      "reduction": 17,
+      "relative_reduction_pct": 60.71
+    },
+    "per_class": {
+      "metal_cans": {
+        "baseline": 7,
+        "experiment_e": 3,
+        "change": -4
+      },
+      "paper_waste": {
+        "baseline": 9,
+        "experiment_e": 2,
+        "change": -7
+      },
+      "plastic_bags": {
+        "baseline": 11,
+        "experiment_e": 4,
+        "change": -7
+      },
+      "plastic_bottles": {
+        "baseline": 1,
+        "experiment_e": 2,
+        "change": 1
+      }
+    }
+  },
+  "taco_held_out_test": {
+    "images": 98,
+    "instances": 166,
+    "protocol": "ultralytics val(), conf=0.001, iou=0.7, imgsz=640, device=cpu (standard mAP protocol)",
+    "baseline": {
+      "mAP50": 0.3016,
+      "mAP50_95": 0.19,
+      "precision": 0.3024,
+      "recall": 0.3592,
+      "per_class": {
+        "metal_cans": {
+          "mAP50": 0.3791,
+          "p": 0.4037,
+          "r": 0.3571
+        },
+        "paper_waste": {
+          "mAP50": 0.2204,
+          "p": 0.2047,
+          "r": 0.2571
+        },
+        "plastic_bags": {
+          "mAP50": 0.282,
+          "p": 0.2635,
+          "r": 0.4789
+        },
+        "plastic_bottles": {
+          "mAP50": 0.325,
+          "p": 0.3377,
+          "r": 0.3438
+        }
+      }
+    },
+    "experiment_e": {
+      "mAP50": 0.3294,
+      "mAP50_95": 0.2131,
+      "precision": 0.3485,
+      "recall": 0.3964,
+      "per_class": {
+        "metal_cans": {
+          "mAP50": 0.2964,
+          "p": 0.455,
+          "r": 0.2857
+        },
+        "paper_waste": {
+          "mAP50": 0.3319,
+          "p": 0.3827,
+          "r": 0.2303
+        },
+        "plastic_bags": {
+          "mAP50": 0.3066,
+          "p": 0.2998,
+          "r": 0.507
+        },
+        "plastic_bottles": {
+          "mAP50": 0.3826,
+          "p": 0.2565,
+          "r": 0.5625
+        }
+      }
+    },
+    "delta": {
+      "mAP50": 0.0278,
+      "mAP50_95": 0.0231,
+      "precision": 0.0461,
+      "recall": 0.0372
+    }
+  },
+  "provenance": {
+    "model_architecture": "YOLOv8n (ultralytics 8.4.155)",
+    "pretrained_base": "backend/models/yolov8n.pt",
+    "checkpoint_used": "runs/experiments/indoor_hard_negative/exp_e_yolov8n/weights/best.pt",
+    "checkpoint_sha256": "184c6af984895eb11c0dbb65c6f9549b0f1a715c0d0459ca81169b54bd541a06",
+    "last_pt_sha256": "c6ac047d513ec8155649a03bdf9dea5bf35feb923c02d5e3846d187da37152da",
+    "baseline_checkpoint": "backend/models/waste_detector.pt",
+    "baseline_sha256": "06f49c649ac327113dc401e53fb6d6d6db1731f012c7ecf882262cbe53be1990",
+    "dataset_path": "runs/experiments/indoor_hard_negative/dataset/data.yaml",
+    "train_images": 877,
+    "val_images": 183,
+    "taco_test_images": 98,
+    "indoor_test_images": 55,
+    "epochs_configured": 40,
+    "epochs_completed": 37,
+    "best_epoch": 25,
+    "patience": 12,
+    "early_stopped": true,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0": 0.01,
+    "seed": 1337,
+    "device": "mps",
+    "confidence_threshold": 0.25,
+    "timestamp_utc": "2026-09-19T20:56:24.978222+00:00",
+    "git_commit": "f111bc953fb702b10a2cd675367b50da1c38b059"
+  }
+}

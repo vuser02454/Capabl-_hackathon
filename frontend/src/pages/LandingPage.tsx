@@ -15,11 +15,9 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { EnterTransition } from '../components/landing/EnterTransition';
-import { EnvironmentalHotspots } from '../components/landing/EnvironmentalHotspots';
+import { RoleSelect } from '../components/landing/RoleSelect';
 import { EnvironmentalParticles } from '../components/landing/EnvironmentalParticles';
 import { EnvironmentalScene } from '../components/landing/EnvironmentalScene';
-import { buildHotspots } from '../components/landing/environmentState';
-import { FinalCta } from '../components/landing/FinalCta';
 import { MultiSignalCoordinator } from '../components/landing/MultiSignalCoordinator';
 import { NarrativeText } from '../components/landing/NarrativeText';
 import { FixedNavigation, ScrollProgressIndicator, TelemetryStrip } from '../components/landing/SceneChrome';
@@ -49,7 +47,6 @@ export function LandingPage() {
   const [entering, setEntering] = useState<EnterTarget | null>(null);
 
   const { display, state } = analysis;
-  const hotspots = useMemo(() => buildHotspots({ display }), [display]);
 
   /** Entering an agent plays a short transition, then hands off to the existing route. */
   const enter = useCallback((target: EnterTarget) => {
@@ -74,11 +71,6 @@ export function LandingPage() {
   );
   useZoneShortcuts(shortcuts, !entering);
 
-  const startAnalysis = useCallback(() => {
-    void analysis.runAnalysis();
-    enter('dashboard');
-  }, [analysis, enter]);
-
   return (
     <div className="relative bg-ink-950">
       {/* The scroll track's height sets how long the story takes to play. */}
@@ -98,18 +90,13 @@ export function LandingPage() {
           <MultiSignalCoordinator story={story} narrow={narrow} />
           <NarrativeText story={story} narrow={narrow} />
 
-          <EnvironmentalHotspots
-            sceneRef={sceneRef}
-            hotspots={hotspots}
-            story={story}
-            narrow={narrow}
-            touch={touch}
-            active={active}
-            onActivate={setActive}
-            onEnter={enter}
-          />
-
           <FixedNavigation onDashboard={() => enter('dashboard')} onHowItWorks={() => navigate('how-it-works')} />
+
+          {/* Role chooser. Overlaid on the existing composition — no new background or
+              animation, and the scroll story underneath is untouched. */}
+          <div className="pointer-events-none fixed right-5 bottom-5 z-30 sm:right-8 sm:bottom-8">
+            <RoleSelect />
+          </div>
           <ScrollProgressIndicator story={story} narrow={narrow} />
           <TelemetryStrip
             location={state.result?.location ?? state.selectedLocation}
@@ -120,12 +107,10 @@ export function LandingPage() {
           />
 
           <p className="pointer-events-none absolute bottom-10 left-1/2 z-30 -translate-x-1/2 font-mono text-[9px] whitespace-nowrap text-white/50 uppercase tracking-[0.16em] sm:bottom-14 sm:text-[9.5px]">
-            {touch ? 'Scroll to play · tap a zone' : 'Scroll to play · A · W · S to enter an agent'}
+            Scroll to play · choose a role to continue
           </p>
         </div>
       </div>
-
-      <FinalCta onStart={startAnalysis} onDashboard={() => enter('dashboard')} />
 
       <AnimatePresence>
         {entering && (

@@ -64,6 +64,8 @@ export interface PlaceMatch {
   importance: number | null;
   /** True when the match is itself a water feature — a lake, river, reservoir and so on. */
   isWater: boolean;
+  /** ISO 3166-1 alpha-2 from Nominatim's structured address. Null when unverified. */
+  countryCode?: string | null;
 }
 
 export interface PlaceSearchResponse {

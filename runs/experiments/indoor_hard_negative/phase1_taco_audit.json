@@ -1,0 +1,71 @@
+{
+  "splits": {
+    "train": {
+      "image_count": 742,
+      "label_count": 742,
+      "box_count": 1358,
+      "per_class_boxes": {
+        "5": 242,
+        "4": 640,
+        "3": 261,
+        "2": 205,
+        "0": 2,
+        "1": 8
+      },
+      "sample_hashes": {
+        "batch_10_000001.jpg": "bcae35e5833d83db0070b6eb1841c522b456e7691aab8a68615ee8b293bbf7af",
+        "batch_10_000003.jpg": "335e33a288683414ecb3a0977a9673ebb2fc8cc233226ce092cd7df66e234c48",
+        "batch_10_000004.jpg": "0fb6da0695137ce3ac61a715b364e7c923dc2b8c23c80c699306dc489e3c9414",
+        "batch_10_000005.jpg": "403178eba21e174a7db37742afaf8978eff77a108271358923e1db847c1d6181",
+        "batch_10_000008.jpg": "8756f414f428bc1de601d2ecc98af9b2da418383283ec335658af5484e94d931"
+      }
+    },
+    "val": {
+      "image_count": 148,
+      "label_count": 148,
+      "box_count": 290,
+      "per_class_boxes": {
+        "5": 61,
+        "4": 134,
+        "3": 55,
+        "2": 40
+      },
+      "sample_hashes": {
+        "batch_10_000000.jpg": "31d1c7d06031b6fc79943e594198874e788cf74ed896b97c473548617d4a9cc0",
+        "batch_10_000002.jpg": "940f6f601cf013746887710e50a8ccb54a1f6ca6feb34574aa67d46b912667e3",
+        "batch_10_000010.jpg": "d350cb029b3dac375ad2c147e756b9baacce5cecb9a13a0394c1c38b51b0f7b4",
+        "batch_10_000011.jpg": "11bcec65e44e72799d47e33f030cbaabd3ac49dba8a0341406a92c41b452d55d",
+        "batch_10_000022.jpg": "9e30fe3ddd154c70d05e6d2e054b922cf04892561dc9e9cf199a9df0b4c1f238"
+      }
+    },
+    "test": {
+      "image_count": 98,
+      "label_count": 98,
+      "box_count": 166,
+      "per_class_boxes": {
+        "4": 71,
+        "5": 32,
+        "3": 35,
+        "2": 28
+      },
+      "sample_hashes": {
+        "batch_10_000006.jpg": "2f03d3e6f66dbe1f1ab6c7058b99eee593f86c922fa01b371fbe28b5fdc7961f",
+        "batch_10_000059.jpg": "62973914612778df920fdc3251dfd78bcbb8b4aaf6956fbec7571710a8938096",
+        "batch_10_000063.jpg": "07b06dec54eb1592dc8c7f688ba49a9ce46942c194ffb5f440eacde05e9277f0",
+        "batch_10_000066.jpg": "cf1fe7abaee61d91b99b4be08cd55f9d989a8f1dd8114cf3c15010da7c3765d4",
+        "batch_10_000073.jpg": "2b57660345f1a8eb5a4e924fc2434c2a4f683ab101cf6cdc009bc29ca22b0823"
+      }
+    }
+  },
+  "total_images": 988,
+  "total_boxes": 1814,
+  "classes": {
+    "0": "ewaste",
+    "1": "food_waste",
+    "2": "metal_cans",
+    "3": "paper_waste",
+    "4": "plastic_bags",
+    "5": "plastic_bottles"
+  },
+  "cross_split_duplicate_groups": 0
+}

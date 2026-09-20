@@ -12,6 +12,11 @@ from typing import List, Optional, Tuple
 from agents.base import Agent, AgentTrace
 from core.errors import SensorDataUnavailableError
 from core.risk import clamp, format_number, risk_level_for, round_half_up
+from data.pollutant_metadata import (
+    compare_to_reference,
+    generate_contextual_sources,
+    get_pollutant_info,
+)
 from schemas import AirAgentResult, Finding, GeoPoint, LocationContext, Measurement
 from services.location_service import location_label
 from services.openaq_service import AirQualityProvider
@@ -25,13 +30,16 @@ class Pollutant:
     reference: float  # concentration treated as maximum risk (µg/m³)
     guideline: float  # WHO 2021 24-hour guideline (O3: 8-hour)
     finding: str
+    averaging_period: str = "24-hour"
+    cpcb_standard: Optional[float] = None
+    cpcb_averaging_period: Optional[str] = None
 
 
 POLLUTANTS: Tuple[Pollutant, ...] = (
-    Pollutant("pm25", "PM2.5", 0.55, 100.0, 15.0, "Elevated PM2.5"),
-    Pollutant("pm10", "PM10", 0.25, 180.0, 45.0, "Elevated PM10"),
-    Pollutant("no2", "NO₂", 0.12, 80.0, 25.0, "Elevated NO₂"),
-    Pollutant("o3", "O₃", 0.08, 100.0, 100.0, "Elevated ozone"),
+    Pollutant("pm25", "PM2.5", 0.55, 100.0, 15.0, "Elevated PM2.5", "24-hour", 60.0, "24-hour"),
+    Pollutant("pm10", "PM10", 0.25, 180.0, 45.0, "Elevated PM10", "24-hour", 100.0, "24-hour"),
+    Pollutant("no2", "NO₂", 0.12, 80.0, 25.0, "Elevated NO₂", "24-hour", 80.0, "24-hour"),
+    Pollutant("o3", "O₃", 0.08, 100.0, 100.0, "Elevated ozone", "8-hour", 100.0, "8-hour"),
 )
 
 # India National AQI breakpoints: (conc_lo, conc_hi, index_lo, index_hi).
@@ -91,14 +99,39 @@ class AirQualityAgent(Agent[LocationContext, AirAgentResult]):
         weight_total = 0.0
 
         for p in POLLUTANTS:
+            info = get_pollutant_info(p.key)
+            health_effects = info.get("health_effects") if info else None
+            is_secondary = info.get("is_secondary_pollutant") if info else False
+            precursors = info.get("precursor_pollutants") if info else None
+            geo_ctx = getattr(location, "geographic_context", None)
+            major_sources = generate_contextual_sources(p.key, geo_ctx)
+
             value: Optional[float] = getattr(reading, p.key)
             if value is None or value < 0:
                 missing += 1
                 source = reading.station_name if reading.is_mock else "nearby OpenAQ stations"
                 warnings.append(f"{p.label} reading unavailable from {source}")
                 measurements.append(
-                    Measurement(key=p.key, label=p.label, value=None, unit="µg/m³",
-                                threshold=p.guideline, threshold_label="WHO guideline", status="missing")
+                    Measurement(
+                        key=p.key,
+                        label=p.label,
+                        value=None,
+                        unit="µg/m³",
+                        threshold=p.guideline,
+                        threshold_label="WHO guideline",
+                        status="missing",
+                        averaging_period=p.averaging_period,
+                        who_reference=p.guideline,
+                        who_averaging_period=p.averaging_period,
+                        cpcb_standard=p.cpcb_standard,
+                        cpcb_averaging_period=p.cpcb_averaging_period,
+                        comparison_status="missing_data",
+                        comparison_note="Measurement unavailable.",
+                        health_effects=health_effects,
+                        major_sources=major_sources,
+                        is_secondary_pollutant=is_secondary,
+                        precursor_pollutants=precursors,
+                    )
                 )
                 continue
 
@@ -107,9 +140,43 @@ class AirQualityAgent(Agent[LocationContext, AirAgentResult]):
             weight_total += p.weight
             exceeds = value > p.guideline
             status = "critical" if sub_score >= 0.7 else "elevated" if exceeds else "normal"
+
+            comparison = compare_to_reference(
+                measured_value=value,
+                measured_unit="µg/m³",
+                measured_period=p.averaging_period,
+                reference_value=p.guideline,
+                reference_unit="µg/m³",
+                reference_period=p.averaging_period,
+                sub_score=sub_score,
+            )
+
             measurements.append(
-                Measurement(key=p.key, label=p.label, value=value, unit="µg/m³", threshold=p.guideline,
-                            threshold_label="WHO guideline", sub_score=round_half_up(sub_score), status=status)
+                Measurement(
+                    key=p.key,
+                    label=p.label,
+                    value=value,
+                    unit="µg/m³",
+                    threshold=p.guideline,
+                    threshold_label="WHO guideline",
+                    sub_score=round_half_up(sub_score),
+                    status=status,
+                    averaging_period=p.averaging_period,
+                    who_reference=p.guideline,
+                    who_averaging_period=p.averaging_period,
+                    cpcb_standard=p.cpcb_standard,
+                    cpcb_averaging_period=p.cpcb_averaging_period,
+                    ratio_to_reference=comparison.get("ratio"),
+                    difference_to_reference=comparison.get("difference"),
+                    percentage_difference=comparison.get("percentage_difference"),
+                    interpretation_label=comparison.get("interpretation_label"),
+                    comparison_status=comparison.get("status"),
+                    comparison_note=comparison.get("note"),
+                    health_effects=health_effects,
+                    major_sources=major_sources,
+                    is_secondary_pollutant=is_secondary,
+                    precursor_pollutants=precursors,
+                )
             )
             if exceeds:
                 findings.append(

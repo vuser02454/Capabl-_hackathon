@@ -10,7 +10,17 @@ export interface Settings {
   fault: FaultInjection;
 }
 
-const DEFAULTS: Settings = { demoMode: true, apiBaseUrl: '', speed: 'normal', fault: 'none' };
+/** Where the API lives.
+ *
+ * Empty in development: requests go to a relative path and Vite's dev proxy forwards them to the
+ * backend, which keeps the browser on one origin and means no CORS in local work. In a hosted
+ * build there is no proxy, so `VITE_API_BASE_URL` supplies the backend's own origin at build time.
+ *
+ * This is a URL, not a secret — VITE_* variables are compiled into a bundle every visitor
+ * downloads, so no key may ever be read this way. */
+const API_BASE_URL = (import.meta.env?.VITE_API_BASE_URL as string | undefined)?.trim() ?? '';
+
+const DEFAULTS: Settings = { demoMode: true, apiBaseUrl: API_BASE_URL, speed: 'normal', fault: 'none' };
 const STORAGE_KEY = 'ecosentinel.settings.v1';
 
 function loadSettings(): Settings {
@@ -20,7 +30,10 @@ function loadSettings(): Settings {
     const parsed = JSON.parse(raw) as Partial<Settings>;
     return {
       demoMode: typeof parsed.demoMode === 'boolean' ? parsed.demoMode : DEFAULTS.demoMode,
-      apiBaseUrl: typeof parsed.apiBaseUrl === 'string' ? parsed.apiBaseUrl : DEFAULTS.apiBaseUrl,
+      // A build-time base URL wins over a stale value saved in a previous deployment's
+      // localStorage; otherwise a redeploy to a new backend would keep talking to the old one.
+      apiBaseUrl: API_BASE_URL
+        || (typeof parsed.apiBaseUrl === 'string' ? parsed.apiBaseUrl : DEFAULTS.apiBaseUrl),
       speed: parsed.speed === 'fast' ? 'fast' : 'normal',
       fault: 'none',
     };

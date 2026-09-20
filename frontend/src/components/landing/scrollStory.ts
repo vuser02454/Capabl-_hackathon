@@ -1,10 +1,14 @@
 /**
- * The environmental timeline.
+ * The safety-intelligence timeline.
  *
  * Scroll position is the single source of truth for the *story*: sun and moon, sky colour,
  * factory emergence, smoke, river debris, land waste, and the narrative all read from one 0→1
  * progress value. Nothing latches, so the whole sequence scrubs backwards exactly as it runs
  * forwards.
+ *
+ * Only the COPY below describes the C3 product; the phase ids, their scroll boundaries and every
+ * visual they drive are the original environmental scene and are deliberately untouched. Renaming
+ * a phase id would change what the scene renders, which is not what this is.
  *
  * The world's own life — drifting clouds, river flow, wind, rising smoke, debris travelling
  * downstream — is deliberately NOT on this timeline. Those are independent loops that keep
@@ -27,43 +31,43 @@ export const PHASES: Phase[] = [
     id: 'healthy',
     start: 0,
     end: 0.15,
-    title: 'The environment is always moving.',
-    support: 'Every environment leaves signals.',
+    title: 'Every workplace leaves safety signals.',
+    support: 'Every incident can reveal a pattern before it becomes serious.',
   },
   {
     id: 'air',
     start: 0.15,
     end: 0.35,
-    title: 'Air tells the first story.',
-    support: 'Particles accumulate before pollution becomes obvious.',
+    title: 'Workers report. AI connects the signals.',
+    support: 'A hazard, a near-miss, a photo and a confirmed location.',
   },
   {
     id: 'water',
     start: 0.35,
     end: 0.55,
-    title: 'Water remembers.',
-    support: 'What enters the environment eventually becomes a signal.',
+    title: 'Near-misses can reveal emerging safety patterns.',
+    support: 'Risk factors are extracted and classified by rules, not guesswork.',
   },
   {
     id: 'waste',
     start: 0.55,
     end: 0.75,
-    title: 'What we leave behind becomes a signal.',
-    support: 'Visible waste becomes structured environmental intelligence.',
+    title: 'Related reports in one place start to mean something.',
+    support: 'Three or more within a kilometre become a candidate for review.',
   },
   {
     id: 'signals',
     start: 0.75,
     end: 0.9,
-    title: "The environment doesn't speak in isolation.",
-    support: 'Individual signals become intelligence when they connect.',
+    title: 'Safety teams review the evidence. Workers receive actionable alerts.',
+    support: 'Nothing reaches a worker until a safety officer publishes it.',
   },
   {
     id: 'coordinator',
     start: 0.9,
     end: 1,
-    title: 'Together, the signals tell a story.',
-    support: 'Air, water and waste, reasoned over as one assessment.',
+    title: 'From incident reports to safer decisions.',
+    support: 'AI analyses and connects the evidence. People decide.',
   },
 ];
 

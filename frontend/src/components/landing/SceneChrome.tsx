@@ -99,11 +99,12 @@ export function TelemetryStrip({
   running: boolean;
   hidden: boolean;
 }) {
+  // Labels only. The values, their conditions and the dynamic location are unchanged.
   const items: Array<[string, string]> = [
-    ['Environment', running ? 'Scanning' : 'Live'],
-    ['Specialist agents', '3'],
-    ['Coordinator', coordinatorOnline ? 'Online' : 'Awaiting'],
-    ['Data mode', mode === 'demo' ? 'Demo' : 'Live'],
+    ['Safety intelligence', running ? 'Scanning' : 'Live'],
+    ['Safety agents', 'Active'],
+    ['Safety analyst', coordinatorOnline ? 'Online' : 'Awaiting'],
+    ['Incident data', mode === 'demo' ? 'Demo' : 'Live'],
     ['Location', location],
   ];
 

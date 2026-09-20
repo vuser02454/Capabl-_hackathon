@@ -1,0 +1,202 @@
+{
+  "experiment": "qwen_local",
+  "generated_at": "2026-09-20T00:18:30.358559+00:00",
+  "model_id": "Qwen/Qwen2-VL-2B-Instruct",
+  "device": "mps",
+  "dtype": "float32",
+  "max_edge_px": 640,
+  "load_seconds": 27.0,
+  "peak_rss_gb": 6.99,
+  "torch": "2.8.0",
+  "python": "3.9.6",
+  "results": [
+    {
+      "image_id": "bottle_C_close",
+      "path": "/private/tmp/claude-501/-Users-vvijwal01gmail-com-agenticAI/1f297bf6-9c74-43fe-b859-26a35e0daf0b/scratchpad/scale_test/bottle_C_close.jpg",
+      "original_size": [
+        1080,
+        1920
+      ],
+      "inference_size": [
+        360,
+        640
+      ],
+      "latency_s": 10.47,
+      "raw_response": "```json\n{\n  \"objects\": []\n}\n```",
+      "objects": [],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "waste"
+    },
+    {
+      "image_id": "bottles_scene",
+      "path": "/private/tmp/claude-501/-Users-vvijwal01gmail-com-agenticAI/1f297bf6-9c74-43fe-b859-26a35e0daf0b/scratchpad/bottles_scene.png",
+      "original_size": [
+        1599,
+        877
+      ],
+      "inference_size": [
+        640,
+        351
+      ],
+      "latency_s": 49.64,
+      "raw_response": "{\"objects\": [{\"class\": \"plastic_bottles\", \"bbox\": [443, 200, 500, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [400, 200, 456, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [392, 200, 448, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [354, 200, 400, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [306, 200, 362, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [260, 200, 316, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [210, 200, 266, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [154, 200, 210, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [106, 200, 154, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [90, 200, 106, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [84, 200, 90, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [79, 200, 84, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [70, 200, 79, 300], \"description\": \"...\"}, {\"class\": \"plastic_bottles\", \"bbox\": [64, 200,",
+      "objects": [],
+      "malformed": [],
+      "parse_ok": false,
+      "parse_error": "not valid JSON: Expecting value: line 1 column 1119 (char 1118)",
+      "kind": "waste"
+    },
+    {
+      "image_id": "coke_can_indoor",
+      "path": "/private/tmp/claude-501/-Users-vvijwal01gmail-com-agenticAI/1f297bf6-9c74-43fe-b859-26a35e0daf0b/scratchpad/product_test/coke_can_indoor.png",
+      "original_size": [
+        1024,
+        559
+      ],
+      "inference_size": [
+        640,
+        349
+      ],
+      "latency_s": 8.33,
+      "raw_response": "{\"objects\": [{\"class\": \"plastic_bottles\", \"bbox\": [429, 275, 570, 875], \"description\": \"...\"}]}",
+      "objects": [
+        {
+          "class": "plastic_bottles",
+          "bbox": [
+            274.6,
+            96.0,
+            364.8,
+            305.4
+          ],
+          "confidence": null,
+          "description": "..."
+        }
+      ],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "waste"
+    },
+    {
+      "image_id": "bottle_frame",
+      "path": "/private/tmp/claude-501/-Users-vvijwal01gmail-com-agenticAI/1f297bf6-9c74-43fe-b859-26a35e0daf0b/scratchpad/bottle_frame.png",
+      "original_size": [
+        1455,
+        1086
+      ],
+      "inference_size": [
+        640,
+        478
+      ],
+      "latency_s": 4.78,
+      "raw_response": "```json\n{\n  \"objects\": []\n}\n```",
+      "objects": [],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "waste"
+    },
+    {
+      "image_id": "plastic_bag",
+      "path": "/Users/vvijwal01gmail.com/agenticAI/runs/debug_waste/original/plastic_bag.jpg",
+      "original_size": [
+        820,
+        550
+      ],
+      "inference_size": [
+        640,
+        429
+      ],
+      "latency_s": 5.2,
+      "raw_response": "{\"objects\": [{\"class\": \"plastic_bags\", \"bbox\": [333, 109, 666, 897], \"description\": \"...\"}]}",
+      "objects": [
+        {
+          "class": "plastic_bags",
+          "bbox": [
+            213.1,
+            46.8,
+            426.2,
+            384.8
+          ],
+          "confidence": null,
+          "description": "..."
+        }
+      ],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "waste"
+    },
+    {
+      "image_id": "paper",
+      "path": "/Users/vvijwal01gmail.com/agenticAI/runs/debug_waste/original/paper.jpg",
+      "original_size": [
+        1170,
+        587
+      ],
+      "inference_size": [
+        640,
+        321
+      ],
+      "latency_s": 5.41,
+      "raw_response": "{\"objects\": [{\"class\": \"paper_waste\", \"bbox\": [0, 0, 1000, 1000], \"description\": \"...\"}]}",
+      "objects": [
+        {
+          "class": "paper_waste",
+          "bbox": [
+            0.0,
+            0.0,
+            640.0,
+            321.0
+          ],
+          "confidence": null,
+          "description": "..."
+        }
+      ],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "waste"
+    },
+    {
+      "image_id": "S15-4_frame_0007",
+      "path": "/Users/vvijwal01gmail.com/agenticAI/datasets/Alta/S15-4_frame_0007.jpg",
+      "original_size": [
+        450,
+        450
+      ],
+      "inference_size": [
+        450,
+        450
+      ],
+      "latency_s": 2.72,
+      "raw_response": "```json\n{\n  \"objects\": []\n}\n```",
+      "objects": [],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "water"
+    },
+    {
+      "image_id": "S15-4_frame_0015",
+      "path": "/Users/vvijwal01gmail.com/agenticAI/datasets/Alta/S15-4_frame_0015.jpg",
+      "original_size": [
+        450,
+        450
+      ],
+      "inference_size": [
+        450,
+        450
+      ],
+      "latency_s": 2.14,
+      "raw_response": "```json\n{\n  \"objects\": []\n}\n```",
+      "objects": [],
+      "malformed": [],
+      "parse_ok": true,
+      "parse_error": null,
+      "kind": "water"
+    }
+  ]
+}

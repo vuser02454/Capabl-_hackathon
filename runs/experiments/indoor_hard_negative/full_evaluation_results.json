@@ -1,0 +1,92 @@
+{
+  "taco_metrics": {
+    "baseline": {
+      "all": {
+        "precision": 0.3283,
+        "recall": 0.3486,
+        "mAP50": 0.2213,
+        "mAP50_95": 0.149
+      },
+      "per_class": {
+        "ewaste": {
+          "precision": 0.4545,
+          "recall": 0.3571,
+          "mAP50": null
+        },
+        "food_waste": {
+          "precision": 0.2051,
+          "recall": 0.2286,
+          "mAP50": null
+        },
+        "metal_cans": {
+          "precision": 0.287,
+          "recall": 0.4648,
+          "mAP50": null
+        },
+        "paper_waste": {
+          "precision": 0.3667,
+          "recall": 0.3438,
+          "mAP50": null
+        }
+      }
+    },
+    "experiment_e": {
+      "all": {
+        "precision": 0.4076,
+        "recall": 0.2907,
+        "mAP50": 0.2037,
+        "mAP50_95": 0.1404
+      },
+      "per_class": {
+        "ewaste": {
+          "precision": 0.4444,
+          "recall": 0.1429,
+          "mAP50": null
+        },
+        "food_waste": {
+          "precision": 0.5,
+          "recall": 0.1429,
+          "mAP50": null
+        },
+        "metal_cans": {
+          "precision": 0.3452,
+          "recall": 0.4085,
+          "mAP50": null
+        },
+        "paper_waste": {
+          "precision": 0.3409,
+          "recall": 0.4688,
+          "mAP50": null
+        }
+      }
+    }
+  },
+  "indoor_negative_eval": {
+    "baseline": {
+      "total_images": 55,
+      "total_fp_detections": 28,
+      "images_with_fp": 21,
+      "fp_image_rate": 0.3818,
+      "detections_per_image": 0.5091,
+      "per_class_fps": {
+        "plastic_bags": 11,
+        "paper_waste": 9,
+        "metal_cans": 7,
+        "plastic_bottles": 1
+      }
+    },
+    "experiment_e": {
+      "total_images": 55,
+      "total_fp_detections": 11,
+      "images_with_fp": 8,
+      "fp_image_rate": 0.1455,
+      "detections_per_image": 0.2,
+      "per_class_fps": {
+        "metal_cans": 3,
+        "plastic_bags": 4,
+        "paper_waste": 2,
+        "plastic_bottles": 2
+      }
+    }
+  }
+}

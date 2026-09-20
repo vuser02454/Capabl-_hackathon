@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-19T20:41:17.817236+00:00",
+  "purpose": "EXPERIMENT E - Indoor Hard-Negative Detector Experiment",
+  "data_yaml": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/dataset/data.yaml",
+  "pretrained_base": "/Users/vvijwal01gmail.com/agenticAI/backend/models/yolov8n.pt",
+  "device": "mps",
+  "seed": 1337,
+  "epochs": 40,
+  "patience": 12,
+  "batch": 16,
+  "imgsz": 640,
+  "run_dir": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/exp_e_yolov8n",
+  "best_checkpoint": "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/exp_e_yolov8n/weights/best.pt",
+  "saved_checkpoints": [
+    "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/checkpoints/best_exp_e.pt",
+    "/Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/checkpoints/last_exp_e.pt"
+  ],
+  "metrics_summary": {
+    "mAP50": 0.3347288274599177,
+    "mAP50_95": 0.21305181605609985,
+    "precision": 0.3806755064963687,
+    "recall": 0.4111154761336107
+  }
+}

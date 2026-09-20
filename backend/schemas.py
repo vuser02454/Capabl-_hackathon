@@ -56,6 +56,10 @@ class PlaceSearchRequest(ApiModel):
 
     query: str = Field(min_length=1, max_length=200)
     limit: int = Field(default=5, ge=1, le=10)
+    #: ISO 3166-1 alpha-2 codes, comma separated, restricting the search. Defaults to India:
+    #: this is an India-only safety application, and an unrestricted search returns Whitefield,
+    #: New Hampshire above Whitefield, Bengaluru. Pass "" to search worldwide.
+    country_codes: Optional[str] = Field(default="in", max_length=64)
 
 
 class PlaceMatch(ApiModel):
@@ -67,10 +71,14 @@ class PlaceMatch(ApiModel):
     importance: Optional[float] = None
     #: True when the match is itself a water feature — a lake, river, reservoir and so on.
     is_water: bool = False
+    #: ISO 3166-1 alpha-2 from Nominatim's structured address. None when unverified.
+    country_code: Optional[str] = None
 
 
 class PlaceSearchResponse(ApiModel):
     query: str
+    #: Which countries the search was restricted to, echoed so a caller can see the scope applied.
+    country_codes: Optional[str] = None
     matches: List[PlaceMatch] = Field(default_factory=list)
     cached: bool = False
 
@@ -176,6 +184,8 @@ class GeocodeResult(ApiModel):
     city: Optional[str] = None
     state: Optional[str] = None
     country: Optional[str] = None
+    #: ISO 3166-1 alpha-2, lowercased — what a country check is written against.
+    country_code: Optional[str] = None
     postcode: Optional[str] = None
     neighbourhood: Optional[str] = None
     water_feature: Optional[str] = None
@@ -194,6 +204,21 @@ class Measurement(ApiModel):
     threshold_label: Optional[str] = None
     sub_score: Optional[float] = None
     status: MeasurementStatus = "normal"
+    averaging_period: Optional[str] = None
+    who_reference: Optional[float] = None
+    who_averaging_period: Optional[str] = None
+    cpcb_standard: Optional[float] = None
+    cpcb_averaging_period: Optional[str] = None
+    ratio_to_reference: Optional[float] = None
+    difference_to_reference: Optional[float] = None
+    percentage_difference: Optional[float] = None
+    interpretation_label: Optional[str] = None
+    comparison_status: Optional[str] = None
+    comparison_note: Optional[str] = None
+    health_effects: Optional[List[str]] = None
+    major_sources: Optional[List[Dict[str, Any]]] = None
+    is_secondary_pollutant: Optional[bool] = None
+    precursor_pollutants: Optional[List[str]] = None
 
 
 class Finding(ApiModel):
@@ -1083,6 +1108,46 @@ class WasteSegregationResult(ApiModel):
     detections: List[WasteSegregationDetection] = Field(default_factory=list)
     summary: WasteSegregationSummary = Field(default_factory=WasteSegregationSummary)
     message: Optional[str] = None
+
+
+class GeminiWasteDetection(ApiModel):
+    """One object Gemini reported, mapped onto the existing taxonomy.
+
+    `confidence` is always None. Gemini returns a label, not a calibrated score, and a number
+    invented here would be compared against YOLO's real one.
+    """
+
+    canonical_class: str
+    class_id: Optional[int] = None
+    label: Optional[str] = None
+    #: As Gemini returned it: [ymin, xmin, ymax, xmax] over 0..1000. Kept for traceability.
+    box_2d: List[float] = Field(default_factory=list)
+    #: Converted to the application's convention: [x1, y1, x2, y2] in pixels.
+    bbox: List[float] = Field(default_factory=list)
+    confidence: Optional[float] = None
+
+
+class GeminiWasteRejection(ApiModel):
+    """A detection that failed validation, kept with its reason rather than dropped silently."""
+
+    index: Optional[int] = None
+    reason: Optional[str] = None
+    class_name: Optional[str] = Field(default=None, alias="class")
+    raw: Optional[str] = None
+
+
+class GeminiWasteResult(ApiModel):
+    """EXPERIMENTAL. Gemini's reading of one image. Not the production detector."""
+
+    provider: str = "gemini"
+    model: Optional[str] = None
+    image_width: Optional[int] = None
+    image_height: Optional[int] = None
+    detections: List[GeminiWasteDetection] = Field(default_factory=list)
+    rejected: List[GeminiWasteRejection] = Field(default_factory=list)
+    latency_ms: Optional[float] = None
+    error: Optional[str] = None
+    candidate: Optional[dict] = None
 
 
 class WastePipelineStatus(ApiModel):

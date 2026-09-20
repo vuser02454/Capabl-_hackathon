@@ -61,6 +61,9 @@ class GeocodedPlace:
     city: Optional[str]
     state: Optional[str]
     country: Optional[str]
+    #: ISO 3166-1 alpha-2, lowercased. The country NAME is localised and free-text; the code is
+    #: what a country check can actually be written against.
+    country_code: Optional[str]
     postcode: Optional[str]
     neighbourhood: Optional[str]
     water_feature: Optional[str]
@@ -95,6 +98,7 @@ def parse_reverse(payload: Any) -> GeocodedPlace:
         city=_first(address, "city", "town", "village", "municipality", "city_district", "county"),
         state=_first(address, "state", "region", "state_district"),
         country=_first(address, "country"),
+        country_code=(_first(address, "country_code") or "").lower() or None,
         postcode=_first(address, "postcode"),
         neighbourhood=_first(address, "neighbourhood", "suburb", "quarter", "hamlet"),
         water_feature=water_feature,
@@ -116,6 +120,9 @@ class GeocodedMatch:
     importance: Optional[float]
     #: True when the match is itself a water feature (a lake, river, reservoir...).
     is_water: bool
+    #: ISO 3166-1 alpha-2 from Nominatim's structured address, lowercased. None when the
+    #: response carried no address block — treated as unverified rather than as a match.
+    country_code: Optional[str] = None
 
     def as_dict(self) -> Dict[str, Any]:
         return {
@@ -126,6 +133,7 @@ class GeocodedMatch:
             "placeType": self.place_type,
             "importance": self.importance,
             "isWater": self.is_water,
+            "countryCode": self.country_code,
         }
 
 
@@ -150,6 +158,11 @@ def parse_search(payload: Any) -> List[GeocodedMatch]:
 
         category, place_type = entry.get("category"), entry.get("type")
         importance = entry.get("importance")
+        # Structured metadata, not a substring of display_name: "India Street, Boston" contains
+        # the word India and would pass a text check while being in Massachusetts.
+        address = entry.get("address")
+        raw_country = address.get("country_code") if isinstance(address, dict) else None
+        country_code = raw_country.strip().lower() if isinstance(raw_country, str) else None
         matches.append(
             GeocodedMatch(
                 display_name=display_name.strip(),
@@ -162,6 +175,7 @@ def parse_search(payload: Any) -> List[GeocodedMatch]:
                     category if isinstance(category, str) else None,
                     place_type if isinstance(place_type, str) else None,
                 ),
+                country_code=country_code,
             )
         )
     return matches
@@ -202,10 +216,20 @@ class NominatimClient:
             "reverse", {"lat": f"{lat:.6f}", "lon": f"{lon:.6f}", "format": "jsonv2"}, UNRESOLVED_MESSAGE
         )
 
-    def search(self, query: str, limit: int) -> Any:
+    def search(self, query: str, limit: int, country_codes: Optional[str] = None) -> Any:
+        """Forward search. `country_codes` is Nominatim's own filter, applied server-side.
+
+        Asking Nominatim to restrict the search is different from filtering its answer afterwards:
+        the filter is applied before ranking, so the Indian results are the ones that come back
+        ranked rather than the ones that survive. Appending "India" to the query string would not
+        do this — it would just be more text to match.
+        """
         return self._get(
             "search",
-            {"q": query, "format": "jsonv2", "limit": str(limit), "addressdetails": "0"},
+            # `addressdetails=1` is what makes `address.country_code` available; without it there
+            # is nothing structured to validate a result against.
+            {"q": query, "format": "jsonv2", "limit": str(limit), "addressdetails": "1",
+             **({"countrycodes": country_codes} if country_codes else {})},
             SEARCH_FAILED_MESSAGE,
         )
 
@@ -260,33 +284,47 @@ class ReverseGeocodingService:
             return place, False
 
 
-    def search(self, query: str, limit: int = 5) -> Tuple[List[GeocodedMatch], bool]:
+    def search(self, query: str, limit: int = 5,
+               country_codes: Optional[str] = None) -> Tuple[List[GeocodedMatch], bool]:
         """Free text -> candidate places. Returns (matches, cached).
 
         Shares the one-request-per-second throttle with reverse lookups, because Nominatim's usage
         policy counts every request to the service, not per endpoint.
+
+        `country_codes` is applied TWICE on purpose: once as Nominatim's own server-side filter so
+        the ranked results are the right ones, and once over the parsed response so a result whose
+        structured address says otherwise is dropped rather than trusted. Belt and braces, because
+        the filter is a request parameter and the country code is the actual evidence.
         """
         key = " ".join((query or "").strip().lower().split())
         if not key:
             raise InvalidLocationError("Enter a place to search for.")
         capped = max(1, min(limit, 10))
+        wanted = {code.strip().lower() for code in (country_codes or "").split(",") if code.strip()}
+        cache_key = f"{key}|{','.join(sorted(wanted))}"
+
+        def keep(found: List[GeocodedMatch]) -> List[GeocodedMatch]:
+            if not wanted:
+                return found
+            # A match with no country code is unverified, so it is dropped rather than assumed.
+            return [m for m in found if m.country_code in wanted]
 
         with self._lock:
-            cached = self._search_cache.get(key)
+            cached = self._search_cache.get(cache_key)
             if cached is not None:
-                self._search_cache[key] = cached  # refresh recency
-                return cached[:capped], True
+                self._search_cache[cache_key] = cached  # refresh recency
+                return keep(cached)[:capped], True
             if self._last_request is not None:
                 wait = self.min_interval_s - (self.clock() - self._last_request)
                 if wait > 0:
                     self.sleep(wait)
             self._last_request = self.clock()
 
-            matches = parse_search(self.client.search(key, capped))
-            self._search_cache[key] = matches
+            matches = parse_search(self.client.search(key, capped, country_codes))
+            self._search_cache[cache_key] = matches
             while len(self._search_cache) > self.cache_size:
                 self._search_cache.pop(next(iter(self._search_cache)))
-            return matches[:capped], False
+            return keep(matches)[:capped], False
 
 
 _geocoder_lock = threading.Lock()

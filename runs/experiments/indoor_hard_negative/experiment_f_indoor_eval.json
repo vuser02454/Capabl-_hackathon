@@ -1,0 +1,52 @@
+{
+  "experiment": "F",
+  "role": "control (TACO only, no indoor hard negatives)",
+  "model": "YOLOv8n",
+  "test_images": 55,
+  "confidence_threshold": 0.25,
+  "result": {
+    "model": "runs/experiments/indoor_hard_negative/exp_f_yolov8n_control/weights/best.pt",
+    "sha256": "0da4d2e01758e977b75403a0991a5482b4811f0b754bb6df17f257952a054445",
+    "total_images": 55,
+    "confidence_threshold": 0.25,
+    "imgsz": 640,
+    "total_false_detections": 28,
+    "fp_images": 21,
+    "fp_image_rate": 0.3818,
+    "detections_per_image": 0.5091,
+    "class_counts": {
+      "metal_cans": 7,
+      "paper_waste": 9,
+      "plastic_bags": 11,
+      "plastic_bottles": 1
+    }
+  },
+  "provenance": {
+    "model_architecture": "YOLOv8n",
+    "pretrained_checkpoint": "backend/models/yolov8n.pt",
+    "checkpoint": "runs/experiments/indoor_hard_negative/exp_f_yolov8n_control/weights/best.pt",
+    "checkpoint_sha256": "0da4d2e01758e977b75403a0991a5482b4811f0b754bb6df17f257952a054445",
+    "dataset_path": "runs/experiments/indoor_hard_negative/dataset_control/data.yaml",
+    "train_count": 742,
+    "val_count": 148,
+    "taco_test_count": 98,
+    "indoor_test_count": 55,
+    "epochs_configured": 40,
+    "epochs_completed": 40,
+    "best_epoch": 35,
+    "early_stopped": false,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0_requested": 0.01,
+    "lr0_effective": 0.001,
+    "optimizer": "AdamW (optimizer=auto overrode lr0)",
+    "seed": 1337,
+    "device": "mps",
+    "confidence_threshold": 0.25,
+    "ultralytics_version": "8.4.155",
+    "torch_version": "2.8.0",
+    "git_commit": "f111bc953fb702b10a2cd675367b50da1c38b059",
+    "timestamp_utc": "2026-09-19T21:54:06.772841+00:00"
+  },
+  "note": "All 55 indoor labels are empty; every detection is a false positive."
+}

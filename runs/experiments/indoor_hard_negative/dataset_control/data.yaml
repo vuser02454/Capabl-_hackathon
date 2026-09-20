@@ -1,0 +1,15 @@
+# Experiment F (CONTROL): original TACO training data ONLY - no indoor hard negatives.
+# Test splits are byte-identical to Experiment E (symlinked), so evaluation is directly comparable.
+path: /Users/vvijwal01gmail.com/agenticAI/runs/experiments/indoor_hard_negative/dataset_control
+train: images/train
+val: images/val
+test: images/test
+test_indoor: images/test_indoor
+
+names:
+  0: ewaste
+  1: food_waste
+  2: metal_cans
+  3: paper_waste
+  4: plastic_bags
+  5: plastic_bottles

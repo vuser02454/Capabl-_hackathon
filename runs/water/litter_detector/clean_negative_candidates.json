@@ -1,0 +1,1695 @@
+{
+  "generated_at": "2026-09-20T00:35:58.632394+00:00",
+  "purpose": "Candidate clean-water NEGATIVES for evaluating runs/water/litter_detector/weights/best.pt (blocker B1).",
+  "verdict": "INADEQUATE - see acceptance_failures. Retained as a record of what was searched, not as a usable negative set.",
+  "acceptance_reference": "runs/water/dataset_comparison/NEGATIVE_DATA_REQUIREMENTS.md (N1-N7)",
+  "acceptance_failures": {
+    "N2_no_litter_verified": "NOT verified per image. Requirement is human verification per image, not sampled.",
+    "N3_specular_reflections": "FAIL - frames are featureless close-ups; no sky/cloud/bank reflections.",
+    "N4_vegetation": "FAIL - no surface or overhanging vegetation visible.",
+    "N5_surface_states": "FAIL - single surface state; no ripple/wake variety.",
+    "N6_shadows": "FAIL - no cast shadows across water.",
+    "N7_glare": "FAIL - no direct sun/backlight/blown highlights."
+  },
+  "provenance_note": "Alta/Baja/Media are unlabelled 450x450 turbidity close-ups. Not listed in docs/DATASET_PROVENANCE.md; source and licence not established here.",
+  "training_overlap": "Detector trained on runs/water/tudgv_yolo (TUD-GV). Alta/Baja/Media are a different corpus, so no train/test overlap - but that is the only provenance claim supported.",
+  "sources": [
+    {
+      "dataset": "Alta",
+      "total_images": 3599,
+      "sampled": 50,
+      "median_pixel_std_dev": 4.89,
+      "all_near_featureless_std_lt_12": true,
+      "images": [
+        {
+          "path": "datasets/Alta/S26-4_frame_0319.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S24_frame_0959.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.81,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S27-4_frame_1511.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.23,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S21-4_frame_1015.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.13,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S25-4_frame_0663.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.3,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S25-4_frame_1151.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.72,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S28-4_frame_0231.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.26,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S17-4_frame_1759.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.25,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S28-4_frame_1655.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.01,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_1439.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.06,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S20-4_frame_1759.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.37,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S21-4_frame_1599.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.17,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S26-4_frame_0879.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.86,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_0303.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.5,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S21-4_frame_0815.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.72,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S20-4_frame_0935.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 3.86,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S22-4_frame_0031.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.22,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S27-4_frame_1095.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.32,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S18-4_frame_1215.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.22,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S28-4_frame_1207.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.08,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S26-4_frame_1583.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.43,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S30-4_frame_1351.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.97,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S21-4_frame_0983.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.4,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S16-4_frame_1751.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S22-4_frame_1143.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.01,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_1311.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.53,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S26-4_frame_0887.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.24,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S22-4_frame_0271.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 3.95,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S16-4_frame_0311.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.25,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S24_frame_0047.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 3.78,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S27-4_frame_1159.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.3,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S27-4_frame_0143.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.75,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S21-4_frame_0431.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.29,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S22-4_frame_0431.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.56,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S22-4_frame_0423.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.59,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_0695.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.91,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S28-4_frame_0415.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.31,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_0647.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.28,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S20-4_frame_1039.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.37,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S26-4_frame_1823.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.29,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S15-4_frame_0591.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.0,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_1703.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.77,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S21-4_frame_0599.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.06,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S25-4_frame_1431.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S17-4_frame_0215.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.15,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S23-4_frame_0471.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 3.96,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S19-4_frame_0751.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.12,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S18-4_frame_0111.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.17,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S29-4_frame_0503.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.92,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Alta/S30-4_frame_0519.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.27,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        }
+      ]
+    },
+    {
+      "dataset": "Baja",
+      "total_images": 861,
+      "sampled": 50,
+      "median_pixel_std_dev": 6.44,
+      "all_near_featureless_std_lt_12": true,
+      "images": [
+        {
+          "path": "datasets/Baja/S2-4_frame_1167.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.22,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0503.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.54,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0599.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.7,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1727.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.18,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_0519.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.17,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1711.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.53,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0767.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.08,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1527.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.59,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0239.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.23,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1255.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.55,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0551.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.98,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0167.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1079.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.65,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0007.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.22,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1503.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.97,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1279.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.6,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0359.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.37,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0591.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.11,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_0111.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.28,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0287.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.74,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0015.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.53,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0447.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.71,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0471.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.29,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0143.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.37,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0143.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.51,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0207.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.4,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0863.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 8.1,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0927.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.1,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_0479.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.56,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1079.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1479.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.55,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1431.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.22,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0103.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.43,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1455.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.58,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1775.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.13,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_1327.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.94,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_0311.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.85,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1455.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.14,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1415.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.25,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0471.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.03,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1271.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.09,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S1-4_frame_0375.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.61,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_1295.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.51,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1319.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.14,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0887.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.29,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S4-4_frame_0231.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.37,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_1111.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.04,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0343.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.34,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S3-4_frame_1783.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.55,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Baja/S2-4_frame_0079.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.38,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        }
+      ]
+    },
+    {
+      "dataset": "Media",
+      "total_images": 2055,
+      "sampled": 50,
+      "median_pixel_std_dev": 5.8,
+      "all_near_featureless_std_lt_12": true,
+      "images": [
+        {
+          "path": "datasets/Media/S13-4_frame_0575.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.24,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S10-4_frame_1655.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.8,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S9-4_frame_1599.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.27,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S9-4_frame_0303.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.55,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S10-4_frame_0807.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.79,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S9-4_frame_1367.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.1,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S6-4_frame_0599.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.76,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S14-4_frame_1119.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.13,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S14-4_frame_1271.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.52,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S11-4_frame_0359.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.07,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S12-4_frame_0623.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.1,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S11-4_frame_0103.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.33,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_0087.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.2,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S5-4_frame_1223.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.53,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S11-4_frame_0743.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_0799.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.8,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_1615.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.57,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S14-4_frame_0983.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.19,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S10-4_frame_1759.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.66,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S12-4_frame_1263.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.2,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_1207.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.93,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S6-4_frame_0487.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.35,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S10-4_frame_1407.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.93,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_1303.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.8,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S5-4_frame_0287.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.22,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S12-4_frame_1447.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.75,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S11-4_frame_0007.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.31,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S9-4_frame_0503.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.44,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S6-4_frame_0423.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.84,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S6-4_frame_1511.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.81,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S11-4_frame_0415.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.18,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_1343.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.66,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S6-4_frame_0591.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.85,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S14-4_frame_1327.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.02,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_1519.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.61,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_0791.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.48,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S12-4_frame_0807.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 7.3,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S9-4_frame_1247.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.73,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_0055.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.57,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_1287.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.25,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S14-4_frame_0975.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.27,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S12-4_frame_1583.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.96,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_1775.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.3,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S5-4_frame_1807.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.52,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_0087.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.61,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S13-4_frame_0887.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.56,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S7-4_frame_0895.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.66,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S12-4_frame_1559.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 4.92,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S9-4_frame_0759.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 5.92,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        },
+        {
+          "path": "datasets/Media/S5-4_frame_1407.jpg",
+          "dimensions": [
+            450,
+            450
+          ],
+          "pixel_std_dev": 6.33,
+          "provenance": "provenance_unknown",
+          "reason_for_inclusion": "contains water, no visible litter target in sampled review",
+          "reason_for_rejection": "near-featureless; fails N3/N4/N5/N6/N7"
+        }
+      ]
+    }
+  ]
+}
