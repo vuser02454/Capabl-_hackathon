@@ -36,6 +36,16 @@ services:
       - key: ECOSENTINEL_CORS_ORIGINS
         sync: false
 
+      # How far apart start and destination may be, in kilometres. This is a MEMORY setting as
+      # much as a distance one. Measured against live Overpass: a ~47 km route peaks around
+      # 1.5 GB, because the parsed map payload and the graph being built from it are live at the
+      # same moment. The `starter` plan above has 512 MB, which a trip much over 25 km will
+      # exceed — and an out-of-memory kill looks to the worker like the server going away
+      # mid-request. Keep this at 25 on starter. Raise it to 50 only on a 2 GB instance
+      # (`plan: standard`), where the full range has been measured to work.
+      - key: ECOSENTINEL_MAX_ROUTE_KM
+        value: "25"
+
       # Identifies this deployment to OpenStreetMap, as their usage policy requires.
       - key: ECOSENTINEL_NOMINATIM_USER_AGENT
         value: "EcoSentinel-Safety/1.0 (hackathon deployment)"

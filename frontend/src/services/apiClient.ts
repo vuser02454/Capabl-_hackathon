@@ -235,10 +235,12 @@ export class ApiClient {
         ...(body.safetyRadiusMeters != null
           ? { safety_radius_meters: body.safetyRadiusMeters } : {}),
       }),
-      // The backend gives the whole Overpass retry sequence at most 75 s, then serves a clearly
-      // labelled estimate. Keep a little room for graph construction and the response, without
-      // leaving the worker on a spinner while a failed retry loop runs in the background.
-    }, 90000, signal);
+      // Sized from the longest trip the backend will accept. Measured against live Overpass, a
+      // ~47 km route spends ~68 s fetching, ~20 s building the graph and ~8 s searching it; the
+      // backend allows the fetch sequence 120 s before it gives up and serves a clearly labelled
+      // estimate. At the old 90 s the browser abandoned long routes while the server was still
+      // working on them, which looked identical to a failure and wasted the fetch.
+    }, 210000, signal);
   }
 
   /** The worker's own profile. `employeeId` identifies whose records to return; it is not a

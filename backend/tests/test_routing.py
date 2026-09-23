@@ -15,6 +15,8 @@ as "distance" would be a lie about how far they have to walk.
 
 import json
 import math
+import importlib
+
 import pytest
 from fastapi.testclient import TestClient
 from urllib.error import HTTPError, URLError
@@ -779,10 +781,21 @@ def test_the_fallback_is_a_straight_corridor_not_a_road_network():
 # ~64,000 nodes in ~22 s. One fixed budget cannot serve both — and exceeding it does not fail
 # loudly, it silently produces a direct-line estimate, which is the defect this guards.
 
-def test_the_limit_supports_a_thirty_kilometre_trip():
-    # Raised from 20 km once the fetch was measured at both ends: see MAX_SPAN_METERS for the
-    # numbers. The ceiling is what Overpass can deliver, not what the graph search can handle.
-    assert routing.MAX_SPAN_METERS == 30_000
+def test_the_limit_supports_a_fifty_kilometre_trip():
+    # See MAX_SPAN_METERS for the measured fetch times and memory behind this number. The ceiling
+    # is what Overpass can deliver and what the box costs in RAM, not what the search can handle.
+    assert routing.MAX_SPAN_METERS == 50_000
+
+
+def test_the_limit_can_be_lowered_for_a_small_instance(monkeypatch):
+    """A 512 MB instance cannot serve a 50 km box, so the cap has to be deployable per host."""
+    monkeypatch.setenv("ECOSENTINEL_MAX_ROUTE_KM", "25")
+    reloaded = importlib.reload(routing)
+    try:
+        assert reloaded.MAX_SPAN_METERS == 25_000
+    finally:
+        monkeypatch.delenv("ECOSENTINEL_MAX_ROUTE_KM", raising=False)
+        importlib.reload(routing)
 
 
 def test_a_long_route_gets_a_bigger_budget_than_a_short_one():
@@ -812,8 +825,8 @@ def test_the_server_side_query_budget_matches_the_client_one():
 
 def test_a_journey_beyond_the_limit_is_refused_before_anything_is_fetched():
     service = routing.RoutingService(_provider())
-    with pytest.raises(routing.RouteTooFarError, match="limited to 30 km"):
-        service.route((13.0, 77.6), (12.5, 77.2))
+    with pytest.raises(routing.RouteTooFarError, match="limited to 50 km"):
+        service.route((13.0, 77.6), (12.0, 77.0))
 
 
 # --- graph cache sharing ----------------------------------------------------------------------
@@ -900,3 +913,45 @@ def test_the_fetch_ceiling_covers_the_largest_allowed_box():
         [start, destination], routing._snap_padding(routing.MAX_BBOX_PADDING_METERS)))
     # A 22 km box measured ~26 s live; the ceiling must leave real headroom above that.
     assert provider.timeout_for_box(box) >= 60
+
+
+# --- the graph cache is a memory budget, not a counter -----------------------------------------
+
+def _graph_of(node_count: int) -> routing.RoadGraph:
+    graph = routing.RoadGraph()
+    for index in range(node_count):
+        graph.add_node(index, 12.9 + index * 1e-6, 77.6)
+    return graph
+
+
+def test_the_cache_evicts_by_size_not_by_entry_count():
+    """Sixteen neighbourhood graphs are harmless; sixteen city-sized ones are an OOM kill."""
+    provider = routing.OSMGraphProvider(cache_dir=None, max_cached_nodes=1_000)
+    for name in ("a", "b", "c", "d"):
+        provider._cache[name] = _graph_of(400)
+    provider._evict()
+    assert sum(g.node_count for g in provider._cache.values()) <= 1_000
+    # Least-recently-used goes first, so the newest graph survives.
+    assert "d" in provider._cache
+    assert "a" not in provider._cache
+
+
+def test_the_last_graph_is_never_evicted():
+    """Dropping the only entry would force an immediate refetch of what was just downloaded."""
+    provider = routing.OSMGraphProvider(cache_dir=None, max_cached_nodes=10)
+    provider._cache["huge"] = _graph_of(5_000)
+    provider._evict()
+    assert list(provider._cache) == ["huge"]
+
+
+def test_highway_values_are_interned():
+    """One string object per way, for about a dozen distinct values, is pure overhead."""
+    payload = {"elements": [
+        {"type": "way", "nodes": [1, 2], "tags": {"highway": "residential"},
+         "geometry": [{"lat": 12.90, "lon": 77.60}, {"lat": 12.91, "lon": 77.60}]},
+        {"type": "way", "nodes": [3, 4], "tags": {"highway": "residential"},
+         "geometry": [{"lat": 12.92, "lon": 77.60}, {"lat": 12.93, "lon": 77.60}]},
+    ]}
+    graph = routing.OSMGraphProvider.build_graph(payload)
+    highways = {id(edge[2]) for edges in graph.adjacency.values() for edge in edges}
+    assert len(highways) == 1

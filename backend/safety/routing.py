@@ -30,6 +30,7 @@ import json
 import logging
 import math
 import os
+import sys
 import socket
 import threading
 import time
@@ -74,16 +75,30 @@ MAX_BBOX_PADDING_METERS = 2_500.0
 #: the direct-line estimate, which is the bug this scaling exists to prevent. The ceiling covers
 #: the largest box MAX_SPAN_METERS allows, with room for a loaded day.
 MIN_FETCH_TIMEOUT_S = 30.0
-MAX_FETCH_TIMEOUT_S = 90.0
+MAX_FETCH_TIMEOUT_S = 120.0
 #: Seconds of budget per kilometre of separation, on top of the minimum.
 FETCH_TIMEOUT_PER_KM_S = 2.5
 
-#: Refuse rather than fetch a region. Measured end to end against live Overpass: at 22 km the
-#: fetch is ~26 s for 245,000 nodes and Dijkstra runs in 0.2 s; at 35.7 km the fetch is ~65 s for
-#: 499,000 nodes, which clears MAX_FETCH_TIMEOUT_S only on a quiet day. 30 km sits inside what the
-#: slowest supported fetch can actually deliver — the graph search is never the limit, the
-#: download is. Raising this without re-measuring the fetch will silently restore direct lines.
-MAX_SPAN_METERS = 30_000.0
+#: Total nodes allowed to sit in the in-memory graph cache, across every entry. Measured: a graph
+#: costs roughly 380 bytes per node once its dicts, adjacency lists and edge tuples are counted, so
+#: 900,000 nodes is about 340 MB. The last entry is always kept, however large — evicting the graph
+#: a request is about to use would only force an immediate refetch.
+MAX_CACHED_NODES = 900_000
+
+#: Refuse rather than fetch a region. Measured end to end against live Overpass:
+#:
+#:     22.1 km   ~26 s    245,000 nodes    Dijkstra 0.21 s
+#:     35.7 km   ~65 s    499,000 nodes    Dijkstra 0.47 s
+#:     46.6 km   ~68 s    644,000 nodes    Dijkstra 0.58 s, ~1.3 GB peak RSS
+#:
+#: The graph search is never the limit and never has been — the download is, and beyond about
+#: 40 km so is memory. Peak RSS is dominated by the parsed Overpass payload, which is live at the
+#: same moment as the graph it is being turned into, so a 50 km route needs roughly 1.5 GB to
+#: serve. That does not fit Render's 512 MB starter plan, which is why this is configurable:
+#: a large instance can run the full 50 km, a small one should set ECOSENTINEL_MAX_ROUTE_KM=25.
+#: Raising the default without re-measuring both the fetch and the memory will restore the silent
+#: direct lines this ceiling exists to prevent.
+MAX_SPAN_METERS = float(os.getenv("ECOSENTINEL_MAX_ROUTE_KM") or 50) * 1000.0
 
 #: How far a start or destination may sit from the nearest path before routing is impossible.
 MAX_SNAP_METERS = 800.0
@@ -358,6 +373,7 @@ class OSMGraphProvider:
         timeout: float = 30.0,
         min_interval_s: float = 2.0,
         cache_size: int = 16,
+        max_cached_nodes: int = MAX_CACHED_NODES,
         opener: Callable[..., Any] = urlopen,
         clock: Callable[[], float] = time.monotonic,
         sleep: Callable[[float], None] = time.sleep,
@@ -368,6 +384,7 @@ class OSMGraphProvider:
         self.timeout = timeout
         self.min_interval_s = min_interval_s
         self.cache_size = cache_size
+        self.max_cached_nodes = max_cached_nodes
         self.opener = opener
         self.clock = clock
         self.sleep = sleep
@@ -498,6 +515,22 @@ class OSMGraphProvider:
         raise RoutingError("Map data is unavailable right now.") from last
         raise RoutingError("Map data is unavailable right now.")
 
+    def _evict(self) -> None:
+        """Drop least-recently-used graphs until the cache fits both budgets.
+
+        Counting graphs is not a memory budget. A neighbourhood graph is a few thousand nodes and
+        a 47 km one is 644,000, so a 16-graph cache is anywhere between trivial and several
+        gigabytes depending on what a worker happened to search for. On a 512 MB instance the
+        count-only limit is an out-of-memory kill waiting for the right sequence of requests.
+        Caller holds self._lock.
+        """
+        while len(self._cache) > self.cache_size:
+            self._cache.popitem(last=False)
+        cached_nodes = sum(g.node_count for g in self._cache.values())
+        while len(self._cache) > 1 and cached_nodes > self.max_cached_nodes:
+            _, dropped = self._cache.popitem(last=False)
+            cached_nodes -= dropped.node_count
+
     @staticmethod
     def build_graph(payload: Dict[str, Any]) -> RoadGraph:
         """Turn an Overpass `out geom` response into a graph.
@@ -513,7 +546,10 @@ class OSMGraphProvider:
                 continue
             geometry = element.get("geometry") or []
             node_ids: List[int] = element.get("nodes") or []
-            highway = (element.get("tags") or {}).get("highway", "road")
+            # Interned: there are about a dozen distinct highway values, but Overpass hands back a
+            # fresh string per way, and every edge tuple holds a reference. A 47 km fetch carried
+            # 185,261 separate objects for those dozen values.
+            highway = sys.intern((element.get("tags") or {}).get("highway", "road"))
 
             resolved: List[int] = []
             for index, point in enumerate(geometry):
@@ -604,8 +640,7 @@ class OSMGraphProvider:
             graph = self.build_graph(payload)
             self._write_disk(key, payload)
             self._cache[key] = graph
-            while len(self._cache) > self.cache_size:
-                self._cache.popitem(last=False)
+            self._evict()
         return graph
 
 
