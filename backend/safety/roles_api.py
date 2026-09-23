@@ -705,6 +705,10 @@ async def worker_route(request: RouteRequest) -> Dict[str, Any]:
     try:
         result = await run_in_threadpool(
             routing.service().route, start, destination, alerts, request.safety_radius_meters)
+    except routing.RouteTooFarError as exc:
+        # 400, not 503: nothing is down. The trip is longer than this service routes, which the
+        # worker can act on by picking a nearer destination.
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except routing.RoutingError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001

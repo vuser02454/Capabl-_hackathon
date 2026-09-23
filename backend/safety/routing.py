@@ -69,16 +69,21 @@ MAX_BBOX_PADDING_METERS = 2_500.0
 
 #: Overpass cost scales with the area queried, so one fixed timeout cannot serve both ends of the
 #: supported range. Measured against the live API: a city block (~1.4 km apart) fetches in ~8 s
-#: and returns 2,700 nodes; a cross-city walk (18.5 km) takes ~20 s and returns 64,000. A single
-#: 30 s budget leaves a long route only 10 s of headroom, and exceeding it does not fail loudly —
-#: it falls through to the direct-line estimate, which is the bug this scaling exists to prevent.
+#: and returns 2,700 nodes; a 22 km trip takes ~26 s and returns 245,000. A single 30 s budget
+#: leaves a long route no headroom, and exceeding it does not fail loudly — it falls through to
+#: the direct-line estimate, which is the bug this scaling exists to prevent. The ceiling covers
+#: the largest box MAX_SPAN_METERS allows, with room for a loaded day.
 MIN_FETCH_TIMEOUT_S = 30.0
-MAX_FETCH_TIMEOUT_S = 75.0
+MAX_FETCH_TIMEOUT_S = 90.0
 #: Seconds of budget per kilometre of separation, on top of the minimum.
 FETCH_TIMEOUT_PER_KM_S = 2.5
 
-#: Refuse rather than fetch a city. Overpass would serve it and the graph search would crawl.
-MAX_SPAN_METERS = 20_000.0
+#: Refuse rather than fetch a region. Measured end to end against live Overpass: at 22 km the
+#: fetch is ~26 s for 245,000 nodes and Dijkstra runs in 0.2 s; at 35.7 km the fetch is ~65 s for
+#: 499,000 nodes, which clears MAX_FETCH_TIMEOUT_S only on a quiet day. 30 km sits inside what the
+#: slowest supported fetch can actually deliver — the graph search is never the limit, the
+#: download is. Raising this without re-measuring the fetch will silently restore direct lines.
+MAX_SPAN_METERS = 30_000.0
 
 #: How far a start or destination may sit from the nearest path before routing is impossible.
 MAX_SNAP_METERS = 800.0
@@ -128,6 +133,16 @@ WALKING_SPEED_MPS = 1.35  # ~4.9 km/h, ordinary adult walking pace
 
 class RoutingError(RuntimeError):
     """Raised when a route cannot be produced. Carries a message meant for the worker."""
+
+
+class RouteTooFarError(RoutingError):
+    """The two points are further apart than this service routes between.
+
+    Separate from RoutingError because the fallback corridor exists to survive a flaky Overpass,
+    and a distance limit is not a transient failure. Folding the two together drew a straight line
+    captioned "OpenStreetMap data could not be loaded" for a request that was never sent — telling
+    the worker the map was down when the real answer was that the trip was too long.
+    """
 
 
 # --- graph ---------------------------------------------------------------------------------
@@ -554,9 +569,9 @@ class OSMGraphProvider:
         """
         span = haversine_meters(start[0], start[1], destination[0], destination[1])
         if span > MAX_SPAN_METERS:
-            raise RoutingError(
+            raise RouteTooFarError(
                 f"Start and destination are {span / 1000:.1f} km apart. "
-                f"Routing is limited to {MAX_SPAN_METERS / 1000:.0f} km for on-site walking routes.")
+                f"Routing is limited to {MAX_SPAN_METERS / 1000:.0f} km.")
 
         # Snap the box outward to a coarse grid before fetching.
         #
@@ -1100,6 +1115,10 @@ class RoutingService:
 
         try:
             graph = self.provider.graph_for(start, destination, padding)
+        except RouteTooFarError:
+            # Never a straight line for this one: the distance limit is a real answer, and a
+            # corridor here would hide it behind a map-unavailable warning.
+            raise
         except RoutingError as exc:
             if self.fallback_on_error:
                 logger.warning("OSM graph unavailable (%s); using resilient fallback navigation corridor", exc)

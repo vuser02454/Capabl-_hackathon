@@ -779,8 +779,10 @@ def test_the_fallback_is_a_straight_corridor_not_a_road_network():
 # ~64,000 nodes in ~22 s. One fixed budget cannot serve both — and exceeding it does not fail
 # loudly, it silently produces a direct-line estimate, which is the defect this guards.
 
-def test_the_limit_supports_a_twenty_kilometre_walk():
-    assert routing.MAX_SPAN_METERS == 20_000
+def test_the_limit_supports_a_thirty_kilometre_trip():
+    # Raised from 20 km once the fetch was measured at both ends: see MAX_SPAN_METERS for the
+    # numbers. The ceiling is what Overpass can deliver, not what the graph search can handle.
+    assert routing.MAX_SPAN_METERS == 30_000
 
 
 def test_a_long_route_gets_a_bigger_budget_than_a_short_one():
@@ -810,7 +812,7 @@ def test_the_server_side_query_budget_matches_the_client_one():
 
 def test_a_journey_beyond_the_limit_is_refused_before_anything_is_fetched():
     service = routing.RoutingService(_provider())
-    with pytest.raises(routing.RoutingError, match="limited to 20 km"):
+    with pytest.raises(routing.RouteTooFarError, match="limited to 30 km"):
         service.route((13.0, 77.6), (12.5, 77.2))
 
 
@@ -858,3 +860,43 @@ def test_the_fetch_budget_follows_the_box_not_the_route_length():
     # The box is wider than the route is long, so budgeting by separation under-funds the fetch.
     assert padded >= provider.timeout_for(span)
     assert padded <= routing.MAX_FETCH_TIMEOUT_S
+
+
+# --- the distance limit is an answer, not a failure -------------------------------------------
+
+def test_a_trip_past_the_limit_says_so_instead_of_drawing_a_straight_line():
+    """The fallback corridor is for a flaky Overpass. A too-long trip is not that.
+
+    This previously fell through to the direct-line estimate, so a 22 km request was captioned
+    "OpenStreetMap data could not be loaded" — blaming the map for a request never sent.
+    """
+    service = routing.RoutingService(provider=routing.OSMGraphProvider(cache_dir=None),
+                                     fallback_on_error=True)
+    far = routing.MAX_SPAN_METERS + 5_000
+    start = (12.9716, 77.5946)
+    destination = (12.9716 + far / 111_320.0, 77.5946)
+    with pytest.raises(routing.RouteTooFarError) as caught:
+        service.route(start, destination, [], routing.ROUTE_SAFETY_RADIUS_METERS)
+    message = str(caught.value)
+    assert "km apart" in message
+    # The worker must not be told the map is unavailable when it was never consulted.
+    assert "could not be loaded" not in message
+    assert "OpenStreetMap" not in message
+
+
+def test_the_limit_covers_a_cross_city_trip():
+    """22 km is a real request from the field; it must sit inside the limit."""
+    measured = routing.haversine_meters(13.02975, 77.69445, 12.888762, 77.550572)
+    assert measured > 22_000
+    assert measured <= routing.MAX_SPAN_METERS
+
+
+def test_the_fetch_ceiling_covers_the_largest_allowed_box():
+    """A budget shorter than the slowest permitted fetch reintroduces silent direct lines."""
+    provider = routing.OSMGraphProvider(cache_dir=None)
+    start = (12.9716, 77.5946)
+    destination = (12.9716 + routing.MAX_SPAN_METERS / 111_320.0, 77.5946)
+    box = routing._snap_box(routing.bounding_box(
+        [start, destination], routing._snap_padding(routing.MAX_BBOX_PADDING_METERS)))
+    # A 22 km box measured ~26 s live; the ceiling must leave real headroom above that.
+    assert provider.timeout_for_box(box) >= 60
