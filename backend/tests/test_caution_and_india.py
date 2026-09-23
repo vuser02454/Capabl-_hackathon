@@ -398,3 +398,58 @@ def test_scenario_seeding_is_idempotent(db):
     again = people.seed_demo_data()
     assert again["scenarios"]["created"] == 0
     assert again["scenarios"]["skipped_as_duplicates"] > 0
+
+
+# --- what routing is allowed to see -----------------------------------------------------------
+
+def test_an_admin_flagged_zone_reaches_routing(tmp_path, monkeypatch):
+    """Flagging a zone on the map must change routes, not just draw a circle.
+
+    A flagged zone used to be a hotspot with status ACKNOWLEDGED, and routing read announcements
+    only, so an admin could mark an area and watch routes run straight through it.
+    """
+    from safety import roles_api, store as safety_store
+    monkeypatch.setattr(safety_store, "DB_PATH", tmp_path / "t.db")
+    safety_store.init()
+    safety_store.upsert_hotspot({
+        "latitude": 12.97, "longitude": 77.60, "radius_meters": 1500, "report_count": 0,
+        "primary_hazard": "Open trench", "related_hazards": [], "risk_level": "HIGH",
+        "first_report_at": None, "latest_report_at": None, "report_ids": [], "locations": [],
+        "explanation": "Flagged manually.", "flag_source": "admin_flagged",
+        "status": "ACKNOWLEDGED", "severity": "HIGH", "reason": "Open trench",
+    })
+    circles = roles_api._published_alert_circles()
+    assert any(c["source"] == "admin_flagged_zone" for c in circles)
+    assert any(c["radius_meters"] == 1500 for c in circles)
+
+
+def test_an_ai_candidate_never_reaches_routing(tmp_path, monkeypatch):
+    """An unreviewed hypothesis must not leak through the shape of a worker's path."""
+    from safety import roles_api, store as safety_store
+    monkeypatch.setattr(safety_store, "DB_PATH", tmp_path / "t.db")
+    safety_store.init()
+    safety_store.upsert_hotspot({
+        "latitude": 12.97, "longitude": 77.60, "radius_meters": 1500, "report_count": 4,
+        "primary_hazard": "Pattern", "related_hazards": [], "risk_level": "HIGH",
+        "first_report_at": None, "latest_report_at": None, "report_ids": [1, 2],
+        "locations": [], "explanation": "Clustered.", "flag_source": "ai_detected",
+        "status": "PENDING_REVIEW", "severity": "HIGH", "reason": "Pattern",
+    })
+    assert roles_api._published_alert_circles() == []
+
+
+def test_a_resolved_zone_stops_affecting_routes(tmp_path, monkeypatch):
+    """Once a hazard is cleared, routes have no reason to keep going round it."""
+    from safety import roles_api, store as safety_store
+    monkeypatch.setattr(safety_store, "DB_PATH", tmp_path / "t.db")
+    safety_store.init()
+    hotspot_id = safety_store.upsert_hotspot({
+        "latitude": 12.97, "longitude": 77.60, "radius_meters": 1500, "report_count": 0,
+        "primary_hazard": "Cleared trench", "related_hazards": [], "risk_level": "HIGH",
+        "first_report_at": None, "latest_report_at": None, "report_ids": [], "locations": [],
+        "explanation": "Flagged manually.", "flag_source": "admin_flagged",
+        "status": "ACKNOWLEDGED", "severity": "HIGH", "reason": "Cleared trench",
+    })
+    assert roles_api._published_alert_circles() != []
+    safety_store.set_hotspot_status(hotspot_id, "RESOLVED", "Repaired")
+    assert roles_api._published_alert_circles() == []

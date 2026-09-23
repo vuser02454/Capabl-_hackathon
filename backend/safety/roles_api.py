@@ -671,22 +671,49 @@ class RouteRequest(BaseModel):
     safety_radius_meters: float = Field(default=routing.ROUTE_SAFETY_RADIUS_METERS, ge=0, le=2000)
 
 
-def _published_alert_circles() -> List[Dict[str, Any]]:
-    """The only safety data allowed to influence a worker's route.
+#: Flagged zones that no longer describe a live hazard. A route has no reason to avoid them.
+_CLOSED_HOTSPOT_STATUSES = frozenset({"RESOLVED", "DISMISSED"})
 
-    PUBLISHED announcements exclusively. A candidate hotspot is an unreviewed hypothesis that a
-    worker is never shown, and letting one bend a route would leak its existence through the
-    shape of the path. The 1 km hotspot-analysis radius plays no part in routing at all.
+
+def _published_alert_circles() -> List[Dict[str, Any]]:
+    """The safety data allowed to influence a worker's route.
+
+    Two sources, both of them a deliberate act by a safety admin:
+
+      * PUBLISHED announcements;
+      * zones an admin flagged by hand on the map, which are their own judgement about a place.
+
+    An AI-detected candidate is still excluded, and that exclusion is the point of filtering on
+    flag_source rather than simply listing hotspots. A candidate is an unreviewed hypothesis no
+    worker is ever shown, and letting one bend a route would leak its existence through the shape
+    of the path. An admin-flagged zone carries no such secret: the admin drew it on purpose.
+
+    Resolved and dismissed zones drop out — they no longer describe a hazard to avoid.
     """
     store.init()
-    return [
+    circles = [
         {"id": row["id"], "title": row["title"], "severity": row["severity"],
          "latitude": row["latitude"], "longitude": row["longitude"],
          "radius_meters": row["radius_meters"], "location_text": row["location_text"],
-         "restricted": bool(row.get("restricted"))}
+         "restricted": bool(row.get("restricted")), "source": "announcement"}
         for row in store.list_announcements(True)
         if row.get("latitude") is not None and row.get("longitude") is not None
     ]
+    circles.extend(
+        {"id": f"hotspot-{row['id']}", "title": row.get("primary_hazard") or "Flagged area",
+         "severity": row.get("severity") or row.get("risk_level") or "MEDIUM",
+         "latitude": row["latitude"], "longitude": row["longitude"],
+         "radius_meters": row.get("radius_meters"),
+         "location_text": (row.get("locations") or [None])[0],
+         # Flagging marks an area to route around, not to seal. Closing it outright stays a
+         # separate, explicit decision made when publishing an announcement.
+         "restricted": False, "source": "admin_flagged_zone"}
+        for row in store.list_hotspots(None)
+        if row.get("flag_source") == "admin_flagged"
+        and row.get("latitude") is not None and row.get("longitude") is not None
+        and row.get("status") not in _CLOSED_HOTSPOT_STATUSES
+    )
+    return circles
 
 
 @worker_router.post("/route")

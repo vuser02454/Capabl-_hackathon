@@ -66,7 +66,11 @@ DEFAULT_USER_AGENT = "EcoSentinel-Safety/1.0 (hackathon project; pedestrian rout
 BBOX_PADDING_METERS = 600.0
 
 #: Ceiling on the padding above. Past this the graph grows faster than the detour it enables.
-MAX_BBOX_PADDING_METERS = 2_500.0
+#: Raised from 2,500 m when the drawn radius became authoritative: a 3 km alert area closes a
+#: 6 km corridor, and padding capped below that put the only real detour outside the fetched map,
+#: which surfaces as a spurious "no available route". 5 km covers zones up to roughly 2.7 km.
+#: A zone larger than that is a decision to close the area, not to route around it.
+MAX_BBOX_PADDING_METERS = 5_000.0
 
 #: Overpass cost scales with the area queried, so one fixed timeout cannot serve both ends of the
 #: supported range. Measured against the live API: a city block (~1.4 km apart) fetches in ~8 s
@@ -304,7 +308,7 @@ CACHE_GRID_DEGREES = 0.02
 #: near the route, so two routes through the same streets could ask for 600 m and 1250 m of padding
 #: and miss each other in the cache entirely. Rounding *up* to a rung keeps the box big enough
 #: while letting neighbouring routes agree on one graph.
-PADDING_RUNGS = (BBOX_PADDING_METERS, 1_250.0, MAX_BBOX_PADDING_METERS)
+PADDING_RUNGS = (BBOX_PADDING_METERS, 1_250.0, 2_500.0, MAX_BBOX_PADDING_METERS)
 
 
 def _snap_padding(padding_meters: float) -> float:
@@ -698,6 +702,21 @@ def distance_to_route_meters(
     )
 
 
+def blocking_radius(alert: Dict[str, Any],
+                    safety_radius: float = ROUTE_SAFETY_RADIUS_METERS) -> float:
+    """How close a route may come to this alert before it counts as entering it.
+
+    The area the admin drew on the map is authoritative. It used to be ignored for everything but
+    a restricted alert, so a 3 km alert area blocked only a 500 m band around its centre and
+    routes ran kilometres inside a circle the worker could see on the map. Drawing an area that
+    does not affect routing makes the map a decoration.
+
+    `safety_radius` remains the floor, so a pin dropped with a tiny radius still keeps routes a
+    sensible distance away rather than letting them graze the hazard.
+    """
+    return max(float(alert.get("radius_meters") or 0.0), safety_radius)
+
+
 def alerts_intersecting(
     graph: RoadGraph,
     path: Sequence[int],
@@ -706,15 +725,16 @@ def alerts_intersecting(
 ) -> List[Dict[str, Any]]:
     """Published alerts whose safety radius this route enters, closest first.
 
-    The radius used is ROUTE_SAFETY_RADIUS_METERS, not the alert's own radius and emphatically not
-    HOTSPOT_RADIUS_METERS. Those three numbers mean different things:
+    The threshold is the alert's own drawn radius, with ROUTE_SAFETY_RADIUS_METERS as a floor —
+    see `blocking_radius`. These are still three different numbers and must not be confused:
 
         HOTSPOT_RADIUS_METERS = 1000   how far apart related reports may be and still cluster
         alert.radius_meters            the area an admin drew on the map when publishing
-        ROUTE_SAFETY_RADIUS_METERS     how close a walking route may come before it is rejected
+        ROUTE_SAFETY_RADIUS_METERS     the minimum clearance, used when the drawn area is smaller
 
-    A restricted alert is the one exception: its own radius applies, because the admin closed that
-    whole area and a route may not pass through it however narrow the safety band happens to be.
+    `restricted` is a separate question and still means something distinct: not "how far away must
+    the route stay" but "may any route pass through here at all". It makes the enclosed edges
+    impassable rather than merely undesirable.
     """
     found: List[Dict[str, Any]] = []
     for alert in alerts:
@@ -723,7 +743,7 @@ def alerts_intersecting(
             continue
         closest = distance_to_route_meters(graph, path, float(latitude), float(longitude))
         restricted = bool(alert.get("restricted"))
-        threshold = max(float(alert.get("radius_meters") or 0), safety_radius) if restricted else safety_radius
+        threshold = blocking_radius(alert, safety_radius)
         if closest <= threshold:
             found.append({
                 "id": alert.get("id"),
@@ -853,8 +873,7 @@ def avoiding_route(
     wins whenever it is clear.
     """
     circles = [
-        (float(a["latitude"]), float(a["longitude"]),
-         max(float(a.get("radius_meters") or 0), safety_radius) if a.get("restricted") else safety_radius)
+        (float(a["latitude"]), float(a["longitude"]), blocking_radius(a, safety_radius))
         for a in alerts
         if a.get("latitude") is not None and a.get("longitude") is not None
     ]
@@ -1137,15 +1156,16 @@ class RoutingService:
                  safety_radius: float = ROUTE_SAFETY_RADIUS_METERS):
         """Fetch the graph and snap both endpoints, or raise with a reason a worker can act on."""
         # The fetched box has to be wide enough to CONTAIN a detour, or one that exists in
-        # reality is reported as "no route". Two things force it wider:
-        #   * a restricted area, whose own radius the route must clear entirely;
-        #   * the route safety radius, which blocks a corridor 2x its width around any published
-        #     alert — a 500 m radius closes a kilometre, and a 600 m box has nowhere to go.
-        # Previously only the first was considered, and a 500 m alert on a through-road produced
-        # a spurious "no available route".
-        widest_restricted = max((float(a.get("radius_meters") or 0) for a in alerts
-                                 if a.get("restricted")), default=0.0)
-        needed = max(widest_restricted * 1.8, safety_radius * 2.5) if alerts else 0.0
+        # reality is reported as "no route". An alert closes a corridor twice its blocking radius
+        # wide, and the detour has to go round the outside of that, so the box is sized from the
+        # widest alert in play rather than from the route alone.
+        #
+        # This reads every alert's radius, not just the restricted ones. Once the drawn radius
+        # became authoritative (see `blocking_radius`) a 3 km alert area closed a 6 km corridor
+        # while the box was padded for 500 m, and the detour that exists in reality would have
+        # fallen outside the fetched map and been reported as no available route.
+        widest = max((blocking_radius(a, safety_radius) for a in alerts), default=0.0)
+        needed = max(widest * 1.8, safety_radius * 2.5) if alerts else 0.0
         padding = min(MAX_BBOX_PADDING_METERS, max(BBOX_PADDING_METERS, needed))
 
         try:

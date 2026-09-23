@@ -955,3 +955,54 @@ def test_highway_values_are_interned():
     graph = routing.OSMGraphProvider.build_graph(payload)
     highways = {id(edge[2]) for edges in graph.adjacency.values() for edge in edges}
     assert len(highways) == 1
+
+
+# --- the area an admin draws is the area routing avoids ---------------------------------------
+
+def test_the_drawn_radius_is_what_blocks_a_route():
+    """A 3 km zone must close 3 km, not the 500 m band around its centre.
+
+    Previously the drawn radius was read only for a restricted alert, so a route could run
+    kilometres inside a circle the worker could see on the map while routing called it clear.
+    """
+    big = {"latitude": 12.9, "longitude": 77.6, "radius_meters": 3000, "restricted": False}
+    assert routing.blocking_radius(big, 500.0) == 3000
+
+
+def test_the_safety_radius_is_a_floor_not_a_ceiling():
+    """A pin dropped with a tiny radius still keeps routes a sensible distance away."""
+    tiny = {"latitude": 12.9, "longitude": 77.6, "radius_meters": 50, "restricted": False}
+    assert routing.blocking_radius(tiny, 500.0) == 500
+    missing = {"latitude": 12.9, "longitude": 77.6, "restricted": False}
+    assert routing.blocking_radius(missing, 500.0) == 500
+
+
+def test_restricted_still_means_something_different():
+    """`restricted` is about passage, not distance, so it must not collapse into the radius."""
+    same = {"latitude": 12.9, "longitude": 77.6, "radius_meters": 1200}
+    assert routing.blocking_radius({**same, "restricted": True}, 500.0) == \
+           routing.blocking_radius({**same, "restricted": False}, 500.0)
+
+
+def test_a_route_through_a_large_drawn_zone_is_rejected():
+    """End to end: the ladder route with a wide alert beside it must not be called clear."""
+    graph = routing.build_fallback_graph((12.9700, 77.5900), (12.9800, 77.6000))
+    start = graph.nearest_node(12.9700, 77.5900)[0]
+    end = graph.nearest_node(12.9800, 77.6000)[0]
+    path, _ = routing.dijkstra(graph, start, end)
+    midpoint = graph.nodes[path[len(path) // 2]]
+    # Far outside the 500 m band, well inside a 2 km drawn zone.
+    off_lat = midpoint[0] + 900 / 111_320.0
+    wide = [{"id": 1, "title": "Wide area", "latitude": off_lat, "longitude": midpoint[1],
+             "radius_meters": 2000, "restricted": False}]
+    narrow = [{**wide[0], "radius_meters": 100}]
+    assert routing.alerts_intersecting(graph, path, wide, 500.0), \
+        "a route 900 m from the centre of a 2 km zone is inside it"
+    assert not routing.alerts_intersecting(graph, path, narrow, 500.0), \
+        "the same route is genuinely clear of a 100 m zone"
+
+
+def test_the_fetch_box_is_sized_for_the_widest_alert():
+    """A 3 km zone closes a 6 km corridor; padding must be able to contain the detour."""
+    assert routing.MAX_BBOX_PADDING_METERS >= 5_000
+    assert routing._snap_padding(3_000 * 1.8) <= routing.MAX_BBOX_PADDING_METERS
