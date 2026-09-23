@@ -49,10 +49,14 @@ DEFAULT_ENDPOINT = "https://overpass-api.de/api/interpreter"
 #: Tried in order when the primary is slow, rate-limited or blocked. Overpass instances differ
 #: markedly in load, and a real query for a city block measured 21 s against the primary — the
 #: reason an earlier 12 s timeout made every request fail and fall through to an estimate.
+#: Every entry must serve the WHOLE planet. `overpass.osm.ch` was briefly in this list and is a
+#: Switzerland-only extract: it answered a Bengaluru query with HTTP 200 and zero elements, which
+#: is worse than an error — the client accepted it, built an empty graph, and silently fell
+#: through to a direct-line estimate. A mirror that returns nothing must fail, not succeed.
 OVERPASS_MIRRORS = (
     "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
-    "https://overpass.osm.ch/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
 )
 DEFAULT_USER_AGENT = "EcoSentinel-Safety/1.0 (hackathon project; pedestrian routing)"
 
@@ -262,6 +266,41 @@ def dijkstra(
 
 # --- OSM graph provider --------------------------------------------------------------------
 
+#: Grid step for cache snapping, in degrees. ~0.02 deg is roughly 2 km, so routes within the same
+#: couple of kilometres reuse one graph instead of each fetching their own.
+CACHE_GRID_DEGREES = 0.02
+
+#: Padding is quantised onto these rungs before the box is built. Padding grows when an alert sits
+#: near the route, so two routes through the same streets could ask for 600 m and 1250 m of padding
+#: and miss each other in the cache entirely. Rounding *up* to a rung keeps the box big enough
+#: while letting neighbouring routes agree on one graph.
+PADDING_RUNGS = (BBOX_PADDING_METERS, 1_250.0, MAX_BBOX_PADDING_METERS)
+
+
+def _snap_padding(padding_meters: float) -> float:
+    """The smallest rung that is at least `padding_meters`. Never narrows the box."""
+    for rung in PADDING_RUNGS:
+        if padding_meters <= rung:
+            return rung
+    return PADDING_RUNGS[-1]
+
+
+def _snap_box(box: Tuple[float, float, float, float]) -> Tuple[float, float, float, float]:
+    """Expand a bounding box outward to the cache grid.
+
+    Outward only — the snapped box always contains the original, so a route can never be computed
+    over a graph that stops short of its own endpoints.
+    """
+    south, west, north, east = box
+    step = CACHE_GRID_DEGREES
+    return (
+        math.floor(south / step) * step,
+        math.floor(west / step) * step,
+        math.ceil(north / step) * step,
+        math.ceil(east / step) * step,
+    )
+
+
 def bounding_box(points: Iterable[Tuple[float, float]],
                  padding_meters: float = BBOX_PADDING_METERS) -> Tuple[float, float, float, float]:
     """(south, west, north, east) around every point, with padding in metres.
@@ -342,6 +381,18 @@ class OSMGraphProvider:
         scaled = MIN_FETCH_TIMEOUT_S + (span_meters / 1000.0) * FETCH_TIMEOUT_PER_KM_S
         return min(MAX_FETCH_TIMEOUT_S, max(MIN_FETCH_TIMEOUT_S, scaled))
 
+    def timeout_for_box(self, box: Tuple[float, float, float, float]) -> float:
+        """Budget for fetching this box.
+
+        The endpoint separation is the wrong ruler. What Overpass has to read is the *box*, and
+        padding plus grid snapping can make the box far wider than the route is long — a 2 km walk
+        beside an alert is fetched over several kilometres of city. Budgeting by separation then
+        cut those queries off mid-flight and the route silently degraded to an estimated corridor.
+        Measuring the box's diagonal budgets for the work actually being asked for.
+        """
+        south, west, north, east = box
+        return self.timeout_for(haversine_meters(south, west, north, east))
+
     def _overpass_ql(self, box: Tuple[float, float, float, float],
                      timeout_s: Optional[float] = None) -> str:
         south, west, north, east = box
@@ -378,11 +429,21 @@ class OSMGraphProvider:
         budget = timeout_s or self.timeout
         deadline = self.clock() + budget
 
-        for endpoint in self._endpoints():
+        endpoints = self._endpoints()
+        # Each mirror gets a bounded share of the deadline. Without this a single hung endpoint
+        # consumes the whole budget and the healthy mirror behind it is never tried — which is
+        # exactly what happened: the primary 504'd, the second hung, and the third (which would
+        # have answered in a second) was never reached.
+        per_endpoint = max(8.0, budget / max(1, len(endpoints)))
+
+        for index, endpoint in enumerate(endpoints):
             for attempt in (1, 2):
                 remaining = deadline - self.clock()
                 if remaining <= 0:
                     break
+                # The last mirror may use whatever is left; earlier ones are capped so they
+                # cannot starve it.
+                allowance = remaining if index == len(endpoints) - 1 else min(remaining, per_endpoint)
                 request = Request(
                     endpoint,
                     data=urlencode({"data": body}).encode("utf-8"),
@@ -390,8 +451,15 @@ class OSMGraphProvider:
                 )
                 try:
                     # A socket timeout must never exceed the budget left for every retry.
-                    with self.opener(request, timeout=remaining) as response:
-                        return json.loads(response.read().decode("utf-8"))
+                    with self.opener(request, timeout=allowance) as response:
+                        payload = json.loads(response.read().decode("utf-8"))
+                    # A mirror holding no data for this region answers 200 with an empty element
+                    # list. Accepting it builds an empty graph and silently produces a direct-line
+                    # estimate, so it is treated as a failure and the next mirror is tried.
+                    if not payload.get("elements"):
+                        last = RoutingError(f"{endpoint} returned no map data for this area.")
+                        break
+                    return payload
                 except HTTPError as exc:
                     last = exc
                     if exc.code in self.RETRY_STATUSES and attempt == 1:
@@ -490,7 +558,16 @@ class OSMGraphProvider:
                 f"Start and destination are {span / 1000:.1f} km apart. "
                 f"Routing is limited to {MAX_SPAN_METERS / 1000:.0f} km for on-site walking routes.")
 
-        box = bounding_box([start, destination], padding_meters)
+        # Snap the box outward to a coarse grid before fetching.
+        #
+        # Keyed on the exact box, every new start/destination pair was a fresh download and a
+        # fresh chance for a public, frequently-overloaded API to fail. Snapping means nearby
+        # routes share one cached graph: fetch a Bengaluru neighbourhood once and every later
+        # route inside it is served from disk in milliseconds, whatever Overpass is doing.
+        #
+        # The cost is a slightly larger download than strictly needed. That is a good trade — the
+        # alternative is re-fetching almost the same area for every route.
+        box = _snap_box(bounding_box([start, destination], _snap_padding(padding_meters)))
         key = ",".join(f"{value:.4f}" for value in box)
         with self._lock:
             if key in self._cache:
@@ -506,8 +583,8 @@ class OSMGraphProvider:
                 if wait > 0:
                     self.sleep(wait)
             self._last_request = self.clock()
-            # Budget scaled to the separation; see MIN_FETCH_TIMEOUT_S.
-            budget = self.timeout_for(span)
+            # Budget scaled to the box actually being fetched; see timeout_for_box.
+            budget = self.timeout_for_box(box)
             payload = self._fetch(self._overpass_ql(box, budget), budget)
             graph = self.build_graph(payload)
             self._write_disk(key, payload)

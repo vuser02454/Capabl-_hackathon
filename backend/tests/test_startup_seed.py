@@ -30,8 +30,17 @@ def db(tmp_path, monkeypatch):
 
 
 def _run_startup():
+    """Run the app's lifespan startup exactly as the server does.
+
+    `asyncio.run` rather than `get_event_loop`, which has no loop to return under pytest.
+    """
     import main
-    asyncio.get_event_loop().run_until_complete(main.lifespan(None).__aenter__())
+
+    async def _enter():
+        async with main.lifespan(None):
+            return None
+
+    asyncio.run(_enter())
 
 
 def test_an_empty_database_is_seeded_so_the_app_is_never_blank(db):

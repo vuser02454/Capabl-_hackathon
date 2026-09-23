@@ -812,3 +812,49 @@ def test_a_journey_beyond_the_limit_is_refused_before_anything_is_fetched():
     service = routing.RoutingService(_provider())
     with pytest.raises(routing.RoutingError, match="limited to 20 km"):
         service.route((13.0, 77.6), (12.5, 77.2))
+
+
+# --- graph cache sharing ----------------------------------------------------------------------
+#
+# Every distinct bounding box is one more download from a public, frequently-overloaded API, and
+# one more chance to fall back to an estimated corridor. These tests pin the two rounding steps
+# that let neighbouring routes share a single cached graph.
+
+def test_nearby_routes_share_one_cache_key():
+    """Two routes through the same streets must not each fetch their own graph."""
+    one = routing._snap_box(routing.bounding_box([(12.9716, 77.5946), (12.9850, 77.6100)]))
+    two = routing._snap_box(routing.bounding_box([(12.9720, 77.5950), (12.9845, 77.6095)]))
+    assert one == two
+
+
+def test_the_snapped_box_always_contains_the_original():
+    """Snapping may only widen. A box that stopped short would cut off the route's own endpoints."""
+    raw = routing.bounding_box([(12.9716, 77.5946), (12.9850, 77.6100)])
+    south, west, north, east = routing._snap_box(raw)
+    assert south <= raw[0] and west <= raw[1]
+    assert north >= raw[2] and east >= raw[3]
+
+
+def test_padding_rounds_up_so_an_alert_does_not_split_the_cache():
+    """An alert near one route widens its padding; rounding up makes both routes agree anyway."""
+    assert routing._snap_padding(routing.BBOX_PADDING_METERS) == routing.BBOX_PADDING_METERS
+    assert routing._snap_padding(1_250.0) == routing._snap_padding(700.0 + 550.0)
+    # Rounding is never downward, or the box could exclude a detour that exists in reality.
+    for asked in (100.0, 601.0, 1_249.0, 1_251.0, 9_999.0):
+        assert routing._snap_padding(asked) >= min(asked, routing.MAX_BBOX_PADDING_METERS)
+    assert routing._snap_padding(9_999.0) == routing.MAX_BBOX_PADDING_METERS
+
+
+def test_the_fetch_budget_follows_the_box_not_the_route_length():
+    """Padding can make the box much wider than the walk is long; the budget has to follow it."""
+    provider = routing.OSMGraphProvider(cache_dir=None)
+    start, destination = (12.9716, 77.5946), (12.9850, 77.6100)
+    span = routing.haversine_meters(*start, *destination)
+    tight = provider.timeout_for_box(routing._snap_box(routing.bounding_box([start, destination])))
+    padded = provider.timeout_for_box(
+        routing._snap_box(routing.bounding_box([start, destination],
+                                               routing.MAX_BBOX_PADDING_METERS)))
+    assert padded >= tight
+    # The box is wider than the route is long, so budgeting by separation under-funds the fetch.
+    assert padded >= provider.timeout_for(span)
+    assert padded <= routing.MAX_FETCH_TIMEOUT_S
