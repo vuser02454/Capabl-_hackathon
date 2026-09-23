@@ -714,7 +714,36 @@ export class ApiClient {
     return this.request<AgentsStatusResponse>('/api/agents/status', {}, 5000, signal);
   }
 
-  private async request<T>(path: string, init: RequestInit, timeoutMs: number, signal?: AbortSignal): Promise<T> {
+  /**
+   * One retry with a long budget, for a backend that was asleep.
+   *
+   * A free hosting tier spins the service down after a few minutes of inactivity, and the first
+   * request afterwards has to wait for it to boot. Measured against the deployed backend: a cold
+   * start answers in ~43 s, a warm one in ~0.3 s. Most calls here budget 20 s, so after any idle
+   * period EVERY request failed and the whole app looked broken — until a reload, by which point
+   * the service was awake and everything worked.
+   *
+   * Retrying once with `COLD_START_TIMEOUT_MS` absorbs exactly that case. It only applies to a
+   * timeout or a failure to connect, never to a real HTTP error, so a genuine 404 or 500 is
+   * still reported immediately rather than being waited on twice.
+   */
+  private static readonly COLD_START_TIMEOUT_MS = 75_000;
+
+  private async request<T>(path: string, init: RequestInit, timeoutMs: number,
+                           signal?: AbortSignal): Promise<T> {
+    try {
+      return await this.attempt<T>(path, init, timeoutMs, signal);
+    } catch (cause) {
+      const couldBeAsleep = cause instanceof AppError
+        && (cause.code === 'API_TIMEOUT' || cause.code === 'API_UNAVAILABLE')
+        // A body was never read, so nothing has been consumed and the request is safe to repeat.
+        && !signal?.aborted;
+      if (!couldBeAsleep || timeoutMs >= ApiClient.COLD_START_TIMEOUT_MS) throw cause;
+      return this.attempt<T>(path, init, ApiClient.COLD_START_TIMEOUT_MS, signal);
+    }
+  }
+
+  private async attempt<T>(path: string, init: RequestInit, timeoutMs: number, signal?: AbortSignal): Promise<T> {
     if (signal?.aborted) throw abortError();
     const controller = new AbortController();
     let timedOut = false;
@@ -731,7 +760,9 @@ export class ApiClient {
     } catch {
       if (signal?.aborted) throw abortError();
       if (timedOut) {
-        throw new AppError('API_TIMEOUT', `The EcoSentinel API did not respond within ${Math.round(timeoutMs / 1000)} seconds.`);
+        throw new AppError('API_TIMEOUT',
+          `The EcoSentinel API did not respond within ${Math.round(timeoutMs / 1000)} seconds. `
+          + 'A hosted backend may be waking from idle — try again in a moment.');
       }
       throw new AppError(
         'API_UNAVAILABLE',

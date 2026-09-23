@@ -8,6 +8,7 @@ so coordinates do not appear in access logs. Nothing here logs or stores them.
 """
 
 import hmac
+import logging
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -90,7 +91,30 @@ from safety import store as safety_store  # noqa: E402
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Create the schema, and seed the demo roster when the database is empty.
+
+    Seeding on an EMPTY database only. A hosted free tier has an ephemeral filesystem, so without
+    a persistent disk every deploy starts with nothing and the whole app renders blank — no
+    workers, no reports, nothing to review. That is what this prevents.
+
+    It is not a substitute for the disk: nothing typed into a demo survives the next deploy
+    without one. It only ensures the app is never empty on arrival. On any database that already
+    holds reports this is a no-op, so real data is never touched, and `seed_demo_data` is
+    idempotent besides.
+
+    A seeding failure must not stop the API serving — an empty demo is better than no service.
+    """
     safety_store.init()
+    try:
+        if safety_store.count() == 0:
+            from safety import people
+
+            outcome = await run_in_threadpool(people.seed_demo_data)
+            logging.getLogger("ecosentinel").info(
+                "seeded_empty_database workers=%s reports=%s",
+                outcome["users"]["workers"], outcome["reports"]["reports_created"])
+    except Exception:  # noqa: BLE001
+        logging.getLogger("ecosentinel").exception("startup_seed_failed")
     yield
 
 
